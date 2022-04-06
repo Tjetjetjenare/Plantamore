@@ -1,14 +1,14 @@
-"# Acka" 
-BackEnd
-------------------------------------------------------
-pip install pipenv		-första gången bara
-pipenv shell
-pipenv install django
-cd Acka\backend
-python manage.py runserver
-
-
-FrontEnd
---------------------------------------------------------------
-npm install bootstrap@4.6.0 reactstrap@8.9.0 --legacy-peer-deps
-npm start
+"# Acka" <br>
+BackEnd<br>
+------------------------------------------------------<br>
+pip install pipenv		-första gången bara <br>
+pipenv shell  <br>
+pipenv install django <br>
+cd Acka\backend <br>
+python manage.py runserver  <br>
+<br>
+<br>
+FrontEnd<br>
+--------------------------------------------------------------<br>
+npm install bootstrap@4.6.0 reactstrap@8.9.0 --legacy-peer-deps<br>
+npm start<br>
