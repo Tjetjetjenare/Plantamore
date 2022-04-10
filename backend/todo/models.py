@@ -2,6 +2,7 @@ from django.db import models
 
 # Create your models here.
 
+
 class Todo(models.Model):
     title = models.CharField(max_length=120)
     description = models.TextField()
@@ -9,6 +10,7 @@ class Todo(models.Model):
 
     def _str_(self):
         return self.title
+
 
 class Plant(models.Model):
     p_id = models.IntegerField(primary_key=True)
@@ -23,10 +25,18 @@ class Plant(models.Model):
     description = models.TextField()
     family = models.CharField(max_length=100)
 
+    def _str_(self):
+        return self.title
+
+
 class User(models.Model):
     username = models.CharField(max_length=50, primary_key=True)
     email = models.EmailField(max_length=200)
     password = models.CharField(max_length=50)
+
+    def _str_(self):
+        return self.title
+
 
 class Plant_subprofile(models.Model):
     sub_id = models.IntegerField()
@@ -37,3 +47,6 @@ class Plant_subprofile(models.Model):
     nutrition = models.DateField()
     p_id = models.ForeignKey('Plant', on_delete=models.CASCADE)
     username = models.ForeignKey('User', on_delete=models.CASCADE)
+
+    def _str_(self):
+        return self.title

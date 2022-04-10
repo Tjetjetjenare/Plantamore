@@ -1,7 +1,16 @@
+from dataclasses import fields
 from rest_framework import serializers
-from .models import Todo
+from .models import Plant, Todo
+
 
 class TodoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Todo
         fields = ('id', 'title', 'description', 'completed')
+
+
+class PlantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Plant
+        fields = ('p_id', 'english_name', 'swedish_name', 'latin_name', 'image_url',
+                  'nutrition', 'sunlight', 'water', 'replant', 'description', 'family')
