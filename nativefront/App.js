@@ -17,15 +17,11 @@ export default function App() {
       alert(error.message);
     }
   };
-  /*axios.get('http://localhost:8000/api/students/').then((response) => {
-    const firstplant = response.data[0]
-  console.log(firstplant)
-  //return firstplant
-});*/
+  
   return (
     <View style={styles.container} >
       <Text>Open up App.js to start working on your app!</Text>
-      <Text>Here i want to display plant with id 1! fasdd</Text>
+      <Text>Here i want to display plant with id 1!</Text>
       <TouchableOpacity
         style={styles.buttonStyle}
         onPress={getDataUsingAsyncAwaitGetCall}>

@@ -8,7 +8,7 @@ class TodoSerializer(serializers.ModelSerializer):
         model = Todo
         fields = ('id', 'title', 'description', 'completed')
 
-
+#This must be done for all databases that we want to sen and update
 class PlantSerializer(serializers.ModelSerializer):
     class Meta:
         model = Plant
