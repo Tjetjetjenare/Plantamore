@@ -12,6 +12,6 @@ router.register(r'todos', views.TodoView, 'todo')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    re_path(r'^api/students/$', views.Plant_list),
-    re_path(r'^api/students/([0-9])$', views.Plant_detail)
+    re_path(r'^api/plants/$', views.Plant_list),
+    re_path(r'^api/plants/([0-9])$', views.Plant_detail)
 ]

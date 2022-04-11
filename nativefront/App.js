@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View,Image, TouchableOpacity } from 'react-native';
 import axios from "axios"
 
-const plantbaseUrl = 'http://localhost:8000/api/students/';
+const plantbaseUrl = 'http://localhost:8000/api/plants/';
 export default function App() {
   const [State, setState] = useState("");
   useEffect(async() => {
