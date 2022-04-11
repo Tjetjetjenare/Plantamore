@@ -5,7 +5,7 @@ import { StyleSheet, Text, View,Image, TouchableOpacity } from 'react-native';
 import axios from "axios"
 
 
-function HomeScreen(props) {
+function Home(props) {
   const [State, setState] = useState("");
   useEffect(async() => {
     try {
@@ -66,4 +66,4 @@ const styles = StyleSheet.create({
     height: 200,
   },
 });
-export default HomeScreen;
+export default Home;
