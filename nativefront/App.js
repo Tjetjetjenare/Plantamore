@@ -1,22 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import axios from "axios"
 
 const plantbaseUrl = 'http://localhost:8000/api/students/';
 export default function App() {
   
-  const [post, setPost] = React.useState(null);
-   React.useEffect(async() => {
+  const getDataUsingAsyncAwaitGetCall = async () => {
     try {
-     await axios.get(plantbaseUrl).then((response) => {
-      setPost(response.data[0]);
-    });}
-    catch(e){
-      // Show an error message
- }
-  }, []);
-  console.log(post)
+      const response = await axios.get(
+        plantbaseUrl,
+      );
+      alert(JSON.stringify(response.data[0]));
+    } catch (error) {
+      // handle error
+      alert(error.message);
+    }
+  };
   /*axios.get('http://localhost:8000/api/students/').then((response) => {
     const firstplant = response.data[0]
   console.log(firstplant)
@@ -25,10 +25,12 @@ export default function App() {
   return (
     <View style={styles.container} >
       <Text>Open up App.js to start working on your app!</Text>
-      <Text>Here i want to display plant with id 1! fasdd
-       
-         </Text>
-      
+      <Text>Here i want to display plant with id 1! fasdd</Text>
+      <TouchableOpacity
+        style={styles.buttonStyle}
+        onPress={getDataUsingAsyncAwaitGetCall}>
+        <Text>Click to see plant 1</Text>
+      </TouchableOpacity>
       <StatusBar style="auto" />
     </View>
   );
