@@ -14,3 +14,4 @@ class PlantSerializer(serializers.ModelSerializer):
         model = Plant
         fields = ('p_id', 'english_name', 'swedish_name', 'latin_name', 'image_url',
                   'nutrition', 'sunlight', 'water', 'replant', 'description', 'family')
+                  
