@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     alignItems: "center",
     position:"absolute",
-    bottom: 80,
+    bottom: 100,
   },
   buttonOuter:{
     backgroundColor: "white",
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom:-100,
     width: "300%",
-    height: "60%",
+    height: "63%",
     backgroundColor: "#7E9B6D",
     transform: [{rotate: '-30deg'}]
   }
