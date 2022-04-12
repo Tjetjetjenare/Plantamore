@@ -1,69 +1,79 @@
-
-import { StatusBar } from 'expo-status-bar';
-import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View,Image, TouchableOpacity } from 'react-native';
-import axios from "axios"
-
+import React from 'react';
+import { SafeAreaView, StyleSheet, Image, Text, Alert, TouchableOpacity, View } from 'react-native';
+import SearchField from '../components/SearchField';
 
 function Home(props) {
-  const [State, setState] = useState("");
-  useEffect(async() => {
-    try {
-      const response = await axios.get(
-        plantbaseUrl,
-      );
-      setState(response.data[0]);
-    } catch (error) {
-      // handle error
-    }
-  })
-  const getDataUsingAsyncAwaitGetCall = async () => {
-    try {
-      const response = await axios.get(
-        plantbaseUrl,
-      );
-      alert(JSON.stringify(response.data[0]));
-    } catch (error) {
-      // handle error
-      alert(error.message);
-    }
-  };
 
-
-  <TouchableOpacity
-        style={styles.buttonStyle}
-        onPress={getDataUsingAsyncAwaitGetCall}> 
-  </TouchableOpacity>
-
-return(
-  <View style={styles.container} >
-     <Image
-       style={styles.tinyLogo}
-       source={State.image_url}
-     />
-     <Text>Name: {State.swedish_name}</Text>
-     <Text>Here i want to display plant RIGHT HERE with id 1!</Text>
-     <Text>Id: {State.p_id}</Text>
-     <Text>english_name: {State.english_name}</Text>
-     <Text>Latin_name: {State.latin_name}</Text>
-     <Text>description: {State.description}</Text>
-     
-     <StatusBar style="auto" />
-   </View>
-);
-
+  return (
+    <SafeAreaView style={styles.container}>
+        <View style={styles.greenAccent} />
+      <Image style={styles.logo} source={require("../assets/logo.png")}></Image>
+      <SearchField/>
+      <View style={styles.buttonWrapper}>
+      <Text style={styles.text}>Log in to see your existing account {"\n"}
+            or {"\n"}Sign up below to get started
+      </Text>
+      <TouchableOpacity style={styles.buttonOuter} onPress={() => Alert.alert('Sign up button pressed')}>
+            <Text style={styles.buttonText}>
+                Log in
+            </Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.buttonOuter} onPress={() => Alert.alert('Sign up button pressed')}>
+            <Text style={styles.buttonText}>
+                Sign up
+            </Text>
+        </TouchableOpacity>
+        </View>
+    </SafeAreaView>
+  );
+    
 }
+
+export default Home;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex:1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  tinyLogo: {
-    width: 200,
-    height: 200,
+  logo:{
+    width: "80%",
+    resizeMode: "contain",
+    position:"absolute",
+    top:100,
   },
-});
-export default Home;
+  text:{
+    textAlign: "center",
+    fontSize: 16,
+  }, 
+  buttonWrapper: {
+    alignItems: "center",
+    position:"absolute",
+    bottom: 80,
+  },
+  buttonOuter:{
+    backgroundColor: "white",
+    borderColor: "black",
+    borderWidth: 1,
+    width: 150,
+    height: 30,
+    borderRadius: 20,
+    margin:5,
+    justifyContent:"center",
+  },
+  buttonText: {
+    textAlign: "center",
+    fontSize:16,
+    color: "black",
+  },
+  greenAccent:{
+    position: "absolute",
+    bottom:-100,
+    width: "300%",
+    height: "60%",
+    backgroundColor: "#7E9B6D",
+    transform: [{rotate: '-30deg'}]
+  }
+})
