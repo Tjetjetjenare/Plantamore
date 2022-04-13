@@ -1,10 +1,12 @@
-
+import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Image, SafeAreaView, TextInput, ImageBackground, Button, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, SafeAreaView, TextInput, Alert, TouchableOpacity } from 'react-native';
+import StandardButton from '../components/StandardButton';
 
 function LogInScreen(props) {
     return (
         <SafeAreaView style={styles.background}>
+            <StatusBar style="auto"/>
             <Image 
                 style={styles.arrowContainer} 
                 source={require("../assets/backArrow.png")}>
@@ -23,16 +25,16 @@ function LogInScreen(props) {
                 placeholder = "Password"
                 placeholderTextColor={"#908E8E"}>
             </TextInput>
+            <View style={styles.loginWrap}>
+                <StandardButton sizeFont={20} title="Log in" functionOnPress={() => Alert.alert("Log In", "Log in button pressed")}/>
+            </View> 
             <Text
                 style = {styles.accountText}>
                 Don't have an account yet?
             </Text>
-            <Button
-                style = {styles.termsButton}
-                title="Sign Up"
-                onPress={() => Alert.alert("Sign up", "You have pressed to sign up")}
-           ></Button>
-
+            <TouchableOpacity onPress={() => Alert.alert("Sign up", "You have pressed to sign up")}>
+                <Text style={styles.signUpButton}>Sign up</Text>
+            </TouchableOpacity>
         </SafeAreaView>
     );
 }
@@ -80,7 +82,17 @@ const styles = StyleSheet.create({
         fontSize: 20,  
     },
 
-    termsButton: {
+    loginWrap:{
+        marginTop:40,
+        alignSelf: 'center',
+        width: "60%",
+        height: 40,
+        margin: 10,
+    },
+
+    signUpButton: {
         textDecorationLine: 'underline',
+        alignSelf: 'center',
+        fontSize: 20,
     }
 })

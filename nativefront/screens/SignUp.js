@@ -1,12 +1,14 @@
+import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Image, SafeAreaView, TextInput, ImageBackground, Button, Alert } from 'react-native';
-import { Row } from 'reactstrap';
+import { StyleSheet, Text, View, Image, SafeAreaView, TextInput, TouchableOpacity, Alert } from 'react-native';
+import StandardButton from '../components/StandardButton';
 
 
 function SignUp(props) {
 
     return (
         <SafeAreaView style={styles.background}>
+            <StatusBar style="auto"/>
             <Image 
                 style={styles.arrowContainer} 
                 source={require("../assets/backArrow.png")}>
@@ -26,25 +28,23 @@ function SignUp(props) {
                 placeholderTextColor={"#908E8E"}>
             </TextInput>
             
-                <TextInput
-                    style = {styles.inputName}
-                    placeholder = "Password"
-                    placeholderTextColor={"#908E8E"}>
-                    <Image
-                        style ={styles.eye}
-                        source={require("../assets/eye.png")}>
-                    </Image> 
-                </TextInput>
-            <View
-                style={styles.termsAndConditions}>
-                <Text 
-                    style = {styles.termsText}
-                    >I agree with the 
-                    <Button 
-                        style = {styles.termsButton}
-                        title="ToC"
-                        onPress={() => Alert.alert("ToC", "You have accepted the ToC")}
-                    ></Button>
+            <TextInput
+                style = {styles.inputName}
+                placeholder = "Password"
+                placeholderTextColor={"#908E8E"}>
+                <Image
+                    style ={styles.eye}
+                    source={require("../assets/eye.png")}>
+                </Image> 
+            </TextInput>
+            <View style={styles.signUpWrap}>
+                <StandardButton sizeFont={20} title="Sign Up" functionOnPress={() => Alert.alert("Sign up", "You've pressed the sign up button")}/>
+            </View>
+            <View style={styles.termsAndConditions}>
+                <Text style={{justifyContent:'flex-end'}}>I agree with the
+                    <TouchableOpacity onPress={() => Alert.alert("ToC", "You have agreed to the terms of condition")}>
+                        <Text style={styles.tocText}> Terms of Condition</Text>
+                    </TouchableOpacity>
                 </Text>
             </View>
 
@@ -91,17 +91,9 @@ const styles = StyleSheet.create({
     },
 
     termsAndConditions: {
-        margin: 20, 
         alignSelf: "center",
-    },
-
-    termsText: {
         fontSize: 20,
-    },
-
-    termsButton: {
-        alignItems: "center", 
-        justifyContent: "center", 
+        flexDirection:"row",
     },
 
     baseContainer: {
@@ -109,6 +101,16 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: "center", 
       },
+    
+    signUpWrap:{
+        alignSelf: 'center',
+        width: "60%",
+        height: 40,
+        margin: 40,
+    },
+    tocText: {
+        textDecorationLine: 'underline',
+    }
       
 
 })
