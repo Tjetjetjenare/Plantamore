@@ -7,6 +7,7 @@ from .serializers import *
 
 from .models import Todo
 from .models import Plant
+from.models import User
 
 # Create your views here.
 

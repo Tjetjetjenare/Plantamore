@@ -6,8 +6,10 @@ import Home from './screens/Home';
 import SignUp from './screens/SignUp';
 
 const plantbaseUrl = 'http://localhost:8000/api/plants/';
-/*
+const userbaseUrl = 'http://localhost:8000/api/users/';
+ /*
 export default function App() {
+ 
   const [index, setIndex] = useState(0);
   const [State, setState] = useState("");
   
@@ -21,9 +23,7 @@ export default function App() {
       // handle error
     }
   },[State])
-  function Buttpres() {
-    setIndex(1);
-  }
+
   /*function nextPlant() {
     try {
       const response =  axios.get(
@@ -58,19 +58,18 @@ export default function App() {
         onPress={getDataUsingAsyncAwaitGetCall}>
         
       </TouchableOpacity>
-  *//*
+  
   return (
     <View style={styles.container} >
       <Image
         style={styles.tinyLogo}
-        source={State.image_url}
+       // source={State.image_url}
       />
-      <Text>Name: {State.swedish_name}</Text>
+      <Text>Name: {State.email}</Text>
       <Text>Here i want to display plant with id 1!</Text>
-      <Text>Id: {State.p_id}</Text>
       <Text>english_name: {State.english_name}</Text>
-      <Text>Latin_name: {State.latin_name}</Text>
-      <Text>description: {State.description}</Text>
+      <Text>Latin_name: {State.password}</Text>
+      <Text>description:</Text>
       <Button
         onPress={() => setIndex(1)}
         color="#841584"
@@ -78,8 +77,20 @@ export default function App() {
       <StatusBar style="auto" />
     </View>
   );
-}*/
-
+}
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  tinyLogo: {
+    width: 200,
+    height: 200,
+  },
+});
+*/
 export default function App() {
   
   return <SignUp/>;
