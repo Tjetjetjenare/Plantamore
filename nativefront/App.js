@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View,Image,Button, TouchableOpacity } from 'react-native';
 import axios from "axios"
+import Home from './screens/Home';
 
 const plantbaseUrl = 'http://localhost:8000/api/plants/';
 
@@ -78,17 +79,9 @@ export default function App() {
   );
 }
 
+export default function App() {
+  
+  return <Home/>;
 
+}
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  tinyLogo: {
-    width: 200,
-    height: 200,
-  },
-});
