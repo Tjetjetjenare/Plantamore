@@ -1,11 +1,54 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View, Image, SafeAreaView, TextInput, TouchableOpacity, Alert } from 'react-native';
+import React,{useState} from 'react';
+import { StyleSheet, Text, View, Image, SafeAreaView,Platform, TextInput, TouchableOpacity, Alert } from 'react-native';
 import StandardButton from '../components/StandardButton';
-
-
+import axios from "axios"
+import Constants from "expo-constants";
+const userbaseUrl = 'http://localhost:8000/api/users/';
 function SignUp(props) {
-
+    const [fullName, setFullName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
+  
+    const onChangeNameHandler = (fullName) => {
+      setFullName(fullName);
+    };
+  
+    const onChangeEmailHandler = (email) => {
+      setEmail(email);
+    };
+    const onChangePasswordHandler = (password) => {
+        setPassword(password);
+      };
+    const onSubmitFormHandler = async (event) => {
+    if (!fullName.trim() || !email.trim() || !password.trim()) {
+        alert("Name or Email is invalid");
+       return;
+    }
+    setIsLoading(true);
+    try {
+        let data ={
+            username: fullName,
+            email: email,
+            password: password,
+          }
+        const response = await axios.post(userbaseUrl, data,{'Content-Type': 'application/json'});
+        if (response.status === 201) {
+        alert(' You have created an acount!');
+        setIsLoading(false);
+        setFullName('');
+        setEmail('');
+        setPassword('');
+        } else {
+        throw new Error("An error has occurred");
+        }
+    } catch (error) {
+        alert("An error has occurred");
+        console.log("username: ",fullName,"email: ", email,"pass: ", password)
+        setIsLoading(false);
+    }
+    };
     return (
         <SafeAreaView style={styles.background}>
             <StatusBar style="auto"/>
@@ -20,25 +63,32 @@ function SignUp(props) {
             <TextInput
                 style = {styles.inputName}
                 placeholder = "Name"
-                placeholderTextColor={"#908E8E"}>
+                value={fullName}
+                placeholderTextColor={"#908E8E"}
+                editable={!isLoading}
+                onChangeText={onChangeNameHandler}>
             </TextInput>
             <TextInput
                 style = {styles.inputName}
                 placeholder = "Email"
-                placeholderTextColor={"#908E8E"}>
+                value={email}
+                editable={!isLoading}
+                placeholderTextColor={"#908E8E"}
+                onChangeText={onChangeEmailHandler}>
+                
             </TextInput>
             
             <TextInput
                 style = {styles.inputName}
                 placeholder = "Password"
-                placeholderTextColor={"#908E8E"}>
-                <Image
-                    style ={styles.eye}
-                    source={require("../assets/eye.png")}>
-                </Image> 
+                value={password}
+                editable={!isLoading}
+                placeholderTextColor={"#908E8E"}
+                onChangeText={onChangePasswordHandler}>
+
             </TextInput>
             <View style={styles.signUpWrap}>
-                <StandardButton sizeFont={20} title="Sign Up" functionOnPress={() => Alert.alert("Sign up", "You've pressed the sign up button")}/>
+                <StandardButton sizeFont={20} title="Sign Up" functionOnPress={onSubmitFormHandler}/>
             </View>
             <View style={styles.termsAndConditions}>
                 <Text style={{justifyContent:'flex-end'}}>I agree with the
