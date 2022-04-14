@@ -3,9 +3,10 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View,Image,Button, TouchableOpacity } from 'react-native';
 import axios from "axios"
 import Home from './screens/Home';
+import SignUp from './screens/SignUp';
 
 const plantbaseUrl = 'http://localhost:8000/api/plants/';
-
+/*
 export default function App() {
   const [index, setIndex] = useState(0);
   const [State, setState] = useState("");
@@ -57,7 +58,7 @@ export default function App() {
         onPress={getDataUsingAsyncAwaitGetCall}>
         
       </TouchableOpacity>
-  */
+  *//*
   return (
     <View style={styles.container} >
       <Image
@@ -77,11 +78,11 @@ export default function App() {
       <StatusBar style="auto" />
     </View>
   );
-}
+}*/
 
 export default function App() {
   
-  return <Home/>;
+  return <SignUp/>;
 
 }
 
