@@ -1,28 +1,27 @@
+import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { SafeAreaView, StyleSheet, Image, Text, Alert, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Image, Text, Alert, View } from 'react-native';
 import SearchField from '../components/SearchField';
+import StandardButton from '../components/StandardButton';
 
 function Home(props) {
 
   return (
     <SafeAreaView style={styles.container}>
+    <StatusBar style="auto"/>
         <View style={styles.greenAccent} />
       <Image style={styles.logo} source={require("../assets/logo.png")}></Image>
       <SearchField/>
       <View style={styles.buttonWrapper}>
-      <Text style={styles.text}>Log in to see your existing account {"\n"}
-            or {"\n"}Sign up below to get started
-      </Text>
-      <TouchableOpacity style={styles.buttonOuter} onPress={() => Alert.alert('Sign up button pressed')}>
-            <Text style={styles.buttonText}>
-                Log in
-            </Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonOuter} onPress={() => Alert.alert('Sign up button pressed')}>
-            <Text style={styles.buttonText}>
-                Sign up
-            </Text>
-        </TouchableOpacity>
+        <Text style={styles.text}>Log in to your existing account {"\n"}
+              or {"\n"}Sign up to get started
+        </Text>
+        <View style={styles.loginWrap}>
+          <StandardButton sizeFont={20} title="Log in" functionOnPress={() => Alert.alert('Log in button pressed')} />
+        </View>
+        <View style={styles.loginWrap}>
+          <StandardButton sizeFont={20} title="Sign up" functionOnPress={() => Alert.alert('Sign up button pressed')}/>
+        </View>
         </View>
     </SafeAreaView>
   );
@@ -53,21 +52,6 @@ const styles = StyleSheet.create({
     position:"absolute",
     bottom: 100,
   },
-  buttonOuter:{
-    backgroundColor: "white",
-    borderColor: "black",
-    borderWidth: 1,
-    width: 150,
-    height: 30,
-    borderRadius: 20,
-    margin:5,
-    justifyContent:"center",
-  },
-  buttonText: {
-    textAlign: "center",
-    fontSize:16,
-    color: "black",
-  },
   greenAccent:{
     position: "absolute",
     bottom:-100,
@@ -75,5 +59,10 @@ const styles = StyleSheet.create({
     height: "63%",
     backgroundColor: "#7E9B6D",
     transform: [{rotate: '-30deg'}]
+  }, 
+  loginWrap: {
+    width: "70%",
+    height: 40,
+    marginTop: 20,
   }
 })

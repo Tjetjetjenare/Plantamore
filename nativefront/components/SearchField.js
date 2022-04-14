@@ -14,6 +14,7 @@ const SearchField = () => {
 
 export default SearchField;
 
+
 const styles = StyleSheet.create({
     container: {
         width:"90%",
