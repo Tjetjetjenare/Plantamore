@@ -4,7 +4,7 @@ import { StyleSheet, Text, View,Image,Button, TouchableOpacity } from 'react-nat
 import axios from "axios"
 import Home from './screens/Home';
 import SignUp from './screens/SignUp';
-
+import LogIn from './screens/LogIn';
 const plantbaseUrl = 'http://localhost:8000/api/plants/';
 const userbaseUrl = 'http://localhost:8000/api/users/';
  /*
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
 */
 export default function App() {
   
-  return <SignUp/>;
+  return <LogIn/>;
 
 }
 
