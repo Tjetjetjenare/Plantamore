@@ -25,7 +25,6 @@ function LogInScreen(props) {
         setIsLoading(true);
         try {
             for (let i = 0; i < max; i++){
-                console.log(i)
                 if (existingUsers[i].email == email ) {
                     if(existingUsers[i].password == password){
                         alert("Inloggad!");
