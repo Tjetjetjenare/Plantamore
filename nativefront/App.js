@@ -2,8 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View,Image,Button, TouchableOpacity } from 'react-native';
 import axios from "axios"
-import Home from './screens/Home';
-import SignUp from './screens/SignUp';
+import Calendar from './screens/Calendar';
 
 const plantbaseUrl = 'http://localhost:8000/api/plants/';
 const userbaseUrl = 'http://localhost:8000/api/users/';
@@ -93,7 +92,7 @@ const styles = StyleSheet.create({
 */
 export default function App() {
   
-  return <SignUp/>;
+  return <Calendar/>;
 
 }
 
