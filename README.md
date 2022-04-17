@@ -2,6 +2,7 @@
 
 ## Description <br>
 Plantamore is an application that aims to assist users in their houseplant journey. The application aims to notify the owner when each plant should be watered, when it should be replanted and how much sunlight a plant should have. 
+
 ## Getting Started
 How to set up the project on your local machine <br>
 
