@@ -143,7 +143,6 @@ axios({
     wateringCan: {
         height: "70%",
         width: "70%",
-        
     },
 
   });
