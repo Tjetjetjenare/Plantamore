@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
 */
 export default function App() {
   
-  return <PlantSubprofile/>;
+  return <PlantDBProfile/>;
 
 }
 

@@ -37,10 +37,29 @@ const plantbaseUrl = 'http://localhost:8000/api/plants/';
                     source={require("../assets/testPlant.png")}>
                 </Image>
             </View>
-            <View style={{flex: 1}}>
-                <Text>9 mo</Text>
-                <Text>3 d</Text>
-                <Text>10 d</Text>
+            <View style={styles.specs}>
+                <View style={styles.innerSpec}>
+                    <Image 
+                         style={styles.specIcon} 
+                         source={require("../assets/sun.png")}>
+                    </Image>
+                    <Text style = {{}}> 9 m</Text>
+                </View>
+               
+                <View style={styles.innerSpec}>
+                    <Image 
+                         style={styles.specIcon} 
+                         source={require("../assets/drop.png")}>
+                    </Image>
+                    <Text style = {{}}> 3 d</Text>
+                </View>
+                <View style={styles.innerSpec}>
+                    <Image 
+                         style={styles.specIcon} 
+                         source={require("../assets/nutrition.png")}>
+                    </Image>
+                    <Text style = {{}}> 10 d</Text>
+                </View>
             </View>
         </View>
         <View 
@@ -119,15 +138,32 @@ const plantbaseUrl = 'http://localhost:8000/api/plants/';
     },
     
     plantPic: {
-        height: 150,
+        height: undefined,
         width: "50%", 
         alignSelf:"flex-end",
+        aspectRatio: 1,
     },
 
     plantPicWrap:{
         flex: 2,
     },
-
+    specs:{
+        flex:1,
+        justifyContent: "center",
+    },
+    innerSpec:{
+        flexDirection: "row",
+        marginLeft: 30,
+    },
+    specIcon:{
+        width: 20,
+        height: 20,
+        aspectRatio:1,
+    },
+    specText:{
+        fontSize: 15,
+        marginLeft: 3,
+    },
     textContainer: {
         top:10,
         color: "black",
