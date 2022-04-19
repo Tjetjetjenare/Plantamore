@@ -11,7 +11,7 @@ const plantbaseUrl = 'http://localhost:8000/api/students/';
 
 export default function App() {
   
-  return <PlantDBProfile/>;
+  return <Home/>;
 
 }
 
