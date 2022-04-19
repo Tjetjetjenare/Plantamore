@@ -30,10 +30,19 @@ const plantbaseUrl = 'http://localhost:8000/api/plants/';
             source={require("../assets/backArrow.png")}>
         </Image>
         <Text style={styles.profileName}>Måns-Tea{"\n"}</Text>
-        <Image
-             style={styles.plantPic}
-            source={require("../assets/testPlant.png")}>
-        </Image>
+        <View style={{flexDirection: "row"}}>
+            <View style={styles.plantPicWrap}>
+                <Image
+                    style={styles.plantPic}
+                    source={require("../assets/testPlant.png")}>
+                </Image>
+            </View>
+            <View style={{flex: 1}}>
+                <Text>9 mo</Text>
+                <Text>3 d</Text>
+                <Text>10 d</Text>
+            </View>
+        </View>
         <View 
             style = {styles.textContainer}>
             <Text style={styles.engName}>Chinese money plant{"\n"}</Text>
@@ -50,7 +59,7 @@ const plantbaseUrl = 'http://localhost:8000/api/plants/';
                     </Image>
                     <View>
                         <Text style= {styles.infoHeader}>Sunlight</Text>
-                        <Text>40%</Text>
+                        <Text>Medium</Text>
                     </View> 
                 </View>
                 <View style={{ flex: 2, flexDirection:"row"}}>
@@ -111,8 +120,12 @@ const plantbaseUrl = 'http://localhost:8000/api/plants/';
     
     plantPic: {
         height: 150,
-        width: 150, 
-        alignSelf:"center"
+        width: "50%", 
+        alignSelf:"flex-end",
+    },
+
+    plantPicWrap:{
+        flex: 2,
     },
 
     textContainer: {

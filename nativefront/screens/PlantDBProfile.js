@@ -3,24 +3,48 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert } 
 import { StatusBar } from 'expo-status-bar';
 import axios from 'axios';
 
-const plantbaseUrl = 'http://localhost:8000/api/plants/';
+const baseUrl = 'http://localhost:8000/api/students/';
+
+axios({
+    method: 'get',
+    url: `${baseUrl}`,
+  }).then((response) => {
+    console.log(response.data);
+  });
+
+  axios.get(`${baseUrl}`).then((response) => {
+    console.log(response.data);
+  });
 
   function PlantDBProfile(props) {
-    const [Plant, setPlant] = useState("");
-    
+    const [State, setState] = useState("");
     useEffect(async() => {
       try {
         const response = await axios.get(
-         plantbaseUrl,
+          baseUrl,
         );
-        setPlant(response.data);
-        console.log(response.data)
+        setState(response.data[0]);
       } catch (error) {
+        // handle error
       }
-    },[]);
+    })
+    const getDataUsingAsyncAwaitGetCall = async () => {
+      try {
+        const response = await axios.get(
+          baseUrl,
+        );
+        alert(JSON.stringify(response.data[0]));
+      } catch (error) {
+        // handle error
+        alert(error.message);
+      }
+    };
   
   
-  
+    <TouchableOpacity
+          style={styles.buttonStyle}
+          onPress={getDataUsingAsyncAwaitGetCall}> 
+    </TouchableOpacity>
   
   return(
     <SafeAreaView style={styles.container} >
