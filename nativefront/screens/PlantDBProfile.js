@@ -162,7 +162,6 @@ const plantbaseUrl = 'http://localhost:8000/api/plants/';
     wateringCan: {
         height: "70%",
         width: "70%",
-        
     },
 
   });
