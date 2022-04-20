@@ -150,11 +150,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold', 
     marginTop: 15, 
 },
-
-wateringCan: {
-  height: "20%",
-  width: "20%",
-  alignSelf: 'flex-end',
-  marginTop: 20,
-},
 });
