@@ -4,6 +4,7 @@ import { StyleSheet, Text, View,Image,Button, TouchableOpacity } from 'react-nat
 import axios from "axios"
 import Home from './screens/Home';
 import SignUp from './screens/SignUp';
+import Profile from './screens/Profile';
 import LogIn from './screens/LogIn';
 import PlantDBProfile from './screens/PlantDBProfile';
 import PlantSubprofile from './screens/PlantSubprofile';
@@ -16,10 +17,34 @@ export default function App() {
   
   return ( 
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator
+      screenOptions={{
+        headerShown: false
+      }}>
         <Stack.Screen
           name = "Home"
           component={Home}
+          />
+          <Stack.Screen
+          name = "LogIn"
+          component={LogIn}
+          />
+          <Stack.Screen
+          name = "SignUp"
+          component={SignUp}
+          />
+          <Stack.Screen
+          name = "PlantDB"
+          component={PlantDBProfile}
+          />
+          <Stack.Screen
+          name = "PlantSub"
+          component={PlantSubprofile}
+          />
+
+          <Stack.Screen
+          name = "Profile"
+          component={Profile}
           />
       </Stack.Navigator>
     </NavigationContainer>

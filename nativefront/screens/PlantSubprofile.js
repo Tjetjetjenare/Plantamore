@@ -7,7 +7,7 @@ import { Row } from "reactstrap";
 const plantbaseUrl = 'http://localhost:8000/api/plants/';
 const subplantbaseUrl = 'http://localhost:8000/api/subplants/';
 
-  function PlantSubprofile(props) {
+  function PlantSubprofile({navigation}) {
     const [plant, setPlant] = useState("");
     const [subPlant, setsubPlant] = useState("");
     

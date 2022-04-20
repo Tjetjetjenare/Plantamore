@@ -5,7 +5,7 @@ import axios from 'axios';
 
 const plantbaseUrl = 'http://localhost:8000/api/plants/';
 
-  function PlantDBProfile(props) {
+  function PlantDBProfile({navigation}) {
     const [Plant, setPlant] = useState("");
     
   useEffect(async() => {
