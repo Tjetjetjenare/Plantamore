@@ -118,4 +118,8 @@ const styles = StyleSheet.create({
     maxHeight: 100,
     maxWidth: 100,
   },
+
+  agenda: {
+    marginTop: 50,
+  }
 });

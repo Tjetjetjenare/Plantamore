@@ -2,7 +2,7 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, Alert, View, FlatList } from 'react-native';
 
 
-function Profile(props) {
+function Profile(props,{navigation}) {
     return (
         <SafeAreaView style={styles.container}>
             <Image 
