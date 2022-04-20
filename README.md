@@ -71,22 +71,3 @@ Start the server
 ## Acknowledgments
 * [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet) :link:
 * [React Native Directory](https://reactnative.directory/) :link:
-
-Old README :point_down:
-
-"# Acka" <br>
-BackEnd<br>
-------------------------------------------------------<br>
-pip install pipenv		-första gången bara <br>
-pipenv shell  <br>
-pipenv install django <br>
-cd Acka\backend <br>
-python manage.py runserver  <br>
-<br>
-<br>
-FrontEnd<br>
---------------------------------------------------------------<br>
-npm i -g expo-cli       -om expo inte är installerat
-cd nativefront
-npm install bootstrap@4.6.0 reactstrap@8.9.0 --legacy-peer-deps<br> nah might not need this but think it might be good
-npm start<br>

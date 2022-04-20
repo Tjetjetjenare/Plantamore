@@ -3,48 +3,20 @@ import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert } 
 import { StatusBar } from 'expo-status-bar';
 import axios from 'axios';
 
-const baseUrl = 'http://localhost:8000/api/students/';
-
-axios({
-    method: 'get',
-    url: `${baseUrl}`,
-  }).then((response) => {
-    console.log(response.data);
-  });
-
-  axios.get(`${baseUrl}`).then((response) => {
-    console.log(response.data);
-  });
+const plantbaseUrl = 'http://localhost:8000/api/plants/';
 
   function PlantDBProfile(props) {
-    const [State, setState] = useState("");
-    useEffect(async() => {
-      try {
-        const response = await axios.get(
-          baseUrl,
-        );
-        setState(response.data[0]);
-      } catch (error) {
-        // handle error
-      }
-    })
-    const getDataUsingAsyncAwaitGetCall = async () => {
-      try {
-        const response = await axios.get(
-          baseUrl,
-        );
-        alert(JSON.stringify(response.data[0]));
-      } catch (error) {
-        // handle error
-        alert(error.message);
-      }
-    };
-  
-  
-    <TouchableOpacity
-          style={styles.buttonStyle}
-          onPress={getDataUsingAsyncAwaitGetCall}> 
-    </TouchableOpacity>
+    const [Plant, setPlant] = useState("");
+    
+  useEffect(async() => {
+    try {
+      const response = await axios.get(
+       plantbaseUrl,
+      );
+      setPlant(response.data);
+    } catch (error) {
+    }
+  },[]);
   
   return(
     <SafeAreaView style={styles.container} >
@@ -65,6 +37,37 @@ axios({
         </Text>
         <View
             style={styles.infoBoard}>
+                
+                <View style={{ flex: 2, flexDirection:"row"}}>
+                    <Image 
+                         style={styles.infoIcon} 
+                         source={require("../assets/sun.png")}>
+                    </Image>
+                    <View>
+                        <Text style= {styles.infoHeader}>Sunlight</Text>
+                        <Text>Medium</Text>
+                    </View> 
+                </View>
+                <View style={{ flex: 2, flexDirection:"row"}}>
+                    <Image 
+                         style={styles.infoIcon} 
+                         source={require("../assets/drop.png")}>
+                    </Image>
+                    <View>
+                        <Text style= {styles.infoHeader}>Water</Text>
+                        <Text>30%</Text>
+                    </View> 
+                </View>
+                <View style={{ flex: 2, flexDirection:"row"}}>
+                    <Image 
+                         style={styles.infoIcon} 
+                         source={require("../assets/nutrition.png")}>
+                    </Image>
+                    <View>
+                        <Text style= {styles.infoHeader}>Nutrition</Text>
+                        <Text>15mg</Text>
+                    </View> 
+                </View>
         </View>
         <Text 
             style={styles.description}>
@@ -118,32 +121,47 @@ axios({
         fontWeight: "bold",
     },
     infoBoard: {
+        marginTop: 50,
+        marginBottom:20,
         width: "100%",
         height: 100, 
         backgroundColor: '#7E9B6D', 
-        top: 60, 
+        flexDirection:"row",
+        alignItems:"center",
+        justifyContent:"center",
+        textAlign:"center",
+        padding:10,
+    },
+    infoIcon: {
+        width:30,
+        height:30,
+        marginRight:10,
+        alignSelf:"flex-start",
+    },
+    infoHeader:{
+        fontWeight:"bold",
+        fontSize: 16,
     },
     description: {
-        top: 100, 
         width: "80%",
         left: "10%",
         fontSize: 15, 
         textAlign: "justify", 
     },
     circle: {
-        height: 100, 
-        width: 100, 
-        backgroundColor: "#C4C4C4",
-        top: 200, 
-        left: "60%",
-        borderRadius: 50, 
-        justifyContent: "center",
-        alignItems: "center",
-    },
+      height: 100, 
+      width: 100, 
+      backgroundColor: "#C4C4C4",
+      bottom: 20, 
+      right: 20,
+      borderRadius: 50, 
+      justifyContent: "center",
+      alignItems: "center",
+      position: "absolute",
+  },
     wateringCan: {
         height: "70%",
         width: "70%",
-        
     },
 
   });
