@@ -1,7 +1,7 @@
 import {React, useState} from 'react';
 import {View, TouchableOpacity, Text, SafeAreaView, StyleSheet, Image} from 'react-native';
 import {Agenda} from 'react-native-calendars';
-import {Card, Avatar} from 'react-native-paper';
+import {Card} from 'react-native-paper';
 
 
 const timeToString = (time) => {
@@ -12,6 +12,7 @@ const timeToString = (time) => {
 // source https://github.com/wix/react-native-calendars
 function Calendar(props) {
   const [items, setItems] = useState({});
+  const water = {key: 'water', color: '#00ffff', selectedDotColor: '#00ffff'}
 
   const loadItems = (day) => {
     setTimeout(() => {
@@ -44,8 +45,7 @@ function Calendar(props) {
         <TouchableOpacity style={{marginRight: 10, marginTop: 10}}>
           <Card>
             <Card.Content>
-              <View
-                style={styles.event}>
+              <View style={styles.event}>
                 <Text>{item.name}</Text>
                 <Image style={styles.plant} source={require("../assets/testPlant.png")} />
               </View>
@@ -58,6 +58,14 @@ function Calendar(props) {
 
   return (
     <SafeAreaView style={styles.container}>
+       <Image 
+          style={styles.arrowContainer} 
+          source={require("../assets/backArrow.png")}>
+        </Image>
+        <Text 
+          style= {styles.header}>
+          Calendar
+        </Text>
       <Agenda
         onVisableMothsChange={months => {
           console.log('now these months are visible', months);
@@ -83,13 +91,20 @@ function Calendar(props) {
         // Handler which gets executed when press arrow icon right. It receive a callback can go next month
         onPressArrowRight={addMonth => addMonth()}
         // Handler which gets executed on day press. Default = undefined
-        theme={{
-          arrowColor: '#000000'
-        }}
         items={items}
         loadItemsForMonth={loadItems}
         selected={'2022-04-20'}
         renderItem={renderItem}
+        theme = {{
+        selectedDayBackgroundColor: 'orange',
+        todayTextColor: 'orange',
+        selectedDotColor: '#00ffff',
+        }}
+        // markingType={'multi-dot'}
+        //   markedDates={{
+        //     '2022-04-25': {dots: [water], selected: true, selectedColor: '#d3d3d3'},
+        //     '2022-04-30': {dots: [water], disabled: true}
+        // }}
       />
     </SafeAreaView>
   );
@@ -118,4 +133,18 @@ const styles = StyleSheet.create({
     maxHeight: 100,
     maxWidth: 100,
   },
+
+  arrowContainer: {
+    height: 30, 
+    width: 30, 
+    marginLeft: 30,
+    marginTop: 20,  
+  },
+
+  header: {
+    marginLeft: 35, 
+    fontSize: 35, 
+    fontWeight: 'bold', 
+    marginTop: 20, 
+},
 });
