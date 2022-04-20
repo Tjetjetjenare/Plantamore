@@ -7,6 +7,9 @@ import SignUp from './screens/SignUp';
 import LogIn from './screens/LogIn';
 import PlantDBProfile from './screens/PlantDBProfile';
 import PlantSubprofile from './screens/PlantSubprofile';
+import Calendar from './screens/Calendar';
+
+
 const plantbaseUrl = 'http://localhost:8000/api/plants/';
 const userbaseUrl = 'http://localhost:8000/api/users/';
  /*
@@ -95,7 +98,7 @@ const styles = StyleSheet.create({
 */
 export default function App() {
   
-  return <PlantSubprofile/>;
+  return <Calendar/>;
 
 }
 
