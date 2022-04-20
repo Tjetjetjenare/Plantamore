@@ -1,5 +1,5 @@
 import {React, useState} from 'react';
-import {View, TouchableOpacity, Text, SafeAreaView, StyleSheet, Image} from 'react-native';
+import {View, TouchableOpacity, Text, SafeAreaView, StyleSheet, Image, Alert} from 'react-native';
 import {Agenda} from 'react-native-calendars';
 import {Card} from 'react-native-paper';
 
@@ -12,9 +12,14 @@ const timeToString = (time) => {
 // source https://github.com/wix/react-native-calendars
 function Calendar(props, {navigation}) {
   const [items, setItems] = useState({});
-  const water = {key: 'water', color: '#00ffff', selectedDotColor: '#00ffff'}
+  const water = {key: 'water', color: '#00FFFF', selectedDotColor: '#00FFFF'}
+  const replant = {key: 'replant', color: '#8B4513', selectedDotColor: '#8B4513'}
+  const nutrition = {key: 'nutrition', color: '#7E9B6D', selectedDotColor: '#7E9B6D'}
 
-  const loadItems = (day) => {
+  // loop creates random cards for random days
+  // for demonstraion reasons this will be kept this way
+  // when API is fixed loop need to be fixed
+  const markedDates = (day) => {
     setTimeout(() => {
       for (let i = 0; i < 5; i=+5) {
         const time = day.timestamp + i * 24 * 60 * 60 * 1000;
@@ -24,32 +29,26 @@ function Calendar(props, {navigation}) {
           const numItems = Math.floor(Math.random() * 3 + 1);
           for (let j = 0; j < numItems; j++) {
             items[strTime].push({
-            name: 'Water' + strTime + ' #' + j,
+            name: 'Water Money plant ' + ' #' + j, //plant name and information: insert here
             height: Math.max(50, Math.floor(Math.random() * 150)),
             });
-            console.log(day)
+            console.log('Day is an object', day)
           }
         }
       }
-      const newItems = {};
-      Object.keys(items).forEach((key) => {
-        newItems[key] = items[key];
-      });
-      setItems(newItems);
-    }, 1000);
+    },);
   };
 
   const renderItem = (item) => {
     return (
-      
-      
-      <SafeAreaView style={styles.agenda}>
+      <SafeAreaView style={styles.agendaContainer}>
+        <View></View>
         <TouchableOpacity style={{marginRight: 10, marginTop: 10}}>
           <Card>
             <Card.Content>
-              <View style={styles.event}>
+              <View style={styles.eventContainer}>
                 <Text>{item.name}</Text>
-                <Image style={styles.plant} source={require("../assets/testPlant.png")} />
+                <Image style={styles.plantContainer} source={require("../assets/testPlant.png")} />
               </View>
             </Card.Content>
           </Card>
@@ -58,16 +57,20 @@ function Calendar(props, {navigation}) {
     );
   };
 
+
   return (
     <SafeAreaView style={styles.container}>
+      <TouchableOpacity onPress={() => Alert.alert("Calendar Minimized")}>          
        <Image 
-          style={styles.arrowContainer} 
-          source={require("../assets/backArrow.png")}>
+          style={styles.exitContainer} 
+          source={require("../assets/exit(x).png")}>
         </Image>
+        </TouchableOpacity>
         <Text 
-          style= {styles.header}>
+          style= {styles.calendarHeader}>
           Calendar
         </Text>
+
       <Agenda
         onVisableMothsChange={months => {
           console.log('now these months are visible', months);
@@ -88,25 +91,23 @@ function Calendar(props, {navigation}) {
         hideArrows={true}
         // If firstDay=1 week starts from Monday. Note that dayNames and dayNamesShort should still start from Sunday
         firstDay={1}          
-        // Handler which gets executed when press arrow icon left. It receive a callback can go back month
-        onPressArrowLeft={subtractMonth => subtractMonth()}
-        // Handler which gets executed when press arrow icon right. It receive a callback can go next month
-        onPressArrowRight={addMonth => addMonth()}
         // Handler which gets executed on day press. Default = undefined
+        showOnlySelectedDayItems={true}
         items={items}
-        loadItemsForMonth={loadItems}
-        selected={'2022-04-20'}
+        loadItemsForMonth={markedDates}
         renderItem={renderItem}
         theme = {{
-        selectedDayBackgroundColor: 'orange',
-        todayTextColor: 'orange',
-        selectedDotColor: '#00ffff',
+        selectedDayBackgroundColor: '#FFA500',
+        todayTextColor: '#FFA500',
+        selectedDotColor: '#00FFFF',
+        agendaTodayColor: '#FFA500',
         }}
-        // markingType={'multi-dot'}
-        //   markedDates={{
-        //     '2022-04-25': {dots: [water], selected: true, selectedColor: '#d3d3d3'},
-        //     '2022-04-30': {dots: [water], disabled: true}
-        // }}
+        markingType={'multi-dot'}
+          markedDates={{
+            '2022-04-25': {dots: [water], selected: false},
+            '2022-04-30': {dots: [replant, nutrition], disabled: true},
+            '2022-04-24': {dots: [nutrition], disabled: true}
+        }}
       />
     </SafeAreaView>
   );
@@ -118,35 +119,42 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 2,
-    marginTop: 100,
+    marginTop: 0,
   },
 
-  agenda: {
+  agendaContainer: {
     marginTop: 20,
   },
 
-  event: {
+  eventContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
 
-  plant: {
+  plantContainer: {
     maxHeight: 100,
     maxWidth: 100,
   },
 
-  arrowContainer: {
-    height: 30, 
-    width: 30, 
+  exitContainer: {
+    height: 20, 
+    width: 20, 
     marginLeft: 30,
     marginTop: 20,  
   },
 
-  header: {
+  calendarHeader: {
     marginLeft: 35, 
     fontSize: 35, 
     fontWeight: 'bold', 
-    marginTop: 20, 
+    marginTop: 15, 
+},
+
+wateringCan: {
+  height: "20%",
+  width: "20%",
+  alignSelf: 'flex-end',
+  marginTop: 20,
 },
 });
