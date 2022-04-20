@@ -5,18 +5,28 @@ import axios from 'axios';
 import { Row } from "reactstrap";
 
 const plantbaseUrl = 'http://localhost:8000/api/plants/';
+const subplantbaseUrl = 'http://localhost:8000/api/subplants/';
 
   function PlantSubprofile(props) {
-    const [Plant, setPlant] = useState("");
+    const [plant, setPlant] = useState("");
+    const [subPlant, setsubPlant] = useState("");
     
     useEffect(async() => {
       try {
         const response = await axios.get(
          plantbaseUrl,
         );
+        const subresponse = await axios.get(
+            subplantbaseUrl,
+           );
         setPlant(response.data);
+        setsubPlant(subresponse.data);
+
       } catch (error) {
+          console.log("Bomber o granater")
       }
+      console.log(plant[2].english_name)
+      console.log(subPlant[0].name)
     },[]);
   
   
@@ -29,7 +39,7 @@ const plantbaseUrl = 'http://localhost:8000/api/plants/';
             style={styles.arrowContainer} 
             source={require("../assets/backArrow.png")}>
         </Image>
-        <Text style={styles.profileName}>Måns-Tea{"\n"}</Text>
+        <Text style={styles.profileName}>{subPlant[0].name}{"\n"}</Text>
         <View style={{flexDirection: "row"}}>
             <View style={styles.plantPicWrap}>
                 <Image
@@ -51,7 +61,7 @@ const plantbaseUrl = 'http://localhost:8000/api/plants/';
                          style={styles.specIcon} 
                          source={require("../assets/drop.png")}>
                     </Image>
-                    <Text style = {{}}> 3 d</Text>
+                    <Text> 3 d</Text>
                 </View>
                 <View style={styles.innerSpec}>
                     <Image 
@@ -64,7 +74,7 @@ const plantbaseUrl = 'http://localhost:8000/api/plants/';
         </View>
         <View 
             style = {styles.textContainer}>
-            <Text style={styles.engName}>Chinese money plant{"\n"}</Text>
+            <Text style={styles.engName}>{plant[2].swedish_name}{"\n"}</Text>
             <Text style={styles.latinName}>Pilea peperomioides{"\n"}</Text> 
             
         </View>

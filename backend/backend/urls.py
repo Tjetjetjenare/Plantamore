@@ -15,5 +15,7 @@ urlpatterns = [
     re_path(r'^api/plants/$', views.Plant_list),
     re_path(r'^api/plants/([0-9])$', views.Plant_detail),
     re_path(r'^api/users/$', views.User_list),
-    re_path(r'^api/users/([0-9])$', views.User_detail)
+    re_path(r'^api/users/([0-9])$', views.User_detail),
+    re_path(r'^api/subplants/$', views.SubPlants_list),
+    re_path(r'^api/subplants/([0-9])$', views.SubPlants_detail)
 ]
