@@ -10,7 +10,7 @@ import PlantDBProfile from './screens/PlantDBProfile';
 import PlantSubprofile from './screens/PlantSubprofile';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-//import Calendar from './screens/Calendar';
+import Calendar from './screens/Calendar';
 
 const Stack = createNativeStackNavigator();
 export default function App() {
@@ -41,7 +41,10 @@ export default function App() {
           name = "PlantSub"
           component={PlantSubprofile}
           />
-
+           <Stack.Screen
+          name = "Calendar"
+          component={Calendar}
+          />
           <Stack.Screen
           name = "Profile"
           component={Profile}
