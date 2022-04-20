@@ -10,7 +10,7 @@ const timeToString = (time) => {
 };
 
 // source https://github.com/wix/react-native-calendars
-function Calendar(props) {
+function Calendar(props, {navigation}) {
   const [items, setItems] = useState({});
   const water = {key: 'water', color: '#00ffff', selectedDotColor: '#00ffff'}
 

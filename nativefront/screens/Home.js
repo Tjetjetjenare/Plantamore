@@ -3,8 +3,7 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, Image, Text, Alert, View } from 'react-native';
 import SearchField from '../components/SearchField';
 import StandardButton from '../components/StandardButton';
-
-function Home(props) {
+function Home({navigation}) {
 
   return (
     <SafeAreaView style={styles.container}>
@@ -17,10 +16,10 @@ function Home(props) {
               or {"\n"}Sign up to get started
         </Text>
         <View style={styles.loginWrap}>
-          <StandardButton sizeFont={20} title="Log in" functionOnPress={() => Alert.alert('Log in button pressed')} />
+          <StandardButton sizeFont={20} title="Log in" functionOnPress={() => navigation.navigate('LogIn')} />
         </View>
         <View style={styles.loginWrap}>
-          <StandardButton sizeFont={20} title="Sign up" functionOnPress={() => Alert.alert('Sign up button pressed')}/>
+          <StandardButton sizeFont={20} title="Sign up" functionOnPress={() => navigation.navigate('SignUp')}/>
         </View>
         </View>
     </SafeAreaView>
