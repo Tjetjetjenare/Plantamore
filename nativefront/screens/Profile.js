@@ -1,8 +1,72 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, Alert, View, FlatList } from 'react-native';
+import { SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, Alert, View, ScrollView, FlatList} from 'react-native';
 
+const DATA = [
+    {
+     title: 'First Item',
+     image: require("../assets/testPlant.png"), 
+     id: 0, 
+    },
+    {
+    title: 'Second Item',
+    image: require("../assets/testPlant.png"), 
+    id: 1, 
+    },
+    {
+    title: 'Third Item',
+    image: require("../assets/testPlant.png"), 
+    id: 2, 
+    },
+    {
+    title: 'Third Item',
+    image: require("../assets/testPlant.png"), 
+    id: 2, 
+    },
+    {
+    title: 'Third Item',
+    image: require("../assets/testPlant.png"), 
+    id: 2, 
+    },
+    {
+    title: 'Third Item',
+    image: require("../assets/testPlant.png"), 
+    id: 2, 
+    },
+    {
+    title: 'Third Item',
+    image: require("../assets/testPlant.png"), 
+    id: 2, 
+    },
+    {
+    title: 'Third Item',
+    image: require("../assets/plus.png"), 
+    id: "add", 
+    },
+];
+
+const onClick = () => (
+    alert('Log in button pressed')
+);
+
+const Item = ({ title, image }) => (
+    <TouchableOpacity 
+        functionOnPress={onClick}>
+        <View style={styles.item}>
+            <Text style={styles.title}>{title}</Text>
+            <Image style={styles.image}
+                source={image}> 
+            </Image>
+        </View>
+    </TouchableOpacity>
+  );
 
 function Profile(props,{navigation}) {
+
+    const renderItem = ({ item }) => (
+        <Item title={item.title} 
+              image={item.image}
+              /> )
+  
     return (
         <SafeAreaView style={styles.container}>
             <Image 
@@ -13,6 +77,17 @@ function Profile(props,{navigation}) {
             <Image 
                 style={styles.profilePic}
                 source={require("../assets/profilePic.png")}></Image>
+            <View style={styles.scrollView}
+                  contentContainerStyle={{flexDirection:'row'}}>
+                <FlatList 
+                    contentContainerStyle={{alignItems: 'center'}}
+                    data={DATA}
+                    numColumns={3}
+                    columnWrapperStyle={styles.flatList}
+                    renderItem={renderItem}
+                    keyExtractor={item => item.id}
+                />
+             </View>
 
             <TouchableOpacity 
                 style={styles.circle}
@@ -21,23 +96,6 @@ function Profile(props,{navigation}) {
                         source={require("../assets/wateringCan.png")}>  
                 </Image>
             </TouchableOpacity>
-
-            <FlatList
-                contentContainerStyle={styles.grid}
-                numColumns={3}
-                data={props.items}
-                keyExtractor={(item, index) => index.toString()}
-                renderItems={({item}) => {
-                    console.log(item);
-                    return <Text style={styles.item}>{item}</Text>
-             }
-               }
-               
-            />
-            
-            
-            
-            <Text> Bla bla</Text>
         </SafeAreaView>
     );
 }
@@ -47,7 +105,7 @@ export default Profile;
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#7E9B6D',
-        flex: 1, 
+        flex: 1,
     }, 
     burgerMenu: {
         height: 30, 
@@ -61,16 +119,38 @@ const styles = StyleSheet.create({
         textAlign: 'center', 
     },
     profilePic: {
-        width: 300, 
-        height: 300, 
+        width: 250, 
+        height: 250, 
         alignSelf: 'center', 
         top: 10, 
+    },
+    scrollView: {
+        flex: 1,
+        flexDirection: 'row',
+        top: '5%',
+    },
+    flatList: {
+        padding: 15, 
+        justifyContent: 'space-evenly', 
+    },
+    subPlant: {
+        alignItems: 'center',
+        top: '10%',
+    },
+    title: {
+        color: 'white', 
+        fontSize: 15,  
+        alignSelf: 'center',
+    },
+    image: {
+        height: 110, 
+        width: 110, 
+        top: '5%',  
     },
     circle: {
         height: 100, 
         width: 100, 
         backgroundColor: "#C4C4C4",
-        top: 200, 
         left: "60%",
         borderRadius: 50, 
         justifyContent: "center",
@@ -80,13 +160,4 @@ const styles = StyleSheet.create({
         height: "70%",
         width: "70%",
     },
-    item: {
-        backgroundColor: 'grey',
-        width: 90, 
-        color: 'white',
-    }, 
-    grid: {
-        height: 120, 
-        alignItems: 'center', 
-    }
 })
