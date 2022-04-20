@@ -2,9 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import React,{useState, useEffect} from 'react';
 import { StyleSheet, Text, View, Image, SafeAreaView, TextInput, Alert, TouchableOpacity } from 'react-native';
 import StandardButton from '../components/StandardButton';
-import axios from "axios"
+import axios from "axios";
 const userbaseUrl = 'http://localhost:8000/api/users/';
-function LogInScreen(props) {
+function LogInScreen({navigation}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -27,8 +27,8 @@ function LogInScreen(props) {
             for (let i = 0; i < max; i++){
                 if (existingUsers[i].email == email ) {
                     if(existingUsers[i].password == password){
-                        alert("Inloggad!");
                         setIsLoading(false);
+                        navigation.navigate('Profile')
                         return;
                     }
                     else{
@@ -56,14 +56,18 @@ function LogInScreen(props) {
               // handle error
             }
           },[]);
-
+          const imageClick = () => {
+            console.log('Click');
+          } 
     return (
         <SafeAreaView style={styles.background}>
             <StatusBar style="auto"/>
-            <Image 
-                style={styles.arrowContainer} 
-                source={require("../assets/backArrow.png")}>
-            </Image>
+                <TouchableOpacity onPress={() => {navigation.navigate('Home')}} style={styles.arrowContainer}>
+                    <Image 
+                        style={styles.arrowContainer} 
+                        source={require("../assets/backArrow.png")} >
+                    </Image>
+                </TouchableOpacity>
             <Text 
                 style= {styles.header}>
                 Log in 
@@ -110,8 +114,8 @@ const styles = StyleSheet.create({
     arrowContainer: {
         height: 30, 
         width: 30, 
-        marginLeft: 30,
-        marginTop: 20,  
+        marginLeft: 15,
+        marginTop: 10,  
     },
 
     header: {

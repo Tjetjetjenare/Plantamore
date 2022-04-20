@@ -25,8 +25,8 @@ class Plant(models.Model):
     description = models.TextField()
     family = models.CharField(max_length=100)
 
-    def _str_(self):
-        return self.title
+    def __str__(self):
+        return self.swedish_name
 
 
 class User(models.Model):

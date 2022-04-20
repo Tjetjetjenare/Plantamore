@@ -5,7 +5,7 @@ import StandardButton from '../components/StandardButton';
 import axios from "axios"
 import Constants from "expo-constants";
 const userbaseUrl = 'http://localhost:8000/api/users/';
-function SignUp(props) {
+function SignUp({navigation}) {
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -52,10 +52,12 @@ function SignUp(props) {
     return (
         <SafeAreaView style={styles.background}>
             <StatusBar style="auto"/>
-            <Image 
-                style={styles.arrowContainer} 
-                source={require("../assets/backArrow.png")}>
-            </Image>
+                <TouchableOpacity onPress={() => {navigation.navigate('Home')}} style={styles.arrowContainer}>
+                    <Image 
+                        style={styles.arrowContainer} 
+                        source={require("../assets/backArrow.png")} >
+                    </Image>
+                </TouchableOpacity>
             <Text 
                 style= {styles.header}>
                 Create account
@@ -113,8 +115,8 @@ const styles = StyleSheet.create({
     arrowContainer: {
         height: 30, 
         width: 30, 
-        marginLeft: 30,
-        marginTop: 20,  
+        marginLeft: 15,
+        marginTop: 10,  
     },
 
     header: {
