@@ -30,10 +30,38 @@ const plantbaseUrl = 'http://localhost:8000/api/plants/';
             source={require("../assets/backArrow.png")}>
         </Image>
         <Text style={styles.profileName}>Måns-Tea{"\n"}</Text>
-        <Image
-             style={styles.plantPic}
-            source={require("../assets/testPlant.png")}>
-        </Image>
+        <View style={{flexDirection: "row"}}>
+            <View style={styles.plantPicWrap}>
+                <Image
+                    style={styles.plantPic}
+                    source={require("../assets/testPlant.png")}>
+                </Image>
+            </View>
+            <View style={styles.specs}>
+                <View style={styles.innerSpec}>
+                    <Image 
+                         style={styles.specIcon} 
+                         source={require("../assets/sun.png")}>
+                    </Image>
+                    <Text style = {{}}> 9 m</Text>
+                </View>
+               
+                <View style={styles.innerSpec}>
+                    <Image 
+                         style={styles.specIcon} 
+                         source={require("../assets/drop.png")}>
+                    </Image>
+                    <Text style = {{}}> 3 d</Text>
+                </View>
+                <View style={styles.innerSpec}>
+                    <Image 
+                         style={styles.specIcon} 
+                         source={require("../assets/nutrition.png")}>
+                    </Image>
+                    <Text style = {{}}> 10 d</Text>
+                </View>
+            </View>
+        </View>
         <View 
             style = {styles.textContainer}>
             <Text style={styles.engName}>Chinese money plant{"\n"}</Text>
@@ -50,7 +78,7 @@ const plantbaseUrl = 'http://localhost:8000/api/plants/';
                     </Image>
                     <View>
                         <Text style= {styles.infoHeader}>Sunlight</Text>
-                        <Text>40%</Text>
+                        <Text>Medium</Text>
                     </View> 
                 </View>
                 <View style={{ flex: 2, flexDirection:"row"}}>
@@ -110,11 +138,32 @@ const plantbaseUrl = 'http://localhost:8000/api/plants/';
     },
     
     plantPic: {
-        height: 150,
-        width: 150, 
-        alignSelf:"center"
+        height: undefined,
+        width: "50%", 
+        alignSelf:"flex-end",
+        aspectRatio: 1,
     },
 
+    plantPicWrap:{
+        flex: 2,
+    },
+    specs:{
+        flex:1,
+        justifyContent: "center",
+    },
+    innerSpec:{
+        flexDirection: "row",
+        marginLeft: 30,
+    },
+    specIcon:{
+        width: 20,
+        height: 20,
+        aspectRatio:1,
+    },
+    specText:{
+        fontSize: 15,
+        marginLeft: 3,
+    },
     textContainer: {
         top:10,
         color: "black",
