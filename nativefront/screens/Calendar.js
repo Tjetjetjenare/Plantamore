@@ -37,7 +37,7 @@ function Calendar(props) {
     }, 1000);
   };
 
-  
+
   const renderItem = (item) => {
     return (
       <SafeAreaView style={styles.agenda}>
@@ -51,7 +51,6 @@ function Calendar(props) {
                 alignItems: 'center',
               }}>
               <Text>{item.name}</Text>
-              <Avatar.Text label="P" />
               {/* lägg in pic på planta istället för P  */}
             </View>
           </Card.Content>
@@ -91,6 +90,7 @@ function Calendar(props) {
         theme={{
           arrowColor: '#000000'
         }}
+
         items={items}
         loadItemsForMonth={loadItems}
         selected={'2022-04-20'}
@@ -101,7 +101,7 @@ function Calendar(props) {
 
 };
 
-export default Calendars;
+export default Calendar;
 
 const styles = StyleSheet.create({
 
