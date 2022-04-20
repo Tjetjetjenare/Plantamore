@@ -101,6 +101,8 @@ function Calendar(props) {
 
 };
 
+export default Calendars;
+
 const styles = StyleSheet.create({
 
   container: {
@@ -115,5 +117,4 @@ const styles = StyleSheet.create({
 
 
 
-export default Calendar;
 
