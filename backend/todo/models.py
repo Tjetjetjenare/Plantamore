@@ -18,7 +18,7 @@ class Plant(models.Model):
     swedish_name = models.CharField(max_length=100)
     latin_name = models.CharField(max_length=100)
     image_url = models.CharField(max_length=2000)
-    nutrition = models.IntegerField()
+    nutrition = models.CharField(max_length=50)
     sunlight = models.CharField(max_length=50)
     water = models.CharField(max_length=50)
     replant = models.IntegerField()

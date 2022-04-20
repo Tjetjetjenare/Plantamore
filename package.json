@@ -2,6 +2,7 @@
   "dependencies": {
     "axios": "^0.26.1",
     "bootstrap": "^4.6.0",
+    "react-native-calendars": "^1.1282.0",
     "reactstrap": "^8.9.0"
   }
 }

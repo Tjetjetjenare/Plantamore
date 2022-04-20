@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {View, TouchableOpacity, Text, SafeAreaView, StyleSheet} from 'react-native';
+import {React, useState} from 'react';
+import {View, TouchableOpacity, Text, SafeAreaView, StyleSheet, Image} from 'react-native';
 import {Agenda} from 'react-native-calendars';
 import {Card, Avatar} from 'react-native-paper';
 
@@ -15,7 +15,7 @@ function Calendar(props) {
 
   const loadItems = (day) => {
     setTimeout(() => {
-      for (let i = 0; i < 5; i++) {
+      for (let i = -15; i < 85; i++) {
         const time = day.timestamp + i * 24 * 60 * 60 * 1000;
         const strTime = timeToString(time);
         if (!items[strTime]) {
@@ -23,9 +23,10 @@ function Calendar(props) {
           const numItems = Math.floor(Math.random() * 3 + 1);
           for (let j = 0; j < numItems; j++) {
             items[strTime].push({
-              name: 'Item for ' + strTime + ' #' + j,
-              height: Math.max(50, Math.floor(Math.random() * 150)),
+            name: 'Item for ' + strTime + ' #' + j,
+            height: Math.max(50, Math.floor(Math.random() * 150)),
             });
+            console.log(day)
           }
         }
       }
@@ -37,25 +38,20 @@ function Calendar(props) {
     }, 1000);
   };
 
-
   const renderItem = (item) => {
     return (
       <SafeAreaView style={styles.agenda}>
-      <TouchableOpacity style={{marginRight: 10, marginTop: 17}}>
-        <Card>
-          <Card.Content>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-              }}>
-              <Text>{item.name}</Text>
-              {/* lägg in pic på planta istället för P  */}
-            </View>
-          </Card.Content>
-        </Card>
-      </TouchableOpacity>
+        <TouchableOpacity style={{marginRight: 10, marginTop: 10}}>
+          <Card>
+            <Card.Content>
+              <View
+                style={styles.event}>
+                <Text>{item.name}</Text>
+                <Image style={styles.plant} source={require("../assets/testPlant.png")} />
+              </View>
+            </Card.Content>
+          </Card>
+        </TouchableOpacity>
       </SafeAreaView>
     );
   };
@@ -98,7 +94,6 @@ function Calendar(props) {
       />
     </SafeAreaView>
   );
-
 };
 
 export default Calendar;
@@ -107,14 +102,21 @@ const styles = StyleSheet.create({
 
   container: {
     flex: 1,
-    marginTop: 20,
+    marginTop: 10,
   },
 
   agenda: {
-    marginTop: 50,
-  }
+    marginTop: 20,
+  },
+
+  event: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+
+  plant: {
+    maxHeight: 100,
+    maxWidth: 100,
+  },
 });
-
-
-
-
