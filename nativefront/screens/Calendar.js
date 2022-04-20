@@ -10,12 +10,15 @@ const timeToString = (time) => {
 };
 
 // source https://github.com/wix/react-native-calendars
+
 function Calendar(props) {
+
+  
   const [items, setItems] = useState({});
 
   const loadItems = (day) => {
     setTimeout(() => {
-      for (let i = -15; i < 85; i++) {
+      for (let i = 0; i < 5; i=+5) {
         const time = day.timestamp + i * 24 * 60 * 60 * 1000;
         const strTime = timeToString(time);
         if (!items[strTime]) {
@@ -23,7 +26,7 @@ function Calendar(props) {
           const numItems = Math.floor(Math.random() * 3 + 1);
           for (let j = 0; j < numItems; j++) {
             items[strTime].push({
-            name: 'Item for ' + strTime + ' #' + j,
+            name: 'Water' + strTime + ' #' + j,
             height: Math.max(50, Math.floor(Math.random() * 150)),
             });
             console.log(day)
@@ -40,6 +43,8 @@ function Calendar(props) {
 
   const renderItem = (item) => {
     return (
+      
+      
       <SafeAreaView style={styles.agenda}>
         <TouchableOpacity style={{marginRight: 10, marginTop: 10}}>
           <Card>
@@ -101,8 +106,8 @@ export default Calendar;
 const styles = StyleSheet.create({
 
   container: {
-    flex: 1,
-    marginTop: 10,
+    flex: 2,
+    marginTop: 100,
   },
 
   agenda: {
@@ -119,4 +124,12 @@ const styles = StyleSheet.create({
     maxHeight: 100,
     maxWidth: 100,
   },
+
+  header: {
+    flex: 1,
+    marginLeft: 35, 
+    fontSize: 35, 
+    fontWeight: 'bold', 
+    marginTop: 10, 
+},
 });
