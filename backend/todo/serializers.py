@@ -1,6 +1,6 @@
 from dataclasses import fields
 from rest_framework import serializers
-from .models import Plant, Todo, User
+from .models import Plant, Todo, User, Plant_subprofile
 
 
 class TodoSerializer(serializers.ModelSerializer):
@@ -19,3 +19,9 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'email', 'password')
+
+class SubPlantSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Plant_subprofile
+        fields = ('sub_id', 'name', 'birth_date', 'water', 'replant',
+                  'nutrition', 'p_id', 'username')
