@@ -1,7 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View,Image,Button, TouchableOpacity } from 'react-native';
-import {createDrawerNavigator} from '@react-navigation/drawer';
 import axios from "axios"
 import Home from './screens/Home';
 import SignUp from './screens/SignUp';
@@ -16,21 +15,9 @@ import Watered from './screens/Watered';
 const plantbaseUrl = 'http://localhost:8000/api/plants/';
 const userbaseUrl = 'http://localhost:8000/api/users/';
 const Stack = createNativeStackNavigator();
-const Drawer = createDrawerNavigator();
 
 export default function App() {
-  function App() {
-    return (
-        <NavigationContainer>
-            <Drawer.Navigator>
-                <Drawer.Screen
-                    name="PlantData"
-                    component={PlantDBProfile}
-                />
-            </Drawer.Navigator>
-        </NavigationContainer>
-    )
-  }
+  
 
   return ( 
     <NavigationContainer>
