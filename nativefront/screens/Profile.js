@@ -69,10 +69,16 @@ function Profile(props,{navigation}) {
   
     return (
         <SafeAreaView style={styles.container}>
-            <Image 
-                style={styles.burgerMenu} 
-                source={require("../assets/burgerMenu.png")}>
-            </Image>
+            <View style={styles.symbols}>
+                <Image 
+                    style={styles.burgerMenu} 
+                    source={require("../assets/burgerMenu.png")}>
+                </Image>
+                <Image 
+                    style={styles.calendar} 
+                    source={require("../assets/calendar.png")}>
+                </Image>
+            </View>
             <Text style={styles.userName}>Name</Text>
             <Image 
                 style={styles.profilePic}
@@ -106,10 +112,19 @@ const styles = StyleSheet.create({
         backgroundColor: '#7E9B6D',
         flex: 1,
     }, 
+    symbols: {
+        flexDirection: 'row',
+    },
     burgerMenu: {
         height: 30, 
         width: 30, 
         marginLeft: 30,
+        marginTop: 20,  
+    },
+    calendar: {
+        height: 30, 
+        width: 30, 
+        marginLeft: 290,
         marginTop: 20,  
     },
     userName: {
