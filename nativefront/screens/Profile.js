@@ -20,22 +20,22 @@ const DATA = [
     {
     title: 'Fourth Item',
     image: require("../assets/testPlant.png"), 
-    id: 2, 
+    id: 3, 
     },
     {
     title: 'Fifth Item',
     image: require("../assets/testPlant.png"), 
-    id: 2, 
+    id: 4, 
     },
     {
     title: 'Sixth Item',
     image: require("../assets/testPlant.png"), 
-    id: 2, 
+    id: 5, 
     },
     {
     title: 'Seventh Item',
     image: require("../assets/testPlant.png"), 
-    id: 2, 
+    id: 6, 
     },
     {
     title: 'Eigth Item',
@@ -44,13 +44,11 @@ const DATA = [
     },
 ];
 
-const onClick = () => (
-    alert('Log in button pressed')
-);
-
-const Item = ({ title, image }) => (
+const Item = ({ title, image,id }) => (
     <TouchableOpacity 
-        functionOnPress={onClick}>
+        onPress={()=>{
+            alert(id);
+        }}>
         <View style={styles.item}>
             <Text style={styles.title}>{title}</Text>
             <Image style={styles.image}
@@ -65,6 +63,8 @@ function Profile(props,{navigation}) {
     const renderItem = ({ item }) => (
         <Item title={item.title} 
               image={item.image}
+              id = {item.id}
+              
               /> )
   
     return (
