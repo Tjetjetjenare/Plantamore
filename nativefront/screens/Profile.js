@@ -18,27 +18,27 @@ const DATA = [
     id: 2, 
     },
     {
-    title: 'Third Item',
+    title: 'Fourth Item',
     image: require("../assets/testPlant.png"), 
     id: 2, 
     },
     {
-    title: 'Third Item',
+    title: 'Fifth Item',
     image: require("../assets/testPlant.png"), 
     id: 2, 
     },
     {
-    title: 'Third Item',
+    title: 'Sixth Item',
     image: require("../assets/testPlant.png"), 
     id: 2, 
     },
     {
-    title: 'Third Item',
+    title: 'Seventh Item',
     image: require("../assets/testPlant.png"), 
     id: 2, 
     },
     {
-    title: 'Third Item',
+    title: 'Eigth Item',
     image: require("../assets/plus.png"), 
     id: "add", 
     },
@@ -80,7 +80,6 @@ function Profile(props,{navigation}) {
             <View style={styles.scrollView}
                   contentContainerStyle={{flexDirection:'row'}}>
                 <FlatList 
-                    contentContainerStyle={{alignItems: 'center'}}
                     data={DATA}
                     numColumns={3}
                     columnWrapperStyle={styles.flatList}
@@ -129,9 +128,11 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         top: '5%',
     },
+   
     flatList: {
         padding: 15, 
         justifyContent: 'space-evenly', 
+        
     },
     subPlant: {
         alignItems: 'center',

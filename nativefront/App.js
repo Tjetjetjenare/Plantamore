@@ -9,9 +9,12 @@ import PlantDBProfile from './screens/PlantDBProfile';
 import PlantSubprofile from './screens/PlantSubprofile';
 import Profile from './screens/Profile';
 import Calendar from './screens/Calendar';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const plantbaseUrl = 'http://localhost:8000/api/plants/';
 const userbaseUrl = 'http://localhost:8000/api/users/';
- /*
+const Stack = createNativeStackNavigator();
+
 export default function App() {
   
   return ( 
@@ -52,23 +55,5 @@ export default function App() {
     </NavigationContainer>
 
   );
-}
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  tinyLogo: {
-    width: 200,
-    height: 200,
-  },
-});
-*/
-export default function App() {
-  
-  return <Calendar/>;
-
 }
 
