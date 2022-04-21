@@ -59,7 +59,30 @@ Start the server
  ```sh
    npm start
    ```
-
+   
+### Additional packeges :package:  
+ ```sh
+   npm install --global expo-cli
+   ```
+  ```sh
+  npm install axios@0.24.0
+  ```
+  ```sh
+  npm install react-native-calendars 
+  ```
+    ```sh
+  npm install react-native-paper 
+  ```
+  ```sh
+  npm install @react-navigation/native @react-navigation/native-stack
+  ```
+   ```sh
+  expo install react-native-screens react-native-safe-area-context
+  ```
+     ```sh
+  npm install react-native-reanimated react-native-gesture-handler react-native-screens react-native-safe-area-context @react-native-community/masked-view
+  ```
+   
 ## Authors
 @HannahLiljestam <br>
 @kerstinwarja <br>
