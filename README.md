@@ -61,20 +61,20 @@ Start the server
    ```
    
 ### Additional packeges :package:  
- ```sh
-   npm install --global expo-cli
+```sh
+npm install --global expo-cli
    ```
-  ```sh
-  npm install axios@0.24.0
-  ```
-  ```sh
-  npm install react-native-calendars 
+```sh
+npm install axios@0.24.0
   ```
 ```sh
-  npm install react-native-paper 
+ npm install react-native-calendars 
+  ```
+```sh
+ npm install react-native-paper 
   ```
  ```sh
-  npm install @react-navigation/native @react-navigation/native-stack
+ npm install @react-navigation/native @react-navigation/native-stack
   ```
  ```sh
   expo install react-native-screens react-native-safe-area-context
