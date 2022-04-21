@@ -70,10 +70,10 @@ Start the server
   ```sh
   npm install react-native-calendars 
   ```
-    ```sh
+```sh
   npm install react-native-paper 
   ```
-  ```sh
+ ```sh
   npm install @react-navigation/native @react-navigation/native-stack
   ```
  ```sh
