@@ -74,11 +74,11 @@ function Profile({navigation}) {
                     style={styles.burgerMenu} 
                     source={require("../assets/burgerMenu.png")}>
                 </Image>
-                <TouchableOpacity style = {{height:30,width:30} } onPress={() => {navigation.navigate('Calendar')}}>
-                <Image 
-                    style={styles.calendar} 
-                    source={require("../assets/calendar.png")}>
-                </Image>
+                <TouchableOpacity style = {styles.touchCal} onPress={() => {navigation.navigate('Calendar')}}>
+                    <Image 
+                        style={styles.calendar} 
+                        source={require("../assets/calendar.png")}>
+                    </Image>
                 </TouchableOpacity>
             </View>
             <Text style={styles.userName}>Name</Text>
@@ -126,8 +126,13 @@ const styles = StyleSheet.create({
     calendar: {
         height: 30, 
         width: 30, 
+        
+    },
+    touchCal:{
+        width:30,
+        height:30,
         marginLeft: 290,
-        marginTop: 20,  
+        marginTop: 40,  
     },
     userName: {
         color: '#fff',
