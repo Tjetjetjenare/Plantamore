@@ -19,13 +19,15 @@ const subplantbaseUrl = 'http://localhost:8000/api/subplants/';
         const subresponse = await axios.get(
             subplantbaseUrl,
            );
+        console.log(response.data);
+        console.log(subresponse.data);
         setPlant(response.data);
         setsubPlant(subresponse.data);
 
       } catch (error) {
           console.log("Bomber o granater")
       }
-      console.log(plant[2].english_name)
+      console.log(plant[0].english_name)
       console.log(subPlant[0].name)
     },[]);
   
@@ -39,12 +41,13 @@ const subplantbaseUrl = 'http://localhost:8000/api/subplants/';
             style={styles.arrowContainer} 
             source={require("../assets/backArrow.png")}>
         </Image>
-        <Text style={styles.profileName}>hjihi{"\n"}</Text>
+        <Text style={styles.profileName}>{subPlant[0].name}{"\n"}</Text>
         <View style={{flexDirection: "row"}}>
             <View style={styles.plantPicWrap}>
                 <Image
                     style={styles.plantPic}
-                    source={require("../assets/testPlant.png")}>
+                    //source={require("../assets/testPlant.png")}>
+                        source={require("../assets/testPlant.png")}>
                 </Image>
             </View>
             <View style={styles.specs}>
@@ -74,7 +77,7 @@ const subplantbaseUrl = 'http://localhost:8000/api/subplants/';
         </View>
         <View 
             style = {styles.textContainer}>
-            <Text style={styles.engName}>elefantöra{"\n"}</Text>
+            <Text style={styles.engName}>{plant[0].english_name}{"\n"}</Text>
             <Text style={styles.latinName}>Pilea peperomioides{"\n"}</Text> 
             
         </View>
@@ -217,8 +220,8 @@ const subplantbaseUrl = 'http://localhost:8000/api/subplants/';
         textAlign: "justify", 
     },
     circle: {
-        height: 100, 
-        width: 100, 
+        height: 80, 
+        width: 80, 
         backgroundColor: "#C4C4C4",
         bottom: 20, 
         right: 20,

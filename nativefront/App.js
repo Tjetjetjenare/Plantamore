@@ -11,12 +11,14 @@ import Profile from './screens/Profile';
 import Calendar from './screens/Calendar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Watered from './screens/Watered';
 const plantbaseUrl = 'http://localhost:8000/api/plants/';
 const userbaseUrl = 'http://localhost:8000/api/users/';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   
+
   return ( 
     <NavigationContainer>
       <Stack.Navigator

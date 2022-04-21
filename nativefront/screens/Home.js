@@ -26,7 +26,7 @@ function Home({navigation}) {
           <StandardButton sizeFont={20} title="Log in" functionOnPress={() => navigation.navigate('Profile')} />
         </View>
         <View style={styles.loginWrap}>
-          <StandardButton sizeFont={20} title="Sign up" functionOnPress={() => navigation.navigate('PlantSub')}/>
+          <StandardButton sizeFont={20} title="Sign up" functionOnPress={() => navigation.navigate('SignUp')}/>
         </View>
         </View>
     </SafeAreaView>

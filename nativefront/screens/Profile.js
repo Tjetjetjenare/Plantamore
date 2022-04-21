@@ -20,22 +20,22 @@ const DATA = [
     {
     title: 'Fourth Item',
     image: require("../assets/testPlant.png"), 
-    id: 2, 
+    id: 3, 
     },
     {
     title: 'Fifth Item',
     image: require("../assets/testPlant.png"), 
-    id: 2, 
+    id: 4, 
     },
     {
     title: 'Sixth Item',
     image: require("../assets/testPlant.png"), 
-    id: 2, 
+    id: 5, 
     },
     {
     title: 'Seventh Item',
     image: require("../assets/testPlant.png"), 
-    id: 2, 
+    id: 6, 
     },
     {
     title: 'Eigth Item',
@@ -44,13 +44,11 @@ const DATA = [
     },
 ];
 
-const onClick = () => (
-    alert('Log in button pressed')
-);
-
-const Item = ({ title, image }) => (
+const Item = ({ title, image,id }) => (
     <TouchableOpacity 
-        functionOnPress={onClick}>
+        onPress={()=>{
+            alert(id);
+        }}>
         <View style={styles.item}>
             <Text style={styles.title}>{title}</Text>
             <Image style={styles.image}
@@ -60,19 +58,29 @@ const Item = ({ title, image }) => (
     </TouchableOpacity>
   );
 
-function Profile(props,{navigation}) {
+function Profile({navigation}) {
 
     const renderItem = ({ item }) => (
         <Item title={item.title} 
               image={item.image}
-              /> )
+              id = {item.id}
+              
+              /> );
   
     return (
         <SafeAreaView style={styles.container}>
-            <Image 
-                style={styles.burgerMenu} 
-                source={require("../assets/burgerMenu.png")}>
-            </Image>
+            <View style={styles.symbols}>
+                <Image 
+                    style={styles.burgerMenu} 
+                    source={require("../assets/burgerMenu.png")}>
+                </Image>
+                <TouchableOpacity style = {{height:30,width:30} } onPress={() => {navigation.navigate('Calendar')}}>
+                <Image 
+                    style={styles.calendar} 
+                    source={require("../assets/calendar.png")}>
+                </Image>
+                </TouchableOpacity>
+            </View>
             <Text style={styles.userName}>Name</Text>
             <Image 
                 style={styles.profilePic}
@@ -106,16 +114,26 @@ const styles = StyleSheet.create({
         backgroundColor: '#7E9B6D',
         flex: 1,
     }, 
+    symbols: {
+        flexDirection: 'row',
+    },
     burgerMenu: {
         height: 30, 
         width: 30, 
         marginLeft: 30,
         marginTop: 20,  
     },
+    calendar: {
+        height: 30, 
+        width: 30, 
+        marginLeft: 290,
+        marginTop: 20,  
+    },
     userName: {
         color: '#fff',
         fontSize: 36, 
         textAlign: 'center', 
+        marginTop: 10
     },
     profilePic: {
         width: 250, 
@@ -127,6 +145,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         top: '5%',
+        paddingBottom: 100,
     },
    
     flatList: {
@@ -149,13 +168,15 @@ const styles = StyleSheet.create({
         top: '5%',  
     },
     circle: {
-        height: 100, 
-        width: 100, 
+        height: 80, 
+        width: 80, 
         backgroundColor: "#C4C4C4",
-        left: "60%",
+        bottom: 20, 
+        right: 20,
         borderRadius: 50, 
         justifyContent: "center",
         alignItems: "center",
+        position: "absolute",
     },
     wateringCan: {
         height: "70%",
