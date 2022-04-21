@@ -1,13 +1,20 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { SafeAreaView, StyleSheet, Image, Text, Alert, View } from 'react-native';
+import { SafeAreaView, TouchableOpacity, StyleSheet, Image, Text, Alert, View } from 'react-native';
 import SearchField from '../components/SearchField';
 import StandardButton from '../components/StandardButton';
+import {useNavigation} from '@react-navigation/native';
 function Home({navigation}) {
 
   return (
     <SafeAreaView style={styles.container}>
-    <StatusBar style="auto"/>
+            <Image
+                style={styles.burgerMenu}
+                source={require("../assets/burgerMenu.png")}/>
+            <Image
+                style={styles.profileButton}
+                source={require("../assets/profileButton.png")}/>
+        <StatusBar style="auto"/>
         <View style={styles.greenAccent} />
       <Image style={styles.logo} source={require("../assets/logo.png")}></Image>
       <SearchField/>
@@ -24,7 +31,6 @@ function Home({navigation}) {
         </View>
     </SafeAreaView>
   );
-    
 }
 
 export default Home;
@@ -63,5 +69,19 @@ const styles = StyleSheet.create({
     width: "70%",
     height: 40,
     marginTop: 20,
-  }
+  },
+  burgerMenu: {
+    height: 30,
+    width: 30,
+    position: 'absolute',
+    top: 20,
+    left: 20,
+  },
+  profileButton: {
+    height: 30,
+    width: 30,
+    position: 'absolute',
+    top: 20,
+    right: 20,
+  },
 })

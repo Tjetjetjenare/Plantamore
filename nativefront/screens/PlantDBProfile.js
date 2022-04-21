@@ -17,7 +17,7 @@ const plantbaseUrl = 'http://localhost:8000/api/plants/';
     } catch (error) {
     }
   },[]);
-  
+
   return(
     <SafeAreaView style={styles.container} >
         <StatusBar style="auto"/>
