@@ -8,6 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nativefront/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/nativefront/App.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nativefront/babel.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/nativefront/babel.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nativefront/screens/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/nativefront/screens/Profile.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

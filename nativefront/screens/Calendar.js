@@ -60,7 +60,7 @@ function Calendar({navigation},props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate('Profile')}>          
+      <TouchableOpacity onPress={() => navigation.navigate('Profile')} style={styles.exitContainer}>          
        <Image 
           style={styles.exitContainer} 
           source={require("../assets/exit(x).png")}>
@@ -140,8 +140,8 @@ const styles = StyleSheet.create({
   exitContainer: {
     height: 20, 
     width: 20, 
-    marginLeft: 30,
-    marginTop: 20,  
+    marginLeft: 15,
+    marginTop: 10,  
   },
 
   calendarHeader: {
