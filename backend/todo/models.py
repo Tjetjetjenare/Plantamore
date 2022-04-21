@@ -49,4 +49,4 @@ class Plant_subprofile(models.Model):
     username = models.ForeignKey('User', on_delete=models.CASCADE)
 
     def _str_(self):
-        return self.title
+        return self.name
