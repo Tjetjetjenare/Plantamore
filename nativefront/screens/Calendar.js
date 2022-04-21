@@ -10,7 +10,7 @@ const timeToString = (time) => {
 };
 
 // source https://github.com/wix/react-native-calendars
-function Calendar(props, {navigation}) {
+function Calendar({navigation},props) {
   const [items, setItems] = useState({});
   const water = {key: 'water', color: '#00FFFF', selectedDotColor: '#00FFFF'}
   const replant = {key: 'replant', color: '#8B4513', selectedDotColor: '#8B4513'}
@@ -21,7 +21,7 @@ function Calendar(props, {navigation}) {
   // when API is fixed loop need to be fixed
   const markedDates = (day) => {
     setTimeout(() => {
-      for (let i = 0; i < 5; i=+5) {
+      for (let i = 0; i < 5; i++) {
         const time = day.timestamp + i * 24 * 60 * 60 * 1000;
         const strTime = timeToString(time);
         if (!items[strTime]) {
@@ -60,7 +60,7 @@ function Calendar(props, {navigation}) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity onPress={() => Alert.alert("Calendar Minimized")}>          
+      <TouchableOpacity onPress={() => navigation.navigate('Profile')}>          
        <Image 
           style={styles.exitContainer} 
           source={require("../assets/exit(x).png")}>

@@ -58,14 +58,14 @@ const Item = ({ title, image,id }) => (
     </TouchableOpacity>
   );
 
-function Profile(props,{navigation}) {
+function Profile({navigation}) {
 
     const renderItem = ({ item }) => (
         <Item title={item.title} 
               image={item.image}
               id = {item.id}
               
-              /> )
+              /> );
   
     return (
         <SafeAreaView style={styles.container}>
@@ -74,10 +74,12 @@ function Profile(props,{navigation}) {
                     style={styles.burgerMenu} 
                     source={require("../assets/burgerMenu.png")}>
                 </Image>
+                <TouchableOpacity style = {{height:30,width:30} } onPress={() => {navigation.navigate('Calendar')}}>
                 <Image 
                     style={styles.calendar} 
                     source={require("../assets/calendar.png")}>
                 </Image>
+                </TouchableOpacity>
             </View>
             <Text style={styles.userName}>Name</Text>
             <Image 
@@ -131,6 +133,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 36, 
         textAlign: 'center', 
+        marginTop: 10
     },
     profilePic: {
         width: 250, 
@@ -142,6 +145,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         top: '5%',
+        paddingBottom: 100,
     },
    
     flatList: {
@@ -164,13 +168,15 @@ const styles = StyleSheet.create({
         top: '5%',  
     },
     circle: {
-        height: 100, 
-        width: 100, 
+        height: 80, 
+        width: 80, 
         backgroundColor: "#C4C4C4",
-        left: "60%",
+        bottom: 20, 
+        right: 20,
         borderRadius: 50, 
         justifyContent: "center",
         alignItems: "center",
+        position: "absolute",
     },
     wateringCan: {
         height: "70%",

@@ -220,8 +220,8 @@ const subplantbaseUrl = 'http://localhost:8000/api/subplants/';
         textAlign: "justify", 
     },
     circle: {
-        height: 100, 
-        width: 100, 
+        height: 80, 
+        width: 80, 
         backgroundColor: "#C4C4C4",
         bottom: 20, 
         right: 20,
