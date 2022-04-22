@@ -54,7 +54,7 @@ const subplantbaseUrl = 'http://localhost:8000/api/subplants/';
                 <View style={styles.innerSpec}>
                     <Image 
                          style={styles.specIcon} 
-                         source={require("../assets/sun.png")}>
+                         source={require("../assets/cake.png")}>
                     </Image>
                     <Text style = {{}}> 9 m</Text>
                 </View>

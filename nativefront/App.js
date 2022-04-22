@@ -9,6 +9,7 @@ import PlantDBProfile from './screens/PlantDBProfile';
 import PlantSubprofile from './screens/PlantSubprofile';
 import Profile from './screens/Profile';
 import Calendar from './screens/Calendar';
+import CreatePlantSubprofile from './screens/CreatePlantSubprofile';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Watered from './screens/Watered';
@@ -55,7 +56,6 @@ export default function App() {
           />
       </Stack.Navigator>
     </NavigationContainer>
-
   );
 }
 
