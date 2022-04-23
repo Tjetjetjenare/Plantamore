@@ -94,3 +94,4 @@ npm install axios@0.24.0
 ## Acknowledgments
 * [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet) :link:
 * [React Native Directory](https://reactnative.directory/) :link:
+* [Ionicons Framework](https://ionic.io/ionicons) :link:
