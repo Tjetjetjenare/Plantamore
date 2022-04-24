@@ -8,12 +8,12 @@ function Home({navigation}) {
 
   return (
     <SafeAreaView style={styles.container}>
-            <Image
+            {/* <Image
                 style={styles.burgerMenu}
                 source={require("../assets/burgerMenu.png")}/>
             <Image
                 style={styles.profileButton}
-                source={require("../assets/profileButton.png")}/>
+                source={require("../assets/profileButton.png")}/> */}
         <StatusBar style="auto"/>
         <View style={styles.greenAccent} />
       <Image style={styles.logo} source={require("../assets/logo.png")}></Image>
