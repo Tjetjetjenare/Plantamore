@@ -27,10 +27,9 @@ const subplantbaseUrl = 'http://localhost:8000/api/subplants/';
           console.log("Bomber o granater")
           console.log(error)
       }
-   
     },[]);
   
-  
+
   
   
   return(
