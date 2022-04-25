@@ -6,6 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="924a3611-8ad1-457e-bff1-c4fc800e9f19" name="Changes" comment="Changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nativefront/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/nativefront/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nativefront/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/nativefront/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nativefront/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/nativefront/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nativefront/screens/CreatePlantSubprofile.js" beforeDir="false" afterPath="$PROJECT_DIR$/nativefront/screens/CreatePlantSubprofile.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

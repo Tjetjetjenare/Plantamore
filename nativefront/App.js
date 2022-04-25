@@ -21,7 +21,8 @@ export default function App() {
   
 
   return ( 
-    <NavigationContainer>
+    <CreatePlantSubprofile/>
+    /*<NavigationContainer>
       <Stack.Navigator
       screenOptions={{
         headerShown: false
@@ -55,7 +56,7 @@ export default function App() {
           component={Profile}
           />
       </Stack.Navigator>
-    </NavigationContainer>
+    </NavigationContainer>*/
   );
 }
 
