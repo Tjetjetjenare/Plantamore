@@ -7,7 +7,9 @@ const SearchField = () => {
             <TextInput 
                 style={styles.bar} 
                 placeholder='Search' 
+                onChangeText={(text) => {searchFilterFunction(text)}}
                 placeholderTextColor={"white"}/>
+                
         </View>
     )
 }
@@ -30,5 +32,5 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         textAlign: "center",
         opacity: 0.4,
-    }
+    },
 })

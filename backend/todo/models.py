@@ -34,8 +34,8 @@ class User(models.Model):
     email = models.EmailField(max_length=200)
     password = models.CharField(max_length=50)
 
-    def _str_(self):
-        return self.title
+    def __str__(self):
+        return self.username
 
 
 class Plant_subprofile(models.Model):
@@ -48,5 +48,5 @@ class Plant_subprofile(models.Model):
     p_id = models.ForeignKey('Plant', on_delete=models.CASCADE)
     username = models.ForeignKey('User', on_delete=models.CASCADE)
 
-    def _str_(self):
+    def __str__(self):
         return self.name

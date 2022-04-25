@@ -13,8 +13,6 @@ import CreatePlantSubprofile from './screens/CreatePlantSubprofile';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Watered from './screens/Watered';
-const plantbaseUrl = 'http://localhost:8000/api/plants/';
-const userbaseUrl = 'http://localhost:8000/api/users/';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -54,6 +52,14 @@ export default function App() {
           <Stack.Screen
           name = "Profile"
           component={Profile}
+          />
+          <Stack.Screen
+          name = "CreateSub"
+          component={CreatePlantSubprofile}
+          />
+          <Stack.Screen
+          name = "Watered"
+          component={Watered}
           />
       </Stack.Navigator>
     </NavigationContainer>*/

@@ -37,11 +37,7 @@ const DATA = [
     image: require("../assets/testPlant.png"), 
     id: 6, 
     },
-    {
-    title: 'Eigth Item',
-    image: require("../assets/plus.png"), 
-    id: "add", 
-    },
+
 ];
 
 const Item = ({ title, image,id }) => (
@@ -134,25 +130,26 @@ const styles = StyleSheet.create({
         textAlign: 'center', 
     },
     waterCanContainer: {
-        height: 280, 
-        width: 280, 
+        height: 180, 
+        width: 180, 
         top: 15, 
         backgroundColor: "#C4C4C4",
         alignSelf: 'center',
-        borderRadius: 140, 
+        borderRadius: 90, 
         justifyContent: "center",
         alignItems: "center",
     },
     wateringCanPic: {
-        width: 200, 
-        height: 200, 
+        width: '70%', 
+        height: '70%', 
         alignSelf: 'center', 
         top: 10, 
     },
     selectText: {
-        color: '#fff', 
+        color: 'black', 
         alignSelf: 'center',
         top: 20, 
+        fontSize: 20, 
     },
     scrollView: {
         flex: 1,
