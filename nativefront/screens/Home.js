@@ -1,9 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{ useState, useEffect } from 'react';
 import { SafeAreaView,ScrollView, FlatList, TouchableOpacity, StyleSheet, Image, Text, Alert, View, TextInput } from 'react-native';
-//import SearchField from '../components/SearchField';
 import StandardButton from '../components/StandardButton';
-/*import { SearchBar } from 'react-native-elements';*/
+//import { SearchBar } from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 const plantbaseUrl = 'http://localhost:8000/api/plants/';
@@ -55,7 +54,7 @@ function Home({navigation}) {
         />
       </View>
     )
-  }}
+  }};
 
 
   const searchFilterFunction = (text) => {
@@ -107,7 +106,9 @@ function Home({navigation}) {
 
   const getItem = (item) => {
     // Function for click on an item
-    alert('Id : ' + item.p_id + ' Title : ' + item.english_name);
+    navigation.navigate("PlantDB", {plantId : item.p_id, EnglishName : item.english_name, LatinName : item.latin_name,
+    SwedishName: item.swedish_name,Description: item.description, Sun : item.sunlight, Water: item.water,
+    Nutrition: item.nutrition});
   };
   return (
     <SafeAreaView style={styles.container}>
@@ -124,7 +125,7 @@ function Home({navigation}) {
         {SearchField()}
         {SearchList()}
       </View>
-      <View style={styles.buttonWrapper} >
+      <View style={styles.buttonWrapper}>
         <Text style={styles.text}>Log in to your existing account {"\n"}
               or {"\n"}Sign up to get started
         </Text>
