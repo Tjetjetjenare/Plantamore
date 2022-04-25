@@ -9,64 +9,6 @@ const plantbaseUrl = 'http://localhost:8000/api/plants/';
 const subplantbaseUrl = 'http://localhost:8000/api/subplants/';
 
 function CreatePlantSubprofile(props) {
-
-    const waterButtonsData = [{
-        id: '1',
-        label: 'Generousley, my plants gets alot of water',
-        value: 'generousley'
-    }, {
-        id: '2',
-        label: 'Moderately, i give them water quite often',
-        value: 'moderately'
-    }, {
-        id: '3',
-        label: 'Sparingly, only water it once in a while',
-        value: 'sparingly'
-    }];
-    
-    const sunButtonsData = [{
-        id: '1',
-        label: 'Direct, my plant gets all the sun',
-        value: 'direct'
-    }, {
-        id: '2',
-        label: 'Indirect, my plant gets some sun',
-        value: 'indirect'
-    }, {
-        id: '3',
-        label: 'Shade, my plant likes the dark',
-        value: 'shade'
-    }];
-
-    const nutButtonsData = [{
-        id: '1',
-        label: 'Often, nutrition all day evey day',
-        value: 'often'
-    }, {
-        id: '2',
-        label: 'Regularley, i give it nutrition every once in a while',
-        value: 'regularley'
-    }, {
-        id: '3',
-        label: 'Rarely, my plant almost never  gets added nutrition',
-        value: 'rarely'
-    }];
-
-    const [waterButtons, setWaterButtons] = useState(waterButtonsData);
-    const [sunButtons, setSunButtons] = useState(sunButtonsData);
-    const [nutButtons, setNutButtons] = useState(nutButtonsData);
-
-    function onPressWaterButton(radioButtonsArray) {
-        setWaterButtons(radioButtonsArray);
-    };
-
-    function onPressSunButton(radioButtonsArray) {
-        setSunButtons(radioButtonsArray);
-    };
-    function onPressNutButton(radioButtonsArray) {
-        setNutButtons(radioButtonsArray);
-    }
-
    return(
          <SafeAreaView style={styles.container} >
             <ScrollView>
@@ -91,28 +33,6 @@ function CreatePlantSubprofile(props) {
                 <TextInput style={styles.input} placeholder="DD-MM-YY"/>
                 <Text style={styles.info}>When did you last watered your plant?</Text>
                 <TextInput style={styles.input} placeholder="DD-MM-YY"/>
-                <Text style={styles.info}>How much water does your plant get?</Text>
-                <View style={styles.optionbtn}>
-                    <RadioGroup 
-                        style={styles.optionbtn}
-                        radioButtons={waterButtons} 
-                        onPress={onPressWaterButton} 
-                    ></RadioGroup>
-                </View>
-                <Text style={styles.info}>How much sunlight does your plant get?</Text>
-                <View style={styles.optionbtn}>
-                    <RadioGroup 
-                        radioButtons={sunButtons} 
-                        onPress={onPressSunButton} 
-                    ></RadioGroup>
-                </View>
-                <Text style={styles.info}>How often do you give your plant nutrients?</Text>
-                <View style={styles.optionbtn}>
-                    <RadioGroup 
-                        radioButtons={nutButtons} 
-                        onPress={onPressNutButton} 
-                    ></RadioGroup>
-                </View>
                 <TouchableOpacity style={styles.savebtn} onPress={() => Alert.alert('Save profile')}>
                     <Text>SAVE</Text>
                   </TouchableOpacity>
@@ -191,8 +111,5 @@ const styles = StyleSheet.create({
         alignItems:"center",
         alignSelf:"flex-end",
         marginRight:5,
-    },
-    optionbtn: {
-        alignSelf:"flex-start",
     },
   });
