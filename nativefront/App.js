@@ -7,6 +7,7 @@ import SignUp from './screens/SignUp';
 import LogIn from './screens/LogIn';
 import PlantDBProfile from './screens/PlantDBProfile';
 import PlantSubprofile from './screens/PlantSubprofile';
+import CreatePlantSubprofile from './screens/CreatePlantSubprofile'
 import Profile from './screens/Profile';
 import Calendar from './screens/Calendar';
 import { NavigationContainer } from '@react-navigation/native';
