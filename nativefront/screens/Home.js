@@ -3,7 +3,7 @@ import React,{ useState, useEffect } from 'react';
 import { SafeAreaView,ScrollView, FlatList, TouchableOpacity, StyleSheet, Image, Text, Alert, View, TextInput } from 'react-native';
 //import SearchField from '../components/SearchField';
 import StandardButton from '../components/StandardButton';
-import { SearchBar } from 'react-native-elements';
+/*import { SearchBar } from 'react-native-elements';*/
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 const plantbaseUrl = 'http://localhost:8000/api/plants/';

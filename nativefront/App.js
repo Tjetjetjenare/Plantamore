@@ -19,8 +19,7 @@ export default function App() {
   
 
   return ( 
-    <CreatePlantSubprofile/>
-    /*<NavigationContainer>
+    <NavigationContainer>
       <Stack.Navigator
       screenOptions={{
         headerShown: false
@@ -62,7 +61,7 @@ export default function App() {
           component={Watered}
           />
       </Stack.Navigator>
-    </NavigationContainer>*/
+    </NavigationContainer>
   );
 }
 
