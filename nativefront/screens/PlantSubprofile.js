@@ -7,10 +7,11 @@ import { Row } from "reactstrap";
 const plantbaseUrl = 'http://localhost:8000/api/plants/';
 const subplantbaseUrl = 'http://localhost:8000/api/subplants/';
 
-  function PlantSubprofile(props,{navigation}) {
+  function PlantSubprofile({route, navigation}) {
     const [plant, setPlant] = useState("");
     const [subPlant, setsubPlant] = useState("");
-    
+    const {plantId, EnglishName, LatinName, SwedishName, Description} = route.params;
+
     useEffect(async() => {
       try {
         const response = await axios.get(
@@ -19,16 +20,14 @@ const subplantbaseUrl = 'http://localhost:8000/api/subplants/';
         const subresponse = await axios.get(
             subplantbaseUrl,
            );
-        console.log(response.data);
-        console.log(subresponse.data);
         setPlant(response.data);
         setsubPlant(subresponse.data);
-
+        
       } catch (error) {
           console.log("Bomber o granater")
+          console.log(error)
       }
-      console.log(plant[0].english_name)
-      console.log(subPlant[0].name)
+   
     },[]);
   
   
@@ -41,7 +40,7 @@ const subplantbaseUrl = 'http://localhost:8000/api/subplants/';
             style={styles.arrowContainer} 
             source={require("../assets/backArrow.png")}>
         </Image>
-        <Text style={styles.profileName}>{subPlant[0].name}{"\n"}</Text>
+        <Text style={styles.profileName}>{SwedishName}{"\n"}</Text>
         <View style={{flexDirection: "row"}}>
             <View style={styles.plantPicWrap}>
                 <Image
@@ -56,7 +55,7 @@ const subplantbaseUrl = 'http://localhost:8000/api/subplants/';
                          style={styles.specIcon} 
                          source={require("../assets/cake.png")}>
                     </Image>
-                    <Text style = {{}}> 9 m</Text>
+                    <Text> 9 m</Text>
                 </View>
                
                 <View style={styles.innerSpec}>
@@ -71,14 +70,14 @@ const subplantbaseUrl = 'http://localhost:8000/api/subplants/';
                          style={styles.specIcon} 
                          source={require("../assets/nutrition.png")}>
                     </Image>
-                    <Text style = {{}}> 10 d</Text>
+                    <Text> 10 d</Text>
                 </View>
             </View>
         </View>
         <View 
             style = {styles.textContainer}>
-            <Text style={styles.engName}>{plant[0].english_name}{"\n"}</Text>
-            <Text style={styles.latinName}>Pilea peperomioides{"\n"}</Text> 
+            <Text style={styles.engName}>{EnglishName}{"\n"}</Text>
+            <Text style={styles.latinName}>{LatinName}{"\n"}</Text> 
             
         </View>
         <View
@@ -117,11 +116,12 @@ const subplantbaseUrl = 'http://localhost:8000/api/subplants/';
         </View>
         <Text 
             style={styles.description}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non semper turpis, ac cursus risus. Morbi interdum metus molestie nisl pretium tristique. Morbi tortor justo, euismod ut dignissim eget, vestibulum in lorem. Donec molestie diam eget elit finibus dapibus. Duis vel tellus in leo feugiat posuere a ac orci. Vestibulum elementum tincidunt urna vel mollis. Quisque sit amet pulvinar lorem. Mauris sit amet quam in odio porttitor gravida at sed arcu. 
+               {Description}
         </Text>
         <TouchableOpacity 
             style={styles.circle}
-            onPress={() => Alert.alert('Watering can button pressed')}>
+            onPress={() => //Alert.alert('Watering can button pressed')
+            alert(plant[plantId-1].english_name)}>
             <Image style={styles.wateringCan}
                     source={require("../assets/wateringCan.png")}>
                     

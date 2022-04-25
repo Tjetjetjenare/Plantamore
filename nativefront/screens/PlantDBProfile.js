@@ -5,8 +5,9 @@ import axios from 'axios';
 
 const plantbaseUrl = 'http://localhost:8000/api/plants/';
 
-  function PlantDBProfile({navigation}) {
+  function PlantDBProfile({route, navigation}) {
     const [Plant, setPlant] = useState("");
+    const {plantId, EnglishName, LatinName, SwedishName, Description, Sun, Water, Nutrition} = route.params;
     
   useEffect(async() => {
     try {
@@ -31,9 +32,9 @@ const plantbaseUrl = 'http://localhost:8000/api/plants/';
         </Image>
         <Text 
             style={styles.textContainer}>
-            <Text style={styles.latinName}>Pilea peperomioides{"\n"}</Text> 
-            <Text>Chinese money plant{"\n"}</Text>
-            <Text>Elefantöra </Text> 
+            <Text style={styles.latinName}>{LatinName}{"\n"}</Text> 
+            <Text>{EnglishName}{"\n"}</Text>
+            <Text>{SwedishName} </Text> 
         </Text>
         <View
             style={styles.infoBoard}>
@@ -45,7 +46,7 @@ const plantbaseUrl = 'http://localhost:8000/api/plants/';
                     </Image>
                     <View>
                         <Text style= {styles.infoHeader}>Sunlight</Text>
-                        <Text>Medium</Text>
+                        <Text>{Sun}</Text>
                     </View> 
                 </View>
                 <View style={{ flex: 2, flexDirection:"row"}}>
@@ -55,7 +56,7 @@ const plantbaseUrl = 'http://localhost:8000/api/plants/';
                     </Image>
                     <View>
                         <Text style= {styles.infoHeader}>Water</Text>
-                        <Text>30%</Text>
+                        <Text>{Water}</Text>
                     </View> 
                 </View>
                 <View style={{ flex: 2, flexDirection:"row"}}>
@@ -65,17 +66,17 @@ const plantbaseUrl = 'http://localhost:8000/api/plants/';
                     </Image>
                     <View>
                         <Text style= {styles.infoHeader}>Nutrition</Text>
-                        <Text>15mg</Text>
+                        <Text>{Nutrition}</Text>
                     </View> 
                 </View>
         </View>
         <Text 
             style={styles.description}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce non semper turpis, ac cursus risus. Morbi interdum metus molestie nisl pretium tristique. Morbi tortor justo, euismod ut dignissim eget, vestibulum in lorem. Donec molestie diam eget elit finibus dapibus. Duis vel tellus in leo feugiat posuere a ac orci. Vestibulum elementum tincidunt urna vel mollis. Quisque sit amet pulvinar lorem. Mauris sit amet quam in odio porttitor gravida at sed arcu. 
+                {Description} 
         </Text>
         <TouchableOpacity 
             style={styles.circle}
-            onPress={() => Alert.alert('Watering can button pressed')}>
+            onPress={() => navigation.navigate("Watered")}>
             <Image style={styles.wateringCan}
                     source={require("../assets/wateringCan.png")}>
                     
