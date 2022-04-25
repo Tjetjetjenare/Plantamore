@@ -76,7 +76,7 @@ const plantbaseUrl = 'http://localhost:8000/api/plants/';
         </Text>
         <TouchableOpacity 
             style={styles.circle}
-            onPress={() => Alert.alert('Watering can button pressed')}>
+            onPress={() => navigation.navigate("Watered")}>
             <Image style={styles.wateringCan}
                     source={require("../assets/wateringCan.png")}>
                     
