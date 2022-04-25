@@ -37,6 +37,7 @@ const DATA = [
     image: require("../assets/testPlant.png"), 
     id: 6, 
     },
+
 ];
 
 const Item = ({ title, image,id }) => (
@@ -58,68 +59,45 @@ function Watered(props) {
         <Item title={item.title} 
               image={item.image}
               id = {item.id}
+              
               /> )
 
     return (
         <SafeAreaView style={styles.container}>
-            <ScrollView>
-                <View style={styles.symbols}>
-                    <Image 
-                        style={styles.burgerMenu} 
-                        source={require("../assets/burgerMenu.png")}>
-                    </Image>
-                    <Image 
-                        style={styles.calendar} 
-                        source={require("../assets/calendar.png")}>
-                    </Image>
-                </View>
-                <Text style={styles.thankYou}>Your plants thank you!</Text>
-                <View style={styles.waterCanContainer}>
-                    <Image 
-                        style={styles.wateringCanPic}
-                        source={require("../assets/wateringCanBig.png")}>
-                    </Image>
-                </View>
-                <Text style={styles.selectText}>Select the plants you have watered today.</Text>
-                <View style={styles.scrollView}
-                    contentContainerStyle={{flexDirection:'row'}}>
-                    <FlatList 
-                        data={DATA}
-                        numColumns={3}
-                        columnWrapperStyle={styles.flatList}
-                        renderItem={renderItem}
-                        keyExtractor={item => item.id}
-                    />
-                </View>
-                <Text style={styles.selectText}>Select the plants you have given nutrition to today.</Text>
-                <View style={styles.scrollView}
-                    contentContainerStyle={{flexDirection:'row'}}>
-                    <FlatList 
-                        data={DATA}
-                        numColumns={3}
-                        columnWrapperStyle={styles.flatList}
-                        renderItem={renderItem}
-                        keyExtractor={item => item.id}
-                    />
-                </View>
-                <Text style={styles.selectText}>Select the plants you have replanted today.</Text>
-                <View style={styles.scrollView}
-                    contentContainerStyle={{flexDirection:'row'}}>
-                    <FlatList 
-                        data={DATA}
-                        numColumns={3}
-                        columnWrapperStyle={styles.flatList}
-                        renderItem={renderItem}
-                        keyExtractor={item => item.id}
-                    />
-                </View>
-            </ScrollView>
-            <TouchableOpacity 
-                style={styles.circle}
-                onPress={() => Alert.alert('Plants have been cared for.')}>
-                <Text>Save</Text>
-            </TouchableOpacity>
-        </SafeAreaView>
+        <View style={styles.symbols}>
+            <Image 
+                style={styles.burgerMenu} 
+                source={require("../assets/burgerMenu.png")}>
+            </Image>
+            <Image 
+                style={styles.calendar} 
+                source={require("../assets/calendar.png")}>
+            </Image>
+        </View>
+        <Text style={styles.thankYou}>Your plants thank you!</Text>
+        <View style={styles.waterCanContainer}>
+            <Image 
+                 style={styles.wateringCanPic}
+                source={require("../assets/wateringCanBig.png")}>
+            </Image>
+        </View>
+        <Text style={styles.selectText}>Select the plants you have watered today.</Text>
+        <View style={styles.scrollView}
+              contentContainerStyle={{flexDirection:'row'}}>
+            <FlatList 
+                data={DATA}
+                numColumns={3}
+                columnWrapperStyle={styles.flatList}
+                renderItem={renderItem}
+                keyExtractor={item => item.id}
+            />
+         </View>
+        <TouchableOpacity 
+            style={styles.circle}
+            onPress={() => Alert.alert('Plant has been watered')}>
+            <Text>Save</Text>
+        </TouchableOpacity>
+    </SafeAreaView>
     );
 }
 
@@ -170,7 +148,6 @@ const styles = StyleSheet.create({
     selectText: {
         color: 'black', 
         alignSelf: 'center',
-        textAlign: 'center',
         top: 20, 
         fontSize: 20, 
     },
@@ -202,7 +179,6 @@ const styles = StyleSheet.create({
         width: 70, 
         backgroundColor: "#fff",
         left: "75%",
-        top: "2%", 
         borderRadius: 35, 
         justifyContent: "center",
         alignItems: "center",

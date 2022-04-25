@@ -18,6 +18,7 @@ import CustomDrawer from './components/CustomDrawer';
 
 const plantbaseUrl = 'http://localhost:8000/api/plants/';
 const userbaseUrl = 'http://localhost:8000/api/users/';
+import Watered from './screens/Watered';
 const Stack = createNativeStackNavigator();
 
 const Drawer = createDrawerNavigator();
@@ -257,7 +258,14 @@ export default function App() {
           />
         <Stack.Screen
           name = "PlantDB"
-          component={PlantDBProfile}
+          component={PlantDBProfile}/>
+        <Stack.Screen
+          name = "CreateSub"
+          component={CreatePlantSubprofile}
+          />
+          <Stack.Screen
+          name = "Watered"
+          component={Watered}
           />
       </Stack.Navigator>
     </NavigationContainer>

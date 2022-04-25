@@ -44,10 +44,15 @@ const DATA = [
     },
 ];
 
-const Item = ({ title, image,id }) => (
+const Item = ({ title, image,id, navigation }) => (
     <TouchableOpacity 
         onPress={()=>{
+            if(id == "add"){
+                navigation.navigate('CreateSub')
+            }
+            else{
             alert(id);
+        }
         }}>
         <View style={styles.item}>
             <Text style={styles.title}>{title}</Text>
@@ -64,6 +69,7 @@ function Profile({navigation}) {
         <Item title={item.title} 
               image={item.image}
               id = {item.id}
+              navigation = {navigation}
               
               /> );
   
