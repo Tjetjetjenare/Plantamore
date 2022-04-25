@@ -44,12 +44,10 @@ function doWater(id) {
     for (let i=0;i<wateredplants.length;i++ ){
         if (id == wateredplants[i]){
             wateredplants.splice(i,1);
-            console.log(wateredplants)
             return
         }
     }
     wateredplants.push(id)
-    console.log(wateredplants)
 }
 const Item = ({ title, image, id }) => {
     const [pres, setPres] = useState(false);
