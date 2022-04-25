@@ -226,8 +226,13 @@ const CONTENT = [
     },
 ];
 
+// export default function App() {
+//   const [multiSelect, setmultiSelect] = useState(false);
+
+
+// const Drawer = createDrawerNavigator();
+
 export default function App() {
-  const [multiSelect, setmultiSelect] = useState(false);
   <NavigationContainer>
     <Stack.Navigator
       screenOptions={{
@@ -257,9 +262,9 @@ export default function App() {
           name = "Profile"
           component={Profile}
           />
-        <Stack.Screen
+        {/* <Stack.Screen
           name = "PlantDB"
-          component={PlantDBProfile}/>
+          component={PlantDBProfile}/> */}
         <Stack.Screen
           name = "CreateSub"
           component={CreatePlantSubprofile}
@@ -267,6 +272,7 @@ export default function App() {
           <Stack.Screen
           name = "Watered"
           component={Watered}
+          component={PlantDBProfile}
           />
       </Stack.Navigator>
     </NavigationContainer>
