@@ -81,7 +81,6 @@ const plantbaseUrl = 'http://localhost:8000/api/plants/';
                     
             </Image>
         </TouchableOpacity>
-
      </SafeAreaView>
   );
   
