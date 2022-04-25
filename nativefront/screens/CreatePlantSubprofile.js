@@ -76,7 +76,7 @@ function CreatePlantSubprofile(props) {
                     source={require("../assets/backArrow.png")}>
                 </Image>
                 <Text style={styles.header}>Add a new plant to your garden!</Text>
-                <TouchableOpacity onPress={() => Alert.alert('I want to change image')}>
+                <TouchableOpacity style={styles.plantTouch} onPress={() => Alert.alert('I want to change image')}>
                     <Image
                         style={styles.plantPic}
                         source={require("../assets/addimg.png")}>
@@ -165,7 +165,15 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderRadius:75,
         alignSelf: "center",
+        
+    },
+    plantTouch: {
+        width: 150, 
+        height: undefined,
+        aspectRatio: 1,
+        borderRadius:75,
         margin: 20,
+        alignSelf: "center",
     },
     imgText: {
         fontSize: 10,
