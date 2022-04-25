@@ -272,7 +272,7 @@ export default function App() {
           <Stack.Screen
           name = "Watered"
           component={Watered}
-          component={PlantDBProfile}
+          // component={PlantDBProfile}
           />
       </Stack.Navigator>
     </NavigationContainer>
