@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-
+# if You update models here, remember to change Serializers too
 
 class Todo(models.Model):
     title = models.CharField(max_length=120)
