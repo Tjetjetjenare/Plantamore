@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useState, useEffect} from 'react';
 import { SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, Alert, View, ScrollView, FlatList} from 'react-native';
 
 const DATA = [
@@ -39,27 +39,59 @@ const DATA = [
     },
 
 ];
-
-const Item = ({ title, image,id }) => (
+const wateredplants = [];
+function doWater(id) {
+    for (let i=0;i<wateredplants.length;i++ ){
+        if (id == wateredplants[i]){
+            wateredplants.splice(i,1);
+            return
+        }
+    }
+    wateredplants.push(id)
+}
+const Item = ({ title, image, id }) => {
+    const [pres, setPres] = useState(false);
+    if (pres){
+    return(
     <TouchableOpacity 
         onPress={()=>{
-            alert(id);
+            doWater(id);
+            setPres(!pres);
         }}>
         <View style={styles.item}>
             <Text style={styles.title}>{title}</Text>
-            <Image style={styles.image}
+            <View style={styles.presblue}>
+            <Image style={styles.imagepres}
                 source={image}> 
             </Image>
+            </View>
         </View>
     </TouchableOpacity>
-  );
+  )}
+  else{
+    return(
+        <TouchableOpacity 
+            onPress={()=>{
+                doWater(id);
+             setPres(!pres);
+            }}>
+            <View style={styles.item}>
+                <Text style={styles.title}>{title}</Text>
+                <Image style={styles.image}
+                    source={image}> 
+                </Image>
+            </View>
+        </TouchableOpacity>
+      )
+  }
+};
 
-function Watered(props) {
+function Watered({navigation},props) {
+    
     const renderItem = ({ item }) => (
         <Item title={item.title} 
               image={item.image}
               id = {item.id}
-              
               /> )
 
     return (
@@ -72,6 +104,7 @@ function Watered(props) {
             <Image 
                 style={styles.calendar} 
                 source={require("../assets/calendar.png")}>
+                    
             </Image>
         </View>
         <Text style={styles.thankYou}>Your plants thank you!</Text>
@@ -94,12 +127,12 @@ function Watered(props) {
          </View>
         <TouchableOpacity 
             style={styles.circle}
-            onPress={() => Alert.alert('Plant has been watered')}>
+            onPress={() => alert(wateredplants)}>
             <Text>Save</Text>
         </TouchableOpacity>
     </SafeAreaView>
     );
-}
+} 
 
 export default Watered;
 
@@ -161,18 +194,23 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly', 
     },
     subPlant: {
-        alignItems: 'center',
-        top: '10%',
+        alignItems: 'center', 
+        top: '10%', 
     },
     title: {
         color: 'white', 
-        fontSize: 15,  
-        alignSelf: 'center',
+        fontSize: 15, 
+        alignSelf: 'center', 
     },
-    image: {
+    imagepres: {
         height: 110, 
         width: 110, 
-        top: '5%',  
+        opacity:0.5, 
+    },
+    image:{
+        height: 110, 
+        width: 110, 
+        
     },
     circle: {
         height: 70, 
@@ -187,4 +225,9 @@ const styles = StyleSheet.create({
         height: "70%",
         width: "70%",
     },
+    presblue:{
+        backgroundColor:"blue",
+        opacity: 1,
+        borderRadius:70,
+    }
 })
