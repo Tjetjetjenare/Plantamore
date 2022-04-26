@@ -13,7 +13,6 @@ import Calendar from './screens/Calendar';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
-import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import CustomDrawer from './components/CustomDrawer';
 
@@ -23,6 +22,8 @@ import Watered from './screens/Watered';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
+
+// error in PlantDBProfile, after recent pull 
 
 export default function App() {
 
