@@ -26,7 +26,7 @@ class Plant(models.Model):
     family = models.CharField(max_length=100)
 
     def __str__(self):
-        return self.swedish_name
+        return str(self.p_id) + ' - ' + self.swedish_name
 
 
 class User(models.Model):
