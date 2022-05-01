@@ -10,8 +10,6 @@ import LogIn from './screens/LogIn';
 import PlantDBProfile from './screens/PlantDBProfile';
 import PlantSubprofile from './screens/PlantSubprofile';
 import Profile from './screens/Profile';
-import Nutrition from './screens/Nutrition';
-import Replant from './screens/Replant';
 import Calendar from './screens/Calendar';
 import CreatePlantSubprofile from './screens/CreatePlantSubprofile';
 import { NavigationContainer } from '@react-navigation/native';
@@ -20,7 +18,6 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CustomDrawer from './components/CustomDrawer';
 import Watered from './screens/Watered';
-
 
 const Drawer = createDrawerNavigator();
 
@@ -44,7 +41,7 @@ function DrawerSideMenu() {
       >
         <Drawer.Screen
           name="Plant Cat 1"
-          component={Replant}
+          component={Watered}
           // options={{
           //   title:'Plant Cat 1',
           //   headerStyle: {
@@ -94,26 +91,26 @@ function DrawerSideMenu() {
         <Drawer.Screen
           name="Settings"
           component={Home}
-        //   options={{
-        //     title:'Settings',
-        //     headerStyle: {
-        //       backgroundColor: '#FFF'
-        //     },
-        //     drawerIcon: () => (
-        //     <Ionicons name="settings-outline" size={25} color={'#000'} />
-        //   )}}
-        // />
-        // <Drawer.Screen
-        //   name="Guide"
-        //   component={Home}
-        //   options={{
-        //     title:'Guide',
-        //     headerStyle: {
-        //       backgroundColor: '#FFF'
-        //     },
-        //     drawerIcon: () => (
-        //     <Ionicons name="information-circle-outline" size={25} color={'#000'} />
-        //   )}}
+          // options={{
+          //   title:'Settings',
+          //   headerStyle: {
+          //     backgroundColor: '#FFF'
+          //   },
+          //   drawerIcon: () => (
+          //   <Ionicons name="settings-outline" size={25} color={'#000'} />
+          // )}}
+        />
+        <Drawer.Screen
+          name="Guide"
+          component={Home}
+          // options={{
+          //   title:'Guide',
+          //   headerStyle: {
+          //     backgroundColor: '#FFF'
+          //   },
+          //   drawerIcon: () => (
+          //   <Ionicons name="information-circle-outline" size={25} color={'#000'} />
+          // )}}
         />
         <Drawer.Screen
           name="Profile"
@@ -148,7 +145,6 @@ function DrawerSideMenu() {
           //   />
           //   </View>,
           // })}
-
         />
       </Drawer.Navigator>
   );
