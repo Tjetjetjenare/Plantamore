@@ -95,7 +95,7 @@ function LogInScreen({navigation}) {
                 style = {styles.accountText}>
                 Don't have an account yet?
             </Text>
-            <TouchableOpacity onPress={() => Alert.alert("Sign up", "You have pressed to sign up")}>
+            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
                 <Text style={styles.signUpButton}>Sign up</Text>
             </TouchableOpacity>
         </SafeAreaView>
