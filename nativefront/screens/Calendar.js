@@ -60,12 +60,12 @@ function Calendar({navigation},props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate('Profile')}>          
+      {/* <TouchableOpacity onPress={() => navigation.navigate('Profile')}>          
        <Image 
           style={styles.exitContainer} 
           source={require("../assets/exit(x).png")}>
         </Image>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <Text 
           style= {styles.calendarHeader}>
           Calendar

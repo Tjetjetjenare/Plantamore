@@ -76,7 +76,7 @@ function Profile({navigation}) {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.symbols}>
-                <Image 
+                {/* <Image 
                     style={styles.burgerMenu} 
                     source={require("../assets/burgerMenu.png")}>
                 </Image>
@@ -85,7 +85,7 @@ function Profile({navigation}) {
                     style={styles.calendar} 
                     source={require("../assets/calendar.png")}>
                 </Image>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
             <Text style={styles.userName}>Name</Text>
             <Image 
@@ -106,7 +106,7 @@ function Profile({navigation}) {
                 style={styles.circle}
                 onPress={() => Alert.alert('Watering can button pressed')}>
                 <Image style={styles.wateringCan}
-                        source={require("../assets/wateringCan.png")}>  
+                        source={require("../assets/plantCare.png")}>  
                 </Image>
             </TouchableOpacity>
         </SafeAreaView>

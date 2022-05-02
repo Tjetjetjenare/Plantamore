@@ -130,7 +130,7 @@ function Home({navigation}) {
               or {"\n"}Sign up to get started
         </Text>
         <View style={styles.loginWrap}>
-          <StandardButton sizeFont={20} title="Log in" functionOnPress={() => navigation.navigate('Nutrition')} />
+          <StandardButton sizeFont={20} title="Log in" functionOnPress={() => navigation.navigate('Watered')} />
         </View>
         <View style={styles.loginWrap}>
           <StandardButton sizeFont={20} title="Sign up" functionOnPress={() => navigation.navigate('SignUp')}/>

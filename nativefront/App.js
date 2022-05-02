@@ -1,3 +1,4 @@
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Ionicons, FontAwesome } from "@expo/vector-icons";
 import { StatusBar } from 'expo-status-bar';
@@ -11,6 +12,9 @@ import PlantDBProfile from './screens/PlantDBProfile';
 import PlantSubprofile from './screens/PlantSubprofile';
 import Profile from './screens/Profile';
 import Calendar from './screens/Calendar';
+import Nutrition from './screens/Nutrition';
+import Replant from './screens/Replant';
+import Guide from './screens/Guide';
 import CreatePlantSubprofile from './screens/CreatePlantSubprofile';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -20,6 +24,73 @@ import CustomDrawer from './components/CustomDrawer';
 import Watered from './screens/Watered';
 
 const Drawer = createDrawerNavigator();
+
+const Tab = createMaterialBottomTabNavigator();
+
+function BottomTabs() {
+  return (
+    <Tab.Navigator
+      initialRouteName="Contacts"
+      activeColor="white"
+      inactiveColor="grey"
+      shifting={true}
+      barStyle={{
+        backgroundColor: 'white',
+        // paddingBottom: 10,
+      }}
+    >
+      <Tab.Screen
+        name="Screen 1"
+        component={Watered}
+        options={{
+          tabBarColor: '#FFFFFF',
+          tabBarIcon: ({ color }) => <Ionicons name="leaf-outline" size={30} color='#000000' />
+        }}
+      />
+      <Tab.Screen
+        name="Screen 2"
+        component={Nutrition}
+        options={{
+          tabBarColor: '#FFFFFF',
+          tabBarIcon: ({ color }) => <Ionicons name="leaf-outline" size={30} color='#000000' />
+        }}
+      />
+      <Tab.Screen
+        name="Screen 3"
+        component={Replant}
+        options={{
+          tabBarColor: '#FFFFFF',
+          tabBarIcon: ({ color }) => <Ionicons name="leaf-outline" size={30} color='#000000' />
+        }}
+      />
+    </Tab.Navigator>
+  );
+}
+
+const S1 = () => {
+  return (
+    <View style={styles.container}>
+      <Text>Screen 1</Text>
+    </View>
+  );
+}
+
+const S2 = () => {
+  return (
+    <View style={styles.container}>
+      <Text>Screen 2</Text>
+    </View>
+  );
+}
+
+const S3 = () => {
+  return (
+    <View style={styles.container}>
+      <Text>Screen 3</Text>
+    </View>
+  );
+}
+
 
 function DrawerSideMenu() {
   return (
@@ -41,40 +112,40 @@ function DrawerSideMenu() {
       >
         <Drawer.Screen
           name="Plant Cat 1"
-          component={Watered}
-          // options={{
-          //   title:'Plant Cat 1',
-          //   headerStyle: {
-          //     backgroundColor: '#FFF'
-          //   },
-          //   drawerIcon: () => (
-          //   <Ionicons name="leaf-outline" size={25} color={'#000'} />
-          // )}}
+          component={BottomTabs}
+          options={{
+            title:'Plant Cat 1',
+            headerStyle: {
+              backgroundColor: '#FFF'
+            },
+            drawerIcon: () => (
+            <Ionicons name="leaf-outline" size={25} color={'#000'} />
+          )}}
         />
         <Drawer.Screen
           name="Plant Cat 2"
           component={PlantDBProfile}
-          // options={({ navigation }) => ({
-          //   headerShown: true,
-          //   headerStyle: {
-          //     elevation: 0,
-          //     shadowOpacity: 0,
-          //     borderBottomWidth: 0,
-          //     backgroundColor: 'white'
-          //   },
-          //   drawerIcon: () => (
-          //     <Ionicons name="leaf-outline" size={25} color={'#000'} />
-          //   ),
-          //   headerLeft: () =>
-          //   <View style={{ marginRight: 10 }}>
-          //     <Ionicons
-          //       name="chevron-back-outline"
-          //       color="black"
-          //       size={25}
-          //       onPress={() => navigation.toggleDrawer()}
-          //   />
-          //   </View>,
-          // })}
+          options={({ navigation }) => ({
+            headerShown: true,
+            headerStyle: {
+              elevation: 0,
+              shadowOpacity: 0,
+              borderBottomWidth: 0,
+              backgroundColor: 'white'
+            },
+            drawerIcon: () => (
+              <Ionicons name="leaf-outline" size={25} color={'#000'} />
+            ),
+            headerLeft: () =>
+            <View style={{ marginRight: 10 }}>
+              <Ionicons
+                name="chevron-back-outline"
+                color="black"
+                size={25}
+                onPress={() => navigation.toggleDrawer()}
+            />
+            </View>,
+          })}
         />
         <Drawer.Screen
           name="Homea"
@@ -91,60 +162,60 @@ function DrawerSideMenu() {
         <Drawer.Screen
           name="Settings"
           component={Home}
-          // options={{
-          //   title:'Settings',
-          //   headerStyle: {
-          //     backgroundColor: '#FFF'
-          //   },
-          //   drawerIcon: () => (
-          //   <Ionicons name="settings-outline" size={25} color={'#000'} />
-          // )}}
+          options={{
+            title:'Settings',
+            headerStyle: {
+              backgroundColor: '#FFF'
+            },
+            drawerIcon: () => (
+            <Ionicons name="settings-outline" size={25} color={'#000'} />
+          )}}
         />
         <Drawer.Screen
           name="Guide"
-          component={Home}
-          // options={{
-          //   title:'Guide',
-          //   headerStyle: {
-          //     backgroundColor: '#FFF'
-          //   },
-          //   drawerIcon: () => (
-          //   <Ionicons name="information-circle-outline" size={25} color={'#000'} />
-          // )}}
+          component={Guide}
+          options={{
+            title:'Guide',
+            headerStyle: {
+              backgroundColor: '#FFF'
+            },
+            drawerIcon: () => (
+            <Ionicons name="information-circle-outline" size={25} color={'#000'} />
+          )}}
         />
         <Drawer.Screen
           name="Profile"
           component={Profile}
-          // options={({ navigation }) => ({
-          //   headerShown: true,
-          //   headerStyle: {
-          //     elevation: 0,
-          //     shadowOpacity: 0,
-          //     borderBottomWidth: 0,
-          //     backgroundColor: '#7E9B6D'
-          //   },
-          //   drawerIcon: () => (
-          //     <Ionicons name="information-circle-outline" size={25} color={'#000'} />
-          //   ),
-          //   headerLeft: () =>
-          //   <View style={{ marginRight: 10 }}>
-          //     <Ionicons
-          //       name="menu-outline"
-          //       color="black"
-          //       size={25}
-          //       onPress={() => navigation.toggleDrawer()}
-          //   />
-          //   </View>,
-          //   headerRight: () =>
-          //   <View style={{ marginRight: 10 }}>
-          //     <Ionicons
-          //       name="calendar-outline"
-          //       color="black"
-          //       size={25}
-          //       onPress={() => navigation.navigate('Calendar')}
-          //   />
-          //   </View>,
-          // })}
+          options={({ navigation }) => ({
+            headerShown: true,
+            headerStyle: {
+              elevation: 0,
+              shadowOpacity: 0,
+              borderBottomWidth: 0,
+              backgroundColor: '#7E9B6D'
+            },
+            drawerIcon: () => (
+              <Ionicons name="person-outline" size={25} color={'#000'} />
+            ),
+            headerLeft: () =>
+            <View style={{ marginRight: 10 }}>
+              <Ionicons
+                name="menu-outline"
+                color="black"
+                size={40}
+                onPress={() => navigation.toggleDrawer()}
+            />
+            </View>,
+            headerRight: () =>
+            <View style={{ marginRight: 10 }}>
+              <Ionicons
+                name="calendar-outline"
+                color="black"
+                size={35}
+                onPress={() => navigation.navigate('Calendar')}
+            />
+            </View>,
+          })}
         />
       </Drawer.Navigator>
   );
@@ -206,46 +277,46 @@ const StackNavigator = () => {
           <Stack.Screen
           name = "LogIn"
           component={LogIn}
-          // options={({ navigation }) => ({
-          //   headerShown: true,
-          //   headerStyle: {
-          //     elevation: 0,
-          //     shadowOpacity: 0,
-          //     borderBottomWidth: 0,
-          //     backgroundColor: '#7E9B6D'
-          //   },
-          //   headerLeft: () =>
-          //   <View style={{ marginRight: 10 }}>
-          //     <Ionicons
-          //       name="chevron-back-outline"
-          //       color="black"
-          //       size={35}
-          //       onPress={() => navigation.navigate('Home')}
-          //   />
-          //   </View>,
-          // })}
+          options={({ navigation }) => ({
+            headerShown: true,
+            headerStyle: {
+              elevation: 0,
+              shadowOpacity: 0,
+              borderBottomWidth: 0,
+              backgroundColor: '#7E9B6D'
+            },
+            headerLeft: () =>
+            <View style={{ marginRight: 10 }}>
+              <Ionicons
+                name="chevron-back-outline"
+                color="black"
+                size={35}
+                onPress={() => navigation.navigate('Home')}
+            />
+            </View>,
+          })}
           />
           <Stack.Screen
           name = "SignUp"
           component={SignUp}
-          // options={({ navigation }) => ({
-          //   headerShown: true,
-          //   headerStyle: {
-          //     elevation: 0,
-          //     shadowOpacity: 0,
-          //     borderBottomWidth: 0,
-          //     backgroundColor: '#7E9B6D'
-          //   },
-          //   headerLeft: () =>
-          //   <View style={{ marginRight: 10 }}>
-          //     <Ionicons
-          //       name="chevron-back-outline"
-          //       color="black"
-          //       size={35}
-          //       onPress={() => navigation.navigate('Home')}
-          //   />
-          //   </View>,
-          // })}
+          options={({ navigation }) => ({
+            headerShown: true,
+            headerStyle: {
+              elevation: 0,
+              shadowOpacity: 0,
+              borderBottomWidth: 0,
+              backgroundColor: '#7E9B6D'
+            },
+            headerLeft: () =>
+            <View style={{ marginRight: 10 }}>
+              <Ionicons
+                name="chevron-back-outline"
+                color="black"
+                size={35}
+                onPress={() => navigation.navigate('Home')}
+            />
+            </View>,
+          })}
           />
           <Stack.Screen
           name = "PlantSub"
@@ -254,55 +325,55 @@ const StackNavigator = () => {
            <Stack.Screen
           name = "Calendar"
           component={Calendar}
-          // options={({ navigation }) => ({
-          //   headerShown: true,
-          //   headerStyle: {
-          //     elevation: 0,
-          //     shadowOpacity: 0,
-          //     borderBottomWidth: 0,
-          //     backgroundColor: 'white'
-          //   },
-          //   headerLeft: () =>
-          //   <View style={{ marginRight: 10 }}>
-          //     <Ionicons
-          //       name="close-outline"
-          //       color="black"
-          //       size={45}
-          //       onPress={() => navigation.navigate('Profile')}
-          //   />
-          //   </View>,
-          // })}
+          options={({ navigation }) => ({
+            headerShown: true,
+            headerStyle: {
+              elevation: 0,
+              shadowOpacity: 0,
+              borderBottomWidth: 0,
+              backgroundColor: 'white'
+            },
+            headerLeft: () =>
+            <View style={{ marginRight: 10 }}>
+              <Ionicons
+                name="close-outline"
+                color="black"
+                size={45}
+                onPress={() => navigation.navigate('Profile')}
+            />
+            </View>,
+          })}
           />
           <Stack.Screen
           name = "Profile"
           component={Profile}
-          // options={({ navigation }) => ({
-          //   headerShown: true,
-          //   headerStyle: {
-          //     elevation: 0,
-          //     shadowOpacity: 0,
-          //     borderBottomWidth: 0,
-          //     backgroundColor: '#7E9B6D'
-          //   },
-          //   headerLeft: () =>
-          //   <View style={{ marginRight: 10 }}>
-          //     <Ionicons
-          //       name="menu-outline"
-          //       color="black"
-          //       size={40}
-          //       onPress={() => navigation.toggleDrawer()}
-          //   />
-          //   </View>,
-          //   headerRight: () =>
-          //   <View style={{ marginRight: 10 }}>
-          //     <Ionicons
-          //       name="calendar-outline"
-          //       color="black"
-          //       size={35}
-          //       onPress={() => navigation.navigate('Calendar')}
-          //   />
-          //   </View>,
-          // })}
+          options={({ navigation }) => ({
+            headerShown: true,
+            headerStyle: {
+              elevation: 0,
+              shadowOpacity: 0,
+              borderBottomWidth: 0,
+              backgroundColor: '#7E9B6D'
+            },
+            headerLeft: () =>
+            <View style={{ marginRight: 10 }}>
+              <Ionicons
+                name="menu-outline"
+                color="black"
+                size={40}
+                onPress={() => navigation.toggleDrawer()}
+            />
+            </View>,
+            headerRight: () =>
+            <View style={{ marginRight: 10 }}>
+              <Ionicons
+                name="calendar-outline"
+                color="black"
+                size={35}
+                onPress={() => navigation.navigate('Calendar')}
+            />
+            </View>,
+          })}
           />
 
         <Stack.Screen
@@ -317,33 +388,33 @@ const StackNavigator = () => {
           <Stack.Screen
           name = "Watered"
           component={Watered}
-          // options={({ navigation }) => ({
-          //   headerShown: true,
-          //   headerStyle: {
-          //     elevation: 0,
-          //     shadowOpacity: 0,
-          //     borderBottomWidth: 0,
-          //     backgroundColor: '#7E9B6D'
-          //   },
-          //   headerLeft: () =>
-          //   <View style={{ marginRight: 10 }}>
-          //     <Ionicons
-          //       name="menu-outline"
-          //       color="black"
-          //       size={40}
-          //       onPress={() => navigation.toggleDrawer()}
-          //   />
-          //   </View>,
-          //   headerRight: () =>
-          //   <View style={{ marginRight: 10 }}>
-          //     <Ionicons
-          //       name="calendar-outline"
-          //       color="black"
-          //       size={35}
-          //       onPress={() => navigation.navigate('Calendar')}
-          //   />
-          //   </View>,
-          // })}
+          options={({ navigation }) => ({
+            headerShown: true,
+            headerStyle: {
+              elevation: 0,
+              shadowOpacity: 0,
+              borderBottomWidth: 0,
+              backgroundColor: '#7E9B6D'
+            },
+            headerLeft: () =>
+            <View style={{ marginRight: 10 }}>
+              <Ionicons
+                name="menu-outline"
+                color="black"
+                size={40}
+                onPress={() => navigation.toggleDrawer()}
+            />
+            </View>,
+            headerRight: () =>
+            <View style={{ marginRight: 10 }}>
+              <Ionicons
+                name="calendar-outline"
+                color="black"
+                size={35}
+                onPress={() => navigation.navigate('Calendar')}
+            />
+            </View>,
+          })}
           />
     </Stack.Navigator>
   )

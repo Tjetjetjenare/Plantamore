@@ -97,7 +97,7 @@ function Watered({navigation},props) {
     return (
         <SafeAreaView style={styles.container}>
         <View style={styles.symbols}>
-            <Image 
+            {/* <Image 
                 style={styles.burgerMenu} 
                 source={require("../assets/burgerMenu.png")}>
             </Image>
@@ -105,7 +105,7 @@ function Watered({navigation},props) {
                 style={styles.calendar} 
                 source={require("../assets/calendar.png")}>
                     
-            </Image>
+            </Image> */}
         </View>
         <Text style={styles.thankYou}>Your plants thank you!</Text>
         <View style={styles.waterCanContainer}>
