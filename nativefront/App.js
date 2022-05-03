@@ -55,14 +55,14 @@ function DrawerSideMenu() {
         />
         <Drawer.Screen
           name="Plant Cat 2"
-          component={PlantDBProfile}
+          component={PlantDatabase}
           options={({ navigation }) => ({
             headerShown: true,
             headerStyle: {
               elevation: 0,
               shadowOpacity: 0,
               borderBottomWidth: 0,
-              backgroundColor: 'white'
+              backgroundColor: '#7E9B6D'
             },
             drawerIcon: () => (
               <Ionicons name="leaf-outline" size={25} color={'#000'} />
