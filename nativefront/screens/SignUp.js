@@ -44,7 +44,7 @@ function SignUp({navigation}) {
         throw new Error("An error has occurred");
         }
     } catch (error) {
-        alert("An error has occurred");
+        alert("This email is already registered. Pick another email.");
         console.log("username: ",fullName,"email: ", email,"pass: ", password)
         setIsLoading(false);
     }

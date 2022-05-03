@@ -18,10 +18,12 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import CustomDrawer from './components/CustomDrawer';
 import Watered from './screens/Watered';
+import PlantDatabase from './screens/PlantDatabase';
 
 const Drawer = createDrawerNavigator();
 
 function DrawerSideMenu() {
+
   return (
     <Drawer.Navigator drawerContent ={ props => <CustomDrawer {...props} />}
         screenOptions={{
@@ -42,39 +44,39 @@ function DrawerSideMenu() {
         <Drawer.Screen
           name="Plant Cat 1"
           component={Watered}
-          // options={{
-          //   title:'Plant Cat 1',
-          //   headerStyle: {
-          //     backgroundColor: '#FFF'
-          //   },
-          //   drawerIcon: () => (
-          //   <Ionicons name="leaf-outline" size={25} color={'#000'} />
-          // )}}
+          options={{
+            title:'Plant Cat 1',
+            headerStyle: {
+              backgroundColor: '#FFF'
+            },
+            drawerIcon: () => (
+            <Ionicons name="leaf-outline" size={25} color={'#000'} />
+          )}}
         />
         <Drawer.Screen
           name="Plant Cat 2"
           component={PlantDBProfile}
-          // options={({ navigation }) => ({
-          //   headerShown: true,
-          //   headerStyle: {
-          //     elevation: 0,
-          //     shadowOpacity: 0,
-          //     borderBottomWidth: 0,
-          //     backgroundColor: 'white'
-          //   },
-          //   drawerIcon: () => (
-          //     <Ionicons name="leaf-outline" size={25} color={'#000'} />
-          //   ),
-          //   headerLeft: () =>
-          //   <View style={{ marginRight: 10 }}>
-          //     <Ionicons
-          //       name="chevron-back-outline"
-          //       color="black"
-          //       size={25}
-          //       onPress={() => navigation.toggleDrawer()}
-          //   />
-          //   </View>,
-          // })}
+          options={({ navigation }) => ({
+            headerShown: true,
+            headerStyle: {
+              elevation: 0,
+              shadowOpacity: 0,
+              borderBottomWidth: 0,
+              backgroundColor: 'white'
+            },
+            drawerIcon: () => (
+              <Ionicons name="leaf-outline" size={25} color={'#000'} />
+            ),
+            headerLeft: () =>
+            <View style={{ marginRight: 10 }}>
+              <Ionicons
+                name="chevron-back-outline"
+                color="black"
+                size={25}
+                onPress={() => navigation.toggleDrawer()}
+            />
+            </View>,
+          })}
         />
         <Drawer.Screen
           name="Homea"
@@ -91,60 +93,60 @@ function DrawerSideMenu() {
         <Drawer.Screen
           name="Settings"
           component={Home}
-          // options={{
-          //   title:'Settings',
-          //   headerStyle: {
-          //     backgroundColor: '#FFF'
-          //   },
-          //   drawerIcon: () => (
-          //   <Ionicons name="settings-outline" size={25} color={'#000'} />
-          // )}}
+          options={{
+            title:'Settings',
+            headerStyle: {
+              backgroundColor: '#FFF'
+            },
+            drawerIcon: () => (
+            <Ionicons name="settings-outline" size={25} color={'#000'} />
+          )}}
         />
         <Drawer.Screen
           name="Guide"
           component={Home}
-          // options={{
-          //   title:'Guide',
-          //   headerStyle: {
-          //     backgroundColor: '#FFF'
-          //   },
-          //   drawerIcon: () => (
-          //   <Ionicons name="information-circle-outline" size={25} color={'#000'} />
-          // )}}
+          options={{
+            title:'Guide',
+            headerStyle: {
+              backgroundColor: '#FFF'
+            },
+            drawerIcon: () => (
+            <Ionicons name="information-circle-outline" size={25} color={'#000'} />
+          )}}
         />
         <Drawer.Screen
           name="Profile"
           component={Profile}
-          // options={({ navigation }) => ({
-          //   headerShown: true,
-          //   headerStyle: {
-          //     elevation: 0,
-          //     shadowOpacity: 0,
-          //     borderBottomWidth: 0,
-          //     backgroundColor: '#7E9B6D'
-          //   },
-          //   drawerIcon: () => (
-          //     <Ionicons name="information-circle-outline" size={25} color={'#000'} />
-          //   ),
-          //   headerLeft: () =>
-          //   <View style={{ marginRight: 10 }}>
-          //     <Ionicons
-          //       name="menu-outline"
-          //       color="black"
-          //       size={25}
-          //       onPress={() => navigation.toggleDrawer()}
-          //   />
-          //   </View>,
-          //   headerRight: () =>
-          //   <View style={{ marginRight: 10 }}>
-          //     <Ionicons
-          //       name="calendar-outline"
-          //       color="black"
-          //       size={25}
-          //       onPress={() => navigation.navigate('Calendar')}
-          //   />
-          //   </View>,
-          // })}
+          options={({ navigation }) => ({
+            headerShown: true,
+            headerStyle: {
+              elevation: 0,
+              shadowOpacity: 0,
+              borderBottomWidth: 0,
+              backgroundColor: '#7E9B6D'
+            },
+            drawerIcon: () => (
+              <Ionicons name="person-outline" size={25} color={'#000'} />
+            ),
+            headerLeft: () =>
+            <View style={{ marginRight: 10 }}>
+              <Ionicons
+                name="menu-outline"
+                color="black"
+                size={25}
+                onPress={() => navigation.toggleDrawer()}
+            />
+            </View>,
+            headerRight: () =>
+            <View style={{ marginRight: 10 }}>
+              <Ionicons
+                name="calendar-outline"
+                color="black"
+                size={25}
+                onPress={() => navigation.navigate('Calendar')}
+            />
+            </View>,
+          })}
         />
       </Drawer.Navigator>
   );
