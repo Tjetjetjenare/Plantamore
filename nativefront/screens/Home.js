@@ -1,11 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{ useState, useEffect } from 'react';
-import { SafeAreaView,ScrollView, FlatList, TouchableOpacity, StyleSheet, Image, Text, Alert, View, TextInput } from 'react-native';
+import { SafeAreaView,ScrollView, FlatList, TouchableOpacity, StyleSheet, Image, Text, Alert, View, TextInput, Platform } from 'react-native';
 import StandardButton from '../components/StandardButton';
 //import { SearchBar } from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
-const plantbaseUrl = 'http://localhost:8000/api/plants/';
+
+var plantbaseUrl = null;
+
+if(Platform.OS === "android"){ plantbaseUrl = 'http://10.0.2.2:8000/api/plants/';}
+else{  plantbaseUrl = 'http://127.0.0.1:8000/api/plants/';}
+
+
 
 function Home({navigation}) {
     const [filteredDataSource, setFilteredDataSource] = useState([]);

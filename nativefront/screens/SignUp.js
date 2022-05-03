@@ -4,7 +4,12 @@ import { StyleSheet, Text, View, Image, SafeAreaView,Platform, TextInput, Toucha
 import StandardButton from '../components/StandardButton';
 import axios from "axios"
 import Constants from "expo-constants";
-const userbaseUrl = 'http://localhost:8000/api/users/';
+
+var userbaseUrl = null;
+
+if(Platform.OS === "android"){ userbaseUrl = 'http://10.0.2.2:8000/api/users/';}
+else{  userbaseUrl = 'http://127.0.0.1:8000/api/users/';}
+
 function SignUp({navigation}) {
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");

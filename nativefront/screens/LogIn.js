@@ -1,9 +1,13 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{useState, useEffect} from 'react';
-import { StyleSheet, Text, View, Image, SafeAreaView, TextInput, Alert, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Image, SafeAreaView, TextInput, Alert, TouchableOpacity, Platform } from 'react-native';
 import StandardButton from '../components/StandardButton';
 import axios from "axios";
-const userbaseUrl = 'http://localhost:8000/api/users/';
+var userbaseUrl = null;
+
+if(Platform.OS === "android"){ userbaseUrl = 'http://10.0.2.2:8000/api/users/';}
+else{  userbaseUrl = 'http://127.0.0.1:8000/api/users/';}
+
 function LogInScreen({navigation}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
