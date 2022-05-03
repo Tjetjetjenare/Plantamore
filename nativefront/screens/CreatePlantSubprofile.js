@@ -1,5 +1,5 @@
 import React, { useState, useEffect, cloneElement } from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert, TextInput, ScrollView, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import RadioGroup from 'react-native-radio-buttons-group';
 import axios from 'axios';

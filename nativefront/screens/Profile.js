@@ -1,9 +1,18 @@
 import React,{useState, useEffect} from 'react';
-import { SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, Alert, View, ScrollView, FlatList} from 'react-native';
+import { SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, Alert, View, ScrollView, FlatList, Platform} from 'react-native';
 import axios from "axios";
-const subPlantUrl = "http://127.0.0.1:8000/api/subplants/";
-const plantUrl = "http://127.0.0.1:8000/api/plants/";
+
 const myPlants = [];
+var plantUrl = null;
+var subPlantUrl = null;
+
+if(Platform.OS === "android"){ 
+    subPlantUrl = 'http://10.0.2.2:8000/api/subplants/';
+    plantUrl = 'http://10.0.2.2:8000/api/plants/';}
+else{
+    subPlantUrl ='http://127.0.0.1:8000/api/subplants/';
+    plantUrl = 'http://127.0.0.1:8000/api/plants/'}
+
 const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, plants, navigation}) =>  (
     <TouchableOpacity 
         onPress={()=>{
