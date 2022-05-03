@@ -1,8 +1,7 @@
 import React, { useState, useEffect, cloneElement } from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView} from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import axios from 'axios';
-import { Row } from "reactstrap";
 
 const plantbaseUrl = 'http://localhost:8000/api/plants/';
 const subplantbaseUrl = 'http://localhost:8000/api/subplants/';

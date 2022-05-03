@@ -1,15 +1,17 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{useState} from 'react';
-import { StyleSheet, Text, View, Image, SafeAreaView,Platform, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Alert } from 'react-native';
 import StandardButton from '../components/StandardButton';
 import axios from "axios"
-import Constants from "expo-constants";
+import { TextInput } from 'react-native-paper';
+
 const userbaseUrl = 'http://localhost:8000/api/users/';
 function SignUp({navigation}) {
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+    const [isSecurePassword, setIsSecurePassword] = useState(true)
   
     const onChangeNameHandler = (fullName) => {
       setFullName(fullName);
@@ -62,33 +64,46 @@ function SignUp({navigation}) {
                 style= {styles.header}>
                 Create account
             </Text>
+            <View style={styles.placeholderContainer}>
             <TextInput
                 style = {styles.inputName}
                 placeholder = "Name"
+                mode="outlined"
+                theme={{roundness: 30, colors: {primary: 'black'}}}
                 value={fullName}
                 placeholderTextColor={"#908E8E"}
                 editable={!isLoading}
                 onChangeText={onChangeNameHandler}>
             </TextInput>
+            </View>
+            <View style={styles.placeholderContainer}>
             <TextInput
                 style = {styles.inputName}
                 placeholder = "Email"
+                mode="outlined"
+                theme={{roundness: 30, colors: {primary: 'black'}}}
                 value={email}
+                onChangeText={onChangeEmailHandler}
                 editable={!isLoading}
                 placeholderTextColor={"#908E8E"}
-                onChangeText={onChangeEmailHandler}>
-                
-            </TextInput>
-            
+               />
+            </View>
+            <View style={styles.placeholderContainer}>
             <TextInput
                 style = {styles.inputName}
                 placeholder = "Password"
                 value={password}
+                mode="outlined"
+                theme={{roundness: 30, colors: {primary: 'black'}}}
+                onChangeText={onChangePasswordHandler}
+                secureTextEntry={isSecurePassword}               
                 editable={!isLoading}
                 placeholderTextColor={"#908E8E"}
-                onChangeText={onChangePasswordHandler}>
-
-            </TextInput>
+                place
+                right={  
+                <TextInput.Icon onPress={() => { setIsSecurePassword((prev) => !prev)}} size={30} name={!isSecurePassword? "eye-outline" : "eye-off-outline"} />}
+                />
+            </View>
             <View style={styles.signUpWrap}>
                 <StandardButton sizeFont={20} title="Sign Up" functionOnPress={onSubmitFormHandler}/>
             </View>
@@ -125,18 +140,36 @@ const styles = StyleSheet.create({
         fontWeight: 'bold', 
         marginTop: 40, 
     },
-
-    inputName: {
-        height: 50, 
+    placeholderContainer: {
         marginTop: 30, 
         marginLeft: 30,
         marginRight: 30,
-        borderWidth: 1, 
-        padding: 10, 
-        backgroundColor: "#fff",
         borderRadius: 30, 
-        fontSize: 20, 
-    }, 
+        height: 50,
+        width: 360,
+        alignItems: "center"  
+    },
+
+    inputName: {
+        marginTop: -10, 
+        marginLeft: 30,
+        marginRight: 30,
+        borderRadius: 30,
+        height: 50,
+        width: 360,  
+    },
+
+    // inputName: {
+    //     height: 50, 
+    //     marginTop: 30, 
+    //     marginLeft: 30,
+    //     marginRight: 30,
+    //     borderWidth: 1, 
+    //     padding: 10, 
+    //     backgroundColor: "#fff",
+    //     borderRadius: 30, 
+    //     fontSize: 20, 
+    // }, 
 
     eye: {
         position: 'absolute', 

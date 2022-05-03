@@ -1,5 +1,5 @@
 import {React, useState} from 'react';
-import {View, TouchableOpacity, Text, SafeAreaView, StyleSheet, Image, Alert} from 'react-native';
+import {View, TouchableOpacity, Text, SafeAreaView, StyleSheet, Image} from 'react-native';
 import {Agenda} from 'react-native-calendars';
 import {Card} from 'react-native-paper';
 

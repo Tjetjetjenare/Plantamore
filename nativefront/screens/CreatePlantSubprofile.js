@@ -1,9 +1,7 @@
-import React, { useState, useEffect, cloneElement } from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert, TextInput, ScrollView } from 'react-native';
+import React from "react";
+import { StyleSheet, Text, Image, TouchableOpacity, SafeAreaView, Alert, TextInput, ScrollView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import RadioGroup from 'react-native-radio-buttons-group';
-import axios from 'axios';
-import { Row } from "reactstrap";
+
 
 const plantbaseUrl = 'http://localhost:8000/api/plants/';
 const subplantbaseUrl = 'http://localhost:8000/api/subplants/';

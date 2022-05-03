@@ -1,14 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{useState, useEffect} from 'react';
-import { StyleSheet, Text, View, Image, SafeAreaView, TextInput, Alert, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, Alert, TouchableOpacity} from 'react-native';
 import StandardButton from '../components/StandardButton';
 import axios from "axios";
+import { Ionicons } from "@expo/vector-icons";
+import { TextInput } from 'react-native-paper';
+
 const userbaseUrl = 'http://localhost:8000/api/users/';
 function LogInScreen({navigation}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [existingUsers, setExistingUsers] = useState("");
+    const [isSecurePassword, setIsSecurePassword] = useState(true);
 
     const onChangeEmailHandler = (email) => {
         setEmail(email);
@@ -72,22 +76,36 @@ function LogInScreen({navigation}) {
                 style= {styles.header}>
                 Log in 
             </Text>
+            <View style={styles.placeholderContainer}>
             <TextInput
                 style = {styles.inputName}
                 placeholder = "Email"
+                mode="outlined"
+                theme={{roundness: 30, colors: {primary: 'black'}}}
                 value={email}
                 onChangeText={onChangeEmailHandler}
                 editable={!isLoading}
-                placeholderTextColor={"#908E8E"}>
-            </TextInput>
+                placeholderTextColor={"#908E8E"}
+               />
+            </View>
+            <View style={styles.placeholderContainer}>
             <TextInput
                 style = {styles.inputName}
                 placeholder = "Password"
                 value={password}
+                mode="outlined"
+                theme={{roundness: 30, colors: {primary: 'black'}}}
                 onChangeText={onChangePasswordHandler}
+                secureTextEntry={isSecurePassword}               
                 editable={!isLoading}
-                placeholderTextColor={"#908E8E"}>
-            </TextInput>
+                placeholderTextColor={"#908E8E"}
+                place
+                right={  
+                <TextInput.Icon onPress={() => { setIsSecurePassword((prev) => !prev)}} size={30} name={!isSecurePassword? "eye-outline" : "eye-off-outline"} />}
+                />
+            </View>
+       
+         
             <View style={styles.loginWrap}>
                 <StandardButton sizeFont={20} title="Log in" functionOnPress={onSubmitFormHandler}/>
             </View> 
@@ -125,17 +143,24 @@ const styles = StyleSheet.create({
         marginTop: 40, 
     },
 
-    inputName: {
-        height: 50, 
-        marginTop: 30, 
+    placeholderContainer: {
+        marginTop: 40, 
         marginLeft: 30,
         marginRight: 30,
-        borderWidth: 1, 
-        padding: 10, 
-        backgroundColor: "#fff",
         borderRadius: 30, 
-        fontSize: 20, 
-    }, 
+        height: 50,
+        width: 360,
+        alignItems: "center"  
+    },
+
+    inputName: {
+        marginTop: -10, 
+        marginLeft: 30,
+        marginRight: 30,
+        borderRadius: 30,
+        height: 50,
+        width: 360,  
+    },
 
     accountText: {
         marginTop: 20,
@@ -146,7 +171,7 @@ const styles = StyleSheet.create({
     },
 
     loginWrap:{
-        marginTop:40,
+        marginTop:50,
         alignSelf: 'center',
         width: "60%",
         height: 40,
@@ -157,5 +182,10 @@ const styles = StyleSheet.create({
         textDecorationLine: 'underline',
         alignSelf: 'center',
         fontSize: 20,
-    }
+    },
+
+    icon: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 })
