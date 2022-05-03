@@ -56,7 +56,6 @@ function Home({navigation}) {
     )
   }};
 
-
   const searchFilterFunction = (text) => {
     // Check if searched text is not blank
     if (text) {
