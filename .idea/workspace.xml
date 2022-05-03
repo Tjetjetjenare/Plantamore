@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="924a3611-8ad1-457e-bff1-c4fc800e9f19" name="Changes" comment="Changes">
+      <change beforePath="$PROJECT_DIR$/.idea/Acka.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Acka.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nativefront/screens/CreatePlantSubprofile.js" beforeDir="false" afterPath="$PROJECT_DIR$/nativefront/screens/CreatePlantSubprofile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nativefront/screens/LogIn.js" beforeDir="false" afterPath="$PROJECT_DIR$/nativefront/screens/LogIn.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nativefront/screens/PlantDBProfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/nativefront/screens/PlantDBProfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nativefront/screens/PlantSubprofile.js" beforeDir="false" afterPath="$PROJECT_DIR$/nativefront/screens/PlantSubprofile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nativefront/screens/Profile.js" beforeDir="false" afterPath="$PROJECT_DIR$/nativefront/screens/Profile.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,6 +47,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunManager">
     <configuration name="AckaDjango" type="Python.DjangoServer" factoryName="Django server">
