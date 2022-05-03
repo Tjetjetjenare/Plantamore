@@ -13,6 +13,8 @@ function LogInScreen({navigation}) {
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [existingUsers, setExistingUsers] = useState("");
+    const [userName, setUserName] = useState("");
+    
 
     const onChangeEmailHandler = (email) => {
         setEmail(email);
@@ -20,23 +22,28 @@ function LogInScreen({navigation}) {
     const onChangePasswordHandler = (password) => {
         setPassword(password);
     };
-    const onSubmitFormHandler =  () => {
+    
+    const onSubmitFormHandler =  (async) => {
         let max = existingUsers.length;
         if (!email.trim() || !password.trim()) {
-            alert("Name or Email is invalid");
+            alert("Name or Email is invalid or try again");
            return;
         }
         setIsLoading(true);
         try {
             for (let i = 0; i < max; i++){
                 if (existingUsers[i].email == email ) {
+                    setUserName(existingUsers[i].username)
+                    console.log(userName, "equals")
                     if(existingUsers[i].password == password){
                         setIsLoading(false);
-                        navigation.navigate('Profile')
+                        
+
+                        navigation.navigate('Profile',{username : existingUsers[i].username})
                         return;
                     }
                     else{
-                        alert("Password does not match email!");
+                        alert("try again! Password does not seem to match email");
                         setIsLoading(false);
                         return;
                     }

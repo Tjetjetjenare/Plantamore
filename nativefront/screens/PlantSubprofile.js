@@ -7,12 +7,21 @@ import { Row } from "reactstrap";
 const plantbaseUrl = 'http://localhost:8000/api/plants/';
 const subplantbaseUrl = 'http://localhost:8000/api/subplants/';
 
+
+
   function PlantSubprofile({route, navigation}) {
     const [plant, setPlant] = useState("");
     const [subPlant, setsubPlant] = useState("");
-    const {plantId, EnglishName, LatinName, SwedishName, Description} = route.params;
+    const {plantId, EnglishName, LatinName, SwedishName, Description,Sunlight, plantNut, plantWat, plantName,Birth_date,Water,Replant, Nutrition,Username} = route.params;
+    var today = new Date();
+    var waterdDay = new Date(Water);
+    var replantDay = new Date(Replant);
+    var waterDiffInTime = Math.floor((today.getTime() - waterdDay.getTime())/(1000 * 3600 * 24));
+    var replantDiffInTime = Math.floor((today.getTime() - replantDay.getTime())/(1000 * 3600 * 24));
 
+  
     useEffect(async() => {
+        
       try {
         const response = await axios.get(
          plantbaseUrl,
@@ -39,7 +48,7 @@ const subplantbaseUrl = 'http://localhost:8000/api/subplants/';
             style={styles.arrowContainer} 
             source={require("../assets/backArrow.png")}>
         </Image>
-        <Text style={styles.profileName}>{SwedishName}{"\n"}</Text>
+        <Text style={styles.profileName}>{plantName}{"\n"}</Text>
         <View style={{flexDirection: "row"}}>
             <View style={styles.plantPicWrap}>
                 <Image
@@ -54,7 +63,7 @@ const subplantbaseUrl = 'http://localhost:8000/api/subplants/';
                          style={styles.specIcon} 
                          source={require("../assets/cake.png")}>
                     </Image>
-                    <Text> 9 m</Text>
+                    <Text> {Birth_date}</Text>
                 </View>
                
                 <View style={styles.innerSpec}>
@@ -62,7 +71,7 @@ const subplantbaseUrl = 'http://localhost:8000/api/subplants/';
                          style={styles.specIcon} 
                          source={require("../assets/drop.png")}>
                     </Image>
-                    <Text> 3 d</Text>
+                    <Text> {waterDiffInTime} d</Text>
                 </View>
                 <View style={styles.innerSpec}>
                     <Image 
@@ -89,7 +98,7 @@ const subplantbaseUrl = 'http://localhost:8000/api/subplants/';
                     </Image>
                     <View>
                         <Text style= {styles.infoHeader}>Sunlight</Text>
-                        <Text>Medium</Text>
+                        <Text>{Sunlight}</Text>
                     </View> 
                 </View>
                 <View style={{ flex: 2, flexDirection:"row"}}>
@@ -99,7 +108,7 @@ const subplantbaseUrl = 'http://localhost:8000/api/subplants/';
                     </Image>
                     <View>
                         <Text style= {styles.infoHeader}>Water</Text>
-                        <Text>30%</Text>
+                        <Text>{plantWat}</Text>
                     </View> 
                 </View>
                 <View style={{ flex: 2, flexDirection:"row"}}>
@@ -109,7 +118,7 @@ const subplantbaseUrl = 'http://localhost:8000/api/subplants/';
                     </Image>
                     <View>
                         <Text style= {styles.infoHeader}>Nutrition</Text>
-                        <Text>15mg</Text>
+                        <Text>{plantNut}</Text>
                     </View> 
                 </View>
         </View>
@@ -119,8 +128,7 @@ const subplantbaseUrl = 'http://localhost:8000/api/subplants/';
         </Text>
         <TouchableOpacity 
             style={styles.circle}
-            onPress={() => //Alert.alert('Watering can button pressed')
-            alert(plant[plantId-1].english_name)}>
+            onPress={() => Alert.alert('Watering can button pressed')}>
             <Image style={styles.wateringCan}
                     source={require("../assets/wateringCan.png")}>
                     
