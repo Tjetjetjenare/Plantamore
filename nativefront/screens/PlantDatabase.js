@@ -3,6 +3,7 @@ import {View, TouchableOpacity, Text, SafeAreaView, StyleSheet, Image, Alert} fr
 
 
 
+
 function PlantDatabase(props) {
     return (
         <SafeAreaView style={styles.background}>
