@@ -25,7 +25,7 @@ import PlantDatabase from './screens/PlantDatabase';
 const Drawer = createDrawerNavigator();
 
 function DrawerSideMenu() {
-
+  
   return (
     <Drawer.Navigator drawerContent ={ props => <CustomDrawer {...props} />}
         screenOptions={{
