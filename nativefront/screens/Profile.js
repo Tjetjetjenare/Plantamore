@@ -1,77 +1,85 @@
-import React from 'react';
-import { SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, Alert, View, FlatList} from 'react-native';
+import React,{useState, useEffect} from 'react';
+import { SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Platform} from 'react-native';
+import axios from "axios";
 
-const DATA = [
-    {
-     title: 'First Item',
-     image: require("../assets/testPlant.png"), 
-     id: 0, 
-    },
-    {
-    title: 'Second Item',
-    image: require("../assets/testPlant.png"), 
-    id: 1, 
-    },
-    {
-    title: 'Third Item',
-    image: require("../assets/testPlant.png"), 
-    id: 2, 
-    },
-    {
-    title: 'Fourth Item',
-    image: require("../assets/testPlant.png"), 
-    id: 3, 
-    },
-    {
-    title: 'Fifth Item',
-    image: require("../assets/testPlant.png"), 
-    id: 4, 
-    },
-    {
-    title: 'Sixth Item',
-    image: require("../assets/testPlant.png"), 
-    id: 5, 
-    },
-    {
-    title: 'Seventh Item',
-    image: require("../assets/testPlant.png"), 
-    id: 6, 
-    },
-    {
-    title: 'Eigth Item',
-    image: require("../assets/plus.png"), 
-    id: "add", 
-    },
-];
+const myPlants = [];
+var plantUrl = null;
+var subPlantUrl = null;
 
-const Item = ({ title, image,id, navigation }) => (
+if(Platform.OS === "android"){ 
+    subPlantUrl = 'http://10.0.2.2:8000/api/subplants/';
+    plantUrl = 'http://10.0.2.2:8000/api/plants/';}
+else{
+    subPlantUrl ='http://127.0.0.1:8000/api/subplants/';
+    plantUrl = 'http://127.0.0.1:8000/api/plants/'}
+
+const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, plants, navigation}) =>  (
     <TouchableOpacity 
         onPress={()=>{
             if(id == "add"){
                 navigation.navigate('CreateSub')
             }
-            else{
-            alert(id);
+            else{ console.log("p_id equals", p_id)
+                
+                navigation.navigate('PlantSub',{plantId: p_id, EnglishName: plants[p_id-1].english_name,LatinName : plants[p_id-1].latin_name,
+                    SwedishName: plants[p_id-1].swedish_name, Description: plants[p_id-1].description,
+                    Sunlight:plants[p_id-1].sunlight, plantNut:  plants[p_id-1].nutrition, plantWat: plants[p_id-1].water,
+                    plantName: name, Birth_date: birth_date, Water: water, Replant: replant,
+                    Nutrition: nutrition, Username: username });
         }
         }}>
         <View style={styles.item}>
-            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.title}>{name}</Text>
             <Image style={styles.image}
-                source={image}> 
+                source={require("../assets/testPlant.png")}> 
             </Image>
         </View>
     </TouchableOpacity>
   );
+function findMyPlants(userPlants, username){
+    myPlants.length = 0
+    for ( var i = 0; i< userPlants.length; i++){
+        if( userPlants[i].username == username){
+           myPlants.push(userPlants[i])
+       }
+    }
+    return myPlants
+}
 
-function Profile({navigation}) {
-
+function Profile({route, navigation}) {
+    const {username} = route.params;
+    const [userPlants, setUserPlants] = useState("");
+    const [plants, setPlants] = useState({});
+    useEffect(async() => {
+        try {
+          const response = await axios.get(
+            subPlantUrl,
+          );
+          const response2 = await axios.get(
+            plantUrl,
+          );
+          setPlants(response2.data)
+          setUserPlants(response.data);
+        } catch (error) {
+            console.log("Jästrar")
+            console.log(error)
+          // handle error
+        }
+      },[]);
     const renderItem = ({ item }) => (
-        <Item title={item.title} 
-              image={item.image}
-              id = {item.id}
-              navigation = {navigation}
-              
-              /> );
+        <Item 
+            id = {item.sub_id}
+            name={item.name} 
+            birth_date = {item.birth_date}
+            water = {item.water}
+            replant = {item.replant}
+            nutrition = {item.nutrition}
+            p_id = {item.p_id}
+            username = {item.username}
+            plants = {plants}
+            navigation = {navigation}
+            
+            /> );
   
     return (
         <SafeAreaView style={styles.container}>
@@ -80,31 +88,32 @@ function Profile({navigation}) {
                     style={styles.burgerMenu} 
                     source={require("../assets/burgerMenu.png")}>
                 </Image>
-                <TouchableOpacity style = {{height:30,width:30} } onPress={() => {navigation.navigate('Calendar')}}>
+                </TouchableOpacity>
+                <TouchableOpacity style = {styles.touchCalendar} onPress={() => {navigation.navigate('Calendar')}}>
                 <Image 
                     style={styles.calendar} 
                     source={require("../assets/calendar.png")}>
                 </Image>
                 </TouchableOpacity> */}
             </View>
-            <Text style={styles.userName}>Name</Text>
+            <Text style={styles.userName}>{username}</Text>
             <Image 
                 style={styles.profilePic}
                 source={require("../assets/profilePic.png")}></Image>
             <View style={styles.scrollView}
                   contentContainerStyle={{flexDirection:'row'}}>
                 <FlatList 
-                    data={DATA}
+                    data={findMyPlants(userPlants,username)}
                     numColumns={3}
                     columnWrapperStyle={styles.flatList}
                     renderItem={renderItem}
-                    keyExtractor={item => item.id}
+                    keyExtractor={item => item.name}
                 />
              </View>
 
             <TouchableOpacity 
                 style={styles.circle}
-                onPress={() => Alert.alert('Watering can button pressed')}>
+                onPress={() => navigation.navigate("Watered")}>
                 <Image style={styles.wateringCan}
                         source={require("../assets/plantCare.png")}>  
                 </Image>
@@ -126,14 +135,23 @@ const styles = StyleSheet.create({
     burgerMenu: {
         height: 30, 
         width: 30, 
+        
+    },
+    touchBurger: {
+        height:30,
+        width: 30,
         marginLeft: 30,
         marginTop: 20,  
     },
     calendar: {
         height: 30, 
         width: 30, 
+    },
+    touchCalendar: {
         marginLeft: 290,
         marginTop: 20,  
+        height:30,
+        width: 30,
     },
     userName: {
         color: '#fff',

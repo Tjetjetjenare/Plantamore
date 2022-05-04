@@ -99,7 +99,7 @@ function Watered({navigation},props) {
     return (
         <SafeAreaView style={styles.container}>
         <View style={styles.symbols}>
-            <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
                 <Ionicons
                     style={{ marginLeft: 10 }}
                     name="close-outline"

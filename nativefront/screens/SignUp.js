@@ -3,9 +3,12 @@ import React,{useState} from 'react';
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Alert } from 'react-native';
 import StandardButton from '../components/StandardButton';
 import axios from "axios"
-import { TextInput } from 'react-native-paper';
 
-const userbaseUrl = 'http://localhost:8000/api/users/';
+var userbaseUrl = null;
+
+if(Platform.OS === "android"){ userbaseUrl = 'http://10.0.2.2:8000/api/users/';}
+else{  userbaseUrl = 'http://127.0.0.1:8000/api/users/';}
+
 function SignUp({navigation}) {
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
@@ -46,7 +49,7 @@ function SignUp({navigation}) {
         throw new Error("An error has occurred");
         }
     } catch (error) {
-        alert("An error has occurred");
+        alert("This email is already registered. Pick another email.");
         console.log("username: ",fullName,"email: ", email,"pass: ", password)
         setIsLoading(false);
     }

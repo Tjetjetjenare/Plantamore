@@ -18,12 +18,14 @@ import Replant from './screens/Replant';
 import Guide from './screens/Guide';
 import CreatePlantSubprofile from './screens/CreatePlantSubprofile';
 import Watered from './screens/Watered';
+import PlantDatabase from './screens/PlantDatabase';
 
 
 // If problems occur with stacked screens look up "reset stack route "StackActions""
 const Drawer = createDrawerNavigator();
 
 function DrawerSideMenu() {
+
   return (
     <Drawer.Navigator drawerContent ={ props => <CustomDrawer {...props} />}
         screenOptions={{

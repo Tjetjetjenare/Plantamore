@@ -1,10 +1,17 @@
 import React from "react";
-import { StyleSheet, Text, Image, TouchableOpacity, SafeAreaView, Alert, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, Text, Image, TouchableOpacity, SafeAreaView, Alert, TextInput, ScrollView, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
 
-const plantbaseUrl = 'http://localhost:8000/api/plants/';
-const subplantbaseUrl = 'http://localhost:8000/api/subplants/';
+var plantbaseUrl = null;
+var subplantbaseUrl = null;
+
+if(Platform.OS === "android"){ 
+    subplantbaseUrl = 'http://10.0.2.2:8000/api/subplants/';
+    plantbaseUrl = 'http://10.0.2.2:8000/api/plants/';}
+else{
+    subplantbaseUrl ='http://127.0.0.1:8000/api/subplants/';
+    plantbaseUrl = 'http://127.0.0.1:8000/api/plants/'}
 
 function CreatePlantSubprofile(props) {
    return(

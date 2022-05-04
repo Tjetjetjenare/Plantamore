@@ -55,7 +55,7 @@ const Item = ({ title, image,id }) => (
     </TouchableOpacity>
   );
 
-function Watered(props) {
+function Watered({navigation},props) {
     const renderItem = ({ item }) => (
         <Item title={item.title} 
               image={item.image}

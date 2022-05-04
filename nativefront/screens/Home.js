@@ -4,7 +4,12 @@ import { SafeAreaView, FlatList, StyleSheet, Image, Text, View, TextInput } from
 import StandardButton from '../components/StandardButton';
 import axios from 'axios';
 
-const plantbaseUrl = 'http://localhost:8000/api/plants/';
+var plantbaseUrl = null;
+
+if(Platform.OS === "android"){ plantbaseUrl = 'http://10.0.2.2:8000/api/plants/';}
+else{  plantbaseUrl = 'http://127.0.0.1:8000/api/plants/';}
+
+
 
 function Home({navigation}) {
     const [filteredDataSource, setFilteredDataSource] = useState([]);
@@ -54,7 +59,6 @@ function Home({navigation}) {
       </View>
     )
   }};
-
 
   const searchFilterFunction = (text) => {
     // Check if searched text is not blank

@@ -1,18 +1,21 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{useState, useEffect} from 'react';
-import { StyleSheet, Text, View, SafeAreaView, Alert, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, View,  SafeAreaView, TextInput, TouchableOpacity, Platform } from 'react-native';
 import StandardButton from '../components/StandardButton';
 import axios from "axios";
-import { Ionicons } from "@expo/vector-icons";
-import { TextInput } from 'react-native-paper';
+var userbaseUrl = null;
 
-const userbaseUrl = 'http://localhost:8000/api/users/';
+if(Platform.OS === "android"){ userbaseUrl = 'http://10.0.2.2:8000/api/users/';}
+else{  userbaseUrl = 'http://127.0.0.1:8000/api/users/';}
+
 function LogInScreen({navigation}) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [existingUsers, setExistingUsers] = useState("");
     const [isSecurePassword, setIsSecurePassword] = useState(true);
+    const [userName, setUserName] = useState("");
+    
 
     const onChangeEmailHandler = (email) => {
         setEmail(email);
@@ -20,23 +23,28 @@ function LogInScreen({navigation}) {
     const onChangePasswordHandler = (password) => {
         setPassword(password);
     };
-    const onSubmitFormHandler =  () => {
+    
+    const onSubmitFormHandler =  (async) => {
         let max = existingUsers.length;
         if (!email.trim() || !password.trim()) {
-            alert("Name or Email is invalid");
+            alert("Name or Email is invalid or try again");
            return;
         }
         setIsLoading(true);
         try {
             for (let i = 0; i < max; i++){
                 if (existingUsers[i].email == email ) {
+                    setUserName(existingUsers[i].username)
+                    console.log(userName, "equals")
                     if(existingUsers[i].password == password){
                         setIsLoading(false);
-                        navigation.navigate('Profile')
+                        
+
+                        navigation.navigate('Profile',{username : existingUsers[i].username})
                         return;
                     }
                     else{
-                        alert("Password does not match email!");
+                        alert("try again! Password does not seem to match email");
                         setIsLoading(false);
                         return;
                     }
@@ -113,7 +121,7 @@ function LogInScreen({navigation}) {
                 style = {styles.accountText}>
                 Don't have an account yet?
             </Text>
-            <TouchableOpacity onPress={() => Alert.alert("Sign up", "You have pressed to sign up")}>
+            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
                 <Text style={styles.signUpButton}>Sign up</Text>
             </TouchableOpacity>
         </SafeAreaView>
