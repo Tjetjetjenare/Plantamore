@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{useState, useEffect} from 'react';
-import { StyleSheet, Text, View,  SafeAreaView, TextInput, TouchableOpacity, Platform } from 'react-native';
+import { StyleSheet, Text, View,  SafeAreaView, TouchableOpacity, Platform } from 'react-native';
 import StandardButton from '../components/StandardButton';
+import {TextInput} from 'react-native-paper';
 import axios from "axios";
 var userbaseUrl = null;
 
