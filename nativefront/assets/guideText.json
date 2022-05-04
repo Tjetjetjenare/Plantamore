@@ -1,0 +1,16 @@
+{
+    "about":"PLANTAMORE is the application to help care for your plants. Advice on how to care for a plant is based on the informaiton in the database and information provided by the user. Please advice that instructions of care might not be as accurate if the plant is exposed to more or less sun than instructed or if a user is based outside of Sweden since advice adapts after the Swedish seasons.",
+    "terms":"Throughout the application, different terms are used to describe the amount of sunligt, water and nutrition a plant should recieve. Below are explinations on what these terms mean:",
+    "disc": "This application is ment to help users successfully care for their plants. The use of the app does not guarantee plant health and/or survival.The creators of the app take no responisbility for wether for the health of any plants. It is the user, not the creators of PLANTAMORE, which is responsible for the continues health and survival of the plants.",
+    "water3": "Generously - the plants needs allot of water and should be watered several times a week",
+    "water2": "Moderatley - the plants need quite a lot of water and should be watered about once a week",
+    "water1": "Sparingly - the plant only needs some water and should be watered about every other to every third week",
+    "nutri3": "Often - the plant needs alot of added nutritions",
+    "nutri2": "Regularly - the plants need some added nutritions",
+    "nutri1": "Rarely - the plants need almost no added nutritions",
+    "sun5": "Direct - the plant should get direct sunlight",
+    "sun4": "Direct/indirect - the plant should get between direct and indirect sunlight",
+    "sun3": "Indirect - the plant should be in some sunlight",
+    "sun2": "Indirect/shade - the plant should get between some sunlight and shade",
+    "sun1": "Shade - the plant should be placed in the shade"
+}
