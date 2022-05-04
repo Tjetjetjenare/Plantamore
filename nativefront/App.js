@@ -45,7 +45,7 @@ function DrawerSideMenu() {
         }}
       >
         <Drawer.Screen
-          name="Plant Cat 1"
+          name="Plant Tabs"
           component={WNRTabs}
           options={{
             title:'Plant Cat 1',
@@ -58,7 +58,7 @@ function DrawerSideMenu() {
         />
         <Drawer.Screen
           name="Plant Database"
-          component={PlantDatabase} //PlantDatabase
+          component={PlantDatabase} 
           options={({ navigation }) => ({
             headerShown: true,
             headerStyle: {
