@@ -3,7 +3,8 @@ import React,{ useState, useEffect } from 'react';
 import { SafeAreaView, FlatList, StyleSheet, Image, Text, View, TextInput } from 'react-native';
 import StandardButton from '../components/StandardButton';
 import axios from 'axios';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from "@react-navigation/native";
 var plantbaseUrl = null;
 
 if(Platform.OS === "android"){ plantbaseUrl = 'http://10.0.2.2:8000/api/plants/';}
@@ -15,8 +16,15 @@ function Home({navigation}) {
     const [filteredDataSource, setFilteredDataSource] = useState([]);
     const [masterDataSource, setMasterDataSource] = useState([]);
     const [search, setSearch] = useState('');
-    
+    const [logd, setLogd] = useState('');
+    const isFocused = useIsFocused();
   useEffect(async() => {
+    if(isFocused){         console.log("called");
+    AsyncStorage.getItem('inloggad').then(value =>
+       setLogd(value )
+  );
+  console.log(logd)
+    }
     try {
       const response = await axios.get(
        plantbaseUrl,
@@ -27,7 +35,7 @@ function Home({navigation}) {
     } catch (error) {
       console.error(error);
     }
-  },[]);
+  },[logd,isFocused]);
   
   const SearchField = () => {
     return (
@@ -59,6 +67,31 @@ function Home({navigation}) {
       </View>
     )
   }};
+  const ButtonWrap = () => {
+    if (logd == 'false'){
+      return(
+        <View style={styles.buttonWrapper}>
+        <Text style={styles.text}>Log in to your existing account {"\n"}
+              or {"\n"}Sign up to get started
+        </Text>
+         
+            <View style={styles.loginWrap}>
+              <StandardButton sizeFont={20} title="Log in" functionOnPress={() => navigation.navigate('LogIn')} />
+            </View>
+            <View style={styles.loginWrap}>
+              <StandardButton sizeFont={20} title="Sign up" functionOnPress={() => navigation.navigate('SignUp')}/>
+            </View>
+          
+        </View>
+      )
+    } else{
+      return(
+      <Text style={styles.text}>You are INLOGGAD :)
+</Text>
+    )}
+
+
+  }
 
   const searchFilterFunction = (text) => {
     // Check if searched text is not blank
@@ -127,18 +160,9 @@ function Home({navigation}) {
       <View style= {styles.searchContainer}>
         {SearchField()}
         {SearchList()}
+        
       </View>
-      <View style={styles.buttonWrapper}>
-        <Text style={styles.text}>Log in to your existing account {"\n"}
-              or {"\n"}Sign up to get started
-        </Text>
-        <View style={styles.loginWrap}>
-          <StandardButton sizeFont={20} title="Log in" functionOnPress={() => navigation.navigate('LogIn')} />
-        </View>
-        <View style={styles.loginWrap}>
-          <StandardButton sizeFont={20} title="Sign up" functionOnPress={() => navigation.navigate('SignUp')}/>
-        </View>
-        </View>
+      {ButtonWrap()}
     </SafeAreaView>
   );
 }
