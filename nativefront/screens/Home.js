@@ -113,6 +113,7 @@ function Home({navigation}) {
     SwedishName: item.swedish_name,Description: item.description, Sun : item.sunlight, Water: item.water,
     Nutrition: item.nutrition});
   };
+  
   return (
     <SafeAreaView style={styles.container}>
             {/* <Image
