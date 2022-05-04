@@ -1,46 +1,25 @@
-import React,{ useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import { SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, View, FlatList} from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from "axios";
+var subPlantUrl = "";
+if(Platform.OS === "android"){ 
+    subPlantUrl = 'http://10.0.2.2:8000/api/subplants/';}
+else{
+    subPlantUrl ='http://127.0.0.1:8000/api/subplants/';}
 
+const myPlants = [];
+function findMyPlants(userPlants, username){
+    myPlants.length = 0
+    for ( var i = 0; i< userPlants.length; i++){
+        if( userPlants[i].username == username){
+           myPlants.push(userPlants[i])
+       }
+    }
+    return myPlants
+}
 
-const DATA = [
-    {
-     title: 'First Item',
-     image: require("../assets/testPlant.png"), 
-     id: 0, 
-    },
-    {
-    title: 'Second Item',
-    image: require("../assets/testPlant.png"), 
-    id: 1, 
-    },
-    {
-    title: 'Third Item',
-    image: require("../assets/testPlant.png"), 
-    id: 2, 
-    },
-    {
-    title: 'Fourth Item',
-    image: require("../assets/testPlant.png"), 
-    id: 3, 
-    },
-    {
-    title: 'Fifth Item',
-    image: require("../assets/testPlant.png"), 
-    id: 4, 
-    },
-    {
-    title: 'Sixth Item',
-    image: require("../assets/testPlant.png"), 
-    id: 5, 
-    },
-    {
-    title: 'Seventh Item',
-    image: require("../assets/testPlant.png"), 
-    id: 6, 
-    },
-
-];
 const wateredplants = [];
 function doWater(id) {
     for (let i=0;i<wateredplants.length;i++ ){
@@ -51,7 +30,7 @@ function doWater(id) {
     }
     wateredplants.push(id)
 }
-const Item = ({ title, image, id }) => {
+const Item = ({id, name }) => {
     const [pres, setPres] = useState(false);
     if (pres){
     return(
@@ -61,10 +40,10 @@ const Item = ({ title, image, id }) => {
             setPres(!pres);
         }}>
         <View style={styles.item}>
-            <Text style={styles.title}>{title}</Text>
+            <Text style={styles.title}>{name}</Text>
             <View style={styles.presblue}>
             <Image style={styles.imagepres}
-                source={image}> 
+                source={require("../assets/testPlant.png")}> 
             </Image>
             </View>
         </View>
@@ -78,22 +57,64 @@ const Item = ({ title, image, id }) => {
              setPres(!pres);
             }}>
             <View style={styles.item}>
-                <Text style={styles.title}>{title}</Text>
+                <Text style={styles.title}>{name}</Text>
                 <Image style={styles.image}
-                    source={image}> 
+                    source={require("../assets/testPlant.png")}> 
                 </Image>
             </View>
         </TouchableOpacity>
       )
   }
 };
+const  BlubBlub = async(userPlants, wateredplants) => {
+   // var today = new Date();
+    if (wateredplants.length<1 ){
+        alert("no plants waterd")
+    }
+    else{
+        for (var i=0;i<wateredplants.length;i++){
+            console.log(wateredplants[i]);
+            var entry = i +2;
+            await axios.put(subPlantUrl + entry, {
+                "sub_id":wateredplants[i],
+                "name":  userPlants[wateredplants[i]-1].name,
+                "birth_date":  userPlants[wateredplants[i]-1].birth_date,
+                "water": "2000-02-13",
+                "replant": userPlants[wateredplants[i]-1].replant,
+                "nutrition": userPlants[wateredplants[i]-1].nutrition,
+                "p_id": userPlants[wateredplants[i]-1].p_id,
+                "username": userPlants[wateredplants[i]-1].username,
+                
+                },{'Content-Type': 'application/json'})
+                .then(response => console.log(response.data))
+                .catch(error => {
+                    console.error('There was an error!', error);
+                });
+        }
+    }
 
+};
 function Watered({navigation},props) {
-    
+    const [userPlants, setUserPlants] = useState("");
+    const [username, setUsername] = useState("");
+    useEffect(async() => {
+        AsyncStorage.getItem('MyName').then(value =>
+             setUsername(value )
+        );
+        try {
+          const response = await axios.get(
+            subPlantUrl,
+          );
+          setUserPlants(response.data);
+        } catch (error) {
+            console.log("Jästrar")
+            console.log(error)
+          // handle error
+        }
+      },[]);
     const renderItem = ({ item }) => (
-        <Item title={item.title} 
-              image={item.image}
-              id = {item.id}
+        <Item id = {item.sub_id}
+            name={item.name} 
               /> )
 
     return (
@@ -124,7 +145,7 @@ function Watered({navigation},props) {
         <View style={styles.scrollView}
               contentContainerStyle={{flexDirection:'row'}}>
             <FlatList 
-                data={DATA}
+                data={findMyPlants(userPlants,username)}
                 numColumns={3}
                 columnWrapperStyle={styles.flatList}
                 renderItem={renderItem}
@@ -133,7 +154,7 @@ function Watered({navigation},props) {
          </View>
         <TouchableOpacity 
             style={styles.circle}
-            onPress={() => alert(wateredplants)}>
+            onPress={() => BlubBlub(findMyPlants(userPlants,username),wateredplants)}>
             <Text>Save</Text>
         </TouchableOpacity>
     </SafeAreaView>
