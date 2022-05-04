@@ -3,6 +3,7 @@ import React,{useState, useEffect} from 'react';
 import { StyleSheet, Text, View,  SafeAreaView, TouchableOpacity, Platform } from 'react-native';
 import StandardButton from '../components/StandardButton';
 import axios from "axios";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TextInput } from 'react-native-paper';
 var userbaseUrl = null;
 
@@ -15,7 +16,6 @@ function LogInScreen({navigation}) {
     const [isLoading, setIsLoading] = useState(false);
     const [existingUsers, setExistingUsers] = useState("");
     const [isSecurePassword, setIsSecurePassword] = useState(true);
-    const [userName, setUserName] = useState("");
     
 
     const onChangeEmailHandler = (email) => {
@@ -35,13 +35,13 @@ function LogInScreen({navigation}) {
         try {
             for (let i = 0; i < max; i++){
                 if (existingUsers[i].email == email ) {
-                    setUserName(existingUsers[i].username)
-                    console.log(userName, "equals")
                     if(existingUsers[i].password == password){
+                        AsyncStorage.setItem("inloggad", "true");
+                        AsyncStorage.setItem("MyName", existingUsers[i].username);
                         setIsLoading(false);
                         
 
-                        navigation.navigate('Profile',{username : existingUsers[i].username})
+                        navigation.navigate('Profile')
                         return;
                     }
                     else{
