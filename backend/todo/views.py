@@ -9,6 +9,7 @@ from .serializers import *
 from .models import Todo
 from .models import Plant
 from.models import User
+from.models import Plant_subprofile
 from .models import Plant_subprofile
 
 # Create your views here.
@@ -110,20 +111,20 @@ def SubPlants_list(request):
 @api_view(['PUT', 'DELETE'])
 def SubPlants_detail(request, pk):
     try:
-        SubPlants = SubPlants.objects.get(pk=pk)
-    except SubPlants.DoesNotExist:
+        subplant = Plant_subprofile.objects.get(pk=pk)
+    except subplant.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'PUT':
         serializer = SubPlantSerializer(
-            SubPlants, data=request.data, context={'request': request})
+            subplant, data=request.data, context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(status=status.HTTP_204_NO_CONTENT)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     elif request.method == 'DELETE':
-        SubPlants.delete()
+        subplant.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 class TodoView(viewsets.ModelViewSet):
