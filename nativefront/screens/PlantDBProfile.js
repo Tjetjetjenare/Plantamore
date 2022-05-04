@@ -11,7 +11,7 @@ else{  plantbaseUrl = 'http://127.0.0.1:8000/api/plants/';}
 
   function PlantDBProfile({route, navigation}) {
     const [Plant, setPlant] = useState("");
-    const {plantId, EnglishName, LatinName, SwedishName, Description, Sun, Water, Nutrition} = route.params;
+    const {plantId, EnglishName, LatinName, SwedishName, Description, Sun, Water, Nutrition, ImageUrl} = route.params;
     
   useEffect(async() => {
     try {
@@ -26,14 +26,15 @@ else{  plantbaseUrl = 'http://127.0.0.1:8000/api/plants/';}
   return(
     <SafeAreaView style={styles.container} >
         <StatusBar style="auto"/>
-        {/* <Image 
-            style={styles.arrowContainer} 
-            source={require("../assets/backArrow.png")}>
-        </Image> */}
-        <Image
-             style={styles.plantPic}
-            source={require("../assets/testPlant.png")}>
+      
+       <Image
+            style={styles.plantPic}
+            source={{
+                uri: `${ImageUrl}`
+                
+            }}>
         </Image>
+       
         <Text 
             style={styles.textContainer}>
             <Text style={styles.latinName}>{LatinName}{"\n"}</Text> 
@@ -78,14 +79,7 @@ else{  plantbaseUrl = 'http://127.0.0.1:8000/api/plants/';}
             style={styles.description}>
                 {Description} 
         </Text>
-        {/* <TouchableOpacity 
-            style={styles.circle}
-            onPress={() => navigation.navigate("Watered")}>
-            <Image style={styles.wateringCan}
-                    source={require("../assets/wateringCan.png")}>
-                    
-            </Image>
-        </TouchableOpacity> */}
+        
      </SafeAreaView>
   );
   
@@ -97,21 +91,12 @@ else{  plantbaseUrl = 'http://127.0.0.1:8000/api/plants/';}
       backgroundColor: '#fff',
 
     },
-    tinyLogo: {
-      width: 200,
-      height: 200,
-    },
-    arrowContainer: {
-        height: 30, 
-        width: 30, 
-        marginLeft: 30,
-        marginTop: 20,  
-    },
     plantPic: {
         height: 150,
         width: 150, 
         top: 30, 
         left: 30, 
+       resizeMode:"contain"
     },
 
     textContainer: {

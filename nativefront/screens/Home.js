@@ -144,7 +144,7 @@ function Home({navigation}) {
     // Function for click on an item
     navigation.navigate("PlantDB", {plantId : item.p_id, EnglishName : item.english_name, LatinName : item.latin_name,
     SwedishName: item.swedish_name,Description: item.description, Sun : item.sunlight, Water: item.water,
-    Nutrition: item.nutrition});
+    Nutrition: item.nutrition, ImageUrl: item.image_url});
   };
   return (
     <SafeAreaView style={styles.container}>
