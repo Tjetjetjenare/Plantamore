@@ -4,6 +4,7 @@ import { StyleSheet, Text, View,  SafeAreaView, TouchableOpacity, Platform } fro
 import StandardButton from '../components/StandardButton';
 import {TextInput} from 'react-native-paper';
 import axios from "axios";
+import { TextInput } from 'react-native-paper';
 var userbaseUrl = null;
 
 if(Platform.OS === "android"){ userbaseUrl = 'http://10.0.2.2:8000/api/users/';}
