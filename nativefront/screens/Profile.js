@@ -1,7 +1,7 @@
 import React,{useState, useEffect} from 'react';
 import { SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Platform} from 'react-native';
 import axios from "axios";
-
+import AsyncStorage from '@react-native-async-storage/async-storage'
 const myPlants = [];
 var plantUrl = null;
 var subPlantUrl = null;
@@ -46,11 +46,17 @@ function findMyPlants(userPlants, username){
     return myPlants
 }
 
-function Profile({route, navigation}) {
-    const {username} = route.params;
+function Profile({navigation}) {
+    
     const [userPlants, setUserPlants] = useState("");
     const [plants, setPlants] = useState({});
+    const [username, setUsername] = useState("");
     useEffect(async() => {
+        AsyncStorage.getItem('MyName').then(value =>
+            //AsyncStorage returns a promise so adding a callback to get the value
+             setUsername(value )
+            //Setting the value in Text
+        );
         try {
           const response = await axios.get(
             subPlantUrl,
@@ -70,7 +76,7 @@ function Profile({route, navigation}) {
         <Item 
             id = {item.sub_id}
             name={item.name} 
-            birth_date = {item.birth_date}
+            birth_dfate = {item.birth_date}
             water = {item.water}
             replant = {item.replant}
             nutrition = {item.nutrition}
@@ -113,7 +119,9 @@ function Profile({route, navigation}) {
 
             <TouchableOpacity 
                 style={styles.circle}
-                onPress={() => navigation.navigate("Watered")}>
+                onPress={() => navigation.navigate("Watered")
+                
+                }>
                 <Image style={styles.wateringCan}
                         source={require("../assets/plantCare.png")}>  
                 </Image>
