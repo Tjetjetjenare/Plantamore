@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import { SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, Alert, View, ScrollView, FlatList, Platform} from 'react-native';
+import { SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Platform} from 'react-native';
 import axios from "axios";
 
 const myPlants = [];
@@ -84,8 +84,7 @@ function Profile({route, navigation}) {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.symbols}>
-            <TouchableOpacity style = {styles.touchBurger } onPress={() => {navigation.toggleDrawer()}}>
-                <Image 
+                {/* <Image 
                     style={styles.burgerMenu} 
                     source={require("../assets/burgerMenu.png")}>
                 </Image>
@@ -95,7 +94,7 @@ function Profile({route, navigation}) {
                     style={styles.calendar} 
                     source={require("../assets/calendar.png")}>
                 </Image>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
             <Text style={styles.userName}>{username}</Text>
             <Image 
@@ -116,7 +115,7 @@ function Profile({route, navigation}) {
                 style={styles.circle}
                 onPress={() => navigation.navigate("Watered")}>
                 <Image style={styles.wateringCan}
-                        source={require("../assets/wateringCan.png")}>  
+                        source={require("../assets/plantCare.png")}>  
                 </Image>
             </TouchableOpacity>
         </SafeAreaView>

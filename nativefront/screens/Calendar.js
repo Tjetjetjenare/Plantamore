@@ -1,5 +1,5 @@
 import {React, useState} from 'react';
-import {View, TouchableOpacity, Text, SafeAreaView, StyleSheet, Image, Alert} from 'react-native';
+import {View, TouchableOpacity, Text, SafeAreaView, StyleSheet, Image} from 'react-native';
 import {Agenda} from 'react-native-calendars';
 import {Card} from 'react-native-paper';
 
@@ -60,12 +60,12 @@ function Calendar({navigation},props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TouchableOpacity onPress={() => navigation.navigate('Profile')}>          
+      {/* <TouchableOpacity onPress={() => navigation.navigate('Profile')}>          
        <Image 
           style={styles.exitContainer} 
           source={require("../assets/exit(x).png")}>
         </Image>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <Text 
           style= {styles.calendarHeader}>
           Calendar

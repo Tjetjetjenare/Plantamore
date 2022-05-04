@@ -1,8 +1,7 @@
-import React, { useState, useEffect, cloneElement } from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert, Platform } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import axios from 'axios';
-import { Row } from "reactstrap";
 
 var plantbaseUrl = null;
 var subplantbaseUrl = null;

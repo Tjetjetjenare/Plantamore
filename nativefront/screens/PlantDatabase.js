@@ -1,6 +1,6 @@
 import {React, useState, useEffect} from 'react';
 import axios from 'axios';
-import {View, TouchableOpacity, ItemSeparatorView, ItemView, FlatList, Text, SafeAreaView, StyleSheet, Image, Alert} from 'react-native';
+import {View, ItemSeparatorView, ItemView, FlatList, Text, SafeAreaView, StyleSheet } from 'react-native';
 
 var plantbaseUrl = null;
 

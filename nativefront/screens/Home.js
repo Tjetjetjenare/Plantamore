@@ -1,9 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{ useState, useEffect } from 'react';
-import { SafeAreaView,ScrollView, FlatList, TouchableOpacity, StyleSheet, Image, Text, Alert, View, TextInput, Platform } from 'react-native';
+import { SafeAreaView, FlatList, StyleSheet, Image, Text, View, TextInput } from 'react-native';
 import StandardButton from '../components/StandardButton';
-//import { SearchBar } from 'react-native-elements';
-import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
 
 var plantbaseUrl = null;
