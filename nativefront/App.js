@@ -58,7 +58,7 @@ function DrawerSideMenu() {
         />
         <Drawer.Screen
           name="Plant Database"
-          component={PlantDBProfile} //PlantDatabase
+          component={PlantDatabase} //PlantDatabase
           options={({ navigation }) => ({
             headerShown: true,
             headerStyle: {
