@@ -25,13 +25,17 @@ const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, pla
                     SwedishName: plants[p_id-1].swedish_name, Description: plants[p_id-1].description,
                     Sunlight:plants[p_id-1].sunlight, plantNut:  plants[p_id-1].nutrition, plantWat: plants[p_id-1].water,
                     plantName: name, Birth_date: birth_date, Water: water, Replant: replant,
-                    Nutrition: nutrition, Username: username });
+                    Nutrition: nutrition, Username: username
+                });
         }
         }}>
         <View style={styles.item}>
             <Text style={styles.title}>{name}</Text>
             <Image style={styles.image}
-                source={require("../assets/testPlant.png")}> 
+                source={{
+                    uri: `${plants[p_id-1].image_url}`
+                    
+                }}> 
             </Image>
         </View>
     </TouchableOpacity>
@@ -198,6 +202,7 @@ const styles = StyleSheet.create({
         height: 110, 
         width: 110, 
         top: '5%',  
+        borderRadius: 55, 
     },
     circle: {
         height: 80, 
