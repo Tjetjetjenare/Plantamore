@@ -1,8 +1,14 @@
 import { View, Text, ImageBackground, Image } from 'react-native'
-import React from 'react'
+import {React, useState} from 'react'
 import {DrawerContentScrollView, DrawerItemList, DrawerItem} from '@react-navigation/drawer'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import LogIn from '../screens/LogIn';
+import axios from 'axios';
+
+//const [existingUsers, setExistingUsers] = useState("");
+
+
 
 const CustomDrawer = (props) => {
   return (
@@ -15,7 +21,7 @@ const CustomDrawer = (props) => {
         </DrawerContentScrollView>
 
         <View style={{padding:20, borderTopWidth:2, borderTopColor:'#000000', backgroundColor: '#7E9B6D', paddingVertical:30}}>
-            <TouchableOpacity onPress={() => props.navigation.navigate("Login")}> 
+            <TouchableOpacity onPress={() => props.navigation.navigate("LogIn")}> 
                 <View style={{flexDirection:'row', alignItems:'center', marginBottom:50, marginLeft:50}}>
                     <Ionicons 
                         title={'Logout'}

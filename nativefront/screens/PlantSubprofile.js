@@ -1,11 +1,17 @@
-import React, { useState, useEffect, cloneElement } from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import axios from 'axios';
-import { Row } from "reactstrap";
 
-const plantbaseUrl = 'http://localhost:8000/api/plants/';
-const subplantbaseUrl = 'http://localhost:8000/api/subplants/';
+var plantbaseUrl = null;
+var subplantbaseUrl = null;
+
+if(Platform.OS === "android"){ 
+    subplantbaseUrl = 'http://10.0.2.2:8000/api/subplants/';
+    plantbaseUrl = 'http://10.0.2.2:8000/api/plants/';}
+else{
+    subplantbaseUrl ='http://127.0.0.1:8000/api/subplants/';
+    plantbaseUrl = 'http://127.0.0.1:8000/api/plants/'}
 
   function PlantSubprofile({route, navigation}) {
     const [plant, setPlant] = useState("");

@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Alert } from 'react-native';
+import { StyleSheet, Text, View, Image, SafeAreaView, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import axios from 'axios';
 
-const plantbaseUrl = 'http://localhost:8000/api/plants/';
+var plantbaseUrl = null;
+
+if(Platform.OS === "android"){ plantbaseUrl = 'http://10.0.2.2:8000/api/plants/';}
+else{  plantbaseUrl = 'http://127.0.0.1:8000/api/plants/';}
+
 
   function PlantDBProfile({route, navigation}) {
     const [Plant, setPlant] = useState("");
@@ -22,10 +26,10 @@ const plantbaseUrl = 'http://localhost:8000/api/plants/';
   return(
     <SafeAreaView style={styles.container} >
         <StatusBar style="auto"/>
-        <Image 
+        {/* <Image 
             style={styles.arrowContainer} 
             source={require("../assets/backArrow.png")}>
-        </Image>
+        </Image> */}
         <Image
              style={styles.plantPic}
             source={require("../assets/testPlant.png")}>
@@ -74,14 +78,14 @@ const plantbaseUrl = 'http://localhost:8000/api/plants/';
             style={styles.description}>
                 {Description} 
         </Text>
-        <TouchableOpacity 
+        {/* <TouchableOpacity 
             style={styles.circle}
             onPress={() => navigation.navigate("Watered")}>
             <Image style={styles.wateringCan}
                     source={require("../assets/wateringCan.png")}>
                     
             </Image>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
      </SafeAreaView>
   );
   
@@ -113,7 +117,7 @@ const plantbaseUrl = 'http://localhost:8000/api/plants/';
     textContainer: {
         fontSize: 18, 
         color: "black",
-        top: 170, 
+        top: 50, 
         left: "50%", 
         position: "absolute",
     },

@@ -1,5 +1,7 @@
-import React,{ useState, useEffect} from 'react';
-import { SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, Alert, View, ScrollView, FlatList} from 'react-native';
+import React,{ useState} from 'react';
+import { SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, View, FlatList} from 'react-native';
+import { Ionicons } from "@expo/vector-icons";
+
 
 const DATA = [
     {
@@ -97,15 +99,19 @@ function Watered({navigation},props) {
     return (
         <SafeAreaView style={styles.container}>
         <View style={styles.symbols}>
-            <Image 
-                style={styles.burgerMenu} 
-                source={require("../assets/burgerMenu.png")}>
-            </Image>
-            <Image 
+            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+                <Ionicons
+                    style={{ marginLeft: 10 }}
+                    name="close-outline"
+                    color="black"
+                    size={35}
+                />
+            </TouchableOpacity>
+            {/* <Image 
                 style={styles.calendar} 
                 source={require("../assets/calendar.png")}>
                     
-            </Image>
+            </Image> */}
         </View>
         <Text style={styles.thankYou}>Your plants thank you!</Text>
         <View style={styles.waterCanContainer}>
