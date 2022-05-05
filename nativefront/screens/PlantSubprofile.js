@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Image, TouchableOpacity, SafeAreaView, Platform } from 'react-native';
+import { StyleSheet, Text, View,ScrollView, Image, TouchableOpacity, SafeAreaView, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import axios from 'axios';
 
@@ -16,7 +16,7 @@ else{
   function PlantSubprofile({route, navigation}) {
     const [plant, setPlant] = useState("");
     const [subPlant, setsubPlant] = useState("");
-    const {plantId, EnglishName, LatinName, SwedishName, Description} = route.params;
+    const {plantId, EnglishName, LatinName, SwedishName, Description,ImageUrl,PlantName, Sunlight, PlantWat, PlantNut,Water,Nutrition,BirthDate} = route.params;
 
     useEffect(async() => {
       try {
@@ -41,17 +41,15 @@ else{
   return(
     <SafeAreaView style={styles.container} >
         <StatusBar style="auto"/>
-        <Image 
-            style={styles.arrowContainer} 
-            source={require("../assets/backArrow.png")}>
-        </Image>
-        <Text style={styles.profileName}>{SwedishName}{"\n"}</Text>
+        <ScrollView>
+        <Text style={styles.profileName}>{PlantName}{"\n"}</Text>
         <View style={{flexDirection: "row"}}>
             <View style={styles.plantPicWrap}>
                 <Image
                     style={styles.plantPic}
-                    //source={require("../assets/testPlant.png")}>
-                        source={require("../assets/testPlant.png")}>
+                    source={{
+                        uri: `${ImageUrl}` 
+                    }}> 
                 </Image>
             </View>
             <View style={styles.specs}>
@@ -60,7 +58,7 @@ else{
                          style={styles.specIcon} 
                          source={require("../assets/cake.png")}>
                     </Image>
-                    <Text> 9 m</Text>
+                    <Text>{BirthDate}</Text>
                 </View>
                
                 <View style={styles.innerSpec}>
@@ -68,14 +66,14 @@ else{
                          style={styles.specIcon} 
                          source={require("../assets/drop.png")}>
                     </Image>
-                    <Text> 3 d</Text>
+                    <Text> {Water} </Text>
                 </View>
                 <View style={styles.innerSpec}>
                     <Image 
                          style={styles.specIcon} 
                          source={require("../assets/nutrition.png")}>
                     </Image>
-                    <Text> 10 d</Text>
+                    <Text> {Nutrition}</Text>
                 </View>
             </View>
         </View>
@@ -83,6 +81,7 @@ else{
             style = {styles.textContainer}>
             <Text style={styles.engName}>{EnglishName}{"\n"}</Text>
             <Text style={styles.latinName}>{LatinName}{"\n"}</Text> 
+            <Text style={styles.latinName}>{SwedishName}{"\n"}</Text> 
             
         </View>
         <View
@@ -95,7 +94,7 @@ else{
                     </Image>
                     <View>
                         <Text style= {styles.infoHeader}>Sunlight</Text>
-                        <Text>Medium</Text>
+                        <Text>{Sunlight}</Text>
                     </View> 
                 </View>
                 <View style={{ flex: 2, flexDirection:"row"}}>
@@ -105,7 +104,7 @@ else{
                     </Image>
                     <View>
                         <Text style= {styles.infoHeader}>Water</Text>
-                        <Text>30%</Text>
+                        <Text>{PlantWat}</Text>
                     </View> 
                 </View>
                 <View style={{ flex: 2, flexDirection:"row"}}>
@@ -115,23 +114,27 @@ else{
                     </Image>
                     <View>
                         <Text style= {styles.infoHeader}>Nutrition</Text>
-                        <Text>15mg</Text>
+                        <Text>{PlantNut}</Text>
                     </View> 
                 </View>
         </View>
+        
         <Text 
             style={styles.description}>
                {Description}
         </Text>
-        <TouchableOpacity 
-            style={styles.circle}
-            onPress={() => //Alert.alert('Watering can button pressed')
-            alert(plant[plantId-1].english_name)}>
-            <Image style={styles.wateringCan}
-                    source={require("../assets/wateringCan.png")}>
-                    
-            </Image>
-        </TouchableOpacity>
+        </ScrollView>
+       <View style={styles.footer}>
+            <TouchableOpacity 
+                style={styles.circle}
+                onPress={() => //Alert.alert('Watering can button pressed')
+                alert(plant[plantId-1].english_name)}>
+                <Image style={styles.wateringCan}
+                        source={require("../assets/wateringCan.png")}>
+                        
+                </Image>
+            </TouchableOpacity>
+        </View>
 
      </SafeAreaView>
   );
@@ -144,22 +147,14 @@ else{
       backgroundColor: '#fff',
 
     },
-    tinyLogo: {
-      width: 200,
-      height: 200,
-    },
-    arrowContainer: {
-        height: 30, 
-        width: 30, 
-        marginLeft: 30,
-        marginTop: 20,  
-    },
-    
+   
+ 
     plantPic: {
-        height: undefined,
-        width: "50%", 
+        height: 150,
+        width: 150, 
         alignSelf:"flex-end",
         aspectRatio: 1,
+        borderRadius:75,
     },
 
     plantPicWrap:{
@@ -224,11 +219,16 @@ else{
         fontSize: 15, 
         textAlign: "justify", 
     },
+    footer:{
+        width:"100%",
+        height:90,
+        
+    },
     circle: {
         height: 80, 
         width: 80, 
         backgroundColor: "#C4C4C4",
-        bottom: 20, 
+        
         right: 20,
         borderRadius: 50, 
         justifyContent: "center",
