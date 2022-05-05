@@ -1,6 +1,10 @@
 import {React, useState, useEffect} from 'react';
 import axios from 'axios';
+<<<<<<< HEAD
 import {View, ItemSeparatorView, ItemView,SectionList, FlatList, Text, SafeAreaView, StyleSheet } from 'react-native';
+=======
+import {View, ItemSeparatorView, ItemView, FlatList, Text, SafeAreaView, StyleSheet } from 'react-native';
+>>>>>>> 86ad5d88a7c3f948efb76127334696504622dcb2
 
 var plantbaseUrl = null;
 
@@ -8,10 +12,17 @@ if(Platform.OS === "android"){ plantbaseUrl = 'http://10.0.2.2:8000/api/plants/'
 else{  plantbaseUrl = 'http://127.0.0.1:8000/api/plants/';}
 const engNameList = [];
 function gatherEngName(Plant){
+<<<<<<< HEAD
 
   for (var i=0; i<Plant.length; i++){
     engNameList.push(Plant[i].english_name)
     engNameList.sort()
+=======
+
+  for (var i=0;i<Plant.length;i++){
+    engNameList.push(Plant[i].english_name)
+
+>>>>>>> 86ad5d88a7c3f948efb76127334696504622dcb2
   }
   return engNameList
 }
