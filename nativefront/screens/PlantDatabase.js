@@ -18,6 +18,7 @@ function PlantDatabase({navigation}) {
       for (var i=0;i<response.data.length;i++){
         engNameList.push(response.data[i].english_name)
       }
+      
     } catch (error) {
       console.log(error)
     }

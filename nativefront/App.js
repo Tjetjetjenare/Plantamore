@@ -25,7 +25,7 @@ import PlantDatabase from './screens/PlantDatabase';
 const Drawer = createDrawerNavigator();
 
 function DrawerSideMenu() {
-
+  
   return (
     <Drawer.Navigator drawerContent ={ props => <CustomDrawer {...props} />}
         screenOptions={{
@@ -447,7 +447,8 @@ function WNRTabs(navigation) {
       }}
     >
       <Tab.Screen
-        name="Water"
+        name="Watered"
+        tabBarLab="Watered"
         component={Watered}
         options={{
           tabBarColor: '#FFFFFF',
