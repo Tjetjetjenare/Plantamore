@@ -447,7 +447,8 @@ function WNRTabs(navigation) {
       }}
     >
       <Tab.Screen
-        name="Water"
+        name="Watered"
+        tabBarLab="Watered"
         component={Watered}
         options={{
           tabBarColor: '#FFFFFF',

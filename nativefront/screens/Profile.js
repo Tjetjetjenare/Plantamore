@@ -80,7 +80,7 @@ function Profile({navigation}) {
         <Item 
             id = {item.sub_id}
             name={item.name} 
-            birth_date = {item.birth_date}
+            birth_dfate = {item.birth_date}
             water = {item.water}
             replant = {item.replant}
             nutrition = {item.nutrition}
