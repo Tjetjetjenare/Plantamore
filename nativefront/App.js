@@ -22,141 +22,6 @@ import PlantDatabase from './screens/PlantDatabase';
 
 
 // If problems occur with stacked screens look up "reset stack route "StackActions""
-const Drawer = createDrawerNavigator();
-
-function DrawerSideMenu() {
-  
-  return (
-    <Drawer.Navigator drawerContent ={ props => <CustomDrawer {...props} />}
-        screenOptions={{
-          swipeEnabled: true, //false
-          headerTintColor: '#000',
-          drawerActiveBackgroundColor: '#FFF',
-          drawerActiveTintColor: '#000',
-          headerShown: false,
-          drawerLabelStyle: {
-            color: '#000',
-            fontSize: 15
-          },
-          drawerStyle: {
-          backgroundColor: 'transparent',
-          width:240
-          },
-        }}
-      >
-        <Drawer.Screen
-          name="Plant Tabs"
-          component={WNRTabs}
-          options={{
-            title:'Plant Cat 1',
-            headerStyle: {
-              backgroundColor: '#FFF'
-            },
-            drawerIcon: () => (
-            <Ionicons name="leaf-outline" size={25} color={'#000'} />
-          )}}
-        />
-        <Drawer.Screen
-          name="Plant Database"
-          component={PlantDatabase} 
-          options={({ navigation }) => ({
-            headerShown: true,
-            headerStyle: {
-              elevation: 0,
-              shadowOpacity: 0,
-              borderBottomWidth: 0,
-              backgroundColor: 'white'
-            },
-            drawerIcon: () => (
-              <Ionicons name="leaf-outline" size={25} color={'#000'} />
-            ),
-            headerLeft: () =>
-            <View style={{ marginRight: 10 }}>
-              <Ionicons
-                name="chevron-back-outline"
-                color="black"
-                size={25}
-                onPress={() => navigation.toggleDrawer()}
-            />
-            </View>,
-          })}
-        />
-        <Drawer.Screen
-          name="Homea"
-          component={StackNavigator}
-          options={{
-            title:'Home',
-            headerStyle: {
-              backgroundColor: '#FFF'
-            },
-            drawerIcon: () => (
-            <Ionicons name="home-outline" size={25} color={'#000'}/>
-          )}}
-        />
-        <Drawer.Screen
-          name="Settings"
-          component={Home}
-          options={{
-            title:'Settings',
-            headerStyle: {
-              backgroundColor: '#FFF'
-            },
-            drawerIcon: () => (
-            <Ionicons name="settings-outline" size={25} color={'#000'} />
-          )}}
-        />
-        <Drawer.Screen
-          name="Guide"
-          component={Guide}
-          options={{
-            title:'Guide',
-            headerStyle: {
-              backgroundColor: '#FFF'
-            },
-            drawerIcon: () => (
-            <Ionicons name="information-circle-outline" size={25} color={'#000'} />
-          )}}
-        />
-        <Drawer.Screen
-          name="Profile"
-          component={Profile}
-          options={({ navigation }) => ({
-            headerShown: true,
-            headerTintColor: '#7E9B6D',
-            headerStyle: {
-              elevation: 0,
-              shadowOpacity: 0,
-              borderBottomWidth: 0,
-              backgroundColor: '#7E9B6D'
-            },
-            drawerIcon: () => (
-              <Ionicons name="person-outline" size={25} color={'#000'} />
-            ),
-            headerLeft: () =>
-            <View>
-              <Ionicons
-                style={{ marginLeft: 10 }}
-                name="menu-outline"
-                color="black"
-                size={40}
-                onPress={() => navigation.toggleDrawer()}
-            />
-            </View>,
-            headerRight: () =>
-            <View>
-              <Ionicons
-                style={{ marginRight: 10 }}
-                name="calendar-outline"
-                color="black"
-                size={35}
-                onPress={() => navigation.navigate('Calendar')}
-            />
-            </View>,
-          })}
-        />
-      </Drawer.Navigator>
-  );
-}
 
 
 
@@ -397,7 +262,7 @@ const StackNavigator = () => {
           })}
           />
 
-          <Stack.Screen
+          {/* <Stack.Screen
           name = "Watered"
           component={Watered}
           options={({ navigation }) => ({
@@ -408,6 +273,142 @@ const StackNavigator = () => {
               borderBottomWidth: 0,
               backgroundColor: '#7E9B6D'
             },
+            // headerLeft: () =>
+            // <View>
+            //   <Ionicons
+            //     style={{ marginLeft: 10 }}
+            //     name="menu-outline"
+            //     color="black"
+            //     size={40}
+            //     onPress={() => navigation.toggleDrawer()}
+            // />
+            // </View>,
+            // headerRight: () =>
+            // <View>
+            //   <Ionicons
+            //     style={{ marginRight: 10 }}
+            //     name="calendar-outline"
+            //     color="black"
+            //     size={35}
+            //     onPress={() => navigation.navigate('Calendar')}
+            // />
+            // </View>,
+          })}
+          /> */}
+    </Stack.Navigator>
+  )
+}
+
+const Drawer = createDrawerNavigator();
+
+function DrawerSideMenu() {
+  
+  return (
+    <Drawer.Navigator drawerContent ={ props => <CustomDrawer {...props} />}
+        screenOptions={{
+          swipeEnabled: true, //false
+          headerTintColor: '#000',
+          drawerActiveBackgroundColor: '#FFF',
+          drawerActiveTintColor: '#000',
+          headerShown: false,
+          drawerLabelStyle: {
+            color: '#000',
+            fontSize: 15
+          },
+          drawerStyle: {
+          backgroundColor: 'transparent',
+          width:240
+          },
+        }}
+      >
+        <Drawer.Screen
+          name="Plant Tabs"
+          component={WNRTabs}
+          options={{
+            title:'Plant Cat 1',
+            headerStyle: {
+              backgroundColor: '#FFF'
+            },
+            drawerIcon: () => (
+            <Ionicons name="leaf-outline" size={25} color={'#000'} />
+          )}}
+        />
+        <Drawer.Screen
+          name="Plant Database"
+          component={PlantDatabase} 
+          options={({ navigation }) => ({
+            headerShown: true,
+            headerStyle: {
+              elevation: 0,
+              shadowOpacity: 0,
+              borderBottomWidth: 0,
+              backgroundColor: 'white'
+            },
+            drawerIcon: () => (
+              <Ionicons name="leaf-outline" size={25} color={'#000'} />
+            ),
+            headerLeft: () =>
+            <View style={{ marginRight: 10 }}>
+              <Ionicons
+                name="chevron-back-outline"
+                color="black"
+                size={25}
+                onPress={() => navigation.toggleDrawer()}
+            />
+            </View>,
+          })}
+        />
+        <Drawer.Screen
+          name="Homea"
+          component={StackNavigator}
+          options={{
+            title:'Home',
+            headerStyle: {
+              backgroundColor: '#FFF'
+            },
+            drawerIcon: () => (
+            <Ionicons name="home-outline" size={25} color={'#000'}/>
+          )}}
+        />
+        <Drawer.Screen
+          name="Settings"
+          component={Home}
+          options={{
+            title:'Settings',
+            headerStyle: {
+              backgroundColor: '#FFF'
+            },
+            drawerIcon: () => (
+            <Ionicons name="settings-outline" size={25} color={'#000'} />
+          )}}
+        />
+        <Drawer.Screen
+          name="Guide"
+          component={Guide}
+          options={{
+            title:'Guide',
+            headerStyle: {
+              backgroundColor: '#FFF'
+            },
+            drawerIcon: () => (
+            <Ionicons name="information-circle-outline" size={25} color={'#000'} />
+          )}}
+        />
+        <Drawer.Screen
+          name="Profile"
+          component={Profile}
+          options={({ navigation }) => ({
+            headerShown: true,
+            headerTintColor: '#7E9B6D',
+            headerStyle: {
+              elevation: 0,
+              shadowOpacity: 0,
+              borderBottomWidth: 0,
+              backgroundColor: '#7E9B6D'
+            },
+            drawerIcon: () => (
+              <Ionicons name="person-outline" size={25} color={'#000'} />
+            ),
             headerLeft: () =>
             <View>
               <Ionicons
@@ -429,9 +430,9 @@ const StackNavigator = () => {
             />
             </View>,
           })}
-          />
-    </Stack.Navigator>
-  )
+        />
+      </Drawer.Navigator>
+  );
 }
 
 const Tab = createMaterialBottomTabNavigator();
@@ -448,9 +449,9 @@ function WNRTabs(navigation) {
     >
       <Tab.Screen
         name="Watered"
-        tabBarLab="Watered"
         component={Watered}
         options={{
+          tabBarLabel:"Watered",
           tabBarColor: '#FFFFFF',
           tabBarIcon: ({ focused }) => (<View style={{alignItems: 'center', justifyContent: 'center'}}> 
             <Image source={require("./assets/wateringCan.png")}
