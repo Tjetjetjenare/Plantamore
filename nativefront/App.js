@@ -60,12 +60,13 @@ function DrawerSideMenu() {
           name="Plant Database"
           component={PlantDatabase} 
           options={({ navigation }) => ({
+            title:"Plant Database",
             headerShown: true,
             headerStyle: {
               elevation: 0,
               shadowOpacity: 0,
               borderBottomWidth: 0,
-              backgroundColor: 'white'
+              backgroundColor: '#7E9B6D'
             },
             drawerIcon: () => (
               <Ionicons name="leaf-outline" size={25} color={'#000'} />
