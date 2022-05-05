@@ -23,8 +23,8 @@ const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, pla
                 
                 navigation.navigate('PlantSub',{plantId: p_id, EnglishName: plants[p_id-1].english_name,LatinName : plants[p_id-1].latin_name,
                     SwedishName: plants[p_id-1].swedish_name, Description: plants[p_id-1].description,
-                    Sunlight:plants[p_id-1].sunlight, plantNut:  plants[p_id-1].nutrition, plantWat: plants[p_id-1].water,
-                    plantName: name, Birth_date: birth_date, Water: water, Replant: replant,
+                    Sunlight:plants[p_id-1].sunlight, PlantNut:  plants[p_id-1].nutrition, PlantWat: plants[p_id-1].water, ImageUrl:plants[p_id-1].image_url,
+                    PlantName: name, BirthDate: birth_date, Water: water, Replant: replant,
                     Nutrition: nutrition, Username: username
                 });
         }

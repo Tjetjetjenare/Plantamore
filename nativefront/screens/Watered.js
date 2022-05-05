@@ -3,11 +3,14 @@ import { SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, View, FlatList
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
+import { set } from 'react-native-reanimated';
 var subPlantUrl = "";
 if(Platform.OS === "android"){ 
-    subPlantUrl = 'http://10.0.2.2:8000/api/subplants/';}
+    subPlantUrl = 'http://10.0.2.2:8000/api/subplants/';
+    plantUrl = 'http://10.0.2.2:8000/api/plants/';}
 else{
-    subPlantUrl ='http://127.0.0.1:8000/api/subplants/';}
+    subPlantUrl ='http://127.0.0.1:8000/api/subplants/';
+    plantUrl = 'http://127.0.0.1:8000/api/plants/'}
 
 const myPlants = [];
 function findMyPlants(userPlants, username){
@@ -30,9 +33,28 @@ function doWater(id) {
     }
     wateredplants.push(id)
 }
-const Item = ({id, name }) => {
+function ispres(id){
+    return wateredplants.includes(id)
+}
+const Item = ({id, name,plants }) => {
     const [pres, setPres] = useState(false);
-    if (pres){
+    if (plants.length < 1){
+        return(
+            <TouchableOpacity 
+                onPress={()=>{
+                    doWater(id);
+                 setPres(!pres);
+                }}>
+                <View style={styles.item}>
+                    <Text style={styles.title}>{name}</Text>
+                    <Image style={styles.image}
+                        source={require("../assets/testPlant.png")}> 
+                    </Image>
+                </View>
+            </TouchableOpacity>
+          )
+    }
+   else if (ispres(id)!= false && plants.length > 1 ){
     return(
     <TouchableOpacity 
         onPress={()=>{
@@ -43,7 +65,7 @@ const Item = ({id, name }) => {
             <Text style={styles.title}>{name}</Text>
             <View style={styles.presblue}>
             <Image style={styles.imagepres}
-                source={require("../assets/testPlant.png")}> 
+                source={{uri: `${plants[id-1].image_url}`}}> 
             </Image>
             </View>
         </View>
@@ -59,31 +81,36 @@ const Item = ({id, name }) => {
             <View style={styles.item}>
                 <Text style={styles.title}>{name}</Text>
                 <Image style={styles.image}
-                    source={require("../assets/testPlant.png")}> 
+                    source={{uri: `${plants[id-1].image_url}`}}> 
                 </Image>
             </View>
         </TouchableOpacity>
       )
   }
 };
-const  BlubBlub = async(userPlants, wateredplants) => {
-   // var today = new Date();
+const  BlubBlub = async(userPlants) => {
+    var lengd = wateredplants.slice();
+    var year = new Date().getFullYear().toString();
+    var month = (new Date().getMonth()+1).toString();
+    var day = new Date().getDate().toString();
+    var today =year+"-"+month+"-"+day;
     if (wateredplants.length<1 ){
         alert("no plants waterd")
     }
     else{
-        for (var i=0;i<wateredplants.length;i++){
-            console.log(wateredplants[i]);
-            var entry = i +2;
+        wateredplants.length = 0;
+        for (var i=0;i<lengd.length;i++){
+            console.log(lengd[i]);
+            var entry = lengd[i] +1;
             await axios.put(subPlantUrl + entry, {
-                "sub_id":wateredplants[i],
-                "name":  userPlants[wateredplants[i]-1].name,
-                "birth_date":  userPlants[wateredplants[i]-1].birth_date,
-                "water": "2000-02-13",
-                "replant": userPlants[wateredplants[i]-1].replant,
-                "nutrition": userPlants[wateredplants[i]-1].nutrition,
-                "p_id": userPlants[wateredplants[i]-1].p_id,
-                "username": userPlants[wateredplants[i]-1].username,
+                "sub_id":lengd[i],
+                "name":  userPlants[lengd[i]-1].name,
+                "birth_date":  userPlants[lengd[i]-1].birth_date,
+                "water": today,
+                "replant": userPlants[lengd[i]-1].replant,
+                "nutrition": userPlants[lengd[i]-1].nutrition,
+                "p_id": userPlants[lengd[i]-1].p_id,
+                "username": userPlants[lengd[i]-1].username,
                 
                 },{'Content-Type': 'application/json'})
                 .then(response => console.log(response.data))
@@ -91,12 +118,15 @@ const  BlubBlub = async(userPlants, wateredplants) => {
                     console.error('There was an error!', error);
                 });
         }
+        alert("Your plants got waterd")
     }
 
 };
 function Watered({navigation},props) {
     const [userPlants, setUserPlants] = useState("");
+    const [plants, setPlants] = useState("");
     const [username, setUsername] = useState("");
+    const [done, setDone] = useState(false);
     useEffect(async() => {
         AsyncStorage.getItem('MyName').then(value =>
              setUsername(value )
@@ -105,7 +135,11 @@ function Watered({navigation},props) {
           const response = await axios.get(
             subPlantUrl,
           );
+          const response2 = await axios.get(
+            plantUrl,
+          );
           setUserPlants(response.data);
+          setPlants(response2.data);
         } catch (error) {
             console.log("Jästrar")
             console.log(error)
@@ -115,6 +149,7 @@ function Watered({navigation},props) {
     const renderItem = ({ item }) => (
         <Item id = {item.sub_id}
             name={item.name} 
+            plants = {plants}
               /> )
 
     return (
@@ -146,15 +181,21 @@ function Watered({navigation},props) {
               contentContainerStyle={{flexDirection:'row'}}>
             <FlatList 
                 data={findMyPlants(userPlants,username)}
+                extraData = {done}
                 numColumns={3}
                 columnWrapperStyle={styles.flatList}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
+                
             />
          </View>
         <TouchableOpacity 
             style={styles.circle}
-            onPress={() => BlubBlub(findMyPlants(userPlants,username),wateredplants)}>
+             onPress={() => {
+                BlubBlub(findMyPlants(userPlants,username));
+                setDone(!done)
+             }
+             }>
             <Text>Save</Text>
         </TouchableOpacity>
     </SafeAreaView>
@@ -234,11 +275,12 @@ const styles = StyleSheet.create({
         height: 110, 
         width: 110, 
         opacity:0.5, 
+        borderRadius:70,
     },
     image:{
         height: 110, 
         width: 110, 
-        
+        borderRadius:70,
     },
     circle: {
         height: 70, 
