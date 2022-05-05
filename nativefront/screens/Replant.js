@@ -1,72 +1,140 @@
-import React from 'react';
-import { SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, Alert, View, FlatList} from 'react-native';
+import React,{useState, useEffect} from 'react';
+import { SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, View, FlatList} from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from "axios";
+import { set } from 'react-native-reanimated';
+var subPlantUrl = "";
+if(Platform.OS === "android"){ 
+    subPlantUrl = 'http://10.0.2.2:8000/api/subplants/';}
+else{
+    subPlantUrl ='http://127.0.0.1:8000/api/subplants/';}
 
-const DATA = [
-    {
-     title: 'First Item',
-     image: require("../assets/testPlant.png"), 
-     id: 0, 
-    },
-    {
-    title: 'Second Item',
-    image: require("../assets/testPlant.png"), 
-    id: 1, 
-    },
-    {
-    title: 'Third Item',
-    image: require("../assets/testPlant.png"), 
-    id: 2, 
-    },
-    {
-    title: 'Fourth Item',
-    image: require("../assets/testPlant.png"), 
-    id: 3, 
-    },
-    {
-    title: 'Fifth Item',
-    image: require("../assets/testPlant.png"), 
-    id: 4, 
-    },
-    {
-    title: 'Sixth Item',
-    image: require("../assets/testPlant.png"), 
-    id: 5, 
-    },
-    {
-    title: 'Seventh Item',
-    image: require("../assets/testPlant.png"), 
-    id: 6, 
-    },
+const myPlants = [];
+function findMyPlants(userPlants, username){
+    myPlants.length = 0
+    for ( var i = 0; i< userPlants.length; i++){
+        if( userPlants[i].username == username){
+           myPlants.push(userPlants[i])
+       }
+    }
+    return myPlants
+}
 
-];
-
-const Item = ({ title, image,id }) => (
+const replantedplants = [];
+function doDirt(id) {
+    for (let i=0;i<replantedplants.length;i++ ){
+        if (id == replantedplants[i]){
+            replantedplants.splice(i,1);
+            return
+        }
+    }
+    replantedplants.push(id)
+}
+function ispres(id){
+    return replantedplants.includes(id)
+}
+const Item = ({id, name }) => {
+    const [pres, setPres] = useState(false);
+    if (ispres(id)!= false){
+    return(
     <TouchableOpacity 
         onPress={()=>{
-            alert(id);
+            doDirt(id);
+            setPres(!pres);
         }}>
         <View style={styles.item}>
-            <Text style={styles.title}>{title}</Text>
-            <Image style={styles.image}
-                source={image}> 
+            <Text style={styles.title}>{name}</Text>
+            <View style={styles.presblue}>
+            <Image style={styles.imagepres}
+                source={require("../assets/testPlant.png")}> 
             </Image>
+            </View>
         </View>
     </TouchableOpacity>
-  );
+  )}
+  else{
+    return(
+        <TouchableOpacity 
+            onPress={()=>{
+                doDirt(id);
+             setPres(!pres);
+            }}>
+            <View style={styles.item}>
+                <Text style={styles.title}>{name}</Text>
+                <Image style={styles.image}
+                    source={require("../assets/testPlant.png")}> 
+                </Image>
+            </View>
+        </TouchableOpacity>
+      )
+  }
+};
+const  DirtDirt = async(userPlants) => {
+    var lengd = replantedplants.slice();
+    var year = new Date().getFullYear().toString();
+    var month = (new Date().getMonth()+1).toString();
+    var day = new Date().getDate().toString();
+    var today =year+"-"+month+"-"+day;
+    if (replantedplants.length<1 ){
+        alert("no plants replanted")
+    }
+    else{
+        replantedplants.length = 0;
+        for (var i=0;i<lengd.length;i++){
+            console.log(lengd[i]);
+            var entry = lengd[i] +1;
+            await axios.put(subPlantUrl + entry, {
+                "sub_id":lengd[i],
+                "name":  userPlants[lengd[i]-1].name,
+                "birth_date":  userPlants[lengd[i]-1].birth_date,
+                "water": userPlants[lengd[i]-1].water,
+                "replant": today,
+                "nutrition": userPlants[lengd[i]-1].nutrition,
+                "p_id": userPlants[lengd[i]-1].p_id,
+                "username": userPlants[lengd[i]-1].username,
+                
+                },{'Content-Type': 'application/json'})
+                .then(response => console.log(response.data))
+                .catch(error => {
+                    console.error('There was an error!', error);
+                });
+        }
+        alert("Your plants got replanted")
+    }
 
+};
 function Watered({navigation},props) {
+    const [userPlants, setUserPlants] = useState("");
+    const [username, setUsername] = useState("");
+    const [done, setDone] = useState(false);
+    useEffect(async() => {
+        AsyncStorage.getItem('MyName').then(value =>
+             setUsername(value )
+        );
+        try {
+          const response = await axios.get(
+            subPlantUrl,
+          );
+          setUserPlants(response.data);
+        } catch (error) {
+            console.log("Jästrar")
+            console.log(error)
+          // handle error
+        }
+      },[]);
     const renderItem = ({ item }) => (
-        <Item title={item.title} 
-              image={item.image}
-              id = {item.id}
-              
+        <Item id = {item.sub_id}
+            name={item.name} 
               /> )
+    const re_Render_FlatList =()=>{
+    setDone(!done);
+  }
 
     return (
         <SafeAreaView style={styles.container}>
         <View style={styles.symbols}>
-        <TouchableOpacity onPress={() => navigation.navigate('Profile')}>
+            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
                 <Ionicons
                     style={{ marginLeft: 10 }}
                     name="close-outline"
@@ -75,40 +143,43 @@ function Watered({navigation},props) {
                 />
             </TouchableOpacity>
             {/* <Image 
-                style={styles.burgerMenu} 
-                source={require("../assets/burgerMenu.png")}>
-            </Image>
-            <Image 
                 style={styles.calendar} 
                 source={require("../assets/calendar.png")}>
+                    
             </Image> */}
         </View>
         <Text style={styles.thankYou}>Your plants thank you!</Text>
         <View style={styles.waterCanContainer}>
             <Image 
                  style={styles.wateringCanPic}
-                source={require("../assets/replant.png")}>
+                source={require("../assets/wateringCanBig.png")}>
             </Image>
         </View>
-        <Text style={styles.selectText}>Select the plants you replanted today.</Text>
+        <Text style={styles.selectText}>Select the plants you have watered today.</Text>
         <View style={styles.scrollView}
               contentContainerStyle={{flexDirection:'row'}}>
             <FlatList 
-                data={DATA}
+                data={findMyPlants(userPlants,username)}
+                extraData = {done}
                 numColumns={3}
                 columnWrapperStyle={styles.flatList}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
+                
             />
          </View>
         <TouchableOpacity 
             style={styles.circle}
-            onPress={() => Alert.alert('Plant has been watered')}>
+             onPress={() => {
+                DirtDirt(findMyPlants(userPlants,username));
+                setDone(!done)
+             }
+             }>
             <Text>Save</Text>
         </TouchableOpacity>
     </SafeAreaView>
     );
-}
+} 
 
 
 export default Watered;
@@ -171,18 +242,23 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly', 
     },
     subPlant: {
-        alignItems: 'center',
-        top: '10%',
+        alignItems: 'center', 
+        top: '10%', 
     },
     title: {
         color: 'white', 
-        fontSize: 15,  
-        alignSelf: 'center',
+        fontSize: 15, 
+        alignSelf: 'center', 
     },
-    image: {
+    imagepres: {
         height: 110, 
         width: 110, 
-        top: '5%',  
+        opacity:0.5, 
+    },
+    image:{
+        height: 110, 
+        width: 110, 
+        
     },
     circle: {
         height: 70, 
@@ -197,4 +273,9 @@ const styles = StyleSheet.create({
         height: "70%",
         width: "70%",
     },
+    presblue:{
+        backgroundColor:"#4a3d18",
+        opacity: 1,
+        borderRadius:70,
+    }
 })
