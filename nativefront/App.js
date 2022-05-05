@@ -279,7 +279,7 @@ const StackNavigator = () => {
                 name="chevron-back-outline"
                 color="black"
                 size={35}
-                onPress={() => navigation.navigate('Home')}
+                onPress={() => navigation.navigate('Profile')}
             />
             </View>,
           })}
