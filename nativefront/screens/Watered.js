@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, View, FlatList
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
+import { set } from 'react-native-reanimated';
 var subPlantUrl = "";
 if(Platform.OS === "android"){ 
     subPlantUrl = 'http://10.0.2.2:8000/api/subplants/';}
@@ -30,9 +31,12 @@ function doWater(id) {
     }
     wateredplants.push(id)
 }
+function ispres(id){
+    return wateredplants.includes(id)
+}
 const Item = ({id, name }) => {
     const [pres, setPres] = useState(false);
-    if (pres){
+    if (ispres(id)!= false){
     return(
     <TouchableOpacity 
         onPress={()=>{
@@ -66,24 +70,29 @@ const Item = ({id, name }) => {
       )
   }
 };
-const  BlubBlub = async(userPlants, wateredplants) => {
-   // var today = new Date();
+const  BlubBlub = async(userPlants) => {
+    var lengd = wateredplants.slice();
+    var year = new Date().getFullYear().toString();
+    var month = (new Date().getMonth()+1).toString();
+    var day = new Date().getDate().toString();
+    var today =year+"-"+month+"-"+day;
     if (wateredplants.length<1 ){
         alert("no plants waterd")
     }
     else{
-        for (var i=0;i<wateredplants.length;i++){
-            console.log(wateredplants[i]);
-            var entry = i +2;
+        wateredplants.length = 0;
+        for (var i=0;i<lengd.length;i++){
+            console.log(lengd[i]);
+            var entry = lengd[i] +1;
             await axios.put(subPlantUrl + entry, {
-                "sub_id":wateredplants[i],
-                "name":  userPlants[wateredplants[i]-1].name,
-                "birth_date":  userPlants[wateredplants[i]-1].birth_date,
-                "water": "2000-02-13",
-                "replant": userPlants[wateredplants[i]-1].replant,
-                "nutrition": userPlants[wateredplants[i]-1].nutrition,
-                "p_id": userPlants[wateredplants[i]-1].p_id,
-                "username": userPlants[wateredplants[i]-1].username,
+                "sub_id":lengd[i],
+                "name":  userPlants[lengd[i]-1].name,
+                "birth_date":  userPlants[lengd[i]-1].birth_date,
+                "water": today,
+                "replant": userPlants[lengd[i]-1].replant,
+                "nutrition": userPlants[lengd[i]-1].nutrition,
+                "p_id": userPlants[lengd[i]-1].p_id,
+                "username": userPlants[lengd[i]-1].username,
                 
                 },{'Content-Type': 'application/json'})
                 .then(response => console.log(response.data))
@@ -91,12 +100,14 @@ const  BlubBlub = async(userPlants, wateredplants) => {
                     console.error('There was an error!', error);
                 });
         }
+        alert("Your plants got waterd")
     }
 
 };
 function Watered({navigation},props) {
     const [userPlants, setUserPlants] = useState("");
     const [username, setUsername] = useState("");
+    const [done, setDone] = useState(false);
     useEffect(async() => {
         AsyncStorage.getItem('MyName').then(value =>
              setUsername(value )
@@ -116,6 +127,9 @@ function Watered({navigation},props) {
         <Item id = {item.sub_id}
             name={item.name} 
               /> )
+    const re_Render_FlatList =()=>{
+    setDone(!done);
+  }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -146,15 +160,21 @@ function Watered({navigation},props) {
               contentContainerStyle={{flexDirection:'row'}}>
             <FlatList 
                 data={findMyPlants(userPlants,username)}
+                extraData = {done}
                 numColumns={3}
                 columnWrapperStyle={styles.flatList}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
+                
             />
          </View>
         <TouchableOpacity 
             style={styles.circle}
-            onPress={() => BlubBlub(findMyPlants(userPlants,username),wateredplants)}>
+             onPress={() => {
+                BlubBlub(findMyPlants(userPlants,username));
+                setDone(!done)
+             }
+             }>
             <Text>Save</Text>
         </TouchableOpacity>
     </SafeAreaView>
