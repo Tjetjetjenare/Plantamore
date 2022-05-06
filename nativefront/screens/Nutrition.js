@@ -6,9 +6,11 @@ import axios from "axios";
 import { set } from 'react-native-reanimated';
 var subPlantUrl = "";
 if(Platform.OS === "android"){ 
-    subPlantUrl = 'http://10.0.2.2:8000/api/subplants/';}
+    subPlantUrl = 'http://10.0.2.2:8000/api/subplants/';
+    plantUrl = 'http://10.0.2.2:8000/api/plants/';}
 else{
-    subPlantUrl ='http://127.0.0.1:8000/api/subplants/';}
+    subPlantUrl ='http://127.0.0.1:8000/api/subplants/';
+    plantUrl = 'http://127.0.0.1:8000/api/plants/'}
 
 const myPlants = [];
 function findMyPlants(userPlants, username){
@@ -21,22 +23,38 @@ function findMyPlants(userPlants, username){
     return myPlants
 }
 
-const nutritionedplants = [];
+const nutplants = [];
 function doNut(id) {
-    for (let i=0;i<nutritionedplants.length;i++ ){
-        if (id == nutritionedplants[i]){
-            nutritionedplants.splice(i,1);
+    for (let i=0;i<nutplants.length;i++ ){
+        if (id == nutplants[i]){
+            nutplants.splice(i,1);
             return
         }
     }
-    nutritionedplants.push(id)
+    nutplants.push(id)
 }
 function ispres(id){
-    return nutritionedplants.includes(id)
+    return nutplants.includes(id)
 }
-const Item = ({id, name }) => {
+const Item = ({id, name,plants }) => {
     const [pres, setPres] = useState(false);
-    if (ispres(id)!= false){
+    if (plants.length < 1){
+        return(
+            <TouchableOpacity 
+                onPress={()=>{
+                    doNut(id);
+                 setPres(!pres);
+                }}>
+                <View style={styles.item}>
+                    <Text style={styles.title}>{name}</Text>
+                    <Image style={styles.image}
+                        source={require("../assets/testPlant.png")}> 
+                    </Image>
+                </View>
+            </TouchableOpacity>
+          )
+    }
+   else if (ispres(id)!= false && plants.length > 1 ){
     return(
     <TouchableOpacity 
         onPress={()=>{
@@ -47,7 +65,7 @@ const Item = ({id, name }) => {
             <Text style={styles.title}>{name}</Text>
             <View style={styles.presblue}>
             <Image style={styles.imagepres}
-                source={require("../assets/testPlant.png")}> 
+                source={{uri: `${plants[id-1].image_url}`}}> 
             </Image>
             </View>
         </View>
@@ -63,7 +81,7 @@ const Item = ({id, name }) => {
             <View style={styles.item}>
                 <Text style={styles.title}>{name}</Text>
                 <Image style={styles.image}
-                    source={require("../assets/testPlant.png")}> 
+                    source={{uri: `${plants[id-1].image_url}`}}> 
                 </Image>
             </View>
         </TouchableOpacity>
@@ -71,16 +89,16 @@ const Item = ({id, name }) => {
   }
 };
 const  NutNut = async(userPlants) => {
-    var lengd = nutritionedplants.slice();
+    var lengd = nutplants.slice();
     var year = new Date().getFullYear().toString();
     var month = (new Date().getMonth()+1).toString();
     var day = new Date().getDate().toString();
     var today =year+"-"+month+"-"+day;
-    if (nutritionedplants.length<1 ){
-        alert("no plants got nutritioned")
+    if (nutplants.length<1 ){
+        alert("no plants Nutted")
     }
     else{
-        nutritionedplants.length = 0;
+        nutplants.length = 0;
         for (var i=0;i<lengd.length;i++){
             console.log(lengd[i]);
             var entry = lengd[i] +1;
@@ -89,8 +107,8 @@ const  NutNut = async(userPlants) => {
                 "name":  userPlants[lengd[i]-1].name,
                 "birth_date":  userPlants[lengd[i]-1].birth_date,
                 "water": userPlants[lengd[i]-1].water,
-                "replant": userPlants[lengd[i]-1].replant,
-                "nutrition": today,
+                "replant": today,
+                "nutrition": userPlants[lengd[i]-1].nutrition,
                 "p_id": userPlants[lengd[i]-1].p_id,
                 "username": userPlants[lengd[i]-1].username,
                 
@@ -100,12 +118,13 @@ const  NutNut = async(userPlants) => {
                     console.error('There was an error!', error);
                 });
         }
-        alert("Your plants got nutritioned")
+        alert("Your plants got nutred")
     }
 
 };
 function Nutrition({navigation},props) {
     const [userPlants, setUserPlants] = useState("");
+    const [plants, setPlants] = useState("");
     const [username, setUsername] = useState("");
     const [done, setDone] = useState(false);
     useEffect(async() => {
@@ -116,7 +135,11 @@ function Nutrition({navigation},props) {
           const response = await axios.get(
             subPlantUrl,
           );
+          const response2 = await axios.get(
+            plantUrl,
+          );
           setUserPlants(response.data);
+          setPlants(response2.data);
         } catch (error) {
             console.log("Jästrar")
             console.log(error)
@@ -126,10 +149,8 @@ function Nutrition({navigation},props) {
     const renderItem = ({ item }) => (
         <Item id = {item.sub_id}
             name={item.name} 
+            plants = {plants}
               /> )
-    const re_Render_FlatList =()=>{
-    setDone(!done);
-  }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -155,7 +176,7 @@ function Nutrition({navigation},props) {
                 source={require("../assets/wateringCanBig.png")}>
             </Image>
         </View>
-        <Text style={styles.selectText}>Select the plants you have Nutrition today.</Text>
+        <Text style={styles.selectText}>Select the plants you have nutted today.</Text>
         <View style={styles.scrollView}
               contentContainerStyle={{flexDirection:'row'}}>
             <FlatList 
@@ -253,12 +274,13 @@ const styles = StyleSheet.create({
     imagepres: {
         height: 110, 
         width: 110, 
-        opacity:0.5, 
+        opacity:0.4, 
+        borderRadius:70,
     },
     image:{
         height: 110, 
         width: 110, 
-        
+        borderRadius:70,
     },
     circle: {
         height: 70, 
@@ -274,7 +296,7 @@ const styles = StyleSheet.create({
         width: "70%",
     },
     presblue:{
-        backgroundColor:"#ffcb3d",
+        backgroundColor:"#dba925",
         opacity: 1,
         borderRadius:70,
     }
