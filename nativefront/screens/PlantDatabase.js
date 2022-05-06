@@ -6,9 +6,8 @@ var plantbaseUrl = null;
 
 if(Platform.OS === "android"){ plantbaseUrl = 'http://10.0.2.2:8000/api/plants/';}
 else{  plantbaseUrl = 'http://127.0.0.1:8000/api/plants/';}
-const engNameList = [];
 
-  export default function ContactsList() {
+  export default function ContactsList({navigation}) {
    const [Plant, setPlant] = useState([]);
   useEffect(async() => {
     try {
@@ -41,18 +40,25 @@ const engNameList = [];
       return nameArr;
     };
 
+    const getItem = ( item) => {
+      // Function for click on an item
+      navigation.navigate("PlantDB", {plantId : item.p_id, EnglishName : item.english_name, LatinName : item.latin_name,
+      SwedishName: item.swedish_name,Description: item.description, Sun : item.sunlight, Water: item.water,
+      Nutrition: item.nutrition, ImageUrl: item.image_url});
+    }
+    
       return (
         <View style={styles.container}>
           <SectionList
             sections={getData()}
             renderItem={({ item }) => (
               <View style={styles.row}>
-                <Text>{item.english_name}</Text>
+                <Text style={styles.names} onPress={() => getItem(item)}>{item.english_name}</Text>
               </View>
             )}
             renderSectionHeader={({ section }) => (
               <View style={styles.sectionHeader}>
-                <Text>{section.title}</Text>
+                <Text style={styles.letter}>{section.title}</Text>
               </View>
             )}
             keyExtractor={item => item.p_id}
@@ -65,18 +71,7 @@ const engNameList = [];
 const styles = StyleSheet.create({
   background: {
     backgroundColor: '#FFF',
-    flex: 1, 
-  }, 
-  test: {
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 30,
-    color: '#fff',
-  },
-  letters: {
-    fontWeight: 'bold',
-    paddingLeft: 15,
+    flex: 1,
   },
   container: {
     flex: 1,
@@ -93,6 +88,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#7E9B6D",
     paddingHorizontal: 20,
     paddingVertical: 10
+  },
+  names: {
+    fontSize: 17,
+  },
+  letter: {
+    fontWeight: 'bold',
+    fontSize: 20,
   }
 }
 )
