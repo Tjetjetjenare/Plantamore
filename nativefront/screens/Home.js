@@ -119,11 +119,13 @@ function Home({navigation}) {
   const ItemView = ({ item }) => {
     return (
       // Flat List Item
+      <View style={styles.item}>
       <Text style={styles.itemStyle} onPress={() => getItem(item)}>
         {item.p_id}
         {'.'}
         {item.english_name.toUpperCase()}
       </Text>
+      </View>
     );
   };
 
@@ -239,17 +241,29 @@ bar: {
   scroll:{
     height:"280%",
     width:"80%",
+    // backgroundColor: "black",
+
+    borderRadius: 20,
+    textAlign: "center",
     opacity: 1,
     position:'absolute',
-    top:12,
+    top:20,
+    backgroundColor: 'gray',
   },
   searchContainer:{
     width:"95%",
     alignItems:'center',
   },
+  item: {
+    padding: 5,
+    marginHorizontal: 10,
+    opacity: 2,
+  },
   itemStyle: {
-    padding: 10,
+    padding: 5,
     margin:5,
-    backgroundColor: "rgba(251, 251, 251, 0.17)",
+
+    // backgroundColor: "rgba(251, 251, 251, 0.17)",
+    color: 'white'
   },
 })

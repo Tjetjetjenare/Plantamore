@@ -21,7 +21,7 @@ const CustomDrawer = (props) => {
         <DrawerContentScrollView {...props} 
             contentContainerStyle ={{backgroundColor: '#7E9B6D', flex:1}}> 
             <Image source={require('../assets/onlyPlant.png')} style={{marginLeft: '30%', marginTop:10, tintColor:'#000'}}/> 
-        <DrawerItemList {...props}/>
+        <DrawerItemList {...props} />
         </DrawerContentScrollView>
 
         <View style={{padding:20, borderTopWidth:2, borderTopColor:'#000000', backgroundColor: '#7E9B6D', paddingVertical:30}}>
@@ -30,10 +30,10 @@ const CustomDrawer = (props) => {
                     <Ionicons 
                         title={'Logout'}
                         name={'log-out-outline'}
-                        size={25}
+                        size={35}
                         color={'black'} 
                         />
-                    <Text style={{marginLeft:30, color:'#000'}}>Logout</Text>
+                    <Text style={{marginLeft:25, color:'#000', fontSize: 20}}>Logout</Text>
                 </View>
             </TouchableOpacity> 
                 {/* <View style={{flexDirection:'row', alignItems:'center'}}> 
