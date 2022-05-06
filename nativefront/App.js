@@ -342,7 +342,7 @@ function DrawerSideMenu() {
               elevation: 0,
               shadowOpacity: 0,
               borderBottomWidth: 0,
-              backgroundColor: '#7E9B6D'
+              backgroundColor: '#FFF'
             },
             drawerIcon: () => (
               <Ionicons name="leaf-outline" size={25} color={'#000'} />
