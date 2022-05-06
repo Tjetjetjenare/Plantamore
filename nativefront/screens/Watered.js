@@ -6,9 +6,11 @@ import axios from "axios";
 import { set } from 'react-native-reanimated';
 var subPlantUrl = "";
 if(Platform.OS === "android"){ 
-    subPlantUrl = 'http://10.0.2.2:8000/api/subplants/';}
+    subPlantUrl = 'http://10.0.2.2:8000/api/subplants/';
+    plantUrl = 'http://10.0.2.2:8000/api/plants/';}
 else{
-    subPlantUrl ='http://127.0.0.1:8000/api/subplants/';}
+    subPlantUrl ='http://127.0.0.1:8000/api/subplants/';
+    plantUrl = 'http://127.0.0.1:8000/api/plants/'}
 
 const myPlants = [];
 function findMyPlants(userPlants, username){
@@ -34,9 +36,25 @@ function doWater(id) {
 function ispres(id){
     return wateredplants.includes(id)
 }
-const Item = ({id, name }) => {
+const Item = ({id, name,plants }) => {
     const [pres, setPres] = useState(false);
-    if (ispres(id)!= false){
+    if (plants.length < 1){
+        return(
+            <TouchableOpacity 
+                onPress={()=>{
+                    doWater(id);
+                 setPres(!pres);
+                }}>
+                <View style={styles.item}>
+                    <Text style={styles.title}>{name}</Text>
+                    <Image style={styles.image}
+                        source={require("../assets/testPlant.png")}> 
+                    </Image>
+                </View>
+            </TouchableOpacity>
+          )
+    }
+   else if (ispres(id)!= false && plants.length > 1 ){
     return(
     <TouchableOpacity 
         onPress={()=>{
@@ -47,7 +65,7 @@ const Item = ({id, name }) => {
             <Text style={styles.title}>{name}</Text>
             <View style={styles.presblue}>
             <Image style={styles.imagepres}
-                source={require("../assets/testPlant.png")}> 
+                source={{uri: `${plants[id-1].image_url}`}}> 
             </Image>
             </View>
         </View>
@@ -63,7 +81,7 @@ const Item = ({id, name }) => {
             <View style={styles.item}>
                 <Text style={styles.title}>{name}</Text>
                 <Image style={styles.image}
-                    source={require("../assets/testPlant.png")}> 
+                    source={{uri: `${plants[id-1].image_url}`}}> 
                 </Image>
             </View>
         </TouchableOpacity>
@@ -106,6 +124,7 @@ const  BlubBlub = async(userPlants) => {
 };
 function Watered({navigation},props) {
     const [userPlants, setUserPlants] = useState("");
+    const [plants, setPlants] = useState("");
     const [username, setUsername] = useState("");
     const [done, setDone] = useState(false);
     useEffect(async() => {
@@ -116,7 +135,11 @@ function Watered({navigation},props) {
           const response = await axios.get(
             subPlantUrl,
           );
+          const response2 = await axios.get(
+            plantUrl,
+          );
           setUserPlants(response.data);
+          setPlants(response2.data);
         } catch (error) {
             console.log("Jästrar")
             console.log(error)
@@ -126,10 +149,8 @@ function Watered({navigation},props) {
     const renderItem = ({ item }) => (
         <Item id = {item.sub_id}
             name={item.name} 
+            plants = {plants}
               /> )
-    const re_Render_FlatList =()=>{
-    setDone(!done);
-  }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -254,11 +275,12 @@ const styles = StyleSheet.create({
         height: 110, 
         width: 110, 
         opacity:0.5, 
+        borderRadius:70,
     },
     image:{
         height: 110, 
         width: 110, 
-        
+        borderRadius:70,
     },
     circle: {
         height: 70, 
