@@ -20,6 +20,9 @@ function findMyPlants(userPlants, username){
            myPlants.push(userPlants[i])
        }
     }
+    myPlants.sort((a, b) => {
+        return new Date(a.nutrition) - new Date(b.nutrition);
+    });
     return myPlants
 }
 
@@ -36,7 +39,7 @@ function doNut(id) {
 function ispres(id){
     return nutplants.includes(id)
 }
-const Item = ({id, name,plants }) => {
+const Item = ({id, name,plants, nutrition }) => {
     const [pres, setPres] = useState(false);
     if (plants.length < 1){
         return(
@@ -51,6 +54,7 @@ const Item = ({id, name,plants }) => {
                         source={require("../assets/testPlant.png")}> 
                     </Image>
                 </View>
+              <View><Text>{nutrition}</Text></View>
             </TouchableOpacity>
           )
     }
@@ -69,6 +73,7 @@ const Item = ({id, name,plants }) => {
             </Image>
             </View>
         </View>
+        <View><Text>{nutrition}</Text></View>
     </TouchableOpacity>
   )}
   else{
@@ -84,6 +89,7 @@ const Item = ({id, name,plants }) => {
                     source={{uri: `${plants[id-1].image_url}`}}> 
                 </Image>
             </View>
+            <View><Text>{nutrition}</Text></View>
         </TouchableOpacity>
       )
   }
@@ -150,6 +156,7 @@ function Nutrition({navigation},props) {
         <Item id = {item.sub_id}
             name={item.name} 
             plants = {plants}
+            nutrition = {item.nutrition}
               /> )
 
     return (

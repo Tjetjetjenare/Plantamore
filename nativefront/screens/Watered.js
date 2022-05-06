@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, View, FlatList
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
+import { useIsFocused } from "@react-navigation/native";
 import { set } from 'react-native-reanimated';
 var subPlantUrl = "";
 if(Platform.OS === "android"){ 
@@ -20,6 +21,9 @@ function findMyPlants(userPlants, username){
            myPlants.push(userPlants[i])
        }
     }
+    myPlants.sort((a, b) => {
+        return new Date(a.water) - new Date(b.water);
+    });
     return myPlants
 }
 
@@ -36,7 +40,7 @@ function doWater(id) {
 function ispres(id){
     return wateredplants.includes(id)
 }
-const Item = ({id, name,plants }) => {
+const Item = ({id, name, plants, water }) => {
     const [pres, setPres] = useState(false);
     if (plants.length < 1){
         return(
@@ -51,6 +55,7 @@ const Item = ({id, name,plants }) => {
                         source={require("../assets/testPlant.png")}> 
                     </Image>
                 </View>
+                
             </TouchableOpacity>
           )
     }
@@ -69,7 +74,9 @@ const Item = ({id, name,plants }) => {
             </Image>
             </View>
         </View>
+        <View><Text>{water}</Text></View>
     </TouchableOpacity>
+    
   )}
   else{
     return(
@@ -84,7 +91,9 @@ const Item = ({id, name,plants }) => {
                     source={{uri: `${plants[id-1].image_url}`}}> 
                 </Image>
             </View>
+            <View><Text>{water}</Text></View>
         </TouchableOpacity>
+
       )
   }
 };
@@ -98,10 +107,14 @@ const  BlubBlub = async(userPlants) => {
         alert("no plants waterd")
     }
     else{
+       
+           
+          
         wateredplants.length = 0;
         for (var i=0;i<lengd.length;i++){
             console.log(lengd[i]);
             var entry = lengd[i] +1;
+            console.log(lengd[i],userPlants[lengd[i]-1].name,today,userPlants[lengd[i]-1].replant,userPlants[lengd[i]-1].nutrition,userPlants[lengd[i]-1].p_id,userPlants[lengd[i]-1].username,)
             await axios.put(subPlantUrl + entry, {
                 "sub_id":lengd[i],
                 "name":  userPlants[lengd[i]-1].name,
@@ -127,6 +140,7 @@ function Watered({navigation},props) {
     const [plants, setPlants] = useState("");
     const [username, setUsername] = useState("");
     const [done, setDone] = useState(false);
+    const isFocused = useIsFocused();
     useEffect(async() => {
         AsyncStorage.getItem('MyName').then(value =>
              setUsername(value )
@@ -145,11 +159,12 @@ function Watered({navigation},props) {
             console.log(error)
           // handle error
         }
-      },[]);
+      },[isFocused,done]);
     const renderItem = ({ item }) => (
         <Item id = {item.sub_id}
             name={item.name} 
             plants = {plants}
+            water = {item.water}
               /> )
 
     return (

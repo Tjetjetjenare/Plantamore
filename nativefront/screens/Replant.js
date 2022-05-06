@@ -20,6 +20,9 @@ function findMyPlants(userPlants, username){
            myPlants.push(userPlants[i])
        }
     }
+    myPlants.sort((a, b) => {
+        return new Date(a.replant) - new Date(b.replant);
+    });
     return myPlants
 }
 
@@ -36,7 +39,7 @@ function doReplant(id) {
 function ispres(id){
     return replantedplants.includes(id)
 }
-const Item = ({id, name,plants }) => {
+const Item = ({id, name,plants, replant }) => {
     const [pres, setPres] = useState(false);
     if (plants.length < 1){
         return(
@@ -69,6 +72,7 @@ const Item = ({id, name,plants }) => {
             </Image>
             </View>
         </View>
+        <View><Text>{replant}</Text></View>
     </TouchableOpacity>
   )}
   else{
@@ -84,6 +88,7 @@ const Item = ({id, name,plants }) => {
                     source={{uri: `${plants[id-1].image_url}`}}> 
                 </Image>
             </View>
+            <View><Text>{replant}</Text></View>
         </TouchableOpacity>
       )
   }
@@ -150,6 +155,7 @@ function Replant({navigation},props) {
         <Item id = {item.sub_id}
             name={item.name} 
             plants = {plants}
+            replant = {item.replant}
               /> )
 
     return (
