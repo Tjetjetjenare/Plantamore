@@ -13,7 +13,32 @@ else{
     subPlantUrl ='http://127.0.0.1:8000/api/subplants/';
     plantUrl = 'http://127.0.0.1:8000/api/plants/'}
 
-const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, plants, navigation}) =>  (
+const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, plants, navigation}) => { 
+    
+    
+    
+    if ( id == "add"){
+        return(
+            <TouchableOpacity 
+        onPress={()=>{
+            if(id == "add"){
+                navigation.navigate('CreateSub')
+            }
+        
+        }}>
+            <View style={styles.item}>
+            <Text style={styles.title}>{name}</Text>
+            <Image style={styles.image}
+                source={require("../assets/plus.png")
+                    
+                }> 
+            </Image>
+        </View>
+    </TouchableOpacity>
+            )}
+      else{
+
+    return(
     <TouchableOpacity 
         onPress={()=>{
             if(id == "add"){
@@ -39,7 +64,7 @@ const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, pla
             </Image>
         </View>
     </TouchableOpacity>
-  );
+  );}}
 function findMyPlants(userPlants, username){
     myPlants.length = 0
     for ( var i = 0; i< userPlants.length; i++){
@@ -47,6 +72,10 @@ function findMyPlants(userPlants, username){
            myPlants.push(userPlants[i])
        }
     }
+    myPlants.push({
+        sub_id: "add",
+        name: "Add a Plant",
+        })
     return myPlants
 }
 
@@ -80,7 +109,7 @@ function Profile({navigation}) {
         <Item 
             id = {item.sub_id}
             name={item.name} 
-            birth_dfate = {item.birth_date}
+            birth_date = {item.birth_date}
             water = {item.water}
             replant = {item.replant}
             nutrition = {item.nutrition}
