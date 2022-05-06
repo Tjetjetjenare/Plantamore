@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{ useState, useEffect } from 'react';
-import { SafeAreaView, FlatList, StyleSheet, Image, Text, View, TextInput } from 'react-native';
+import { SafeAreaView, FlatList, StyleSheet, Image, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import StandardButton from '../components/StandardButton';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -86,8 +86,9 @@ function Home({navigation}) {
       )
     } else{
       return(
-      <Text style={styles.text}>You are INLOGGAD :)
-</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Guide')}>
+          <Text style={styles.careGuideButton}>Care Guide</Text>
+      </TouchableOpacity>
     )}
 
 
@@ -265,5 +266,11 @@ bar: {
 
     // backgroundColor: "rgba(251, 251, 251, 0.17)",
     color: 'white'
+  },
+  careGuideButton: {
+    textDecorationLine: 'underline',
+    fontSize: 23, 
+    top: '500%', 
+    color: '#fff',
   },
 })
