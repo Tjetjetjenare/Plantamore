@@ -71,10 +71,6 @@ function Home({navigation}) {
     if (logd == 'false'){
       return(
         <View style={styles.buttonWrapper}>
-        <Text style={styles.text}>Log in to your existing account {"\n"}
-              or {"\n"}Sign up to get started
-        </Text>
-         
             <View style={styles.loginWrap}>
               <StandardButton sizeFont={20} title="Log in" functionOnPress={() => navigation.navigate('LogIn')} />
             </View>
@@ -201,12 +197,8 @@ bar: {
     textAlign: "center",
     opacity: 0.4,
     position:'absolute',
-    top:-40,
+    top:20,
 },
-  text:{
-    textAlign: "center",
-    fontSize: 16,
-  }, 
   buttonWrapper: {
     alignItems: "center",
     position:"absolute",
