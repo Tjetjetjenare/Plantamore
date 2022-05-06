@@ -359,7 +359,7 @@ function DrawerSideMenu() {
           })}
         />
         <Drawer.Screen
-          name="Homea"
+          name="HomeScreen"
           component={StackNavigator}
           options={{
             title:'Home',
@@ -368,18 +368,6 @@ function DrawerSideMenu() {
             },
             drawerIcon: () => (
             <Ionicons name="home-outline" size={25} color={'#000'}/>
-          )}}
-        />
-        <Drawer.Screen
-          name="Settings"
-          component={Home}
-          options={{
-            title:'Settings',
-            headerStyle: {
-              backgroundColor: '#FFF'
-            },
-            drawerIcon: () => (
-            <Ionicons name="settings-outline" size={25} color={'#000'} />
           )}}
         />
         <Drawer.Screen
@@ -437,7 +425,7 @@ function DrawerSideMenu() {
 
 const Tab = createMaterialBottomTabNavigator();
 
-function WNRTabs(navigation) {
+function WNRTabs() {
   return (
     <Tab.Navigator
       initialRouteName="Watered"
