@@ -368,7 +368,7 @@ function DrawerSideMenu() {
                 name="chevron-back-outline"
                 color="black"
                 size={25}
-                onPress={() => navigation.toggleDrawer()}
+                onPress={() => navigation.goBack()}
             />
             </View>,
           })}
