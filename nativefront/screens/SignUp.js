@@ -41,11 +41,13 @@ function SignUp({navigation}) {
           }
         const response = await axios.post(userbaseUrl, data,{'Content-Type': 'application/json'});
         if (response.status === 201) {
-        alert(' You have created an acount!');
+        //alert(' You have created an account!');
+        navigation.navigate('LogIn')
         setIsLoading(false);
         setFullName('');
         setEmail('');
         setPassword('');
+        
         } else {
         throw new Error("An error has occurred");
         }
@@ -110,11 +112,12 @@ function SignUp({navigation}) {
             </View>
             <View style={styles.signUpWrap}>
                 <StandardButton sizeFont={20} title="Sign Up" functionOnPress={onSubmitFormHandler}/>
+               
             </View>
             <View style={styles.termsAndConditions}>
-                <Text style={{justifyContent:'flex-end'}}>I agree with the
-                    <TouchableOpacity onPress={() => Alert.alert("ToC", "You have agreed to the terms of condition")}>
-                        <Text style={styles.tocText}> Terms of Condition</Text>
+                <Text style={{justifyContent:'flex-end'}}>By signing up you agree to the 
+                    <TouchableOpacity onPress={() => Alert.alert("Terms and conditions", "The terms and conditions are that PLANTAMORE do not take responsibility if your plants die. You are utmost responsible for the care of your plants.")}>
+                        <Text style={styles.tocText}> Terms and conditions</Text>
                     </TouchableOpacity>
                 </Text>
             </View>
