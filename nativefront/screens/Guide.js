@@ -8,7 +8,7 @@ export default function Guide({navigation}) {
 
   return (
     <SafeAreaView style={styles.container}>
-        <View style={styles.symbols}>
+        {/* <View style={styles.symbols}>
           <TouchableOpacity onPress={() => navigation.navigate('Home')}>
               <Ionicons
                   style={{ marginLeft: 10 }}
@@ -17,7 +17,7 @@ export default function Guide({navigation}) {
                   size={35}
               />
           </TouchableOpacity>
-      </View>
+      </View> */}
       <StatusBar style="auto"/>
       <ScrollView>
         <Text style={styles.header}>Your guide to</Text>

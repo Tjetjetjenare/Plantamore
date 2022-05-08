@@ -155,14 +155,14 @@ function Watered({navigation},props) {
     return (
         <SafeAreaView style={styles.container}>
         <View style={styles.symbols}>
-            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+            {/* <TouchableOpacity onPress={() => navigation.navigate('Home')}>
                 <Ionicons
                     style={{ marginLeft: 10 }}
                     name="close-outline"
                     color="black"
                     size={35}
                 />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             {/* <Image 
                 style={styles.calendar} 
                 source={require("../assets/calendar.png")}>
