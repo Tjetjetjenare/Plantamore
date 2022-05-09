@@ -213,7 +213,7 @@ bar: {
     transform: [{rotate: '-30deg'}]
   }, 
   loginWrap: {
-    width: "70%",
+    width: "200%",
     height: 40,
     marginTop: 20,
   },
