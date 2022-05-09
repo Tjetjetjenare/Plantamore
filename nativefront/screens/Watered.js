@@ -26,6 +26,12 @@ function findMyPlants(userPlants, username){
     });
     return myPlants
 }
+function sortPlants(UP){
+    UP.sort((a, b) => {
+        return new Date(a.sub_id) - new Date(b.sub_id);
+    });
+    return UP
+  }
 
 const wateredplants = [];
 function doWater(id) {
@@ -99,6 +105,7 @@ const Item = ({id, name, plants, water }) => {
 };
 const  BlubBlub = async(userPlants) => {
     var lengd = wateredplants.slice();
+    var UP = sortPlants(userPlants).slice();
     var year = new Date().getFullYear().toString();
     var month = (new Date().getMonth()+1).toString();
     var day = new Date().getDate().toString();
@@ -107,23 +114,20 @@ const  BlubBlub = async(userPlants) => {
         alert("no plants waterd")
     }
     else{
-       
-           
-          
         wateredplants.length = 0;
         for (var i=0;i<lengd.length;i++){
             var entry = lengd[i] +1;
-            console.log(userPlants)
+            console.log(UP, "AND AND AND",userPlants)
             //console.log(lengd[i],userPlants[lengd[i]-1].name,today,userPlants[lengd[i]-1].replant,userPlants[lengd[i]-1].nutrition,userPlants[lengd[i]-1].p_id,userPlants[lengd[i]-1].username,)
             await axios.put(subPlantUrl + entry, {
                 "sub_id":lengd[i],
-                "name":  userPlants[lengd[i]-1].name,
-                "birth_date":  userPlants[lengd[i]-1].birth_date,
+                "name":  UP[lengd[i]-1].name,
+                "birth_date":  UP[lengd[i]-1].birth_date,
                 "water": today,
-                "replant": userPlants[lengd[i]-1].replant,
-                "nutrition": userPlants[lengd[i]-1].nutrition,
-                "p_id": userPlants[lengd[i]-1].p_id,
-                "username": userPlants[lengd[i]-1].username,
+                "replant": UP[lengd[i]-1].replant,
+                "nutrition": UP[lengd[i]-1].nutrition,
+                "p_id": UP[lengd[i]-1].p_id,
+                "username": UP[lengd[i]-1].username,
                 
                 },{'Content-Type': 'application/json'})
                 .then(response => console.log(response.data))
@@ -152,17 +156,17 @@ function Watered({navigation},props) {
           const response2 = await axios.get(
             plantUrl,
           );
-          response.data.sort((a, b) => {
-            return new Date(a.sub_id) - new Date(b.sub_id);
-        });
+          
           setUserPlants(response.data);
           setPlants(response2.data);
+          console.log()
         } catch (error) {
             console.log("Jästrar")
             console.log(error)
           // handle error
         }
       },[isFocused,done]);
+      
     const renderItem = ({ item }) => (
         <Item id = {item.sub_id}
             name={item.name} 
