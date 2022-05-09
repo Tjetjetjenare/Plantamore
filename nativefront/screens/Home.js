@@ -208,15 +208,14 @@ bar: {
   buttonWrapper: {
     alignItems: "center",
     position:"absolute",
-    top: 390,
-    
+    top: 390, 
   },
   greenAccent:{
     position: "absolute",
     top: 312,
     bottom:-100,
     width: "300%",
-    height: "63%",
+    height: "100%",
     backgroundColor: "#7E9B6D",
     transform: [{rotate: '-30deg'}]
   }, 
