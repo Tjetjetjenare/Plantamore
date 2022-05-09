@@ -401,8 +401,7 @@ function DrawerSideMenu() {
           component={Guide}
           options={({ navigation }) => ({
             headerShown: true,
-            title: "",
-            headerStyle: {
+             headerStyle: {
               elevation: 0,
               shadowOpacity: 0,
               borderBottomWidth: 0,

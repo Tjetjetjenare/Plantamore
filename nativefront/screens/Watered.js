@@ -112,9 +112,9 @@ const  BlubBlub = async(userPlants) => {
           
         wateredplants.length = 0;
         for (var i=0;i<lengd.length;i++){
-            console.log(lengd[i]);
             var entry = lengd[i] +1;
-            console.log(lengd[i],userPlants[lengd[i]-1].name,today,userPlants[lengd[i]-1].replant,userPlants[lengd[i]-1].nutrition,userPlants[lengd[i]-1].p_id,userPlants[lengd[i]-1].username,)
+            console.log(userPlants)
+            //console.log(lengd[i],userPlants[lengd[i]-1].name,today,userPlants[lengd[i]-1].replant,userPlants[lengd[i]-1].nutrition,userPlants[lengd[i]-1].p_id,userPlants[lengd[i]-1].username,)
             await axios.put(subPlantUrl + entry, {
                 "sub_id":lengd[i],
                 "name":  userPlants[lengd[i]-1].name,
@@ -152,6 +152,9 @@ function Watered({navigation},props) {
           const response2 = await axios.get(
             plantUrl,
           );
+          response.data.sort((a, b) => {
+            return new Date(a.sub_id) - new Date(b.sub_id);
+        });
           setUserPlants(response.data);
           setPlants(response2.data);
         } catch (error) {
