@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{ useState, useEffect } from 'react';
-import { SafeAreaView, FlatList, StyleSheet, Image, Text, View, TextInput } from 'react-native';
+import { SafeAreaView, FlatList, StyleSheet, Image, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import StandardButton from '../components/StandardButton';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -71,10 +71,6 @@ function Home({navigation}) {
     if (logd == 'false'){
       return(
         <View style={styles.buttonWrapper}>
-        <Text style={styles.text}>Log in to your existing account {"\n"}
-              or {"\n"}Sign up to get started
-        </Text>
-         
             <View style={styles.loginWrap}>
               <StandardButton sizeFont={20} title="Log in" functionOnPress={() => navigation.navigate('LogIn')} />
             </View>
@@ -86,8 +82,9 @@ function Home({navigation}) {
       )
     } else{
       return(
-      <Text style={styles.text}>You are INLOGGAD :)
-</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Guide')}>
+          <Text style={styles.careGuideButton}>Care Guide</Text>
+      </TouchableOpacity>
     )}
 
 
@@ -119,11 +116,13 @@ function Home({navigation}) {
   const ItemView = ({ item }) => {
     return (
       // Flat List Item
+      <View style={styles.item}>
       <Text style={styles.itemStyle} onPress={() => getItem(item)}>
         {item.p_id}
         {'.'}
         {item.english_name.toUpperCase()}
       </Text>
+      </View>
     );
   };
 
@@ -198,12 +197,8 @@ bar: {
     textAlign: "center",
     opacity: 0.4,
     position:'absolute',
-    top:-40,
+    top:20,
 },
-  text:{
-    textAlign: "center",
-    fontSize: 16,
-  }, 
   buttonWrapper: {
     alignItems: "center",
     position:"absolute",
@@ -239,17 +234,35 @@ bar: {
   scroll:{
     height:"280%",
     width:"80%",
+    // backgroundColor: "black",
+
+    borderRadius: 20,
+    textAlign: "center",
     opacity: 1,
     position:'absolute',
-    top:12,
+    top:20,
+    backgroundColor: 'gray',
   },
   searchContainer:{
     width:"95%",
     alignItems:'center',
   },
+  item: {
+    padding: 5,
+    marginHorizontal: 10,
+    opacity: 2,
+  },
   itemStyle: {
-    padding: 10,
+    padding: 5,
     margin:5,
-    backgroundColor: "rgba(251, 251, 251, 0.17)",
+
+    // backgroundColor: "rgba(251, 251, 251, 0.17)",
+    color: 'white'
+  },
+  careGuideButton: {
+    textDecorationLine: 'underline',
+    fontSize: 23, 
+    top: '500%', 
+    color: '#fff',
   },
 })

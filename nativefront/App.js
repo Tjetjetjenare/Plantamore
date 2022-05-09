@@ -262,9 +262,9 @@ const StackNavigator = () => {
           })}
           />
 
-          {/* <Stack.Screen
+          <Stack.Screen
           name = "Watered"
-          component={Watered}
+          component={WNRTabs}
           options={({ navigation }) => ({
             headerShown: true,
             headerStyle: {
@@ -294,7 +294,7 @@ const StackNavigator = () => {
             // />
             // </View>,
           })}
-          /> */}
+          /> 
     </Stack.Navigator>
   )
 }
@@ -306,7 +306,7 @@ function DrawerSideMenu() {
   return (
     <Drawer.Navigator drawerContent ={ props => <CustomDrawer {...props} />}
         screenOptions={{
-          swipeEnabled: true, //false
+          swipeEnabled: false, //false
           headerTintColor: '#000',
           drawerActiveBackgroundColor: '#FFF',
           drawerActiveTintColor: '#000',
@@ -321,7 +321,20 @@ function DrawerSideMenu() {
           },
         }}
       >
-        <Drawer.Screen
+
+    <Drawer.Screen
+          name="Homea"
+          component={StackNavigator}
+          options={{
+            title:'Home',
+            headerStyle: {
+              backgroundColor: '#FFF',
+            },
+            drawerIcon: () => (
+            <Ionicons name="home-outline" size={25} color={'#000'}/>
+          )}}
+        />
+        {/* <Drawer.Screen
           name="Plant Tabs"
           component={WNRTabs}
           options={{
@@ -332,7 +345,9 @@ function DrawerSideMenu() {
             drawerIcon: () => (
             <Ionicons name="leaf-outline" size={25} color={'#000'} />
           )}}
-        />
+        /> */}
+
+
         <Drawer.Screen
           name="Plant Database"
           component={PlantDatabase} 
@@ -353,35 +368,12 @@ function DrawerSideMenu() {
                 name="chevron-back-outline"
                 color="black"
                 size={25}
-                onPress={() => navigation.toggleDrawer()}
+                onPress={() => navigation.goBack()}
             />
             </View>,
           })}
         />
-        <Drawer.Screen
-          name="Homea"
-          component={StackNavigator}
-          options={{
-            title:'Home',
-            headerStyle: {
-              backgroundColor: '#FFF'
-            },
-            drawerIcon: () => (
-            <Ionicons name="home-outline" size={25} color={'#000'}/>
-          )}}
-        />
-        <Drawer.Screen
-          name="Settings"
-          component={Home}
-          options={{
-            title:'Settings',
-            headerStyle: {
-              backgroundColor: '#FFF'
-            },
-            drawerIcon: () => (
-            <Ionicons name="settings-outline" size={25} color={'#000'} />
-          )}}
-        />
+    
         <Drawer.Screen
           name="Guide"
           component={Guide}
