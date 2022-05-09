@@ -32,19 +32,19 @@ export default function Guide({navigation}) {
           <Text style={styles.headline1}>Terminology</Text>
           <Text style={styles.body}>{guideText.terms}</Text>
           <Text style={styles.headline2}>Water:</Text>
-          <Text style={styles.body}>{guideText.water3}</Text>
-          <Text style={styles.body}>{guideText.water2}</Text>
-          <Text style={styles.body}>{guideText.water1}</Text>
+          <Text style={styles.body}><Text style={styles.phrases}>{guideText['water3.1']}</Text>{guideText['water3.2']}</Text>
+          <Text style={styles.body}><Text style={styles.phrases}>{guideText['water2.1']}</Text>{guideText['water2.2']}</Text>
+          <Text style={styles.body}><Text style={styles.phrases}>{guideText['water1.1']}</Text>{guideText['water1.2']}</Text>
           <Text style={styles.headline2}>Nutrition:</Text>
-          <Text style={styles.body}>{guideText.nutri3}</Text>
-          <Text style={styles.body}>{guideText.nutri2}</Text>
-          <Text style={styles.body}>{guideText.nutri1}</Text>      
+          <Text style={styles.body}><Text style={styles.phrases}>{guideText['nutri3.1']}</Text>{guideText['nutri3.2']}</Text>
+          <Text style={styles.body}><Text style={styles.phrases}>{guideText['nutri2.1']}</Text>{guideText['nutri2.2']}</Text>
+          <Text style={styles.body}><Text style={styles.phrases}>{guideText['nutri1.1']}</Text>{guideText['nutri1.2']}</Text>
           <Text style={styles.headline2}>Sun:</Text>
-          <Text style={styles.body}>{guideText.sun5}</Text>
-          <Text style={styles.body}>{guideText.sun4}</Text>
-          <Text style={styles.body}>{guideText.sun3}</Text>
-          <Text style={styles.body}>{guideText.sun2}</Text>
-          <Text style={styles.body}>{guideText.sun1}</Text> 
+          <Text style={styles.body}><Text style={styles.phrases}>{guideText['sun5.1']}</Text>{guideText['sun5.2']}</Text>
+          <Text style={styles.body}><Text style={styles.phrases}>{guideText['sun4.1']}</Text>{guideText['sun4.2']}</Text>
+          <Text style={styles.body}><Text style={styles.phrases}>{guideText['sun3.1']}</Text>{guideText['sun3.2']}</Text>
+          <Text style={styles.body}><Text style={styles.phrases}>{guideText['sun2.1']}</Text>{guideText['sun2.2']}</Text>
+          <Text style={styles.body}><Text style={styles.phrases}>{guideText['sun1.1']}</Text>{guideText['sun1.2']}</Text>
         </View>
         <View style={styles.pt3}>
           <Text style={styles.headline1}>Disclaimer</Text>
@@ -109,5 +109,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#a7cf91',
     padding:15,
   },
-
+  phrases: {
+    fontWeight: 'bold',
+  }
 })
