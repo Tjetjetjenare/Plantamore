@@ -300,8 +300,8 @@ const StackNavigator = () => {
                 size={40}
                 
                 onPress={() => 
-                  navigation.dispatch(CommonActions.reset({index: 0, routes: [{name: 'ProfileDrawer'}]},))}
-                  // navigation.navigate('ProfileDrawer', {screen: 'Profile'})}
+                  // navigation.dispatch(CommonActions.reset({index: 0, routes: [{name: 'ProfileDrawer'}]},))}
+                  navigation.navigate('ProfileDrawer', {screen: 'Profile'})}
             />
             </View>,
           })}
@@ -315,8 +315,17 @@ const StackNavigator = () => {
               elevation: 0,
               shadowOpacity: 0,
               borderBottomWidth: 0,
-              backgroundColor: 'white'
-            }
+              backgroundColor: '#7E9B6D'
+            },
+            headerLeft: () =>
+            <View style={{ marginLeft: 10 }}>
+              <Ionicons
+                name="close-outline"
+                color="black"
+                size={35}
+                onPress={() => navigation.navigate('Home')}
+            />
+            </View>,
           })}
           />
     </Stack.Navigator>
@@ -389,9 +398,10 @@ function DrawerSideMenu() {
 
         <Drawer.Screen
           name="Guide"
-          component={Guide} 
+          component={Guide}
           options={({ navigation }) => ({
             headerShown: true,
+            title: "",
             headerStyle: {
               elevation: 0,
               shadowOpacity: 0,
@@ -402,7 +412,7 @@ function DrawerSideMenu() {
               <Ionicons name="information-circle-outline" size={25} color={'#000'} />
             ),
             headerLeft: () =>
-            <View style={{ marginRight: 10 }}>
+            <View style={{ marginLeft: 10 }}>
               <Ionicons
                 name="close-outline"
                 color="black"
