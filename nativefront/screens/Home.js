@@ -82,7 +82,7 @@ function Home({navigation}) {
       )
     } else{
       return(
-        <TouchableOpacity onPress={() => navigation.navigate('Guide')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Guide') }style={styles.careGuideOPA}>
           <Text style={styles.careGuideButton}>Care Guide</Text>
       </TouchableOpacity>
     )}
@@ -239,7 +239,8 @@ bar: {
   },
   scroll:{
     height:"280%",
-    width:"80%",
+    width:"90%",
+    marginTop:51,
     // backgroundColor: "black",
 
     borderRadius: 20,
@@ -270,7 +271,11 @@ bar: {
   careGuideButton: {
     textDecorationLine: 'underline',
     fontSize: 23, 
-    top: '500%', 
     color: '#fff',
+  },
+  careGuideOPA: {
+    textDecorationLine: 'underline',
+    fontSize: 23,
+    top:150,
   },
 })

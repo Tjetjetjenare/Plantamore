@@ -202,6 +202,7 @@ const styles = StyleSheet.create({
     },
     tocText: {
         textDecorationLine: 'underline',
+        top:2,
     }
       
 

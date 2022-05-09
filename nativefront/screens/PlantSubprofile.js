@@ -130,7 +130,7 @@ else{
                 onPress={() => //Alert.alert('Watering can button pressed')
                 alert(plant[plantId-1].english_name)}>
                 <Image style={styles.wateringCan}
-                        source={require("../assets/wateringCan.png")}>
+                        source={require("../assets/plantCare.png")}>
                         
                 </Image>
             </TouchableOpacity>
