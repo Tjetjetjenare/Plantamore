@@ -161,14 +161,14 @@ function Replant({navigation},props) {
     return (
         <SafeAreaView style={styles.container}>
         <View style={styles.symbols}>
-            <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+            {/* <TouchableOpacity onPress={() => navigation.navigate('Home')}>
                 <Ionicons
                     style={{ marginLeft: 10 }}
                     name="close-outline"
                     color="black"
                     size={35}
                 />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             {/* <Image 
                 style={styles.calendar} 
                 source={require("../assets/calendar.png")}>
@@ -179,7 +179,7 @@ function Replant({navigation},props) {
         <View style={styles.waterCanContainer}>
             <Image 
                  style={styles.wateringCanPic}
-                source={require("../assets/wateringCanBig.png")}>
+                source={require("../assets/replant.png")}>
             </Image>
         </View>
         <Text style={styles.selectText}>Select the plants you have replanted today.</Text>

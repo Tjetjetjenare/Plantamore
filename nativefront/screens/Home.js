@@ -82,7 +82,7 @@ function Home({navigation}) {
       )
     } else{
       return(
-        <TouchableOpacity onPress={() => navigation.navigate('Guide')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Guide') }style={styles.careGuideOPA}>
           <Text style={styles.careGuideButton}>Care Guide</Text>
       </TouchableOpacity>
     )}
@@ -213,7 +213,7 @@ bar: {
     transform: [{rotate: '-30deg'}]
   }, 
   loginWrap: {
-    width: "70%",
+    width: "200%",
     height: 40,
     marginTop: 20,
   },
@@ -233,7 +233,8 @@ bar: {
   },
   scroll:{
     height:"280%",
-    width:"80%",
+    width:"90%",
+    marginTop:51,
     // backgroundColor: "black",
 
     borderRadius: 20,
@@ -246,6 +247,7 @@ bar: {
   searchContainer:{
     width:"95%",
     alignItems:'center',
+    marginBottom:20,
   },
   item: {
     padding: 5,
@@ -262,7 +264,11 @@ bar: {
   careGuideButton: {
     textDecorationLine: 'underline',
     fontSize: 23, 
-    top: '500%', 
     color: '#fff',
+  },
+  careGuideOPA: {
+    textDecorationLine: 'underline',
+    fontSize: 23,
+    top:150,
   },
 })
