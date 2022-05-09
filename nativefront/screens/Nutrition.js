@@ -124,7 +124,7 @@ const  NutNut = async(userPlants) => {
                     console.error('There was an error!', error);
                 });
         }
-        alert("Your plants got nutred")
+        alert("Your plants have been given nutrition today.")
     }
 
 };
@@ -183,7 +183,7 @@ function Nutrition({navigation},props) {
                 source={require("../assets/nutritionFlask.png")}>
             </Image>
         </View>
-        <Text style={styles.selectText}>Select the plants you have nutted today.</Text>
+        <Text style={styles.selectText}>Select the plants you have given nutrition to.</Text>
         <View style={styles.scrollView}
               contentContainerStyle={{flexDirection:'row'}}>
             <FlatList 
@@ -290,13 +290,19 @@ const styles = StyleSheet.create({
         borderRadius:70,
     },
     circle: {
-        height: 70, 
-        width: 70, 
         backgroundColor: "#fff",
-        left: "75%",
-        borderRadius: 35, 
+        borderColor: "black",
+        borderWidth: 1,
+        width: 80,
+        height: 40,
+        borderRadius: 20,
         justifyContent: "center",
-        alignItems: "center",
+        color: "black",
+        alignItems:"center",
+        alignSelf:"flex-end",
+        marginRight:5,
+        right: "3%", 
+        bottom: "1%",
     },
     wateringCan: {
         height: "70%",
