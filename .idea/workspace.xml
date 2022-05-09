@@ -11,6 +11,9 @@
       <change beforePath="$PROJECT_DIR$/nativefront/screens/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/nativefront/screens/Home.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nativefront/screens/PlantDatabase.js" beforeDir="false" afterPath="$PROJECT_DIR$/nativefront/screens/PlantDatabase.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nativefront/screens/SignUp.js" beforeDir="false" afterPath="$PROJECT_DIR$/nativefront/screens/SignUp.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nativefront/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/nativefront/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nativefront/screens/Watered.js" beforeDir="false" afterPath="$PROJECT_DIR$/nativefront/screens/Watered.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

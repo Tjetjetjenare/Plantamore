@@ -19,6 +19,7 @@ import Guide from './screens/Guide';
 import CreatePlantSubprofile from './screens/CreatePlantSubprofile';
 import Watered from './screens/Watered';
 import PlantDatabase from './screens/PlantDatabase';
+import { CommonActions } from '@react-navigation/native';
 
 
 // If problems occur with stacked screens look up "reset stack route "StackActions""
@@ -73,11 +74,25 @@ const StackNavigator = () => {
                 name="person-outline"
                 size={35}
                 color="black"
-                onPress={() => navigation.navigate('Profile')}
+                onPress={() => navigation.navigate('ProfileDrawer', {screen: 'Profile'})}
               />
             </View>
           })}
           />
+          {/* <Stack.screen 
+          name = "DrawerSideMenu"
+          component = {DrawerSideMenu}
+          options={({ navigation }) => ({
+            headerTintColor: 'white',
+            headerShown: true,
+            headerStyle: {
+              elevation: 0,
+              shadowOpacity: 0,
+              borderBottomWidth: 0,
+              backgroundColor: '#7E9B6D'
+            },
+          })}
+          /> */}
           <Stack.Screen
           name = "LogIn"
           component={LogIn}
@@ -166,7 +181,10 @@ const StackNavigator = () => {
                 name="close-outline"
                 color="black"
                 size={45}
-                onPress={() => navigation.navigate('Profile')}
+                onPress={() => 
+                navigation.dispatch(CommonActions.reset({index: 0, routes: [{name: 'ProfileDrawer'}]},))}
+                  
+                  // navigation.navigate('ProfileDrawer', {screen: 'Profile'})}
             />
             </View>,
           })}
@@ -263,7 +281,7 @@ const StackNavigator = () => {
           />
 
           <Stack.Screen
-          name = "Watered"
+          name = "WateredStack"
           component={WNRTabs}
           options={({ navigation }) => ({
             headerShown: true,
@@ -273,28 +291,34 @@ const StackNavigator = () => {
               borderBottomWidth: 0,
               backgroundColor: '#7E9B6D'
             },
-            // headerLeft: () =>
-            // <View>
-            //   <Ionicons
-            //     style={{ marginLeft: 10 }}
-            //     name="menu-outline"
-            //     color="black"
-            //     size={40}
-            //     onPress={() => navigation.toggleDrawer()}
-            // />
-            // </View>,
-            // headerRight: () =>
-            // <View>
-            //   <Ionicons
-            //     style={{ marginRight: 10 }}
-            //     name="calendar-outline"
-            //     color="black"
-            //     size={35}
-            //     onPress={() => navigation.navigate('Calendar')}
-            // />
-            // </View>,
+            headerLeft: () =>
+            <View>
+              <Ionicons
+                style={{ marginLeft: 10 }}
+                name="close-outline"
+                color="black"
+                size={40}
+                
+                onPress={() => 
+                  navigation.dispatch(CommonActions.reset({index: 0, routes: [{name: 'ProfileDrawer'}]},))}
+                  // navigation.navigate('ProfileDrawer', {screen: 'Profile'})}
+            />
+            </View>,
           })}
           /> 
+          <Stack.Screen
+          name = "Guide"
+          component={Guide}
+          options={({ navigation }) => ({
+            headerShown: true,
+            headerStyle: {
+              elevation: 0,
+              shadowOpacity: 0,
+              borderBottomWidth: 0,
+              backgroundColor: 'white'
+            }
+          })}
+          />
     </Stack.Navigator>
   )
 }
@@ -323,7 +347,7 @@ function DrawerSideMenu() {
       >
 
     <Drawer.Screen
-          name="Homea"
+          name="HomeDrawer"
           component={StackNavigator}
           options={{
             title:'Home',
@@ -331,22 +355,11 @@ function DrawerSideMenu() {
               backgroundColor: '#FFF',
             },
             drawerIcon: () => (
-            <Ionicons name="home-outline" size={25} color={'#000'}/>
+            <Ionicons name="home-outline" size={25} color={'#000'}
+            onPress={() => navigation.dispatch(CommonActions.reset({index: 0, actions: [NavigationActions.navigate({routeName: 'Home'})]},))}
+            />
           )}}
         />
-        {/* <Drawer.Screen
-          name="Plant Tabs"
-          component={WNRTabs}
-          options={{
-            title:'Plant Cat 1',
-            headerStyle: {
-              backgroundColor: '#FFF'
-            },
-            drawerIcon: () => (
-            <Ionicons name="leaf-outline" size={25} color={'#000'} />
-          )}}
-        /> */}
-
 
         <Drawer.Screen
           name="Plant Database"
@@ -373,23 +386,37 @@ function DrawerSideMenu() {
             </View>,
           })}
         />
-    
+
         <Drawer.Screen
           name="Guide"
-          component={Guide}
-          options={{
-            title:'Guide',
+          component={Guide} 
+          options={({ navigation }) => ({
+            headerShown: true,
             headerStyle: {
-              backgroundColor: '#FFF'
+              elevation: 0,
+              shadowOpacity: 0,
+              borderBottomWidth: 0,
+              backgroundColor: '#7E9B6D'
             },
             drawerIcon: () => (
-            <Ionicons name="information-circle-outline" size={25} color={'#000'} />
-          )}}
+              <Ionicons name="information-circle-outline" size={25} color={'#000'} />
+            ),
+            headerLeft: () =>
+            <View style={{ marginRight: 10 }}>
+              <Ionicons
+                name="close-outline"
+                color="black"
+                size={35}
+                onPress={() => navigation.navigate('Home')}
+            />
+            </View>,
+          })}
         />
         <Drawer.Screen
-          name="Profile"
+          name="ProfileDrawer"
           component={Profile}
           options={({ navigation }) => ({
+            title: 'Profile',
             headerShown: true,
             headerTintColor: '#7E9B6D',
             headerStyle: {
@@ -427,12 +454,13 @@ function DrawerSideMenu() {
   );
 }
 
+
 const Tab = createMaterialBottomTabNavigator();
 
 function WNRTabs(navigation) {
   return (
     <Tab.Navigator
-      initialRouteName="Watered"
+      initialRouteName="WateredTab"
       activeColor="black"
       labeled={false}
       barStyle={{
@@ -440,7 +468,7 @@ function WNRTabs(navigation) {
       }}
     >
       <Tab.Screen
-        name="Watered"
+        name="WateredTab"
         component={Watered}
         options={{
           tabBarLabel:"Watered",
