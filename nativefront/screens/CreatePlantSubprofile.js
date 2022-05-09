@@ -18,7 +18,7 @@ else{
 
     const DATA = [
         {
-        title: "Add a new plant to your profile",
+        title: "",
         data: [""]
         },
         {
@@ -52,11 +52,10 @@ function CreatePlantSubprofile(props) {
     const [logd, setLogd] = useState('');
     const isFocused = useIsFocused();
   useEffect(async() => {
-    if(isFocused){         console.log("called");
+    if(isFocused){
     AsyncStorage.getItem('inloggad').then(value =>
        setLogd(value )
   );
-  console.log(logd)
     }
     try {
       const response = await axios.get(
@@ -127,11 +126,13 @@ function CreatePlantSubprofile(props) {
   const ItemView = ({ item }) => {
     return (
       // Flat List Item
-      <Text style={styles.itemStyle} onPress={() => getItem(item)}>
-        {item.p_id}
-        {'.'}
-        {item.english_name.toUpperCase()}
-      </Text>
+      <View style={styles.searchItem}>
+        <Text style={styles.itemStyle} onPress={() => getItem(item)}>
+          {item.p_id}
+          {'.'}
+          {item.english_name.toUpperCase()}
+        </Text>
+      </View>
     );
   };
 
@@ -154,43 +155,44 @@ function CreatePlantSubprofile(props) {
     SwedishName: item.swedish_name,Description: item.description, Sun : item.sunlight, Water: item.water,
     Nutrition: item.nutrition, ImageUrl: item.image_url});
   };
-    const Item = ({ title}) => {
-        if(title == 'Search database for type of plant'){
-            return(
-                <View>
-                    {SearchField()}
-                    {SearchList()}
-                </View>
-            )
-        }if (title == '') {
-            return(
-            <View>
-                <Text style={styles.header}>{title}</Text>                
-                <Image
-                    style={styles.plantPic}
-                    source={require("../assets/addimg.png")}>
-                </Image>
-            </View>)
-        }if(title=='Save profile'){
-            return(
-                <TouchableOpacity style={styles.savebtn} onPress={() => Alert.alert('Save profile')}>
-                <Text>SAVE</Text>
-              </TouchableOpacity>
-            )
-        }
-        else{
-        return(
-        <View style={styles.item}>
-            <TextInput style={styles.input} placeholder={title}/>
-        </View>)
-        }
+
+  const Item = ({ title}) => {
+      if(title == 'Search database for type of plant'){
+          return(
+              <View>
+                  {SearchField()}
+                  {SearchList()}
+              </View>
+          )
+      }if (title == '') {
+          return(
+          <View>             
+              <Image
+                  style={styles.plantPic}
+                  source={require("../assets/onlyPlantSmall.png")}>
+              </Image>
+          </View>)
+      }if(title=='Save profile'){
+          return(
+              <TouchableOpacity style={styles.savebtn} onPress={() => Alert.alert('Save profile')}>
+              <Text>SAVE</Text>
+            </TouchableOpacity>
+          )
+      }
+      else{
+      return(
+      <View style={styles.item}>
+
+          <TextInput style={styles.input} placeholder={title}/>
+      </View>)
+      }
     };
 
 
    return(
          <SafeAreaView style={styles.container} >
             <StatusBar style="auto"/>
-            
+            <Text style={styles.header}>Add a new plant to your profile</Text>
             <SectionList
                 sections={DATA}
                 keyExtractor={(item, index) => item + index}
@@ -255,22 +257,41 @@ const styles = StyleSheet.create({
         alignSelf: "center",
         borderRadius: 30, 
     },
+    scroll:{
+      height:150,
+      width:"90%",
+      //marginTop:51,
+      borderRadius: 20,
+      textAlign: "center",
+      opacity: 1,
+      //position:'absolute',
+      //top:20,
+      backgroundColor: 'gray',
+      alignSelf:"center",
+      overflow: "scroll",
+    },
     plantPic: {
-        width: 150, 
-        height: undefined,
-        aspectRatio: 1,
-        borderWidth: 1,
-        borderRadius:75,
-        alignSelf: "center",
+      aspectRatio: 1,
+      width: 150, 
+      height: undefined,
+      borderWidth: 1,
+      borderRadius:75,
+      backgroundColor:"#fff",
+      alignSelf: "center",
+      top:-30,
         
     },
-    plantTouch: {
-        width: 150, 
-        height: undefined,
-        aspectRatio: 1,
-        borderRadius:75,
-        margin: 20,
-        alignSelf: "center",
+    searchItem: {
+      padding: 5,
+      marginHorizontal: 10,
+      opacity: 2,
+    },
+    itemStyle: {
+      padding: 5,
+      margin:5,
+  
+      // backgroundColor: "rgba(251, 251, 251, 0.17)",
+      color: 'white'
     },
     imgText: {
         fontSize: 10,
