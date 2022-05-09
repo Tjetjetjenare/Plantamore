@@ -1,9 +1,18 @@
-import {React, useState} from 'react';
+import {React, useState, useEffect } from 'react';
 import {View, TouchableOpacity, Text, SafeAreaView, StyleSheet, Image} from 'react-native';
 import {Agenda} from 'react-native-calendars';
 import {Card} from 'react-native-paper';
-
-
+import { useIsFocused } from "@react-navigation/native";
+import axios from "axios";
+var plantUrl = null;
+var subPlantUrl = null;
+const calPla = {};
+if(Platform.OS === "android"){ 
+    subPlantUrl = 'http://10.0.2.2:8000/api/subplants/';
+    plantUrl = 'http://10.0.2.2:8000/api/plants/';}
+else{
+    subPlantUrl ='http://127.0.0.1:8000/api/subplants/';
+    plantUrl = 'http://127.0.0.1:8000/api/plants/'}
 const timeToString = (time) => {
   const date = new Date(time);
   return date.toISOString().split('T')[0];
@@ -11,31 +20,40 @@ const timeToString = (time) => {
 
 // source https://github.com/wix/react-native-calendars
 function Calendar({navigation},props) {
+
+  const [userPlants, setUserPlants] = useState("");
   const [items, setItems] = useState({});
+  const isFocused = useIsFocused();
   const water = {key: 'water', color: '#00FFFF', selectedDotColor: '#00FFFF'}
   const replant = {key: 'replant', color: '#8B4513', selectedDotColor: '#8B4513'}
   const nutrition = {key: 'nutrition', color: '#7E9B6D', selectedDotColor: '#7E9B6D'}
 
+  useEffect(async() => {
+    try {
+      const response = await axios.get(
+        subPlantUrl,
+      );
+      setUserPlants(response.data);
+
+    } catch (error) {
+        console.log("Jästrar")
+        console.log(error)
+      // handle error
+    }
+    
+  },[isFocused]);
   // loop creates random cards for random days
   // for demonstraion reasons this will be kept this way
   // when API is fixed loop need to be fixed
   const markedDates = (day) => {
     setTimeout(() => {
-      for (let i = 0; i < 5; i++) {
-        const time = day.timestamp + i * 24 * 60 * 60 * 1000;
-        const strTime = timeToString(time);
-        if (!items[strTime]) {
-          items[strTime] = [];
-          const numItems = Math.floor(Math.random() * 3 + 1);
-          for (let j = 0; j < numItems; j++) {
-            items[strTime].push({
-            name: 'Water Money plant ' + ' #' + j, //plant name and information: insert here
-            height: Math.max(50, Math.floor(Math.random() * 150)),
-            });
-            console.log('Day is an object', day)
+          for (var i= 0; i<userPlants.length;i++){
+            calPla[userPlants[i].water] = []
+            calPla[userPlants[i].water].push({name: userPlants[i].name,
+            water :userPlants[i].water })
+
+      console.log("NEj",calPla)
           }
-        }
-      }
     },);
   };
 
@@ -47,7 +65,7 @@ function Calendar({navigation},props) {
           <Card>
             <Card.Content>
               <View style={styles.eventContainer}>
-                <Text>{item.name}</Text>
+                <Text>{item.name}{"\n"} {item.water}</Text>
                 <Image style={styles.plantContainer} source={require("../assets/testPlant.png")} />
               </View>
             </Card.Content>
@@ -60,12 +78,6 @@ function Calendar({navigation},props) {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* <TouchableOpacity onPress={() => navigation.navigate('Profile')}>          
-       <Image 
-          style={styles.exitContainer} 
-          source={require("../assets/exit(x).png")}>
-        </Image>
-        </TouchableOpacity> */}
         <Text 
           style= {styles.calendarHeader}>
           Calendar
@@ -93,7 +105,7 @@ function Calendar({navigation},props) {
         firstDay={1}          
         // Handler which gets executed on day press. Default = undefined
         showOnlySelectedDayItems={true}
-        items={items}
+        items={calPla}
         loadItemsForMonth={markedDates}
         renderItem={renderItem}
         theme = {{

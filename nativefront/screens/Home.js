@@ -214,7 +214,7 @@ bar: {
     top: 312,
     bottom:-100,
     width: "300%",
-    height: "63%",
+    height: "100%",
     backgroundColor: "#7E9B6D",
     transform: [{rotate: '-30deg'}]
   }, 
