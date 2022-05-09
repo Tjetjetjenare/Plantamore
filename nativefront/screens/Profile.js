@@ -152,7 +152,7 @@ function Profile({navigation}) {
 
             <TouchableOpacity 
                 style={styles.circle}
-                onPress={() => navigation.navigate("Watered")
+                onPress={() => navigation.navigate('WateredStack')
                 
                 }>
                 <Image style={styles.wateringCan}

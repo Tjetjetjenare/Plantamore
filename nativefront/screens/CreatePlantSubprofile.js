@@ -18,10 +18,10 @@ function CreatePlantSubprofile(props) {
          <SafeAreaView style={styles.container} >
             <ScrollView>
                 <StatusBar style="auto"/>
-                <Image 
+                {/* <Image 
                     style={styles.arrowContainer} 
                     source={require("../assets/backArrow.png")}>
-                </Image>
+                </Image> */}
                 <Text style={styles.header}>Add a new plant to your garden!</Text>
                 <TouchableOpacity style={styles.plantTouch} onPress={() => Alert.alert('I want to change image')}>
                     <Image
@@ -63,7 +63,6 @@ const styles = StyleSheet.create({
     header: { 
         fontSize: 35, 
         fontWeight: 'bold', 
-        marginTop: 40, 
         textAlign:"center",
     },
     info:{
