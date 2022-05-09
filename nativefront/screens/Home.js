@@ -156,7 +156,7 @@ function Home({navigation}) {
                 style={styles.profileButton}
                 source={require("../assets/profileButton.png")}/> */}
         <StatusBar style="auto"/>
-        {/* <View style={styles.greenAccent} /> */}
+        <View style={styles.greenAccent} />
       <Image style={styles.logo} source={require("../assets/logo.png")}></Image>
       <View style= {styles.searchContainer}>
         {SearchField()}
@@ -181,7 +181,7 @@ const styles = StyleSheet.create({
     width: "80%",
     resizeMode: "contain",
     position:"absolute",
-    top:80,
+    top: 0,
   },
   container2: {
     width:"90%",
@@ -212,6 +212,7 @@ bar: {
   },
   greenAccent:{
     position: "absolute",
+    top: 312,
     bottom:-100,
     width: "300%",
     height: "63%",
@@ -254,7 +255,7 @@ bar: {
     width:"95%",
     alignItems:'center',
     position:'absolute',
-    top:260,
+    top: 200,
   },
   item: {
     padding: 5,
