@@ -1,9 +1,8 @@
 import React,{useState, useEffect} from 'react';
 import { SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Platform} from 'react-native';
 import axios from "axios";
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { StackActions } from '@react-navigation/native';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from "@react-navigation/native";
 const myPlants = [];
 var plantUrl = null;
 var subPlantUrl = null;
@@ -87,6 +86,7 @@ function Profile({navigation}) {
     const [userPlants, setUserPlants] = useState("");
     const [plants, setPlants] = useState({});
     const [username, setUsername] = useState("");
+    const isFocused = useIsFocused();
     useEffect(async() => {
         AsyncStorage.getItem('MyName').then(value =>
             //AsyncStorage returns a promise so adding a callback to get the value
@@ -107,7 +107,7 @@ function Profile({navigation}) {
             console.log(error)
           // handle error
         }
-      },[]);
+      },[isFocused]);
     const renderItem = ({ item }) => (
         <Item 
             id = {item.sub_id}

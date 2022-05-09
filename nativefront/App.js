@@ -37,7 +37,9 @@ const StackNavigator = () => {
     <Stack.Navigator
     initialRouteName={"Home"}
       screenOptions={({ navigation }) => ({
+        gesturesEnabled: false,
         title: '',
+        initialRouteName: "Home",
         headerBackTitle: () => null,
         // headerShown: false,
         // headerStyle: {
@@ -299,9 +301,7 @@ const StackNavigator = () => {
                 color="black"
                 size={40}
                 
-                onPress={() => 
-                  navigation.dispatch(CommonActions.reset({index: 0, routes: [{name: 'ProfileDrawer'}]},))}
-                  // navigation.dispatch(CommonActions.reset({index: routes.length - 1, routes: [{name: 'ProfileDrawer'}]},))}
+                onPress={() => navigation.dispatch(CommonActions.reset({index: 0, routes: [{name: 'ProfileDrawer'}]},))}
                   // navigation.dispatch(popAction)}
                   // navigation.navigate('ProfileDrawer', {screen: 'Profile'})}
             />
@@ -367,7 +367,8 @@ function DrawerSideMenu() {
             },
             drawerIcon: () => (
             <Ionicons name="home-outline" size={25} color={'#000'}
-            onPress={() => navigation.dispatch(CommonActions.reset({index: 0, routes: [{name: 'Home'}]},))}
+            onPress={() => 
+              navigation.dispatch(CommonActions.reset({index: 0, routes: [{name: 'Home'}]},))}
             />
           )}}
         />
@@ -403,7 +404,7 @@ function DrawerSideMenu() {
           component={Guide}
           options={({ navigation }) => ({
             headerShown: true,
-            headerStyle: {
+             headerStyle: {
               elevation: 0,
               shadowOpacity: 0,
               borderBottomWidth: 0,
@@ -521,7 +522,7 @@ function WNRTabs(navigation) {
 
 function App() {
   return (
-    <NavigationContainer initialRouteName="Home">
+    <NavigationContainer >
       <DrawerSideMenu />
     </NavigationContainer>
   );

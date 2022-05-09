@@ -8,16 +8,6 @@ export default function Guide({navigation}) {
 
   return (
     <SafeAreaView style={styles.container}>
-        {/* <View style={styles.symbols}>
-          <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-              <Ionicons
-                  style={{ marginLeft: 10 }}
-                  name="close-outline"
-                  color="black"
-                  size={35}
-              />
-          </TouchableOpacity>
-      </View> */}
       <StatusBar style="auto"/>
       <ScrollView>
         <Text style={styles.header}>Your guide to</Text>
