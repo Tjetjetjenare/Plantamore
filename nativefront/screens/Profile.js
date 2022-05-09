@@ -2,9 +2,12 @@ import React,{useState, useEffect} from 'react';
 import { SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Platform} from 'react-native';
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { StackActions } from '@react-navigation/native';
+
 const myPlants = [];
 var plantUrl = null;
 var subPlantUrl = null;
+
 
 if(Platform.OS === "android"){ 
     subPlantUrl = 'http://10.0.2.2:8000/api/subplants/';
@@ -152,7 +155,8 @@ function Profile({navigation}) {
 
             <TouchableOpacity 
                 style={styles.circle}
-                onPress={() => navigation.navigate('WateredStack')
+                onPress={() => navigation.navigate('WateredStack') 
+            
                 
                 }>
                 <Image style={styles.wateringCan}

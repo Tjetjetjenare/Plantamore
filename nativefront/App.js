@@ -20,10 +20,9 @@ import CreatePlantSubprofile from './screens/CreatePlantSubprofile';
 import Watered from './screens/Watered';
 import PlantDatabase from './screens/PlantDatabase';
 import { CommonActions } from '@react-navigation/native';
-
+import { StackActions } from '@react-navigation/native';
 
 // If problems occur with stacked screens look up "reset stack route "StackActions""
-
 
 
 const styles = StyleSheet.create({
@@ -32,10 +31,11 @@ const styles = StyleSheet.create({
 
 const Stack = createStackNavigator();
 
+
 const StackNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName={"Home"}
+    initialRouteName={"Home"}
       screenOptions={({ navigation }) => ({
         title: '',
         headerBackTitle: () => null,
@@ -300,8 +300,10 @@ const StackNavigator = () => {
                 size={40}
                 
                 onPress={() => 
-                  // navigation.dispatch(CommonActions.reset({index: 0, routes: [{name: 'ProfileDrawer'}]},))}
-                  navigation.navigate('ProfileDrawer', {screen: 'Profile'})}
+                  navigation.dispatch(CommonActions.reset({index: 0, routes: [{name: 'ProfileDrawer'}]},))}
+                  // navigation.dispatch(CommonActions.reset({index: routes.length - 1, routes: [{name: 'ProfileDrawer'}]},))}
+                  // navigation.dispatch(popAction)}
+                  // navigation.navigate('ProfileDrawer', {screen: 'Profile'})}
             />
             </View>,
           })}
@@ -365,7 +367,7 @@ function DrawerSideMenu() {
             },
             drawerIcon: () => (
             <Ionicons name="home-outline" size={25} color={'#000'}
-            onPress={() => navigation.dispatch(CommonActions.reset({index: 0, actions: [NavigationActions.navigate({routeName: 'Home'})]},))}
+            onPress={() => navigation.dispatch(CommonActions.reset({index: 0, routes: [{name: 'Home'}]},))}
             />
           )}}
         />
@@ -401,7 +403,6 @@ function DrawerSideMenu() {
           component={Guide}
           options={({ navigation }) => ({
             headerShown: true,
-            title: "",
             headerStyle: {
               elevation: 0,
               shadowOpacity: 0,
@@ -470,7 +471,7 @@ const Tab = createMaterialBottomTabNavigator();
 function WNRTabs(navigation) {
   return (
     <Tab.Navigator
-      initialRouteName="WateredTab"
+      // initialRouteName="WateredTab"
       activeColor="black"
       labeled={false}
       barStyle={{
