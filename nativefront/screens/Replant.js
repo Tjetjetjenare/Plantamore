@@ -100,7 +100,7 @@ const  DirtDirt = async(userPlants) => {
     var day = new Date().getDate().toString();
     var today =year+"-"+month+"-"+day;
     if (replantedplants.length<1 ){
-        alert("no plants waterd")
+        alert("No plants have been selected as replanted, unable to save.")
     }
     else{
         replantedplants.length = 0;
@@ -123,7 +123,7 @@ const  DirtDirt = async(userPlants) => {
                     console.error('There was an error!', error);
                 });
         }
-        alert("Your plants got waterd")
+        alert("Your plants have been registered as replanted today.")
     }
 
 };
@@ -289,13 +289,19 @@ const styles = StyleSheet.create({
         borderRadius:70,
     },
     circle: {
-        height: 70, 
-        width: 70, 
         backgroundColor: "#fff",
-        left: "75%",
-        borderRadius: 35, 
+        borderColor: "black",
+        borderWidth: 1,
+        width: 80,
+        height: 40,
+        borderRadius: 20,
         justifyContent: "center",
-        alignItems: "center",
+        color: "black",
+        alignItems:"center",
+        alignSelf:"flex-end",
+        marginRight:5,
+        right: "3%", 
+        bottom: "1%",
     },
     wateringCan: {
         height: "70%",

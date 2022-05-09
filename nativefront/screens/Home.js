@@ -207,8 +207,7 @@ bar: {
   buttonWrapper: {
     alignItems: "center",
     position:"absolute",
-    top: 390,
-    
+    top: 390, 
   },
   greenAccent:{
     position: "absolute",
