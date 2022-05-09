@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{ useState, useEffect } from 'react';
-import { SafeAreaView, FlatList, StyleSheet, Image, Text, View, TextInput, TouchableOpacity } from 'react-native';
+import {KeyboardAvoidingView, SafeAreaView, FlatList, StyleSheet, Image, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import StandardButton from '../components/StandardButton';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -147,6 +147,7 @@ function Home({navigation}) {
   };
   
   return (
+    
     <SafeAreaView style={styles.container}>
             {/* <Image
                 style={styles.burgerMenu}
@@ -155,7 +156,7 @@ function Home({navigation}) {
                 style={styles.profileButton}
                 source={require("../assets/profileButton.png")}/> */}
         <StatusBar style="auto"/>
-        <View style={styles.greenAccent} />
+        {/* <View style={styles.greenAccent} /> */}
       <Image style={styles.logo} source={require("../assets/logo.png")}></Image>
       <View style= {styles.searchContainer}>
         {SearchField()}
@@ -180,12 +181,16 @@ const styles = StyleSheet.create({
     width: "80%",
     resizeMode: "contain",
     position:"absolute",
-    top:100,
+    top:80,
   },
   container2: {
     width:"90%",
     height:50,
     opacity: 1,
+},
+container3: {
+  flex:1,
+  backgroundColor: '#fff',
 },
 bar: {
     width: "100%",
@@ -197,12 +202,13 @@ bar: {
     textAlign: "center",
     opacity: 0.4,
     position:'absolute',
-    top:20,
+    top: 20,
 },
   buttonWrapper: {
     alignItems: "center",
     position:"absolute",
-    bottom: 100,
+    top: 390,
+    
   },
   greenAccent:{
     position: "absolute",
@@ -246,6 +252,8 @@ bar: {
   searchContainer:{
     width:"95%",
     alignItems:'center',
+    position:'absolute',
+    top:260,
   },
   item: {
     padding: 5,
