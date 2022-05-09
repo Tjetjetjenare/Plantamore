@@ -18,29 +18,29 @@ else{
 
     const DATA = [
         {
-        title: "",
-        data: [""]
-        },
-        {
-          title: "What is the name of your plant?",
-          data: ["Name of plant"]
+          title: "",
+          data: [""],
         },
         {
           title: "What type of plant is it?",
-          data: ["Search database for type of plant"]
+          data: ["Search database for type of plant"],
+        },
+        {
+          title: "What is the name of your plant?",
+          data: ["Name of plant"],
         },
         {
           title: "What is your plant's birthday?",
-          data: ["DD-MM-YY"]
+          data: ["DD-MM-YY"],
         },
         {
           title: "When did you last watered your plant?",
-          data: ["DD-MM-YY"]
+          data: ["DD-MM-YY"],
         },
         {
-            title: "",
-            data: ["Save profile"]
-          },
+          title: "",
+          data: ["Save profile"],
+        },
       ];
 
 
@@ -49,14 +49,16 @@ function CreatePlantSubprofile(props) {
     const [filteredDataSource, setFilteredDataSource] = useState([]);
     const [masterDataSource, setMasterDataSource] = useState([]);
     const [search, setSearch] = useState('');
-    const [logd, setLogd] = useState('');
+    const [visible, setVisible] = useState(true);
+    const [dbImage, setDbImage] = useState('');
+    const [name, setName] = useState('');
+    const [type, setType] = useState('');
+    const [bday, setBday] = useState('');
+    const [watered, setWatered] = useState('');
+   // const [logd, setLogd] = useState('');
     const isFocused = useIsFocused();
-  useEffect(async() => {
-    if(isFocused){
-    AsyncStorage.getItem('inloggad').then(value =>
-       setLogd(value )
-  );
-    }
+ 
+    useEffect(async() => {
     try {
       const response = await axios.get(
        plantbaseUrl,
@@ -67,7 +69,7 @@ function CreatePlantSubprofile(props) {
     } catch (error) {
       console.error(error);
     }
-  },[logd,isFocused]);
+  },[isFocused]);
   
   const SearchField = () => {
     return (
@@ -78,30 +80,32 @@ function CreatePlantSubprofile(props) {
                 onChangeText={(text) => searchFilterFunction(text)}
                 value= {search}
                 placeholderTextColor={"white"}/>
-                
         </View>
     )
   }
 
   const SearchList = () => {
-    if (search.length < 1){
-      return
+    if (search.length >= 1 && visible == true){
+      return(
+        <View style = {styles.scroll}>
+          <FlatList
+            data={filteredDataSource}
+            keyExtractor={(item, index) => index.toString()}
+            ItemSeparatorComponent={ItemSeparatorView}
+            renderItem={ItemView}
+          />
+        </View>
+      )
+
     }
     else{
-    return(
-      <View style = {styles.scroll}>
-        <FlatList
-          data={filteredDataSource}
-          keyExtractor={(item, index) => index.toString()}
-          ItemSeparatorComponent={ItemSeparatorView}
-          renderItem={ItemView}
-        />
-      </View>
-    )
+      return
   }};
 
   const searchFilterFunction = (text) => {
     // Check if searched text is not blank
+    setVisible(true)
+    setDbImage('')
     if (text) {
       // Inserted text is not blank
       // Filter the masterDataSource
@@ -123,11 +127,21 @@ function CreatePlantSubprofile(props) {
     }
   };
 
+  const selectedPlant = (item) => {
+    setSearch(item.english_name)
+    setVisible(false)
+    setDbImage(item.image_url)
+    console.log("image in item " + item.image_url)
+    console.log("img" + dbImage)
+
+  }
+
+
   const ItemView = ({ item }) => {
     return (
       // Flat List Item
       <View style={styles.searchItem}>
-        <Text style={styles.itemStyle} onPress={() => getItem(item)}>
+        <Text style={styles.itemStyle} onPress={() => selectedPlant(item)}>
           {item.p_id}
           {'.'}
           {item.english_name.toUpperCase()}
@@ -148,15 +162,8 @@ function CreatePlantSubprofile(props) {
       />
     );
   };
-
-  const getItem = (item) => {
-    // Function for click on an item
-    navigation.navigate("PlantDB", {plantId : item.p_id, EnglishName : item.english_name, LatinName : item.latin_name,
-    SwedishName: item.swedish_name,Description: item.description, Sun : item.sunlight, Water: item.water,
-    Nutrition: item.nutrition, ImageUrl: item.image_url});
-  };
-
-  const Item = ({ title}) => {
+ 
+  const Item = ({ title}) => { console.log(title)
       if(title == 'Search database for type of plant'){
           return(
               <View>
@@ -165,26 +172,40 @@ function CreatePlantSubprofile(props) {
               </View>
           )
       }if (title == '') {
+        if(dbImage!=''){
+          return(
+          <View>             
+              <Image
+                  style={styles.plantPic}
+                  source={{
+                    uri: dbImage
+                }}> 
+              </Image>
+          </View> )         
+        }else{
           return(
           <View>             
               <Image
                   style={styles.plantPic}
                   source={require("../assets/onlyPlantSmall.png")}>
               </Image>
-          </View>)
+          </View>
+          )}
       }if(title=='Save profile'){
           return(
               <TouchableOpacity style={styles.savebtn} onPress={() => Alert.alert('Save profile')}>
-              <Text>SAVE</Text>
+              <Text>SAVE  </Text>
             </TouchableOpacity>
           )
       }
       else{
       return(
-      <View style={styles.item}>
-
-          <TextInput style={styles.input} placeholder={title}/>
-      </View>)
+        <View style={styles.item}>
+            <TextInput 
+              style={styles.input} 
+              placeholder={title}
+              />
+        </View>)
       }
     };
 
@@ -197,24 +218,10 @@ function CreatePlantSubprofile(props) {
                 sections={DATA}
                 keyExtractor={(item, index) => item + index}
                 renderItem={({ item }) => <Item title={item}/>}
-                renderSectionHeader={({ section: { title } }) => (
+                renderSectionHeader={({ section: { title} }) => (
                     <Text style={styles.info}>{title}</Text>
                 )}
              />
-           {/* <ScrollView>
-
-                <Text style={styles.info}>What is the name of your plant?</Text>
-                <TextInput style={styles.input} placeholder="Name of plant"/>
-                <Text style={styles.info}>What type of plant is it?</Text>
-                <TextInput style={styles.input} placeholder="Search database for type of plant"/>
-                <Text style={styles.info}>What is your plant's birthday?</Text>
-                <TextInput style={styles.input} placeholder="DD-MM-YY"/>
-                <Text style={styles.info}>When did you last watered your plant?</Text>
-                <TextInput style={styles.input} placeholder="DD-MM-YY"/>
-                <TouchableOpacity style={styles.savebtn} onPress={() => Alert.alert('Save profile')}>
-                    <Text>SAVE</Text>
-                  </TouchableOpacity>
-                </ScrollView>*/}
          </SafeAreaView>
 
       );}
@@ -268,12 +275,12 @@ const styles = StyleSheet.create({
       //top:20,
       backgroundColor: 'gray',
       alignSelf:"center",
-      overflow: "scroll",
+      overflow:"hidden",
     },
     plantPic: {
       aspectRatio: 1,
       width: 150, 
-      height: undefined,
+      height: 150,
       borderWidth: 1,
       borderRadius:75,
       backgroundColor:"#fff",
