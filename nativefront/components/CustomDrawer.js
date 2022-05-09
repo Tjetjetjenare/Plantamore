@@ -1,5 +1,5 @@
 import { View, Text, ImageBackground, Image } from 'react-native'
-import {React, useState} from 'react'
+import {React, useState, useEffect} from 'react'
 import {DrawerContentScrollView, DrawerItemList, DrawerItem} from '@react-navigation/drawer'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -15,6 +15,15 @@ function logOut(props){
     props.navigation.navigate('Home')
 }
 const CustomDrawer = (props) => {
+    const [logd, setLogd] = useState('');
+    useEffect(async() => {
+        AsyncStorage.getItem('inloggad').then(value =>
+           setLogd(value )
+      );
+      console.log(logd)
+    }),[]
+    if (logd=='true'){
+        
   return (
     <View style={{flex:1}}> 
     
@@ -43,6 +52,25 @@ const CustomDrawer = (props) => {
 
     </View>
   )
-}
+}else{
+    return (
+        <View style={{flex:1}}> 
+        
+            <DrawerContentScrollView {...props} 
+                contentContainerStyle ={{backgroundColor: '#7E9B6D', flex:1}}> 
+                <Image source={require('../assets/onlyPlant.png')} style={{marginLeft: '30%', marginTop:10, tintColor:'#000'}}/> 
+            <DrawerItemList {...props} />
+            </DrawerContentScrollView>
+    
+            <View style={{padding:20, borderTopWidth:2, borderTopColor:'#000000', backgroundColor: '#7E9B6D', paddingVertical:30}}>
+                
+                    {/* <View style={{flexDirection:'row', alignItems:'center'}}> 
+                        <Text> Plantamore</Text>
+                    </View> */}
+            </View>
+    
+        </View>
+      )
+}}
 
 export default CustomDrawer

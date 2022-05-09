@@ -70,10 +70,17 @@ else{
                 </View>
                 <View style={styles.innerSpec}>
                     <Image 
-                         style={styles.specIcon} 
-                         source={require("../assets/nutrition.png")}>
+                         style={styles.specIconNutrition} 
+                         source={require("../assets/nutritionFlask.png")}>
                     </Image>
                     <Text> {Nutrition}</Text>
+                </View>
+                <View style={styles.innerSpec}>
+                    <Image
+                        style={styles.specIcon} 
+                        source={require("../assets/replant.png")}>
+                    </Image>
+                    <Text> When replant</Text>
                 </View>
             </View>
         </View>
@@ -109,8 +116,8 @@ else{
                 </View>
                 <View style={{ flex: 2, flexDirection:"row"}}>
                     <Image 
-                         style={styles.infoIcon} 
-                         source={require("../assets/nutrition.png")}>
+                         style={styles.infoIconNutritionFlask} 
+                         source={require("../assets/nutritionFlask.png")}>
                     </Image>
                     <View>
                         <Text style= {styles.infoHeader}>Nutrition</Text>
@@ -172,6 +179,12 @@ else{
         height: 20,
         aspectRatio:1,
     },
+    specIconNutrition: {
+        width: 20,
+        height: 20,
+        aspectRatio:1,
+        tintColor: '#bf3d4a', 
+    },
     specText:{
         fontSize: 15,
         marginLeft: 3,
@@ -208,6 +221,13 @@ else{
         marginRight:10,
         alignSelf:"flex-start",
     },
+    infoIconNutritionFlask: { 
+        width:30,
+        height:30,
+        marginRight:10,
+        alignSelf:"flex-start",
+        tintColor: '#bf3d4a', 
+    },
     infoHeader:{
         fontWeight:"bold",
         fontSize: 16,
@@ -221,13 +241,11 @@ else{
     footer:{
         width:"100%",
         height:90,
-        
     },
     circle: {
         height: 80, 
         width: 80, 
         backgroundColor: "#C4C4C4",
-        
         right: 20,
         borderRadius: 50, 
         justifyContent: "center",
@@ -237,7 +255,6 @@ else{
     wateringCan: {
         height: "70%",
         width: "70%",
-        
     },
     profileName:{
         fontSize: 30,

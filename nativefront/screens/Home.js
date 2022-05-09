@@ -5,6 +5,7 @@ import StandardButton from '../components/StandardButton';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from "@react-navigation/native";
+
 var plantbaseUrl = null;
 
 if(Platform.OS === "android"){ plantbaseUrl = 'http://10.0.2.2:8000/api/plants/';}
@@ -207,15 +208,14 @@ bar: {
   buttonWrapper: {
     alignItems: "center",
     position:"absolute",
-    top: 390,
-    
+    top: 390, 
   },
   greenAccent:{
     position: "absolute",
     top: 312,
     bottom:-100,
     width: "300%",
-    height: "63%",
+    height: "100%",
     backgroundColor: "#7E9B6D",
     transform: [{rotate: '-30deg'}]
   }, 
