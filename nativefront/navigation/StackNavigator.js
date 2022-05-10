@@ -160,7 +160,7 @@ const PlantDatabaseStackNavigator = () => {
                     style={{ marginLeft: 10 }}
                     name="chevron-back-outline"
                     color="black"
-                    size={35}
+                    size={30}
                     onPress={() => navigation.navigate("Home")}
                 />
                 </View>,
@@ -296,7 +296,7 @@ const PlantDatabaseStackNavigator = () => {
                     style={{ marginLeft: 5 }}
                     name="close-outline"
                     color="black"
-                    size={45}
+                    size={40}
                     onPress={() => navigation.goBack()}
                 />
                 </View>,
