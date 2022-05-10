@@ -89,7 +89,6 @@ else{  plantbaseUrl = 'http://127.0.0.1:8000/api/plants/';}
     container: {
       flex: 1,
       backgroundColor: '#fff',
-
     },
     plantPic: {
         height: 150,
@@ -98,14 +97,12 @@ else{  plantbaseUrl = 'http://127.0.0.1:8000/api/plants/';}
         left: 30, 
        resizeMode:"contain"
     },
-
     textContainer: {
         fontSize: 18, 
         color: "black",
         top: 50, 
         left: "50%", 
-        position: "absolute",
-        flexWrap: 'wrap', 
+        position: "absolute", 
         width: '50%', 
     },
     latinName: {
