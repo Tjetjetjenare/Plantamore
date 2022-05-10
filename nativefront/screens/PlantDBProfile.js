@@ -105,9 +105,11 @@ else{  plantbaseUrl = 'http://127.0.0.1:8000/api/plants/';}
         top: 50, 
         left: "50%", 
         position: "absolute",
+        flexWrap: 'wrap', 
+        width: '50%', 
     },
     latinName: {
-        fontWeight: "bold",
+        fontWeight: "bold", 
     },
     infoBoard: {
         marginTop: 50,
