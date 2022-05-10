@@ -32,6 +32,7 @@ function Calendar({navigation},props) {
 
   useEffect(async() => {
     try {
+      for (var member in calPla) delete calPla[member];
       const response = await axios.get(
         subPlantUrl,
       );
@@ -50,7 +51,7 @@ function Calendar({navigation},props) {
   // loop creates random cards for random days
   // for demonstraion reasons this will be kept this way
   // when API is fixed loop need to be fixed
-  const markedDates = (day) => {
+  const markedDates = () => {
     setTimeout(() => {
       for (var i= 0; i<userPlants.length;i++){
           calPla[userPlants[i].water] = []
@@ -149,7 +150,7 @@ function Calendar({navigation},props) {
         // Handler which gets executed on day press. Default = undefined
         showOnlySelectedDayItems={true}
         disabledByDefault={true}
-        
+        refreshing={false}
         items={calPla}
         loadItemsForMonth={markedDates}
         renderItem={renderItem}
