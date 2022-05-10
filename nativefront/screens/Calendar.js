@@ -7,6 +7,7 @@ import axios from "axios";
 var plantUrl = null;
 var subPlantUrl = null;
 const calPla = {};
+const dotObj = {};
 if(Platform.OS === "android"){ 
     subPlantUrl = 'http://10.0.2.2:8000/api/subplants/';
     plantUrl = 'http://10.0.2.2:8000/api/plants/';}
@@ -20,8 +21,9 @@ const timeToString = (time) => {
 
 // source https://github.com/wix/react-native-calendars
 function Calendar({navigation},props) {
-
+ 
   const [userPlants, setUserPlants] = useState("");
+  const [plants, setPlants] = useState({});
   const [items, setItems] = useState({});
   const isFocused = useIsFocused();
   const water = {key: 'water', color: '#00FFFF', selectedDotColor: '#00FFFF'}
@@ -34,7 +36,10 @@ function Calendar({navigation},props) {
         subPlantUrl,
       );
       setUserPlants(response.data);
-
+      const response2 = await axios.get(
+        plantUrl,
+      );
+      setPlants(response2.data);
     } catch (error) {
         console.log("Jästrar")
         console.log(error)
@@ -47,16 +52,50 @@ function Calendar({navigation},props) {
   // when API is fixed loop need to be fixed
   const markedDates = (day) => {
     setTimeout(() => {
-          for (var i= 0; i<userPlants.length;i++){
-            calPla[userPlants[i].water] = []
-            calPla[userPlants[i].water].push({name: userPlants[i].name,
-            water :userPlants[i].water })
-
-      console.log("NEj",calPla)
-          }
+      for (var i= 0; i<userPlants.length;i++){
+          calPla[userPlants[i].water] = []
+          calPla[userPlants[i].replant] = []
+          calPla[userPlants[i].nutrition] = []
+        
+        if( dotObj[userPlants[i].water]!= {dots: [], selected: false, disabled: false}){
+          dotObj[userPlants[i].water] = {dots: [], selected: false, disabled: false}
+        }
+        if( dotObj[userPlants[i].replant]!= {dots: [], selected: false, disabled: false}){
+          dotObj[userPlants[i].replant] = {dots: [], selected: false, disabled: false}
+        }
+        if( dotObj[userPlants[i].nutrition]!= {dots: [], selected: false, disabled: false}){
+          dotObj[userPlants[i].nutrition] = {dots: [], selected: false, disabled: false}
+        }
+      }
+      for (var i= 0; i<userPlants.length;i++){
+        calPla[userPlants[i].water].push({name: userPlants[i].name,
+           eve : "Water", p_id:userPlants[i].p_id  })
+        calPla[userPlants[i].replant].push({name: userPlants[i].name,
+           eve : "Replant", p_id:userPlants[i].p_id   })
+        calPla[userPlants[i].nutrition].push({name: userPlants[i].name,
+           eve : "Nutrition", p_id:userPlants[i].p_id  })
+           if (!(containsObject(water, dotObj[userPlants[1].water].dots))){
+            dotObj[userPlants[i].water].dots.push(water)
+           }
+           if (!(containsObject(replant, dotObj[userPlants[1].replant].dots))){
+            dotObj[userPlants[i].replant].dots.push(replant)
+           }
+           if (!(containsObject(nutrition, dotObj[userPlants[1].nutrition].dots))){
+            dotObj[userPlants[i].nutrition].dots.push(nutrition)
+           }
+      }
     },);
   };
+  function containsObject(obj, list) {
+    var i;
+    for (i = 0; i < list.length; i++) {
+        if (list[i] === obj) {
+            return true;
+        }
+    }
 
+    return false;
+}
   const renderItem = (item) => {
     return (
       <SafeAreaView style={styles.agendaContainer}>
@@ -65,14 +104,18 @@ function Calendar({navigation},props) {
           <Card>
             <Card.Content>
               <View style={styles.eventContainer}>
-                <Text>{item.name}{"\n"} {item.water}</Text>
-                <Image style={styles.plantContainer} source={require("../assets/testPlant.png")} />
-              </View>
+                <Text>{item.name}{"\n"} {item.eve}</Text>
+                <Image style={styles.plantContainer}
+                source={{
+                  uri: `${plants[item.p_id-1].image_url}`
+                }}/> 
+            </View>
             </Card.Content>
           </Card>
         </TouchableOpacity>
       </SafeAreaView>
     );
+  
   };
 
 
@@ -105,6 +148,8 @@ function Calendar({navigation},props) {
         firstDay={1}          
         // Handler which gets executed on day press. Default = undefined
         showOnlySelectedDayItems={true}
+        disabledByDefault={true}
+        
         items={calPla}
         loadItemsForMonth={markedDates}
         renderItem={renderItem}
@@ -115,11 +160,7 @@ function Calendar({navigation},props) {
         agendaTodayColor: '#FFA500',
         }}
         markingType={'multi-dot'}
-          markedDates={{
-            '2022-04-25': {dots: [water], selected: false},
-            '2022-04-30': {dots: [replant, nutrition], disabled: true},
-            '2022-04-24': {dots: [nutrition], disabled: true}
-        }}
+          markedDates={dotObj}
       />
     </SafeAreaView>
   );
@@ -145,8 +186,9 @@ const styles = StyleSheet.create({
   },
 
   plantContainer: {
-    maxHeight: 100,
-    maxWidth: 100,
+    height: 100,
+    width: 100,
+    resizeMode: 'contain',
   },
 
   exitContainer: {
