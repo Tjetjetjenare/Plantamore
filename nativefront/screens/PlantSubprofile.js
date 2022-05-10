@@ -16,7 +16,7 @@ else{
   function PlantSubprofile({route, navigation}) {
     const [plant, setPlant] = useState("");
     const [subPlant, setsubPlant] = useState("");
-    const {plantId, EnglishName, LatinName, SwedishName, Description,ImageUrl,PlantName, Sunlight, PlantWat, PlantNut,Water,Nutrition,BirthDate} = route.params;
+    const {plantId, EnglishName, LatinName, SwedishName, Description,ImageUrl,PlantName, Sunlight, PlantWat, PlantNut,Water,Nutrition,BirthDate, Replant } = route.params;
 
     useEffect(async() => {
       try {
@@ -80,7 +80,7 @@ else{
                         style={styles.specIcon} 
                         source={require("../assets/replant.png")}>
                     </Image>
-                    <Text> When replant</Text>
+                    <Text> {Replant}</Text>
                 </View>
             </View>
         </View>

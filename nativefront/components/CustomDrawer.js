@@ -12,7 +12,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 function logOut(props){
     AsyncStorage.setItem("inloggad", "false")
     AsyncStorage.setItem("MyName", "")
-    props.navigation.navigate('Home')
+    props.navigation.navigate('LogIn')
 }
 const CustomDrawer = (props) => {
     const [logd, setLogd] = useState('');
@@ -34,7 +34,7 @@ const CustomDrawer = (props) => {
         </DrawerContentScrollView>
 
         <View style={{padding:20, borderTopWidth:2, borderTopColor:'#000000', backgroundColor: '#7E9B6D', paddingVertical:30}}>
-            <TouchableOpacity onPress={() => logOut(props)}> 
+            <TouchableOpacity onPress={() => logOut(props)}>
                 <View style={{flexDirection:'row', alignItems:'center', marginBottom:50, marginLeft:50}}>
                     <Ionicons 
                         title={'Logout'}
