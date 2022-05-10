@@ -27,10 +27,10 @@ const DrawerNavigator = () => {
         width:240
         },
       }}
-      initialRouteName="Home"
+      initialRouteName="HomeDrawer"
       >
       
-      <Drawer.Screen name="PlantDatabase" component={PlantDatabaseStackNavigator}
+      <Drawer.Screen name="PlantDatabaseDrawer" component={PlantDatabaseStackNavigator}
         options={{
             title: "Plant Database",
             drawerIcon: () => (
@@ -46,7 +46,7 @@ const DrawerNavigator = () => {
             )
         }}
       />
-      <Drawer.Screen name="Home" component={MainStackNavigator} 
+      <Drawer.Screen name="HomeDrawer" component={MainStackNavigator} 
         options={{
             title: "Home",
             drawerIcon: () => (

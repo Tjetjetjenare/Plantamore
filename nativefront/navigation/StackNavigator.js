@@ -380,7 +380,7 @@ const PlantDatabaseStackNavigator = () => {
             tabBarShowLabel: false,
             tabBarStyle: { 
                 position: 'absolute',
-                bottom: 20,
+                bottom: 10,
                 left: 20,
                 right: 20,
                 elevation: 0,
@@ -390,7 +390,7 @@ const PlantDatabaseStackNavigator = () => {
            
         }}
       >
-        <Tab.Screen name="Watered" component={Watered}  
+        <Tab.Screen name="WateredTab" component={Watered}  
             options={{
                 tabBarIcon: ({ focused }) => (<View style={{alignItems: 'center', justifyContent: 'center'}}> 
                     <Image source={require("../assets/wateringCan.png")}
@@ -399,7 +399,7 @@ const PlantDatabaseStackNavigator = () => {
                 </View>) 
                 }}
         />
-        <Tab.Screen name="Nutrition" component={Nutrition} 
+        <Tab.Screen name="NutritionTab" component={Nutrition} 
             options={{
                 tabBarIcon: ({ focused }) => (<View style={{alignItems: 'center', justifyContent: 'center'}}> 
                 <Image source={require("../assets/nutritionFlask.png")}
@@ -408,7 +408,7 @@ const PlantDatabaseStackNavigator = () => {
               </View>) 
               }}
         />
-        <Tab.Screen name="Replant" component={Replant} 
+        <Tab.Screen name="ReplantTab" component={Replant} 
             options={{
                 tabBarIcon: ({ focused }) => (<View style={{alignItems: 'center', justifyContent: 'center'}}> 
                 <Image source={require("../assets/replant.png")}
