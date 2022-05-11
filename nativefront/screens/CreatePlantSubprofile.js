@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
-import { StyleSheet, Text, Image, TouchableOpacity, SafeAreaView, Alert, TextInput, ScrollView, Platform, SectionList, View, FlatList } from 'react-native';
+import { StyleSheet, Text, Button, Image, TouchableOpacity, SafeAreaView, Alert, TextInput, ScrollView, Platform, SectionList, View, FlatList } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
+import DatePicker from 'react-native-date-picker';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from "@react-navigation/native";
 import axios from 'axios';
@@ -25,28 +26,38 @@ function CreatePlantSubprofile(props) {
     const [search, setSearch] = useState('');
     const [visible, setVisible] = useState(true);
     const [dbImage, setDbImage] = useState('');
+    const [date, setDate] = useState(new Date());
+    const [open, setOpen] =useState(false);
    // const [logd, setLogd] = useState('');
     const isFocused = useIsFocused();
    
-   
-   
-    const renderType = ({data}) => {
-      console.log("title type " + data)
+    const renderTitle = () => {
         return(
+          <Text style={styles.header}>Add a new plant to your profile</Text>)
+    };
+   
+    const renderType = () => {
+      return(
+      <View>
+      <Text style={styles.info}>What type of plant is it?</Text>
+
         <View>
             {SearchField()}
             {SearchList()}
+        </View>
         </View>)
     };
   
-    const renderName = ({data}) => {
-      console.log("title name " + data)
+    const renderName = () => {
       return(
+        <View>
+        <Text style={styles.info}>What is your plant's name?</Text>
         <View style={styles.item}>
             <TextInput 
               style={styles.input} 
               placeholder="Name of plant"
               />
+          </View>
         </View>)
     };
 
@@ -79,29 +90,53 @@ function CreatePlantSubprofile(props) {
       </TouchableOpacity>
     )
     };
-    const renderBday = ({data}) => {
+    const renderBday = () => {
       return(
+        <View>
+        <Text style={styles.info}>When was your plant born?</Text>
         <View style={styles.item}>
             <TextInput 
               style={styles.input} 
               placeholder="DD-MM-YY"
               />
+          </View>
+          <Button title="Open" onPress={() => setOpen(true)} />
+              <DatePicker
+                modal
+                open={open}
+                date={date}
+                onConfirm={(date) => {
+                  setOpen(false)
+                  setDate(date)
+                }}
+                onCancel={() => {
+                  setOpen(false)
+                }}
+              />
+    
         </View>)
     };
-    const renderWater = ({data}) => {
-      console.log(data)
+    const renderWater = () => {
       return(
-        <View style={styles.item}>
-            <TextInput 
-              style={styles.input} 
-              placeholder="DD-MM-YY"
-              />
+        <View>
+        <Text style={styles.info}>When did you last water your plant?</Text>
+          <View style={styles.item}>
+              <TextInput 
+                style={styles.input} 
+                placeholder="DD-MM-YY"
+                />
+          </View>
         </View>)
     };
 
     const DATA = [
       {
-        title: "",
+        title: "Page Title",
+        renderItem: renderTitle,
+        data: ["Add a new plant to your profile"],
+      },
+      {
+        title: "Plant Image",
         renderItem: renderImg,
         data: [""],
       },
@@ -134,36 +169,30 @@ function CreatePlantSubprofile(props) {
       },
     ];
 
-
-
-
-
-
- 
     useEffect(async() => {
-    try {
-      const response = await axios.get(
-       plantbaseUrl,
-      );
-      setFilteredDataSource(response.data);
-      setMasterDataSource(response.data);
-      
-    } catch (error) {
-      console.error(error);
-    }
-  },[isFocused]);
+      try {
+        const response = await axios.get(
+        plantbaseUrl,
+        );
+        setFilteredDataSource(response.data);
+        setMasterDataSource(response.data);
+        
+      } catch (error) {
+        console.error(error);
+      }
+    },[isFocused]);
   
-  const SearchField = () => {
-    return (
-        <View style={styles.input} >
-            <TextInput 
-                placeholder="Search database for type of plant" 
-                onChangeText={(text) => searchFilterFunction(text)}
-                value= {search}
-                placeholderTextColor={"gray"}/>
-        </View>
-    )
-  }
+    const SearchField = () => {
+      return (
+          <View style={styles.input} >
+              <TextInput 
+                  placeholder="Search database for type of plant" 
+                  onChangeText={(text) => searchFilterFunction(text)}
+                  value= {search}
+                  placeholderTextColor={"gray"}/>
+          </View>
+      )
+    };
 
   const SearchList = () => {
     if (search.length >= 1 && visible == true){
@@ -242,17 +271,13 @@ function CreatePlantSubprofile(props) {
   };
 
    return(
-         <SafeAreaView style={styles.container} >
-            <StatusBar style="auto"/>
-            <Text style={styles.header}>Add a new plant to your profile</Text>
-            <SectionList
-                sections={DATA}
-                keyExtractor={(item, index) => item + index}
-                renderItem={({item}, {section: {renderItem}}) => <View>{renderItem}</View>}
-                renderSectionHeader={({ section: { title} }) => (
-                    <Text style={styles.info}>{title}</Text>
-                )}/>
-         </SafeAreaView>
+      <SafeAreaView style={styles.container} >
+        <StatusBar style="auto"/>
+        <SectionList
+            sections={DATA}
+            keyExtractor={(item, index) => item + index}
+            renderItem={({section: {renderItem}}) => <View>{renderItem}</View>}/>
+      </SafeAreaView>
 
       );}
 
@@ -272,10 +297,10 @@ const styles = StyleSheet.create({
     },
     header: { 
         fontSize: 35, 
-        fontWeight: 'bold', 
-        marginTop: 10, 
+        fontWeight: 'bold',  
         marginBottom: 20,
         textAlign:"center",
+
     },
     info:{
         fontSize: 20,
@@ -297,12 +322,9 @@ const styles = StyleSheet.create({
     scroll:{
       height:150,
       width:"90%",
-      //marginTop:51,
       borderRadius: 20,
       textAlign: "center",
       opacity: 1,
-      //position:'absolute',
-      //top:20,
       backgroundColor: 'gray',
       alignSelf:"center",
       overflow:"hidden",
@@ -315,7 +337,7 @@ const styles = StyleSheet.create({
       borderRadius:75,
       backgroundColor:"#fff",
       alignSelf: "center",
-      top:-30,
+
         
     },
     searchItem: {
@@ -326,8 +348,6 @@ const styles = StyleSheet.create({
     itemStyle: {
       padding: 5,
       margin:5,
-  
-      // backgroundColor: "rgba(251, 251, 251, 0.17)",
       color: 'white'
     },
     imgText: {
