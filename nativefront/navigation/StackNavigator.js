@@ -385,7 +385,6 @@ const PlantDatabaseStackNavigator = () => {
                 height: 60,
                 borderRadius: 10,
             },
-           
         }}
       >
         <Tab.Screen name="WateredTab" component={Watered}  
@@ -393,7 +392,7 @@ const PlantDatabaseStackNavigator = () => {
                 tabBarIcon: ({ focused }) => (<View style={{alignItems: 'center', justifyContent: 'center'}}> 
                     <Image source={require("../assets/wateringCan.png")}
                     resizeMode='contain'
-                    style={{width: 40, height: 40, tintColor: focused? "#7E9B6D" : "black"}}/>
+                    style={{width: 40, height: 40, top: 5, tintColor: focused? "#7E9B6D" : "black"}}/>
                 </View>) 
                 }}
         />
@@ -402,7 +401,7 @@ const PlantDatabaseStackNavigator = () => {
                 tabBarIcon: ({ focused }) => (<View style={{alignItems: 'center', justifyContent: 'center'}}> 
                 <Image source={require("../assets/nutritionFlask.png")}
                   resizeMode='contain'
-                  style={{width: 40, height: 40, tintColor: focused? "#7E9B6D" : "black"}}/>
+                  style={{width: 40, height: 40, top: 5, tintColor: focused? "#7E9B6D" : "black"}}/>
               </View>) 
               }}
         />
@@ -411,7 +410,7 @@ const PlantDatabaseStackNavigator = () => {
                 tabBarIcon: ({ focused }) => (<View style={{alignItems: 'center', justifyContent: 'center'}}> 
                 <Image source={require("../assets/replant.png")}
                 resizeMode='contain'
-                style={{width: 40, height: 40, tintColor: focused? "#7E9B6D" : "black"}}/>
+                style={{width: 40, height: 40, top: 5, tintColor: focused? "#7E9B6D" : "black"}}/>
             </View>) 
             }}
           />
