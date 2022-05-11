@@ -75,7 +75,7 @@ const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, pla
                 source={{
                     uri: `${plants[p_id-1].image_url}`
                     
-                }}> 
+                }}>
             </Image>
         </View>
     </TouchableOpacity>

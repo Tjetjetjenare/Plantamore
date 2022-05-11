@@ -50,7 +50,7 @@ const DrawerNavigator = () => {
         options={{
             title: "Home",
             drawerIcon: () => (
-              <Ionicons name="home-outline" size={25} color={'#000'} />
+              <Ionicons name="home-outline" size={25} color={'#000'}/>
             )
           }}
       />
