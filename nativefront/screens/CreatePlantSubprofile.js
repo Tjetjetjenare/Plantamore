@@ -16,32 +16,6 @@ else{
     subplantbaseUrl ='http://127.0.0.1:8000/api/subplants/';
     plantbaseUrl = 'http://127.0.0.1:8000/api/plants/'}
 
-    const DATA = [
-        {
-          title: "",
-          data: [""],
-        },
-        {
-          title: "What type of plant is it?",
-          data: ["Search database for type of plant"],
-        },
-        {
-          title: "What is the name of your plant?",
-          data: ["Name of plant"],
-        },
-        {
-          title: "What is your plant's birthday?",
-          data: ["DD-MM-YY"],
-        },
-        {
-          title: "When did you last watered your plant?",
-          data: ["DD-MM-YY"],
-        },
-        {
-          title: "",
-          data: ["Save profile"],
-        },
-      ];
 
 
 
@@ -51,12 +25,120 @@ function CreatePlantSubprofile(props) {
     const [search, setSearch] = useState('');
     const [visible, setVisible] = useState(true);
     const [dbImage, setDbImage] = useState('');
-    const [name, setName] = useState('');
-    const [type, setType] = useState('');
-    const [bday, setBday] = useState('');
-    const [watered, setWatered] = useState('');
    // const [logd, setLogd] = useState('');
     const isFocused = useIsFocused();
+   
+   
+   
+    const renderType = ({data}) => {
+      console.log("title type " + data)
+        return(
+        <View>
+            {SearchField()}
+            {SearchList()}
+        </View>)
+    };
+  
+    const renderName = ({data}) => {
+      console.log("title name " + data)
+      return(
+        <View style={styles.item}>
+            <TextInput 
+              style={styles.input} 
+              placeholder="Name of plant"
+              />
+        </View>)
+    };
+
+    const renderImg = () => {
+      if(dbImage!=''){
+        return(
+        <View>             
+            <Image
+                style={styles.plantPic}
+                source={{
+                  uri: dbImage
+              }}> 
+            </Image>
+        </View> )         
+      }else{
+        return(
+        <View>             
+            <Image
+                style={styles.plantPic}
+                source={require("../assets/onlyPlantSmall.png")}>
+            </Image>
+        </View>
+        )}
+    };
+
+    const renderSave = () => {
+      return(
+        <TouchableOpacity style={styles.savebtn} onPress={() => Alert.alert('Save profile')}>
+        <Text>SAVE</Text>
+      </TouchableOpacity>
+    )
+    };
+    const renderBday = ({data}) => {
+      return(
+        <View style={styles.item}>
+            <TextInput 
+              style={styles.input} 
+              placeholder="DD-MM-YY"
+              />
+        </View>)
+    };
+    const renderWater = ({data}) => {
+      console.log(data)
+      return(
+        <View style={styles.item}>
+            <TextInput 
+              style={styles.input} 
+              placeholder="DD-MM-YY"
+              />
+        </View>)
+    };
+
+    const DATA = [
+      {
+        title: "",
+        renderItem: renderImg,
+        data: [""],
+      },
+      {
+        title: "What type of plant is it?",
+        renderItem: renderType,
+        data: ["Search database for type of plant"],
+
+      },
+      {
+        title: "What is the name of your plant?",
+        renderItem: renderName,
+        data: ["Name of plant"],
+
+      },
+      {
+        title: "What is your plant's birthday?",
+        renderItem: renderBday,
+        data: ["DD-MM-YY"],
+      },
+      {
+        title: "When did you last watered your plant?",
+        renderItem: renderWater,
+        data: ["DD-MM-YY"],
+      },
+      {
+        title: "",
+        renderItem: renderSave,
+        data: ["Save profile"],
+      },
+    ];
+
+
+
+
+
+
  
     useEffect(async() => {
     try {
@@ -75,11 +157,10 @@ function CreatePlantSubprofile(props) {
     return (
         <View style={styles.input} >
             <TextInput 
-                style={styles.bar} 
-                placeholder='Search' 
+                placeholder="Search database for type of plant" 
                 onChangeText={(text) => searchFilterFunction(text)}
                 value= {search}
-                placeholderTextColor={"white"}/>
+                placeholderTextColor={"gray"}/>
         </View>
     )
   }
@@ -131,9 +212,6 @@ function CreatePlantSubprofile(props) {
     setSearch(item.english_name)
     setVisible(false)
     setDbImage(item.image_url)
-    console.log("image in item " + item.image_url)
-    console.log("img" + dbImage)
-
   }
 
 
@@ -162,53 +240,6 @@ function CreatePlantSubprofile(props) {
       />
     );
   };
- 
-  const Item = ({ title}) => { console.log(title)
-      if(title == 'Search database for type of plant'){
-          return(
-              <View>
-                  {SearchField()}
-                  {SearchList()}
-              </View>
-          )
-      }if (title == '') {
-        if(dbImage!=''){
-          return(
-          <View>             
-              <Image
-                  style={styles.plantPic}
-                  source={{
-                    uri: dbImage
-                }}> 
-              </Image>
-          </View> )         
-        }else{
-          return(
-          <View>             
-              <Image
-                  style={styles.plantPic}
-                  source={require("../assets/onlyPlantSmall.png")}>
-              </Image>
-          </View>
-          )}
-      }if(title=='Save profile'){
-          return(
-              <TouchableOpacity style={styles.savebtn} onPress={() => Alert.alert('Save profile')}>
-              <Text>SAVE  </Text>
-            </TouchableOpacity>
-          )
-      }
-      else{
-      return(
-        <View style={styles.item}>
-            <TextInput 
-              style={styles.input} 
-              placeholder={title}
-              />
-        </View>)
-      }
-    };
-
 
    return(
          <SafeAreaView style={styles.container} >
@@ -217,11 +248,10 @@ function CreatePlantSubprofile(props) {
             <SectionList
                 sections={DATA}
                 keyExtractor={(item, index) => item + index}
-                renderItem={({ item }) => <Item title={item}/>}
+                renderItem={({item}, {section: {renderItem}}) => <View>{renderItem}</View>}
                 renderSectionHeader={({ section: { title} }) => (
                     <Text style={styles.info}>{title}</Text>
-                )}
-             />
+                )}/>
          </SafeAreaView>
 
       );}

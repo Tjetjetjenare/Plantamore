@@ -301,7 +301,7 @@ const styles = StyleSheet.create({
         alignSelf:"flex-end",
         marginRight:5,
         right: "3%", 
-        bottom: "1%",
+        bottom: "12%",
     },
     wateringCan: {
         height: "70%",

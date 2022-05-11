@@ -7,6 +7,7 @@ const myPlants = [];
 var plantUrl = null;
 var subPlantUrl = null;
 
+
 if(Platform.OS === "android"){ 
     subPlantUrl = 'http://10.0.2.2:8000/api/subplants/';
     plantUrl = 'http://10.0.2.2:8000/api/plants/';}
@@ -125,17 +126,6 @@ function Profile({navigation}) {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.symbols}>
-                {/* <Image 
-                    style={styles.burgerMenu} 
-                    source={require("../assets/burgerMenu.png")}>
-                </Image>
-                </TouchableOpacity>
-                <TouchableOpacity style = {styles.touchCalendar} onPress={() => {navigation.navigate('Calendar')}}>
-                <Image 
-                    style={styles.calendar} 
-                    source={require("../assets/calendar.png")}>
-                </Image>
-                </TouchableOpacity> */}
             </View>
             <Text style={styles.userName}>{username}</Text>
             <Image 
@@ -154,7 +144,8 @@ function Profile({navigation}) {
 
             <TouchableOpacity 
                 style={styles.circle}
-                onPress={() => navigation.navigate('WateredStack')
+                onPress={() => navigation.navigate('Watered') 
+            
                 
                 }>
                 <Image style={styles.wateringCan}
