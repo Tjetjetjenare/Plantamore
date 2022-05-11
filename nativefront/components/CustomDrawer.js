@@ -25,7 +25,7 @@ const CustomDrawer = (props) => {
     if (logd=='true'){
         
   return (
-    <View style={{flex:1}}> 
+    <View style={{flex:1}}>
     
         <DrawerContentScrollView {...props} 
             contentContainerStyle ={{backgroundColor: '#7E9B6D', flex:1}}> 

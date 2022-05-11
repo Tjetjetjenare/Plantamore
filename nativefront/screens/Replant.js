@@ -88,7 +88,7 @@ const Item = ({id, name,plants, replant }) => {
                     source={{uri: `${plants[id-1].image_url}`}}> 
                 </Image>
             </View>
-            <View><Text>{replant}</Text></View>
+            <View><Text style={{alignSelf: 'center'}}>{replant}</Text></View>
         </TouchableOpacity>
       )
   }
@@ -195,6 +195,7 @@ function Replant({navigation},props) {
                 
             />
          </View>
+         <View style={{height: '15%'}}/>
         <TouchableOpacity 
             style={styles.circle}
              onPress={() => {

@@ -89,7 +89,7 @@ const Item = ({id, name,plants, nutrition }) => {
                     source={{uri: `${plants[id-1].image_url}`}}> 
                 </Image>
             </View>
-            <View><Text>{nutrition}</Text></View>
+            <View><Text style={{alignSelf: 'center'}}>{nutrition}</Text></View>
         </TouchableOpacity>
       )
   }
@@ -196,6 +196,7 @@ function Nutrition({navigation},props) {
                 
             />
          </View>
+         <View style={{height: '15%'}}/>
         <TouchableOpacity 
             style={styles.circle}
              onPress={() => {

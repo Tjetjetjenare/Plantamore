@@ -97,7 +97,7 @@ const Item = ({id, name, plants, water }) => {
                     source={{uri: `${plants[id-1].image_url}`}}> 
                 </Image>
             </View>
-            <View><Text>{water}</Text></View>
+            <View><Text style={{alignSelf: 'center'}}>{water}</Text></View>
         </TouchableOpacity>
 
       )
@@ -208,9 +208,9 @@ function Watered({navigation},props) {
                 columnWrapperStyle={styles.flatList}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
-                
             />
          </View>
+         <View style={{height: '15%'}}/>
         <TouchableOpacity 
             style={styles.circle}
              onPress={() => {
