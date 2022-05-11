@@ -55,10 +55,10 @@ else{
             <View style={styles.specs}>
                 <View style={styles.innerSpec}>
                     <Image 
-                         style={styles.specIcon} 
+                         style={styles.specIconCake} 
                          source={require("../assets/cake.png")}>
                     </Image>
-                    <Text>{BirthDate}</Text>
+                    <Text> {BirthDate}</Text>
                 </View>
                
                 <View style={styles.innerSpec}>
@@ -177,6 +177,11 @@ else{
     specIcon:{
         width: 20,
         height: 20,
+        aspectRatio:1,
+    },
+    specIconCake: {
+        width: 19,
+        height: 19,
         aspectRatio:1,
     },
     specIconNutrition: {
