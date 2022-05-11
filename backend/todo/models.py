@@ -39,8 +39,9 @@ class User(models.Model):
 
 
 class Plant_subprofile(models.Model):
-    sub_id = models.IntegerField()
-    name = models.CharField(max_length=50)
+    #id= models.CharField(max_length=20,primary_key=True, serialize=False)
+    sub_id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=30)
     birth_date = models.DateField()
     water = models.DateField()
     replant = models.DateField()
@@ -49,4 +50,4 @@ class Plant_subprofile(models.Model):
     username = models.ForeignKey('User', on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.sub_id
+        return self.name
