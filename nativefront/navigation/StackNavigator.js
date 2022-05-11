@@ -134,10 +134,16 @@ const MainStackNavigator = () => {
             // </View>
         })}
       />
+      <Stack.Screen name="Guide" component={GuideStackNavigator} 
+        options={({ navigation }) => ({
+            headerShown: false,
+          })}
+      />
     </Stack.Navigator>
   );
 }
 
+//stacka guide for home koppla till drawer via guide stack navigator här nedan
 const PlantDatabaseStackNavigator = () => {
     return (
       <Stack.Navigator
