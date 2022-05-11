@@ -188,12 +188,12 @@ const styles = StyleSheet.create({
     width:"90%",
     height:50,
     opacity: 1,
-},
-container3: {
-  flex:1,
-  backgroundColor: '#fff',
-},
-bar: {
+  },
+  container3: {
+    flex:1,
+    backgroundColor: '#fff',
+  },
+  bar: {
     width: "100%",
     height: "100%",
     backgroundColor: "black",
@@ -204,7 +204,7 @@ bar: {
     opacity: 0.4,
     position:'absolute',
     top: 20,
-},
+  },
   buttonWrapper: {
     alignItems: "center",
     position:"absolute",
