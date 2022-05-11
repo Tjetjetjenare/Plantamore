@@ -17,11 +17,24 @@ import Nutrition from '../screens/Nutrition';
 import Replant from '../screens/Replant';
 import Guide from '../screens/Guide';
 import PlantDatabase from '../screens/PlantDatabase';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator(); 
 
 //gör en login stack istället
+
+function sendTo(navigation){
+  AsyncStorage.getItem('inloggad').then(value =>{
+    var val =value 
+    if( val == "true"){
+      navigation.navigate('ProfileDrawer', {screen: 'Profile'})
+    }
+    else{
+      navigation.navigate('ProfileDrawer', {screen: 'LogIn'})
+    }
+  });
+  
+}
 
 const MainStackNavigator = () => {
   return (
@@ -51,13 +64,14 @@ const MainStackNavigator = () => {
         />
         </View>,
         headerRight: () => 
+        
         <View style={{ marginRight: 10 }}>
           <Ionicons
             style={{marginRight: 10}}
             name="person-outline"
             size={35}
             color="black"
-            onPress={() => navigation.navigate('ProfileDrawer', {screen: 'Profile'})}
+            onPress={() => sendTo(navigation)}
           />
         </View>
       })}
@@ -385,7 +399,6 @@ const PlantDatabaseStackNavigator = () => {
                 height: 60,
                 borderRadius: 10,
             },
-           
         }}
       >
         <Tab.Screen name="WateredTab" component={Watered}  

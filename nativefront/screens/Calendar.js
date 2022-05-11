@@ -3,9 +3,11 @@ import {View, TouchableOpacity, Text, SafeAreaView, StyleSheet, Image} from 'rea
 import {Agenda} from 'react-native-calendars';
 import {Card} from 'react-native-paper';
 import { useIsFocused } from "@react-navigation/native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
 var plantUrl = null;
 var subPlantUrl = null;
+var myPlants = [];
 const calPla = {};
 const dotObj = {};
 if(Platform.OS === "android"){ 
@@ -14,10 +16,16 @@ if(Platform.OS === "android"){
 else{
     subPlantUrl ='http://127.0.0.1:8000/api/subplants/';
     plantUrl = 'http://127.0.0.1:8000/api/plants/'}
-const timeToString = (time) => {
-  const date = new Date(time);
-  return date.toISOString().split('T')[0];
-};
+
+function findMyPlants(userPlants, username){
+  myPlants.length = 0
+  for ( var i = 0; i< userPlants.length; i++){
+      if( userPlants[i].username == username){
+         myPlants.push(userPlants[i])
+     }
+  }
+  return myPlants
+}
 
 // source https://github.com/wix/react-native-calendars
 function Calendar({navigation},props) {
@@ -25,12 +33,17 @@ function Calendar({navigation},props) {
   const [userPlants, setUserPlants] = useState("");
   const [plants, setPlants] = useState({});
   const [items, setItems] = useState({});
+  const [username, setUsername] = useState("");
   const isFocused = useIsFocused();
   const water = {key: 'water', color: '#00FFFF', selectedDotColor: '#00FFFF'}
   const replant = {key: 'replant', color: '#8B4513', selectedDotColor: '#8B4513'}
   const nutrition = {key: 'nutrition', color: '#7E9B6D', selectedDotColor: '#7E9B6D'}
 
   useEffect(async() => {
+    console.log("JAHARÅ")
+    AsyncStorage.getItem('MyName').then(value =>
+       setUsername(value )
+  );
     try {
       for (var member in calPla) delete calPla[member];
       const response = await axios.get(
@@ -52,37 +65,38 @@ function Calendar({navigation},props) {
   // for demonstraion reasons this will be kept this way
   // when API is fixed loop need to be fixed
   const markedDates = () => {
+    var myPlants = findMyPlants(userPlants,username)
     setTimeout(() => {
-      for (var i= 0; i<userPlants.length;i++){
-          calPla[userPlants[i].water] = []
-          calPla[userPlants[i].replant] = []
-          calPla[userPlants[i].nutrition] = []
+      for (var i= 0; i<myPlants.length;i++){
+          calPla[myPlants[i].water] = []
+          calPla[myPlants[i].replant] = []
+          calPla[myPlants[i].nutrition] = []
         
-        if( dotObj[userPlants[i].water]!= {dots: [], selected: false, disabled: false}){
-          dotObj[userPlants[i].water] = {dots: [], selected: false, disabled: false}
+        if( dotObj[myPlants[i].water]!= {dots: [], selected: false, disabled: false}){
+          dotObj[myPlants[i].water] = {dots: [], selected: false, disabled: false}
         }
-        if( dotObj[userPlants[i].replant]!= {dots: [], selected: false, disabled: false}){
-          dotObj[userPlants[i].replant] = {dots: [], selected: false, disabled: false}
+        if( dotObj[myPlants[i].replant]!= {dots: [], selected: false, disabled: false}){
+          dotObj[myPlants[i].replant] = {dots: [], selected: false, disabled: false}
         }
-        if( dotObj[userPlants[i].nutrition]!= {dots: [], selected: false, disabled: false}){
-          dotObj[userPlants[i].nutrition] = {dots: [], selected: false, disabled: false}
+        if( dotObj[myPlants[i].nutrition]!= {dots: [], selected: false, disabled: false}){
+          dotObj[myPlants[i].nutrition] = {dots: [], selected: false, disabled: false}
         }
       }
-      for (var i= 0; i<userPlants.length;i++){
-        calPla[userPlants[i].water].push({name: userPlants[i].name,
-           eve : "Water", p_id:userPlants[i].p_id  })
-        calPla[userPlants[i].replant].push({name: userPlants[i].name,
-           eve : "Replant", p_id:userPlants[i].p_id   })
-        calPla[userPlants[i].nutrition].push({name: userPlants[i].name,
-           eve : "Nutrition", p_id:userPlants[i].p_id  })
-           if (!(containsObject(water, dotObj[userPlants[1].water].dots))){
-            dotObj[userPlants[i].water].dots.push(water)
+      for (var i= 0; i<myPlants.length;i++){
+        calPla[myPlants[i].water].push({name: myPlants[i].name,
+           eve : "Water", p_id:myPlants[i].p_id  })
+        calPla[myPlants[i].replant].push({name: myPlants[i].name,
+           eve : "Replant", p_id:myPlants[i].p_id   })
+        calPla[myPlants[i].nutrition].push({name: myPlants[i].name,
+           eve : "Nutrition", p_id:myPlants[i].p_id  })
+           if (!(containsObject(water, dotObj[myPlants[1].water].dots))){
+            dotObj[myPlants[i].water].dots.push(water)
            }
-           if (!(containsObject(replant, dotObj[userPlants[1].replant].dots))){
-            dotObj[userPlants[i].replant].dots.push(replant)
+           if (!(containsObject(replant, dotObj[myPlants[1].replant].dots))){
+            dotObj[myPlants[i].replant].dots.push(replant)
            }
-           if (!(containsObject(nutrition, dotObj[userPlants[1].nutrition].dots))){
-            dotObj[userPlants[i].nutrition].dots.push(nutrition)
+           if (!(containsObject(nutrition, dotObj[myPlants[1].nutrition].dots))){
+            dotObj[myPlants[i].nutrition].dots.push(nutrition)
            }
       }
     },);

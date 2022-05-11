@@ -111,7 +111,7 @@ const  BlubBlub = async(userPlants) => {
     var day = new Date().getDate().toString();
     var today =year+"-"+month+"-"+day;
     if (wateredplants.length<1 ){
-        alert("No plants have been selected as watered, unable to save.")
+        alert("Error","No plants have been selected as watered, unable to save")
     }
     else{
         wateredplants.length = 0;
@@ -135,7 +135,7 @@ const  BlubBlub = async(userPlants) => {
                     console.error('There was an error!', error);
                 });
         }
-        alert("Your plants have been registered as watered today.")
+        alert("Success","Your plants have been registered as watered today")
     }
 
 };
@@ -159,9 +159,7 @@ function Watered({navigation},props) {
           
           setUserPlants(response.data);
           setPlants(response2.data);
-          console.log()
         } catch (error) {
-            console.log("Jästrar")
             console.log(error)
           // handle error
         }
@@ -198,7 +196,7 @@ function Watered({navigation},props) {
                 source={require("../assets/wateringCanBig.png")}>
             </Image>
         </View>
-        <Text style={styles.selectText}>Select the plants you have watered today.</Text>
+        <Text style={styles.selectText}>Select the plants you have watered today</Text>
         <View style={styles.scrollView}
               contentContainerStyle={{flexDirection:'row'}}>
             <FlatList 
@@ -218,7 +216,7 @@ function Watered({navigation},props) {
                 setDone(!done)
              }
              }>
-            <Text>Save</Text>
+            <Text>SAVE</Text>
         </TouchableOpacity>
     </SafeAreaView>
     );

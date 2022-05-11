@@ -26,7 +26,10 @@ function CreatePlantSubprofile() {
   const [search, setSearch] = useState('');
   const [visible, setVisible] = useState(true);
   const [dbImage, setDbImage] = useState('');
+  const [subplant, setSubplant] = useState('');
   const [name, setName] = useState('');
+  const [username,setUsername] = useState('');
+  const [pid, setPid] = useState('');
   const [bday, setBday] = useState('');
   const [water, setWater] = useState('');
 
@@ -163,12 +166,19 @@ function CreatePlantSubprofile() {
   ];
 
   useEffect(async() => {
+    AsyncStorage.getItem('MyName').then(value =>
+       setUsername(value )
+  );
     try {
       const response = await axios.get(
       plantbaseUrl,
       );
+      const response2 = await axios.get(
+        subplantbaseUrl,
+        );
       setFilteredDataSource(response.data);
       setMasterDataSource(response.data);
+      setSubplant(response2.data);
       
     } catch (error) {
       console.error(error);
@@ -225,6 +235,7 @@ function CreatePlantSubprofile() {
 
   const selectedPlant = (item) => {
     setSearch(item.english_name)
+    setPid(item.p_id)
     setVisible(false)
     setDbImage(item.image_url)
   }
@@ -253,14 +264,47 @@ function CreatePlantSubprofile() {
     );
   };
 
-  const saveBtnPressed = () => {
-    Alert.alert('Save', 'The plant has been added to your profile')
-    console.log("name: "+name+", img: "+dbImage+", bday: "+bday+", water:"+water)
-    setBday('')
-    setWater('')
-    setSearch('')
-    setName('')
-    setDbImage('')
+  const saveBtnPressed = async() => {
+    var year = (new Date().getFullYear()+1).toString();
+    var month = "04";
+    var day = new Date().getDate().toString();
+    var replantday =year+"-"+month+"-"+day;
+    try {
+      let data = {
+          sub_id: subplant[(subplant.length-1)].sub_id +1,
+          name: name,
+          birth_date: bday.getFullYear().toString() + "-" + (bday.getMonth()+1).toString() + "-"+ bday.getDate().toString(),
+          water: water.getFullYear().toString() + "-" + (water.getMonth()+1).toString() + "-"+ water.getDate().toString(),
+          replant: replantday,
+          nutrition: 4,
+          p_id: pid,
+          username : username,
+        }
+      const response = await axios.post(subplantbaseUrl, data,{'Content-Type': 'application/json'});
+      if (response.status === 201) {
+       Alert.alert('Save', 'The plant has been added to your profile')
+        setBday('')
+        setWater('')
+        setSearch('')
+        setName('')
+        setDbImage('')
+      } 
+    
+      else {
+      throw new Error("An error has occurred");
+      }
+  }catch (error) {
+    console.log(error);
+<<<<<<< HEAD
+    Alert.alert("Error","Something went wrong, please check that you filled out all the fields correctly")
+}
+
+    console.log("name: "+name+", img: "+dbImage+", bday: "+bday+", water:"+water,"AND", data)
+=======
+    Alert.alert("Error","Something went wrong, please check so you filled out the fields correctly")
+  }
+>>>>>>> ef2d785386f4c43bc418a3b8acf2d4200cd28ad6
+  
   }
 
   return(
