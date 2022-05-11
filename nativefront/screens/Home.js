@@ -83,9 +83,9 @@ function Home({navigation}) {
       )
     } else{
       return(
-        <TouchableOpacity onPress={() => navigation.navigate('Guide') }style={styles.careGuideOPA}>
+        <TouchableOpacity onPress={() => navigation.navigate('Guide')} style={styles.careGuideOPA}>
           <Text style={styles.careGuideButton}>Care Guide</Text>
-      </TouchableOpacity>
+        </TouchableOpacity>
     )}
 
 
@@ -271,12 +271,14 @@ const styles = StyleSheet.create({
   },
   careGuideButton: {
     textDecorationLine: 'underline',
-    fontSize: 23, 
+    fontSize: 27, 
     color: '#fff',
+    alignSelf: 'center',
+    top: 30,
   },
   careGuideOPA: {
     textDecorationLine: 'underline',
     fontSize: 23,
-    top:150,
+    top: 150,
   },
 })

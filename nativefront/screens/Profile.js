@@ -1,12 +1,12 @@
 import React,{useState, useEffect} from 'react';
-import { SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Platform} from 'react-native';
+import { SafeAreaView, Alert, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Platform} from 'react-native';
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from "@react-navigation/native";
 const myPlants = [];
 var plantUrl = null;
 var subPlantUrl = null;
-
+var ref = false;
 
 if(Platform.OS === "android"){ 
     subPlantUrl = 'http://10.0.2.2:8000/api/subplants/';
@@ -55,14 +55,27 @@ const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, pla
                     Nutrition: nutrition, Username: username
                 });
         }
-        }}>
+        }}
+        delayLongPress={2000} onLongPress={()=>{Alert.alert(
+            "Delete",
+            "You sure you want to kill "+name+"?",
+            [
+              {
+                text: "Nah",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "cancel"
+              },
+              { text: "FINISH IT", onPress: () =>  axios.delete(subPlantUrl+(id))
+              .then(() => console.log("DELETETED"))}
+            ]
+          ); ref = !ref; console.log(ref)}} activeOpacity={0.6}>
         <View style={styles.item}>
             <Text style={styles.title}>{name}</Text>
             <Image style={styles.image}
                 source={{
                     uri: `${plants[p_id-1].image_url}`
                     
-                }}> 
+                }}>
             </Image>
         </View>
     </TouchableOpacity>
@@ -107,7 +120,7 @@ function Profile({navigation}) {
             console.log(error)
           // handle error
         }
-      },[isFocused]);
+      },[isFocused,myPlants]);
     const renderItem = ({ item }) => (
         <Item 
             id = {item.sub_id}
@@ -135,6 +148,7 @@ function Profile({navigation}) {
                   contentContainerStyle={{flexDirection:'row'}}>
                 <FlatList 
                     data={findMyPlants(userPlants,username)}
+                    extraData={ref}
                     numColumns={3}
                     columnWrapperStyle={styles.flatList}
                     renderItem={renderItem}
