@@ -101,7 +101,7 @@ const  NutNut = async(userPlants) => {
     var day = new Date().getDate().toString();
     var today =year+"-"+month+"-"+day;
     if (nutplants.length<1 ){
-        alert("no plants Nutted")
+        alert("Error","No plants have been selected, unable to save")
     }
     else{
         nutplants.length = 0;
@@ -124,7 +124,7 @@ const  NutNut = async(userPlants) => {
                     console.error('There was an error!', error);
                 });
         }
-        alert("Your plants have been given nutrition today.")
+        alert("Success","Your plants have been given nutrition today")
     }
 
 };
@@ -147,7 +147,6 @@ function Nutrition({navigation},props) {
           setUserPlants(response.data);
           setPlants(response2.data);
         } catch (error) {
-            console.log("Jästrar")
             console.log(error)
           // handle error
         }
@@ -183,7 +182,7 @@ function Nutrition({navigation},props) {
                 source={require("../assets/nutritionFlask.png")}>
             </Image>
         </View>
-        <Text style={styles.selectText}>Select the plants you have given nutrition to.</Text>
+        <Text style={styles.selectText}>Select the plants you gave nutrition to</Text>
         <View style={styles.scrollView}
               contentContainerStyle={{flexDirection:'row'}}>
             <FlatList 
@@ -203,7 +202,7 @@ function Nutrition({navigation},props) {
                 setDone(!done)
              }
              }>
-            <Text>Save</Text>
+            <Text>SAVE</Text>
         </TouchableOpacity>
     </SafeAreaView>
     );

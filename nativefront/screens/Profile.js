@@ -58,14 +58,14 @@ const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, pla
         }}
         delayLongPress={2000} onLongPress={()=>{Alert.alert(
             "Delete",
-            "You sure you want to kill "+name+"?",
+            "Are you sure you want to remove "+name+"?",
             [
               {
-                text: "Nah",
+                text: "No",
                 onPress: () => console.log("Cancel Pressed"),
                 style: "cancel"
               },
-              { text: "FINISH IT", onPress: () =>  axios.delete(subPlantUrl+(id))
+              { text: "Yes", onPress: () =>  axios.delete(subPlantUrl+(id))
               .then(() => console.log("DELETETED"))}
             ]
           ); ref = !ref; console.log(ref)}} activeOpacity={0.6}>

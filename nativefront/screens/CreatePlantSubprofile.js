@@ -296,7 +296,7 @@ function CreatePlantSubprofile() {
       }
   }catch (error) {
     console.log(error);
-    Alert.alert("Error","Something went wrong, please check so you filled out the fields correctly")
+    Alert.alert("Error","Something went wrong, please check that you filled out all the fields correctly")
 }
 
     console.log("name: "+name+", img: "+dbImage+", bday: "+bday+", water:"+water,"AND", data)

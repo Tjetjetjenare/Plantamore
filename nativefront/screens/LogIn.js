@@ -28,7 +28,7 @@ function LogInScreen({navigation}) {
     const onSubmitFormHandler =  (async) => {
         let max = existingUsers.length;
         if (!email.trim() || !password.trim()) {
-            alert("Email or password is invalid. Please try again.");
+            alert("Error","Email or password is invalid. Please try again.");
            return;
         }
         setIsLoading(true);
@@ -44,16 +44,16 @@ function LogInScreen({navigation}) {
                         return;
                     }
                     else{
-                        alert("Please try again! The password does not seem to match the email.");
+                        alert("Error","Please try again! The password does not seem to match the email.");
                         setIsLoading(false);
                         return;
                     }
                 }
             }
-            alert("Failure, you do not seem to exist.");
+            alert("Error","There is no user with these credentials");
             setIsLoading(false);
         } catch (error) {
-            alert("An error has occurred");
+            alert("Error","An error has occurred, please try again");
             console.log("email: ", email ,"pass: ", password)
             setIsLoading(false);
         }

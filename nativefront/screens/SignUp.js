@@ -29,7 +29,7 @@ function SignUp({navigation}) {
       };
     const onSubmitFormHandler = async (event) => {
     if (!fullName.trim() || !email.trim() || !password.trim()) {
-        alert("Name or Email is invalid");
+        alert("Error","The name or email is invalid. Make sure that under 50 characters and that you have used a valid email");
        return;
     }
     setIsLoading(true);
@@ -52,7 +52,7 @@ function SignUp({navigation}) {
         throw new Error("An error has occurred");
         }
     } catch (error) {
-        alert("This email is already registered. Pick another email.");
+        alert("Error","This email is already registered, please use another email");
         console.log("username: ",fullName,"email: ", email,"pass: ", password)
         setIsLoading(false);
     }
@@ -116,7 +116,7 @@ function SignUp({navigation}) {
             </View>
             <View style={styles.termsAndConditions}>
                 <Text style={{justifyContent:'flex-end'}}>By signing up you agree to the 
-                    <TouchableOpacity onPress={() => Alert.alert("Terms and conditions", "The terms and conditions are that PLANTAMORE do not take responsibility if your plants die. You are utmost responsible for the care of your plants.")}>
+                    <TouchableOpacity onPress={() => Alert.alert("Terms and conditions", "PLANTAMORE is not responsible for the survival of your plants")}>
                         <Text style={styles.tocText}> Terms and conditions</Text>
                     </TouchableOpacity>
                 </Text>
