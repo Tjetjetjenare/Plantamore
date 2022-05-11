@@ -12,7 +12,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 function logOut(props){
     AsyncStorage.setItem("inloggad", "false")
     AsyncStorage.setItem("MyName", "")
-    props.navigation.navigate('LogIn')
+    props.navigation.navigate('ProfileDrawer', {screen: 'LogIn'})
 }
 const CustomDrawer = (props) => {
     const [logd, setLogd] = useState('');
