@@ -40,7 +40,7 @@ function LogInScreen({navigation}) {
                         AsyncStorage.setItem("MyName", existingUsers[i].username);
                         setIsLoading(false);
 
-                        navigation.navigate('Profile')
+                        navigation.navigate('ProfileDrawer', {screen: 'Profile'})
                         return;
                     }
                     else{

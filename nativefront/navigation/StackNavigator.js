@@ -21,6 +21,7 @@ import PlantDatabase from '../screens/PlantDatabase';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator(); 
 
+//gör en login stack istället
 
 const MainStackNavigator = () => {
   return (
@@ -28,6 +29,7 @@ const MainStackNavigator = () => {
     screenOptions={{
         title: '',
       }}
+      initialRouteName="Home"
     >
       <Stack.Screen name="Home" component={Home} 
       options={({ navigation }) => ({
@@ -55,54 +57,13 @@ const MainStackNavigator = () => {
             name="person-outline"
             size={35}
             color="black"
-            onPress={() => navigation.navigate('ProfileDrawer')}
+            onPress={() => navigation.navigate('ProfileDrawer', {screen: 'Profile'})}
           />
         </View>
       })}
       
       />
-      <Stack.Screen name="SignUp" component={SignUp} 
-        options={({ navigation }) => ({
-            headerShown: true,
-            headerStyle: {
-            elevation: 0,
-            shadowOpacity: 0,
-            borderBottomWidth: 0,
-            backgroundColor: '#7E9B6D'
-            },
-            headerLeft: () =>
-            <View>
-            <Ionicons
-                style={{ marginLeft: 10 }}
-                name="chevron-back-outline"
-                color="black"
-                size={35}
-                onPress={() => navigation.goBack()}
-            />
-            </View>,
-        })}
-      />
-      <Stack.Screen name="LogIn" component={LogIn} 
-        options={({ navigation }) => ({
-            headerShown: true,
-            headerStyle: {
-              elevation: 0,
-              shadowOpacity: 0,
-              borderBottomWidth: 0,
-              backgroundColor: '#7E9B6D'
-            },
-            headerLeft: () =>
-            <View>
-              <Ionicons
-                style={{ marginLeft: 10 }}
-                name="chevron-back-outline"
-                color="black"
-                size={35}
-                onPress={() => navigation.goBack()}
-            />
-            </View>,
-          })}
-      />
+    
       <Stack.Screen name="PlantDB" component={PlantDBProfile} 
         options={({ navigation }) => ({
             headerShown: true,
@@ -122,16 +83,6 @@ const MainStackNavigator = () => {
                 onPress={() => navigation.goBack()}
             />
             </View>,
-            // headerRight: () => 
-            // <View style={{ marginRight: 10 }}>
-            // <Ionicons
-            //     style={{marginRight: 10}}
-            //     name="person-outline"
-            //     size={35}
-            //     color="black"
-            //     onPress={() => navigation.navigate('ProfileDrawer')}
-            // />
-            // </View>
         })}
       />
       <Stack.Screen name="Guide" component={GuideStackNavigator} 
@@ -143,7 +94,6 @@ const MainStackNavigator = () => {
   );
 }
 
-//stacka guide for home koppla till drawer via guide stack navigator här nedan
 const PlantDatabaseStackNavigator = () => {
     return (
       <Stack.Navigator
@@ -214,6 +164,48 @@ const PlantDatabaseStackNavigator = () => {
             title: "",
         }}
       >
+        <Stack.Screen name="SignUp" component={SignUp} 
+        options={({ navigation }) => ({
+            headerShown: true,
+            headerStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+            backgroundColor: '#7E9B6D'
+            },
+            headerLeft: () =>
+            <View>
+            <Ionicons
+                style={{ marginLeft: 10 }}
+                name="chevron-back-outline"
+                color="black"
+                size={35}
+                onPress={() => navigation.navigate('Home')}
+            />
+            </View>,
+        })}
+      />
+      <Stack.Screen name="LogIn" component={LogIn} 
+        options={({ navigation }) => ({
+            headerShown: true,
+            headerStyle: {
+              elevation: 0,
+              shadowOpacity: 0,
+              borderBottomWidth: 0,
+              backgroundColor: '#7E9B6D'
+            },
+            headerLeft: () =>
+            <View>
+              <Ionicons
+                style={{ marginLeft: 10 }}
+                name="chevron-back-outline"
+                color="black"
+                size={35}
+                onPress={() => navigation.navigate('Home')}
+            />
+            </View>,
+          })}
+      />
         <Stack.Screen name="Profile" component={Profile} 
             options={({ navigation }) => ({
                 headerShown: true,

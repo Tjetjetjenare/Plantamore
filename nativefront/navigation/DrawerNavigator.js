@@ -6,6 +6,8 @@ import { PlantDatabaseStackNavigator } from "./StackNavigator";
 import { GuideStackNavigator } from "./StackNavigator";
 import { ProfileStackNavigator } from "./StackNavigator";
 import CustomDrawer from '../components/CustomDrawer';
+import { CommonActions } from '@react-navigation/native';
+import { StackActions } from '@react-navigation/native';
 
 const Drawer = createDrawerNavigator();
 
@@ -50,7 +52,9 @@ const DrawerNavigator = () => {
         options={{
             title: "Home",
             drawerIcon: () => (
-              <Ionicons name="home-outline" size={25} color={'#000'} />
+              <Ionicons name="home-outline" size={25} color={'#000'} 
+          
+              />
             )
           }}
       />

@@ -42,7 +42,7 @@ function SignUp({navigation}) {
         const response = await axios.post(userbaseUrl, data,{'Content-Type': 'application/json'});
         if (response.status === 201) {
         //alert(' You have created an account!');
-        navigation.navigate('LogIn')
+        navigation.navigate('ProfileDrawer', {screen: 'LogIn'})
         setIsLoading(false);
         setFullName('');
         setEmail('');
