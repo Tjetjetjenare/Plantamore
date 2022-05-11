@@ -33,6 +33,7 @@
     "react-native-calendars": "^1.1282.0",
     "react-native-collapsible": "^1.6.0",
     "react-native-date-picker": "^4.2.1",
+    "react-native-datefield": "^0.3.5",
     "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "~2.1.0",
     "react-native-paper": "^4.12.0",
