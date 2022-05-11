@@ -39,7 +39,6 @@ class User(models.Model):
 
 
 class Plant_subprofile(models.Model):
-    #id= models.CharField(max_length=20,primary_key=True, serialize=False)
     sub_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=30)
     birth_date = models.DateField()
