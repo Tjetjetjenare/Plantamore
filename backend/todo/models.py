@@ -45,7 +45,7 @@ class Plant_subprofile(models.Model):
     birth_date = models.DateField()
     water = models.DateField()
     replant = models.DateField()
-    nutrition = models.DateField()
+    nutrition = models.IntegerField()
     p_id = models.ForeignKey('Plant', on_delete=models.CASCADE)
     username = models.ForeignKey('User', on_delete=models.CASCADE)
 

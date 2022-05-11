@@ -230,6 +230,7 @@ const styles = StyleSheet.create({
         top: '10%',
     },
     title: {
+        flexShrink: 1,
         color: 'white', 
         fontSize: 15,  
         alignSelf: 'center',
