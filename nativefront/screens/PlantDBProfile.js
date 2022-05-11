@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Image, SafeAreaView, Platform } from 'react-native';
+import { StyleSheet, Text, ScrollView, View, Image, SafeAreaView, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import axios from 'axios';
 
@@ -75,11 +75,12 @@ else{  plantbaseUrl = 'http://127.0.0.1:8000/api/plants/';}
                     </View> 
                 </View>
         </View>
-        <Text 
-            style={styles.description}>
-                {Description} 
-        </Text>
-        
+        <ScrollView>
+            <Text 
+                style={styles.description}>
+                    {Description} 
+            </Text>
+        </ScrollView>
      </SafeAreaView>
   );
   
@@ -97,16 +98,17 @@ else{  plantbaseUrl = 'http://127.0.0.1:8000/api/plants/';}
         left: 30, 
        resizeMode:"contain"
     },
+
     textContainer: {
         fontSize: 18, 
         color: "black",
         top: 50, 
         left: "50%", 
-        position: "absolute", 
-        width: '50%', 
+        position: "absolute",
+        width: '50%'
     },
     latinName: {
-        fontWeight: "bold", 
+        fontWeight: "bold",
     },
     infoBoard: {
         marginTop: 50,
