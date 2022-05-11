@@ -34,7 +34,7 @@ const CustomDrawer = (props) => {
         </DrawerContentScrollView>
 
         <View style={{padding:20, borderTopWidth:2, borderTopColor:'#000000', backgroundColor: '#7E9B6D', paddingVertical:30}}>
-            <TouchableOpacity onPress={() => logOut(props)}> 
+            <TouchableOpacity onPress={() => logOut(props)}>
                 <View style={{flexDirection:'row', alignItems:'center', marginBottom:50, marginLeft:50}}>
                     <Ionicons 
                         title={'Logout'}

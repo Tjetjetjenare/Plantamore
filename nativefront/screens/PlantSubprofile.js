@@ -134,8 +134,7 @@ else{
        <View style={styles.footer}>
             <TouchableOpacity 
                 style={styles.circle}
-                onPress={() => //Alert.alert('Watering can button pressed')
-                alert(plant[plantId-1].english_name)}>
+                onPress={() => navigation.navigate('WateredStack')}>
                 <Image style={styles.wateringCan}
                         source={require("../assets/plantCare.png")}>
                         
