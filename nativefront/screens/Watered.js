@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import { SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Platform} from 'react-native';
+import { Alert,SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Platform} from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
@@ -111,15 +111,14 @@ const  BlubBlub = async(userPlants) => {
     var day = new Date().getDate().toString();
     var today =year+"-"+month+"-"+day;
     if (wateredplants.length<1 ){
-        alert("Error","No plants have been selected as watered, unable to save")
+        Alert.alert("Error","No plants have been selected as watered, unable to save")
     }
     else{
         wateredplants.length = 0;
         for (var i=0;i<lengd.length;i++){
-            var entry = lengd[i] +1;
             console.log(UP, "AND AND AND",userPlants)
             //console.log(lengd[i],userPlants[lengd[i]-1].name,today,userPlants[lengd[i]-1].replant,userPlants[lengd[i]-1].nutrition,userPlants[lengd[i]-1].p_id,userPlants[lengd[i]-1].username,)
-            await axios.put(subPlantUrl + entry, {
+            await axios.put(subPlantUrl + lengd[i], {
                 "sub_id":lengd[i],
                 "name":  UP[lengd[i]-1].name,
                 "birth_date":  UP[lengd[i]-1].birth_date,
@@ -135,7 +134,7 @@ const  BlubBlub = async(userPlants) => {
                     console.error('There was an error!', error);
                 });
         }
-        alert("Success","Your plants have been registered as watered today")
+        Alert.alert("Success","Your plants have been registered as watered today")
     }
 
 };
@@ -159,6 +158,7 @@ function Watered({navigation},props) {
           
           setUserPlants(response.data);
           setPlants(response2.data);
+          console.log()
         } catch (error) {
             console.log(error)
           // handle error
