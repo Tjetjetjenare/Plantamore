@@ -377,6 +377,11 @@ const styles = StyleSheet.create({
       marginHorizontal: 10,
       opacity: 2,
     },
+    itemStyle: {
+      padding: 5,
+      margin:5,
+      color: 'white'
+    },
     savebtn: {
       backgroundColor: "#fff",
       borderColor: "black",
