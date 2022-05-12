@@ -114,13 +114,13 @@ const  DirtDirt = async(userPlants) => {
         for (var i=0;i<lengd.length;i++){
             await axios.put(subPlantUrl + lengd[i], {
                 "sub_id":lengd[i],
-                "name":  UP[lengd[i]-1].name,
-                "birth_date":  UP[lengd[i]-1].birth_date,
-                "water": UP[lengd[i]-1].water,
+                "name":  UP[lengd[i]-11].name,
+                "birth_date":  UP[lengd[i]-11].birth_date,
+                "water": UP[lengd[i]-11].water,
                 "replant": (new Date().getFullYear()+1).toString()+"-04-12",
-                "nutrition": UP[lengd[i]-1].nutrition,
-                "p_id": UP[lengd[i]-1].p_id,
-                "username": UP[lengd[i]-1].username,
+                "nutrition": UP[lengd[i]-11].nutrition,
+                "p_id": UP[lengd[i]-11].p_id,
+                "username": UP[lengd[i]-11].username,
                 
                 },{'Content-Type': 'application/json'})
                 .then(response => console.log(response.data))

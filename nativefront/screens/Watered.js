@@ -138,17 +138,18 @@ const  BlubBlub = async(userPlants) => {
         Alert.alert("Error","No plants have been selected as watered, unable to save")
     }
     else{
+        console.log(UP,lengd)
         wateredplants.length = 0;
         for (var i=0;i<lengd.length;i++){
             await axios.put(subPlantUrl + lengd[i], {
                 "sub_id":lengd[i],
-                "name":  UP[lengd[i]-1].name,
-                "birth_date":  UP[lengd[i]-1].birth_date,
+                "name":  UP[(lengd[i]-11)].name,
+                "birth_date":  UP[lengd[i]-11].birth_date,
                 "water": today,
-                "replant": UP[lengd[i]-1].replant,
-                "nutrition": UP[lengd[i]-1].nutrition,
-                "p_id": UP[lengd[i]-1].p_id,
-                "username": UP[lengd[i]-1].username,
+                "replant": UP[lengd[i]-11].replant,
+                "nutrition": UP[lengd[i]-11].nutrition,
+                "p_id": UP[lengd[i]-11].p_id,
+                "username": UP[lengd[i]-11].username,
                 
                 },{'Content-Type': 'application/json'})
                 .then(response => console.log(response.data))
@@ -197,7 +198,6 @@ function Watered({navigation},props) {
             water = {item.water}
             pid = {item.p_id}
               /> )
-        console.log("Now water",plants)
     return (
         <SafeAreaView style={styles.container}>
         <View style={styles.symbols}>

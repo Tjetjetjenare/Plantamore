@@ -6,16 +6,21 @@ import { useIsFocused } from "@react-navigation/native";
 const myPlants = [];
 var plantUrl = null;
 var subPlantUrl = null;
+var userUrl = null;
 var ref = false;
+var choosingPic = false;
+var profpic = require("../assets/profilePic.png")
 const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
   }
 if(Platform.OS === "android"){ 
     subPlantUrl = 'http://10.0.2.2:8000/api/subplants/';
+    userUrl = 'http://10.0.2.2:8000/api/users/'
     plantUrl = 'http://10.0.2.2:8000/api/plants/';}
 else{
     subPlantUrl ='http://127.0.0.1:8000/api/subplants/';
-    plantUrl = 'http://127.0.0.1:8000/api/plants/'}
+    plantUrl = 'http://127.0.0.1:8000/api/plants/';
+    userUrl = 'http://127.0.0.1:8000/api/users/'}
 
 const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, plants, navigation}) => {     
     if ( id == "add"){
@@ -72,7 +77,6 @@ const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, pla
             <Image style={styles.image}
                 source={{
                     uri: `${plants[p_id-1].image_url}`
-                    
                 }}>
             </Image>
         </View>
@@ -91,41 +95,121 @@ const DATA = [
     {
       id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
       title: 'First Item',
+      pic: require("../assets/profileTest.png"),
     },
     {
       id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
       title: 'Second Item',
+      pic: require("../assets/profileTest.png"),
     },
     {
       id: '58694a0f-3da1-471f-bd96-145571e29d72',
       title: 'Third Item',
+      pic: require("../assets/profileTest.png"),
     },
+    {
+        id: '2',
+        title: 'Fourth Item',
+        pic: require("../assets/profilePic.png"),
+      },
+      {
+        id: '3-c1b1-46c2-aed5-3ad53abb28ba',
+        title: 'Fifth Item',
+        pic: require("../assets/profileTest.png"),
+      },
+      {
+        id: '4-c605-48d3-a4f8-fbd91aa97f63',
+        title: 'Sixth Item',
+        pic: require("../assets/profileTest.png"),
+      },
+      {
+        id: '5-3da1-471f-bd96-145571e29d72',
+        title: 'Seventh Item',
+        pic: require("../assets/profileTest.png"),
+      },
+      {
+          id: '6-3da1-471f-bd96-145571e29d72',
+          title: 'Eigth Item',
+          pic: require("../assets/profileTest.png"),
+        },
   ];
   
 
-  const renderImg = () => {
-    if(pImage!='false'){
-      return(            
-          <Image
-              style={styles.plantPic}
-              source={require("../assets/profilePic.png")}
-          />
-      )         
-    }else{
-      return(            
-          <Image
-              style={styles.plantPic}
-              source={require("../assets/onlyPlantSmall.png")}
-          />
-      )}
+  const renderImg = (number) => {
+      if(number==1){
+                 return(
+                    <Image 
+                    style={styles.profilePic}
+                    source={ require('../assets/profilePic.png')}>
+                </Image>)}
+     else if(number==2){
+        return(
+           <Image 
+           style={styles.profilePic}
+           source={ require('../assets/profilePic.png')}>
+       </Image>)}
+       else if(number==3){
+        return(
+           <Image 
+           style={styles.profilePic}
+           source={ require('../assets/profilePic.png')}>
+       </Image>)}
+       else if(number==4){
+        return(
+           <Image 
+           style={styles.profilePic}
+           source={ require('../assets/profilePic.png')}>
+       </Image>)}
+       else if(number==5){
+        return(
+           <Image 
+           style={styles.profilePic}
+           source={ require('../assets/profilePic.png')}>
+       </Image>)}
+       else if(number==6){
+        return(
+           <Image 
+           style={styles.profilePic}
+           source={ require('../assets/profilePic.png')}>
+       </Image>)}
+       else if(number==7){
+        return(
+           <Image 
+           style={styles.profilePic}
+           source={ require('../assets/profilePic.png')}>
+       </Image>)}
+       else if(number==8){
+        return(
+           <Image 
+           style={styles.profilePic}
+           source={ require('../assets/profilePic.png')}>
+       </Image>)}
+       else if(number==9){
+        return(
+           <Image 
+           style={styles.profilePic}
+           source={ require('../assets/profilePic.png')}>
+       </Image>)}
+       else if(number==10){
+        return(
+           <Image 
+           style={styles.profilePic}
+           source={ require('../assets/profilePic.png')}>
+       </Image>)}
+       else if(number==11){
+        return(
+           <Image 
+           style={styles.profilePic}
+           source={ require('../assets/profilePic.png')}>
+       </Image>)}
+       else if(number==12){
+        return(
+           <Image 
+           style={styles.profilePic}
+           source={ require('../assets/profileTest.png')}>
+       </Image>)}
+
   };
-
-
-  const ItemPic = ({ title }) => (
-    <View style={styles.item}>
-      <Text style={styles.title}>{title}</Text>
-    </View>
-  );
 
 
 function findMyPlants(userPlants, username){
@@ -142,22 +226,22 @@ function findMyPlants(userPlants, username){
     return myPlants
 }
 
+
 function Profile({navigation}) {
     
     const [userPlants, setUserPlants] = useState("");
+    const [users, setUsers] = useState("");
+    const [userId, setUserId] = useState("");
     const [plants, setPlants] = useState({});
     const [username, setUsername] = useState("");
     const isFocused = useIsFocused();
-<<<<<<< HEAD
-    const [pImage, setPImage] = useState('true');
-
-=======
     const [refreshing, setRefreshing] = useState(false);
->>>>>>> e02d862fe8375729277588a49d7b7fea1b3087b1
+    const [show, setShow] = useState(false);
     useEffect(async() => {
         AsyncStorage.getItem('MyName').then(value =>
             //AsyncStorage returns a promise so adding a callback to get the value
              setUsername(value )
+             
             //Setting the value in Text
         );
         try {
@@ -167,23 +251,78 @@ function Profile({navigation}) {
           const response2 = await axios.get(
             plantUrl,
           );
+          const response3 = await axios.get(
+            userUrl,
+          );
           setPlants(response2.data)
           setUserPlants(response.data);
+          setUsers(response3.data);
+          for(var i = 0;i<response3.data.length;i++){
+            if(response3.data[i].username == username){
+                setUserId(i)
+            }
+          }
         } catch (error) {
             console.log("Jästrar")
             console.log(error)
           // handle error
         }
-<<<<<<< HEAD
-      },[isFocused,myPlants]);
+      },[isFocused,myPlants,refreshing,show]);
 
-=======
-      },[isFocused,myPlants,refreshing]);
+      const ItemPic = ({ title, pic }) => (
+        <View style={styles.items2}>
+            <TouchableOpacity style = {styles.image2} onPress={() => {updateDB(), test()}}>
+                 
+          <Image style={styles.image2}
+                    source={pic}>
+                </Image>
+                </TouchableOpacity>
+        </View>
+      );
+      const picChoose = () => {
+        if (choosingPic){
+        return(
+            <FlatList
+                    data={DATA}
+                    renderItem={renderPic}
+                    keyExtractor={item => item.id}
+                    numColumns={4}
+                    />
+            )}
+            else{
+                return
+            }
+    }
+    const renderPic = ({ item }) => (
+        <ItemPic title={item.title} 
+                pic = {item.pic}
+        
+        />
+      );
+      const updateDB = async(number) => {
+        try {
+            let data = {
+                username : username,
+                email: users[userId].email,
+                password: users[userId].password,
+                profile_picture: number
+              }
+            const response = await axios.post(userUrl, data,{'Content-Type': 'application/json'});
+            if (response.status === 201) {
+                console.log("Great")
+            } 
+            else {
+            throw new Error("An error has occurred");
+            }
+        }catch (error) {
+          console.log(error, "BAD");}
+      }
+
+
       const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         wait(800).then(() => setRefreshing(false));
       }, []);
->>>>>>> e02d862fe8375729277588a49d7b7fea1b3087b1
     const renderItem = ({ item }) => (
         <Item 
             id = {item.sub_id}
@@ -198,10 +337,15 @@ function Profile({navigation}) {
             navigation = {navigation}
             
             /> );
-
-            const renderPic = ({ item }) => (
-                <ItemPic title={item.title} />
-              );
+        function test( ){
+            choosingPic = !choosingPic
+            setShow(!show)
+        }
+        function Picturefix(){
+            var mybild = users[userId].profile_picture;
+            return (mybild)
+        }
+            
   
     return (
         <SafeAreaView style={styles.container}>
@@ -209,17 +353,10 @@ function Profile({navigation}) {
             </View>
             <Text style={styles.userName}>{username}</Text>
             <View>
-            <TouchableOpacity onPress={() => renderPic(item)}>   
-                <Image 
-                    style={styles.profilePic}
-                    source={require("../assets/profilePic.png")}>
-                </Image>
+            <TouchableOpacity onPress={() => test()}>    
+                {renderImg(Picturefix())}
             </TouchableOpacity>
-                    <FlatList
-                    data={DATA}
-                    renderItem={renderPic}
-                    keyExtractor={item => item.id}
-                    />
+                    {picChoose()}
             </View>
             <View style={styles.scrollView}
                   contentContainerStyle={{flexDirection:'row'}}>
@@ -239,10 +376,9 @@ function Profile({navigation}) {
                       }
                 />
              </View>
-
             <TouchableOpacity 
                 style={styles.circle}
-                onPress={() => navigation.navigate('Watered')        
+                onPress={() => navigation.navigate('Watered')
                 }>
                 <Image style={styles.wateringCan}
                         source={require("../assets/plantCare.png")}>  
@@ -323,6 +459,13 @@ const styles = StyleSheet.create({
         top: '5%',  
         borderRadius: 55, 
     },
+    image2: {
+        height: 50, 
+        width: 50, 
+        top: '5%',  
+        borderRadius: 55, 
+        alignSelf:'center',
+    },
     circle: {
         height: 80, 
         width: 80, 
@@ -338,4 +481,7 @@ const styles = StyleSheet.create({
         height: "70%",
         width: "70%",
     },
+    items2:{
+        width:"25%",
+    }
 })
