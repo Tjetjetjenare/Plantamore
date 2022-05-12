@@ -297,7 +297,6 @@ function CreatePlantSubprofile() {
     console.log(error);
     Alert.alert("Error","Something went wrong, please check that you filled out all the fields correctly")
 }
-
   
   }
 
