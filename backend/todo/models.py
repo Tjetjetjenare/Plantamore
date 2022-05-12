@@ -33,6 +33,7 @@ class User(models.Model):
     username = models.CharField(max_length=50, primary_key=True)
     email = models.EmailField(max_length=200, unique=True)
     password = models.CharField(max_length=50)
+    profile_picture = models.CharField(max_length=100, null=True)
 
     def __str__(self):
         return self.username

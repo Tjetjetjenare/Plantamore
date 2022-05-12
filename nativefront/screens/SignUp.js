@@ -38,6 +38,7 @@ function SignUp({navigation}) {
             username: fullName,
             email: email,
             password: password,
+            profile_picture: "../assets/profilePic.png",
           }
         const response = await axios.post(userbaseUrl, data,{'Content-Type': 'application/json'});
         if (response.status === 201) {

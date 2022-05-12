@@ -113,16 +113,15 @@ const  NutNut = async(userPlants) => {
         nutplants.length = 0;
         for (var i=0;i<lengd.length;i++){
             console.log(lengd[i]);
-            var entry = lengd[i] +1;
-            await axios.put(subPlantUrl + entry, {
+            await axios.put(subPlantUrl, {
                 "sub_id":lengd[i],
-                "name":  UP[lengd[i]-1].name,
-                "birth_date":  UP[lengd[i]-1].birth_date,
-                "water": UP[lengd[i]-1].water,
-                "replant": UP[lengd[i]-1].replant,
+                "name":  UP[lengd[i]-11].name,
+                "birth_date":  UP[lengd[i]-11].birth_date,
+                "water": UP[lengd[i]-11].water,
+                "replant": UP[lengd[i]-11].replant,
                 "nutrition": 4,
-                "p_id": UP[lengd[i]-1].p_id,
-                "username": UP[lengd[i]-1].username,
+                "p_id": UP[lengd[i]-11].p_id,
+                "username": UP[lengd[i]-11].username,
                 
                 },{'Content-Type': 'application/json'})
                 .then(response => console.log(response.data))
