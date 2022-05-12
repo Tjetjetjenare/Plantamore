@@ -301,13 +301,16 @@ function Profile({navigation}) {
       );
       const updateDB = async(number) => {
         try {
-            let data = {
-                username : username,
-                email: users[userId].email,
-                password: users[userId].password,
-                profile_picture: number
-              }
-            const response = await axios.post(userUrl, data,{'Content-Type': 'application/json'});
+            await axios.put(userUrl + lengd[i], {
+                "sub_id":lengd[i],
+                "name":  UP[lengd[i]-1].name,
+                "birth_date":  UP[lengd[i]-1].birth_date,
+                "water": today,
+                "replant": UP[lengd[i]-1].replant,
+                "nutrition": UP[lengd[i]-1].nutrition,
+                "p_id": UP[lengd[i]-1].p_id,
+                "username": UP[lengd[i]-1].username,
+                },{'Content-Type': 'application/json'});
             if (response.status === 201) {
                 console.log("Great")
             } 

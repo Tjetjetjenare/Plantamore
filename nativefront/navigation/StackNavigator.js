@@ -331,7 +331,7 @@ const PlantDatabaseStackNavigator = () => {
                     color="black"
                     size={40}
                     
-                    onPress={() => navigation.goBack()}
+                    onPress={() => navigation.navigate("Profile")}
                 />
                 </View>,
             })}
@@ -353,7 +353,7 @@ const PlantDatabaseStackNavigator = () => {
                     color="black"
                     size={40}
                     
-                    onPress={() => navigation.goBack()}
+                    onPress={() => navigation.navigate("Profile")}
                 />
                 </View>,
             })}
@@ -375,7 +375,7 @@ const PlantDatabaseStackNavigator = () => {
                     color="black"
                     size={40}
                     
-                    onPress={() => navigation.goBack()}
+                    onPress={() => navigation.navigate("Profile")}
                 />
                 </View>,
             })}

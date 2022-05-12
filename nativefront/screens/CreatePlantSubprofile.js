@@ -32,6 +32,7 @@ function CreatePlantSubprofile() {
   const [pid, setPid] = useState('');
   const [bday, setBday] = useState('');
   const [water, setWater] = useState('');
+  const [replant, setReplant] = useState('');
 
   // const [logd, setLogd] = useState('');
   const isFocused = useIsFocused();
@@ -109,7 +110,7 @@ function CreatePlantSubprofile() {
     )
   };
 
-  const renderWater = () => {
+  const renderCare = () => {
     return(
       <View>
         <Text style={styles.info}>When did you last water your plant?</Text>
@@ -121,6 +122,17 @@ function CreatePlantSubprofile() {
             styleInput={styles.dateInput}
             onSubmit={(value) => setWater(value)}
             value={water}
+          />
+        </View>
+        <Text style={styles.info}>When did you last replant your plant?</Text>
+        <View style={styles.dateWrap}>
+          <DateField
+            labelDate="DD"
+            labelMonth="MM"
+            labelYear="YYYY"
+            styleInput={styles.dateInput}
+            onSubmit={(value) => setReplant(value)}
+            value={replant}
           />
         </View>
       </View>
@@ -154,8 +166,8 @@ function CreatePlantSubprofile() {
       data: ["DD-MM-YY"],
     },
     {
-      title: "Last watered",
-      renderItem: renderWater,
+      title: "Last watered, replant",
+      renderItem: renderCare,
       data: ["DD-MM-YY"],
     },
     {
@@ -265,17 +277,13 @@ function CreatePlantSubprofile() {
   };
 
   const saveBtnPressed = async() => {
-    var year = (new Date().getFullYear()+1).toString();
-    var month = "04";
-    var day = new Date().getDate().toString();
-    var replantday =year+"-"+month+"-"+day;
     try {
       let data = {
           sub_id: subplant[(subplant.length-1)].sub_id +1,
           name: name,
           birth_date: bday.getFullYear().toString() + "-" + (bday.getMonth()+1).toString() + "-"+ bday.getDate().toString(),
           water: water.getFullYear().toString() + "-" + (water.getMonth()+1).toString() + "-"+ water.getDate().toString(),
-          replant: replantday,
+          replant: replant.getFullYear().toString() + "-" + (replant.getMonth()+1).toString() + "-"+ replant.getDate().toString(),
           nutrition: 4,
           p_id: pid,
           username : username,
@@ -288,6 +296,7 @@ function CreatePlantSubprofile() {
         setSearch('')
         setName('')
         setDbImage('')
+        setReplant('')
       } 
     
       else {

@@ -134,7 +134,7 @@ else{
        <View style={styles.footer}>
             <TouchableOpacity 
                 style={styles.circle}
-                onPress={() => navigation.navigate('WateredStack')}>
+                onPress={() => navigation.navigate('Watered')}>
                 <Image style={styles.wateringCan}
                         source={require("../assets/plantCare.png")}>
                         
