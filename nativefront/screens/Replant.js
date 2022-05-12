@@ -117,7 +117,7 @@ const  DirtDirt = async(userPlants) => {
                 "name":  UP[lengd[i]-1].name,
                 "birth_date":  UP[lengd[i]-1].birth_date,
                 "water": UP[lengd[i]-1].water,
-                "replant": (new Date().getFullYear()+1).toString()+"-04-01",
+                "replant": (new Date().getFullYear()+1).toString()+"-04-12",
                 "nutrition": UP[lengd[i]-1].nutrition,
                 "p_id": UP[lengd[i]-1].p_id,
                 "username": UP[lengd[i]-1].username,
