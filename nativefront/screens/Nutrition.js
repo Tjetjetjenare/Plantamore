@@ -158,7 +158,7 @@ function Nutrition({navigation},props) {
             console.log(error)
           // handle error
         }
-      },[isFocused,done]);
+      },[isFocused,done,refreshing]);
       const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         wait(1000).then(() => setRefreshing(false));
