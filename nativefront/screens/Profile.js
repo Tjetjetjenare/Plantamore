@@ -148,12 +148,9 @@ function Profile({navigation}) {
     const [plants, setPlants] = useState({});
     const [username, setUsername] = useState("");
     const isFocused = useIsFocused();
-<<<<<<< HEAD
     const [pImage, setPImage] = useState('true');
 
-=======
     const [refreshing, setRefreshing] = useState(false);
->>>>>>> e02d862fe8375729277588a49d7b7fea1b3087b1
     useEffect(async() => {
         AsyncStorage.getItem('MyName').then(value =>
             //AsyncStorage returns a promise so adding a callback to get the value
@@ -174,16 +171,11 @@ function Profile({navigation}) {
             console.log(error)
           // handle error
         }
-<<<<<<< HEAD
-      },[isFocused,myPlants]);
-
-=======
       },[isFocused,myPlants,refreshing]);
       const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         wait(800).then(() => setRefreshing(false));
       }, []);
->>>>>>> e02d862fe8375729277588a49d7b7fea1b3087b1
     const renderItem = ({ item }) => (
         <Item 
             id = {item.sub_id}
