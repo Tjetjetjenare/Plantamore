@@ -121,6 +121,8 @@ function Profile({navigation}) {
     const [plants, setPlants] = useState({});
     const [username, setUsername] = useState("");
     const isFocused = useIsFocused();
+    const [pImage, setPImage] = useState('true');
+
     const [refreshing, setRefreshing] = useState(false);
     useEffect(async() => {
         AsyncStorage.getItem('MyName').then(value =>
