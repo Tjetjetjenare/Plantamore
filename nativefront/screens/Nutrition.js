@@ -174,19 +174,6 @@ function Nutrition({navigation},props) {
     return (
         <SafeAreaView style={styles.container}>
         <View style={styles.symbols}>
-            {/* <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                <Ionicons
-                    style={{ marginLeft: 10 }}
-                    name="close-outline"
-                    color="black"
-                    size={35}
-                />
-            </TouchableOpacity> */}
-            {/* <Image 
-                style={styles.calendar} 
-                source={require("../assets/calendar.png")}>
-                    
-            </Image> */}
         </View>
         <Text style={styles.thankYou}>Your plants thank you!</Text>
         <View style={styles.waterCanContainer}>

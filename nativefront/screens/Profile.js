@@ -122,7 +122,7 @@ function Profile({navigation}) {
       },[isFocused,myPlants,refreshing]);
       const onRefresh = React.useCallback(() => {
         setRefreshing(true);
-        wait(1000).then(() => setRefreshing(false));
+        wait(800).then(() => setRefreshing(false));
       }, []);
     const renderItem = ({ item }) => (
         <Item 

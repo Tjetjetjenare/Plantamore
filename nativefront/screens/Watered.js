@@ -181,7 +181,6 @@ function Watered({navigation},props) {
           
           setUserPlants(response.data);
           setPlants(response2.data);
-          console.log()
         } catch (error) {
             console.log(error)
           // handle error
