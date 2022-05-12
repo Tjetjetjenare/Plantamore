@@ -4,6 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";
+import moment from 'moment';
 import { set } from 'react-native-reanimated';
 var subPlantUrl = "";
 if(Platform.OS === "android"){ 
@@ -46,7 +47,27 @@ function doWater(id) {
 function ispres(id){
     return wateredplants.includes(id)
 }
-const Item = ({id, name, plants, water }) => {
+
+
+const Item = ({id, name, plants, water, pid }) => {
+
+    const daysUntilWater = () => {
+        var today = moment(new Date())
+        var lastWater = moment(water)
+        if(plants[pid-1].water=='Sparingly'){
+            var shouldWater = lastWater.add(16, 'days')
+        }else if(plants[pid-1].water=='Generously'){
+            var shouldWater = lastWater.add(4, 'days')
+        }
+        else
+            {var shouldWater = lastWater.add(7, 'days')}
+        var displayWater = shouldWater.diff(today, 'days')
+        if(displayWater<= 0)
+            {displayWater='today!'}
+        else{displayWater='in '+ displayWater+' days'}
+        return(displayWater)
+    }
+
     const [pres, setPres] = useState(false);
     if (plants.length < 1){
         return(
@@ -76,11 +97,11 @@ const Item = ({id, name, plants, water }) => {
             <Text style={styles.title}>{name}</Text>
             <View style={styles.presblue}>
             <Image style={styles.imagepres}
-                source={{uri: `${plants[id-1].image_url}`}}> 
+                source={{uri: `${plants[pid-1].image_url}`}}> 
             </Image>
             </View>
         </View>
-        <View><Text>{water}</Text></View>
+        <View style={{alignSelf: 'center'}}><Text>{daysUntilWater()}</Text></View>
     </TouchableOpacity>
     
   )}
@@ -94,10 +115,10 @@ const Item = ({id, name, plants, water }) => {
             <View style={styles.item}>
                 <Text style={styles.title}>{name}</Text>
                 <Image style={styles.image}
-                    source={{uri: `${plants[id-1].image_url}`}}> 
+                    source={{uri: `${plants[pid-1].image_url}`}}> 
                 </Image>
             </View>
-            <View><Text style={{alignSelf: 'center'}}>{water}</Text></View>
+            <View><Text style={{alignSelf: 'center'}}>{daysUntilWater()}</Text></View>
         </TouchableOpacity>
 
       )
@@ -170,6 +191,7 @@ function Watered({navigation},props) {
             name={item.name} 
             plants = {plants}
             water = {item.water}
+            pid= {item.p_id}
               /> )
 
     return (
