@@ -295,8 +295,8 @@ function CreatePlantSubprofile() {
       }
   }catch (error) {
     console.log(error);
-    Alert.alert("Error","Something went wrong, please check so you filled out the fields correctly")
-  }
+    Alert.alert("Error","Something went wrong, please check that you filled out all the fields correctly")
+}
   
   }
 
@@ -376,6 +376,11 @@ const styles = StyleSheet.create({
       padding: 5,
       marginHorizontal: 10,
       opacity: 2,
+    },
+    itemStyle: {
+      padding: 5,
+      margin:5,
+      color: 'white'
     },
     savebtn: {
       backgroundColor: "#fff",

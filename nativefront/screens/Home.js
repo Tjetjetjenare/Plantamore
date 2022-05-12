@@ -274,11 +274,11 @@ const styles = StyleSheet.create({
     fontSize: 27, 
     color: '#fff',
     alignSelf: 'center',
-    top: 30,
+    
   },
   careGuideOPA: {
     textDecorationLine: 'underline',
     fontSize: 23,
-    top: 150,
+    top: 180,
   },
 })
