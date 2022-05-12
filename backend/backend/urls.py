@@ -8,7 +8,7 @@ router = routers.DefaultRouter()
 router.register(r'todos', views.TodoView, 'todo')
 
 #need to add re_path api's for other databases too and change students too plants. If changed here, dont forgett to change in app.js
-
+#+[0-9]
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),

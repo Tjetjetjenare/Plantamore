@@ -345,8 +345,12 @@ function Profile({navigation}) {
             setShow(!show)
         }
         function Picturefix(){
+            if( users!= undefined && userId!=undefined && users[userId]!=undefined){
+            console.log(users, userId)
             var mybild = users[userId].profile_picture;
             return (mybild)
+        }
+        else return(1)
         }
             
   
