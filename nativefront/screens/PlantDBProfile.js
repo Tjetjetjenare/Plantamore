@@ -67,7 +67,7 @@ else{  plantbaseUrl = 'http://127.0.0.1:8000/api/plants/';}
                 <View style={{ flex: 2, flexDirection:"row"}}>
                     <Image 
                          style={styles.infoIcon} 
-                         source={require("../assets/nutrition.png")}>
+                         source={require("../assets/nutritionFlask.png")}>
                     </Image>
                     <View>
                         <Text style= {styles.infoHeader}>Nutrition</Text>
