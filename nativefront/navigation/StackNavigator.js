@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { View, Image } from 'react-native';
+import { View, Image, Platform } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 
 import Home from '../screens/Home';
@@ -406,7 +406,7 @@ const PlantDatabaseStackNavigator = () => {
                 tabBarIcon: ({ focused }) => (<View style={{alignItems: 'center', justifyContent: 'center'}}> 
                     <Image source={require("../assets/wateringCan.png")}
                     resizeMode='contain'
-                    style={{width: 40, height: 40, top: 5, tintColor: focused? "#7E9B6D" : "black"}}/>
+                    style={{width: 40, height: 40, top: Platform.OS === 'ios' ? 10: 0, tintColor: focused? "#7E9B6D" : "black"}}/>
                 </View>) 
                 }}
         />
@@ -415,7 +415,7 @@ const PlantDatabaseStackNavigator = () => {
                 tabBarIcon: ({ focused }) => (<View style={{alignItems: 'center', justifyContent: 'center'}}> 
                 <Image source={require("../assets/nutritionFlask.png")}
                   resizeMode='contain'
-                  style={{width: 40, height: 40, top: 5, tintColor: focused? "#7E9B6D" : "black"}}/>
+                  style={{width: 40, height: 40, top: Platform.OS === 'ios' ? 10: 0, tintColor: focused? "#7E9B6D" : "black"}}/>
               </View>) 
               }}
         />
@@ -424,7 +424,7 @@ const PlantDatabaseStackNavigator = () => {
                 tabBarIcon: ({ focused }) => (<View style={{alignItems: 'center', justifyContent: 'center'}}> 
                 <Image source={require("../assets/replant.png")}
                 resizeMode='contain'
-                style={{width: 40, height: 40, top: 5, tintColor: focused? "#7E9B6D" : "black"}}/>
+                style={{width: 40, height: 40, top: Platform.OS === 'ios' ? 10: 0, tintColor: focused? "#7E9B6D" : "black"}}/>
             </View>) 
             }}
           />
