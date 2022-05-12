@@ -6,6 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="cc8c6f05-49bc-4c8f-8d44-2ee8e3d46fa6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
+=======
+      <change beforePath="$PROJECT_DIR$/nativefront/navigation/StackNavigator.js" beforeDir="false" afterPath="$PROJECT_DIR$/nativefront/navigation/StackNavigator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nativefront/screens/PlantSubprofile.js" beforeDir="false" afterPath="$PROJECT_DIR$/nativefront/screens/PlantSubprofile.js" afterDir="false" />
+>>>>>>> 32e5923b6bb158d2a45c855fa2f6875608f9c5bb
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
