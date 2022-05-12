@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import { SafeAreaView, Alert, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Platform} from 'react-native';
+import { SafeAreaView, Alert, StyleSheet,RefreshControl, TouchableOpacity, Image, Text, View, FlatList, Platform} from 'react-native';
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from "@react-navigation/native";
@@ -7,7 +7,9 @@ const myPlants = [];
 var plantUrl = null;
 var subPlantUrl = null;
 var ref = false;
-
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  }
 if(Platform.OS === "android"){ 
     subPlantUrl = 'http://10.0.2.2:8000/api/subplants/';
     plantUrl = 'http://10.0.2.2:8000/api/plants/';}
@@ -15,10 +17,7 @@ else{
     subPlantUrl ='http://127.0.0.1:8000/api/subplants/';
     plantUrl = 'http://127.0.0.1:8000/api/plants/'}
 
-const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, plants, navigation}) => { 
-    
-    
-    
+const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, plants, navigation}) => {     
     if ( id == "add"){
         return(
             <TouchableOpacity 
@@ -32,7 +31,6 @@ const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, pla
             <Text style={styles.title}>{name}</Text>
             <Image style={styles.image}
                 source={require("../assets/plus.png")
-                    
                 }> 
             </Image>
         </View>
@@ -150,8 +148,12 @@ function Profile({navigation}) {
     const [plants, setPlants] = useState({});
     const [username, setUsername] = useState("");
     const isFocused = useIsFocused();
+<<<<<<< HEAD
     const [pImage, setPImage] = useState('true');
 
+=======
+    const [refreshing, setRefreshing] = useState(false);
+>>>>>>> e02d862fe8375729277588a49d7b7fea1b3087b1
     useEffect(async() => {
         AsyncStorage.getItem('MyName').then(value =>
             //AsyncStorage returns a promise so adding a callback to get the value
@@ -172,8 +174,16 @@ function Profile({navigation}) {
             console.log(error)
           // handle error
         }
+<<<<<<< HEAD
       },[isFocused,myPlants]);
 
+=======
+      },[isFocused,myPlants,refreshing]);
+      const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(800).then(() => setRefreshing(false));
+      }, []);
+>>>>>>> e02d862fe8375729277588a49d7b7fea1b3087b1
     const renderItem = ({ item }) => (
         <Item 
             id = {item.sub_id}
@@ -220,6 +230,13 @@ function Profile({navigation}) {
                     columnWrapperStyle={styles.flatList}
                     renderItem={renderItem}
                     keyExtractor={item => item.name}
+                    refreshControl={
+                        <RefreshControl
+                          refreshing={refreshing}
+                          onRefresh={onRefresh}
+                         
+                        />
+                      }
                 />
              </View>
 

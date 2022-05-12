@@ -1,9 +1,10 @@
 import React,{useState, useEffect} from 'react';
-import { SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Platform} from 'react-native';
+import { Alert,SafeAreaView,RefreshControl, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Platform} from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";
+import moment from 'moment';
 import { set } from 'react-native-reanimated';
 var subPlantUrl = "";
 if(Platform.OS === "android"){ 
@@ -14,6 +15,9 @@ else{
     plantUrl = 'http://127.0.0.1:8000/api/plants/'}
 
 const myPlants = [];
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  }
 function findMyPlants(userPlants, username){
     myPlants.length = 0
     for ( var i = 0; i< userPlants.length; i++){
@@ -46,7 +50,27 @@ function doWater(id) {
 function ispres(id){
     return wateredplants.includes(id)
 }
-const Item = ({id, name, plants, water }) => {
+
+
+const Item = ({id, name, plants, water, pid }) => {
+
+    const daysUntilWater = () => {
+        var today = moment(new Date())
+        var lastWater = moment(water)
+        if(plants[pid-1].water=='Sparingly'){
+            var shouldWater = lastWater.add(16, 'days')
+        }else if(plants[pid-1].water=='Generously'){
+            var shouldWater = lastWater.add(4, 'days')
+        }
+        else
+            {var shouldWater = lastWater.add(7, 'days')}
+        var displayWater = shouldWater.diff(today, 'days')
+        if(displayWater<= 0)
+            {displayWater='today!'}
+        else{displayWater='in '+ displayWater+' days'}
+        return(displayWater)
+    }
+
     const [pres, setPres] = useState(false);
     if (plants.length < 1){
         return(
@@ -76,11 +100,11 @@ const Item = ({id, name, plants, water }) => {
             <Text style={styles.title}>{name}</Text>
             <View style={styles.presblue}>
             <Image style={styles.imagepres}
-                source={{uri: `${plants[id-1].image_url}`}}> 
+                source={{uri: `${plants[pid-1].image_url}`}}> 
             </Image>
             </View>
         </View>
-        <View><Text>{water}</Text></View>
+        <View style={{alignSelf: 'center'}}><Text>{daysUntilWater()}</Text></View>
     </TouchableOpacity>
     
   )}
@@ -94,10 +118,10 @@ const Item = ({id, name, plants, water }) => {
             <View style={styles.item}>
                 <Text style={styles.title}>{name}</Text>
                 <Image style={styles.image}
-                    source={{uri: `${plants[id-1].image_url}`}}> 
+                    source={{uri: `${plants[pid-1].image_url}`}}> 
                 </Image>
             </View>
-            <View><Text style={{alignSelf: 'center'}}>{water}</Text></View>
+            <View><Text style={{alignSelf: 'center'}}>{daysUntilWater()}</Text></View>
         </TouchableOpacity>
 
       )
@@ -111,15 +135,12 @@ const  BlubBlub = async(userPlants) => {
     var day = new Date().getDate().toString();
     var today =year+"-"+month+"-"+day;
     if (wateredplants.length<1 ){
-        alert("Error","No plants have been selected as watered, unable to save")
+        Alert.alert("Error","No plants have been selected as watered, unable to save")
     }
     else{
         wateredplants.length = 0;
         for (var i=0;i<lengd.length;i++){
-            var entry = lengd[i] +1;
-            console.log(UP, "AND AND AND",userPlants)
-            //console.log(lengd[i],userPlants[lengd[i]-1].name,today,userPlants[lengd[i]-1].replant,userPlants[lengd[i]-1].nutrition,userPlants[lengd[i]-1].p_id,userPlants[lengd[i]-1].username,)
-            await axios.put(subPlantUrl + entry, {
+            await axios.put(subPlantUrl + lengd[i], {
                 "sub_id":lengd[i],
                 "name":  UP[lengd[i]-1].name,
                 "birth_date":  UP[lengd[i]-1].birth_date,
@@ -135,7 +156,7 @@ const  BlubBlub = async(userPlants) => {
                     console.error('There was an error!', error);
                 });
         }
-        alert("Success","Your plants have been registered as watered today")
+        Alert.alert("Success","Your plants have been registered as watered today")
     }
 
 };
@@ -145,6 +166,7 @@ function Watered({navigation},props) {
     const [username, setUsername] = useState("");
     const [done, setDone] = useState(false);
     const isFocused = useIsFocused();
+    const [refreshing, setRefreshing] = useState(false);
     useEffect(async() => {
         AsyncStorage.getItem('MyName').then(value =>
              setUsername(value )
@@ -163,31 +185,22 @@ function Watered({navigation},props) {
             console.log(error)
           // handle error
         }
-      },[isFocused,done]);
-      
+      },[isFocused,done,refreshing]);
+      const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(1000).then(() => setRefreshing(false));
+      }, []);
     const renderItem = ({ item }) => (
         <Item id = {item.sub_id}
             name={item.name} 
             plants = {plants}
             water = {item.water}
+            pid = {item.p_id}
               /> )
-
+        console.log("Now water",plants)
     return (
         <SafeAreaView style={styles.container}>
         <View style={styles.symbols}>
-            {/* <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                <Ionicons
-                    style={{ marginLeft: 10 }}
-                    name="close-outline"
-                    color="black"
-                    size={35}
-                />
-            </TouchableOpacity> */}
-            {/* <Image 
-                style={styles.calendar} 
-                source={require("../assets/calendar.png")}>
-                    
-            </Image> */}
         </View>
         <Text style={styles.thankYou}>Your plants thank you!</Text>
         <View style={styles.waterCanContainer}>
@@ -206,6 +219,12 @@ function Watered({navigation},props) {
                 columnWrapperStyle={styles.flatList}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
+                refreshControl={
+                    <RefreshControl
+                      refreshing={refreshing}
+                      onRefresh={onRefresh}
+                    />
+                  }
             />
          </View>
          <View style={{height: '15%'}}/>
