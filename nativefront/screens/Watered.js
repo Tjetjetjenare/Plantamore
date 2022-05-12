@@ -51,16 +51,26 @@ function ispres(id){
 
 const Item = ({id, name, plants, water, pid }) => {
 
+    const addIfSummer = () => {
+        var amplify = 1
+        var today= moment(new Date())
+        if(today.isBetween(moment().year().toString()+"-05-01", moment().year().toString()+"-09-30")){
+            amplify = 0.8;
+        }
+        return(amplify)
+    }
+   
     const daysUntilWater = () => {
+        var amplify = addIfSummer()
         var today = moment(new Date())
         var lastWater = moment(water)
         if(plants[pid-1].water=='Sparingly'){
-            var shouldWater = lastWater.add(16, 'days')
+            var shouldWater = lastWater.add(Math.floor(16*amplify), 'days')
         }else if(plants[pid-1].water=='Generously'){
-            var shouldWater = lastWater.add(4, 'days')
+            var shouldWater = lastWater.add(Math.floor(4*amplify), 'days')
         }
         else
-            {var shouldWater = lastWater.add(7, 'days')}
+            {var shouldWater = lastWater.add(Math.floor(7*amplify), 'days')}
         var displayWater = shouldWater.diff(today, 'days')
         if(displayWater<= 0)
             {displayWater='today!'}

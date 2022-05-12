@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="cc8c6f05-49bc-4c8f-8d44-2ee8e3d46fa6" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/backend/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nativefront/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/nativefront/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/nativefront/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/nativefront/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nativefront/screens/Watered.js" beforeDir="false" afterPath="$PROJECT_DIR$/nativefront/screens/Watered.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
