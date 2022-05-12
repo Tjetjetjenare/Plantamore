@@ -79,28 +79,6 @@ const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, pla
     </TouchableOpacity>
   );}}
 
-//   const DATA = [
-//     {
-//       id: "1",
-//       renderItem: renderImg,
-//       data: require('../assets/profileTest.png'),
-//     },
-//   ];
-
-const DATA = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'First Item',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: 'Second Item',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: 'Third Item',
-    },
-  ];
   
 
   const renderImg = () => {
@@ -121,11 +99,6 @@ const DATA = [
   };
 
 
-  const ItemPic = ({ title }) => (
-    <View style={styles.item}>
-      <Text style={styles.title}>{title}</Text>
-    </View>
-  );
 
 
 function findMyPlants(userPlants, username){
@@ -148,12 +121,7 @@ function Profile({navigation}) {
     const [plants, setPlants] = useState({});
     const [username, setUsername] = useState("");
     const isFocused = useIsFocused();
-<<<<<<< HEAD
-    const [pImage, setPImage] = useState('true');
-
-=======
     const [refreshing, setRefreshing] = useState(false);
->>>>>>> e02d862fe8375729277588a49d7b7fea1b3087b1
     useEffect(async() => {
         AsyncStorage.getItem('MyName').then(value =>
             //AsyncStorage returns a promise so adding a callback to get the value
@@ -174,16 +142,11 @@ function Profile({navigation}) {
             console.log(error)
           // handle error
         }
-<<<<<<< HEAD
-      },[isFocused,myPlants]);
-
-=======
       },[isFocused,myPlants,refreshing]);
       const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         wait(800).then(() => setRefreshing(false));
       }, []);
->>>>>>> e02d862fe8375729277588a49d7b7fea1b3087b1
     const renderItem = ({ item }) => (
         <Item 
             id = {item.sub_id}
@@ -199,9 +162,7 @@ function Profile({navigation}) {
             
             /> );
 
-            const renderPic = ({ item }) => (
-                <ItemPic title={item.title} />
-              );
+    
   
     return (
         <SafeAreaView style={styles.container}>
@@ -209,17 +170,13 @@ function Profile({navigation}) {
             </View>
             <Text style={styles.userName}>{username}</Text>
             <View>
-            <TouchableOpacity onPress={() => renderPic(item)}>   
+            <TouchableOpacity>   
                 <Image 
                     style={styles.profilePic}
                     source={require("../assets/profilePic.png")}>
                 </Image>
             </TouchableOpacity>
-                    <FlatList
-                    data={DATA}
-                    renderItem={renderPic}
-                    keyExtractor={item => item.id}
-                    />
+
             </View>
             <View style={styles.scrollView}
                   contentContainerStyle={{flexDirection:'row'}}>
