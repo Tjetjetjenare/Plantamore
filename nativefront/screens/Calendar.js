@@ -116,7 +116,7 @@ function Calendar({navigation},props) {
       <SafeAreaView style={styles.agendaContainer}>
         <View></View>
         <TouchableOpacity style={{marginRight: 10, marginTop: 10}}>
-          <Card>
+          <Card style={styles.cardContent}>
             <Card.Content>
               <View style={styles.eventContainer}>
                 <Text>{item.name}{"\n"} {item.eve}</Text>
@@ -218,5 +218,8 @@ const styles = StyleSheet.create({
     fontSize: 35, 
     fontWeight: 'bold', 
     marginTop: 15, 
+},
+cardContent: {
+  borderRadius: 10,
 },
 });

@@ -94,12 +94,12 @@ const MainStackNavigator = () => {
                 name="chevron-back-outline"
                 color="black"
                 size={35}
-                onPress={() => navigation.goBack()}
+                onPress={() => navigation.navigate('PlantDatabase')}
             />
             </View>,
         })}
       />
-      <Stack.Screen name="Guide" component={GuideStackNavigator} 
+      <Stack.Screen name="GuideMain" component={GuideStackNavigator} 
         options={({ navigation }) => ({
             headerShown: false,
           })}

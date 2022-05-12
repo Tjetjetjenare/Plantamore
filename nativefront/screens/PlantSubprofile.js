@@ -209,7 +209,6 @@ else{
         fontWeight: "bold",
     },
     infoBoard: {
-        marginTop: 20,
         marginBottom:20,
         width: "100%",
         height: 100, 

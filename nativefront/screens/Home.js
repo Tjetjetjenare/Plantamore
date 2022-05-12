@@ -83,7 +83,7 @@ function Home({navigation}) {
       )
     } else{
       return(
-        <TouchableOpacity onPress={() => navigation.navigate('Guide')} style={styles.careGuideOPA}>
+        <TouchableOpacity onPress={() => navigation.navigate('GuideMain')} style={styles.careGuideOPA}>
           <Text style={styles.careGuideButton}>Care Guide</Text>
         </TouchableOpacity>
     )}
