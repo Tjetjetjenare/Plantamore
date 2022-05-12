@@ -1,8 +1,9 @@
 import React,{useState, useEffect} from 'react';
-import { SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Platform} from 'react-native';
+import { SafeAreaView,RefreshControl, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Platform} from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
+import { useIsFocused } from "@react-navigation/native";
 import { set } from 'react-native-reanimated';
 var subPlantUrl = "";
 if(Platform.OS === "android"){ 
@@ -13,6 +14,9 @@ else{
     plantUrl = 'http://127.0.0.1:8000/api/plants/'}
 
 const myPlants = [];
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  }
 function findMyPlants(userPlants, username){
     myPlants.length = 0
     for ( var i = 0; i< userPlants.length; i++){
@@ -25,7 +29,12 @@ function findMyPlants(userPlants, username){
     });
     return myPlants
 }
-
+function sortPlants(UP){
+    UP.sort((a, b) => {
+        return new Date(a.sub_id) - new Date(b.sub_id);
+    });
+    return UP
+  }
 const nutplants = [];
 function doNut(id) {
     for (let i=0;i<nutplants.length;i++ ){
@@ -39,7 +48,7 @@ function doNut(id) {
 function ispres(id){
     return nutplants.includes(id)
 }
-const Item = ({id, name,plants, nutrition }) => {
+const Item = ({id, name,plants, nutrition,pid }) => {
     const [pres, setPres] = useState(false);
     if (plants.length < 1){
         return(
@@ -69,7 +78,7 @@ const Item = ({id, name,plants, nutrition }) => {
             <Text style={styles.title}>{name}</Text>
             <View style={styles.presblue}>
             <Image style={styles.imagepres}
-                source={{uri: `${plants[id-1].image_url}`}}> 
+                source={{uri: `${plants[pid-1].image_url}`}}> 
             </Image>
             </View>
         </View>
@@ -86,7 +95,7 @@ const Item = ({id, name,plants, nutrition }) => {
             <View style={styles.item}>
                 <Text style={styles.title}>{name}</Text>
                 <Image style={styles.image}
-                    source={{uri: `${plants[id-1].image_url}`}}> 
+                    source={{uri: `${plants[pid-1].image_url}`}}> 
                 </Image>
             </View>
             <View><Text style={{alignSelf: 'center'}}>{nutrition}</Text></View>
@@ -96,10 +105,7 @@ const Item = ({id, name,plants, nutrition }) => {
 };
 const  NutNut = async(userPlants) => {
     var lengd = nutplants.slice();
-    var year = new Date().getFullYear().toString();
-    var month = (new Date().getMonth()+1).toString();
-    var day = new Date().getDate().toString();
-    var today =year+"-"+month+"-"+day;
+    var UP = sortPlants(userPlants).slice();
     if (nutplants.length<1 ){
         alert("Error","No plants have been selected, unable to save")
     }
@@ -110,13 +116,13 @@ const  NutNut = async(userPlants) => {
             var entry = lengd[i] +1;
             await axios.put(subPlantUrl + entry, {
                 "sub_id":lengd[i],
-                "name":  userPlants[lengd[i]-1].name,
-                "birth_date":  userPlants[lengd[i]-1].birth_date,
-                "water": userPlants[lengd[i]-1].water,
-                "replant": today,
-                "nutrition": userPlants[lengd[i]-1].nutrition,
-                "p_id": userPlants[lengd[i]-1].p_id,
-                "username": userPlants[lengd[i]-1].username,
+                "name":  UP[lengd[i]-1].name,
+                "birth_date":  UP[lengd[i]-1].birth_date,
+                "water": UP[lengd[i]-1].water,
+                "replant": UP[lengd[i]-1].replant,
+                "nutrition": 4,
+                "p_id": UP[lengd[i]-1].p_id,
+                "username": UP[lengd[i]-1].username,
                 
                 },{'Content-Type': 'application/json'})
                 .then(response => console.log(response.data))
@@ -133,6 +139,8 @@ function Nutrition({navigation},props) {
     const [plants, setPlants] = useState("");
     const [username, setUsername] = useState("");
     const [done, setDone] = useState(false);
+    const isFocused = useIsFocused();
+    const [refreshing, setRefreshing] = useState(false);
     useEffect(async() => {
         AsyncStorage.getItem('MyName').then(value =>
              setUsername(value )
@@ -150,30 +158,22 @@ function Nutrition({navigation},props) {
             console.log(error)
           // handle error
         }
-      },[]);
+      },[isFocused,done,refreshing]);
+      const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(1000).then(() => setRefreshing(false));
+      }, []);
     const renderItem = ({ item }) => (
         <Item id = {item.sub_id}
             name={item.name} 
             plants = {plants}
             nutrition = {item.nutrition}
+            pid = {item.p_id}
               /> )
 
     return (
         <SafeAreaView style={styles.container}>
         <View style={styles.symbols}>
-            {/* <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                <Ionicons
-                    style={{ marginLeft: 10 }}
-                    name="close-outline"
-                    color="black"
-                    size={35}
-                />
-            </TouchableOpacity> */}
-            {/* <Image 
-                style={styles.calendar} 
-                source={require("../assets/calendar.png")}>
-                    
-            </Image> */}
         </View>
         <Text style={styles.thankYou}>Your plants thank you!</Text>
         <View style={styles.waterCanContainer}>
@@ -192,7 +192,12 @@ function Nutrition({navigation},props) {
                 columnWrapperStyle={styles.flatList}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
-                
+                refreshControl={
+                    <RefreshControl
+                      refreshing={refreshing}
+                      onRefresh={onRefresh}
+                    />
+                  }
             />
          </View>
          <View style={{height: '15%'}}/>

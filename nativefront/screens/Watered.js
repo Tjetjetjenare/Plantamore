@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import { Alert,SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Platform} from 'react-native';
+import { Alert,SafeAreaView,RefreshControl, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Platform} from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
@@ -15,6 +15,9 @@ else{
     plantUrl = 'http://127.0.0.1:8000/api/plants/'}
 
 const myPlants = [];
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  }
 function findMyPlants(userPlants, username){
     myPlants.length = 0
     for ( var i = 0; i< userPlants.length; i++){
@@ -147,8 +150,6 @@ const  BlubBlub = async(userPlants) => {
     else{
         wateredplants.length = 0;
         for (var i=0;i<lengd.length;i++){
-            console.log(UP, "AND AND AND",userPlants)
-            //console.log(lengd[i],userPlants[lengd[i]-1].name,today,userPlants[lengd[i]-1].replant,userPlants[lengd[i]-1].nutrition,userPlants[lengd[i]-1].p_id,userPlants[lengd[i]-1].username,)
             await axios.put(subPlantUrl + lengd[i], {
                 "sub_id":lengd[i],
                 "name":  UP[lengd[i]-1].name,
@@ -175,6 +176,7 @@ function Watered({navigation},props) {
     const [username, setUsername] = useState("");
     const [done, setDone] = useState(false);
     const isFocused = useIsFocused();
+    const [refreshing, setRefreshing] = useState(false);
     useEffect(async() => {
         AsyncStorage.getItem('MyName').then(value =>
              setUsername(value )
@@ -189,37 +191,26 @@ function Watered({navigation},props) {
           
           setUserPlants(response.data);
           setPlants(response2.data);
-          console.log()
         } catch (error) {
             console.log(error)
           // handle error
         }
-      },[isFocused,done]);
-      
+      },[isFocused,done,refreshing]);
+      const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(1000).then(() => setRefreshing(false));
+      }, []);
     const renderItem = ({ item }) => (
         <Item id = {item.sub_id}
             name={item.name} 
             plants = {plants}
             water = {item.water}
-            pid= {item.p_id}
+            pid = {item.p_id}
               /> )
-
+        console.log("Now water",plants)
     return (
         <SafeAreaView style={styles.container}>
         <View style={styles.symbols}>
-            {/* <TouchableOpacity onPress={() => navigation.navigate('Home')}>
-                <Ionicons
-                    style={{ marginLeft: 10 }}
-                    name="close-outline"
-                    color="black"
-                    size={35}
-                />
-            </TouchableOpacity> */}
-            {/* <Image 
-                style={styles.calendar} 
-                source={require("../assets/calendar.png")}>
-                    
-            </Image> */}
         </View>
         <Text style={styles.thankYou}>Your plants thank you!</Text>
         <View style={styles.waterCanContainer}>
@@ -238,6 +229,12 @@ function Watered({navigation},props) {
                 columnWrapperStyle={styles.flatList}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
+                refreshControl={
+                    <RefreshControl
+                      refreshing={refreshing}
+                      onRefresh={onRefresh}
+                    />
+                  }
             />
          </View>
          <View style={{height: '15%'}}/>
