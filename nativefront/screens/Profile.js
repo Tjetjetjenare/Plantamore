@@ -79,28 +79,6 @@ const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, pla
     </TouchableOpacity>
   );}}
 
-//   const DATA = [
-//     {
-//       id: "1",
-//       renderItem: renderImg,
-//       data: require('../assets/profileTest.png'),
-//     },
-//   ];
-
-const DATA = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'First Item',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: 'Second Item',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: 'Third Item',
-    },
-  ];
   
 
   const renderImg = () => {
@@ -121,11 +99,6 @@ const DATA = [
   };
 
 
-  const ItemPic = ({ title }) => (
-    <View style={styles.item}>
-      <Text style={styles.title}>{title}</Text>
-    </View>
-  );
 
 
 function findMyPlants(userPlants, username){
@@ -191,9 +164,7 @@ function Profile({navigation}) {
             
             /> );
 
-            const renderPic = ({ item }) => (
-                <ItemPic title={item.title} />
-              );
+    
   
     return (
         <SafeAreaView style={styles.container}>
@@ -201,17 +172,13 @@ function Profile({navigation}) {
             </View>
             <Text style={styles.userName}>{username}</Text>
             <View>
-            <TouchableOpacity onPress={() => renderPic(item)}>   
+            <TouchableOpacity>   
                 <Image 
                     style={styles.profilePic}
                     source={require("../assets/profilePic.png")}>
                 </Image>
             </TouchableOpacity>
-                    <FlatList
-                    data={DATA}
-                    renderItem={renderPic}
-                    keyExtractor={item => item.id}
-                    />
+
             </View>
             <View style={styles.scrollView}
                   contentContainerStyle={{flexDirection:'row'}}>

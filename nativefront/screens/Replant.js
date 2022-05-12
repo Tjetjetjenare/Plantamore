@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";
 import { set } from 'react-native-reanimated';
+import moment from "moment";
 var subPlantUrl = "";
 if(Platform.OS === "android"){ 
     subPlantUrl = 'http://10.0.2.2:8000/api/subplants/';
@@ -49,8 +50,37 @@ function doReplant(id) {
 function ispres(id){
     return replantedplants.includes(id)
 }
-const Item = ({id, name,plants, replant, pid }) => {
+
+
+
+const Item = ({id, name, plants, replant, pid }) => {
     const [pres, setPres] = useState(false);
+    
+    const monthsUntilReplant = () => {
+        var today = moment(new Date())
+        var lastReplant = moment(replant)
+        var betweenReplants = plants[pid-1].replant
+        var shouldReplant = lastReplant.add(betweenReplants, "months")
+
+        if (shouldReplant.year()==moment().year() && today.isAfter(moment().year().toString()+"06-30")){
+                var willReplant = (shouldReplant.year()+1).toString()+"-04-01"
+        }else{
+            if(shouldReplant.isBetween(moment().year().toString()+"-01-01", shouldReplant.year().toString()+"-10-01")){
+                var willReplant = shouldReplant.year().toString()+"-04-01"}
+            else{
+                var willReplant = (shouldReplant.year()+1).toString()+"-04-01"
+            }   
+        }
+
+        var displayReplant = moment(willReplant).diff(today, "months")  
+
+        if(displayReplant<= 0){
+            displayReplant='this month!'}
+        else{
+            displayReplant='in '+ displayReplant+' months'}
+        return(displayReplant)
+    }
+
     if (plants.length < 1){
         return(
             <TouchableOpacity 
@@ -82,7 +112,7 @@ const Item = ({id, name,plants, replant, pid }) => {
             </Image>
             </View>
         </View>
-        <View><Text>{replant}</Text></View>
+        <View><Text style={{alignSelf: 'center'}}>{monthsUntilReplant()}</Text></View>
     </TouchableOpacity>
   )}
   else{
@@ -98,7 +128,7 @@ const Item = ({id, name,plants, replant, pid }) => {
                     source={{uri: `${plants[pid-1].image_url}`}}> 
                 </Image>
             </View>
-            <View><Text style={{alignSelf: 'center'}}>{replant}</Text></View>
+            <View><Text style={{alignSelf: 'center'}}>{monthsUntilReplant()}</Text></View>
         </TouchableOpacity>
       )
   }
@@ -106,6 +136,9 @@ const Item = ({id, name,plants, replant, pid }) => {
 const  DirtDirt = async(userPlants) => {
     var lengd = replantedplants.slice();
     var UP = sortPlants(userPlants).slice();
+    var year = new Date().getFullYear().toString();
+    var month = (new Date().getMonth()+1).toString();
+    var today =year+"-"+month+"-01";
     if (replantedplants.length<1 ){
         alert("Error","No plants have been selected as replanted, unable to save")
     }
@@ -117,7 +150,7 @@ const  DirtDirt = async(userPlants) => {
                 "name":  UP[lengd[i]-1].name,
                 "birth_date":  UP[lengd[i]-1].birth_date,
                 "water": UP[lengd[i]-1].water,
-                "replant": (new Date().getFullYear()+1).toString()+"-04-12",
+                "replant": today,
                 "nutrition": UP[lengd[i]-1].nutrition,
                 "p_id": UP[lengd[i]-1].p_id,
                 "username": UP[lengd[i]-1].username,
