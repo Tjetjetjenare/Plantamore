@@ -1,8 +1,9 @@
 import React,{useState, useEffect} from 'react';
-import { SafeAreaView, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Platform} from 'react-native';
+import { SafeAreaView,RefreshControl, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Platform} from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
+import { useIsFocused } from "@react-navigation/native";
 import { set } from 'react-native-reanimated';
 var subPlantUrl = "";
 if(Platform.OS === "android"){ 
@@ -13,6 +14,9 @@ else{
     plantUrl = 'http://127.0.0.1:8000/api/plants/'}
 
 const myPlants = [];
+const wait = (timeout) => {
+    return new Promise(resolve => setTimeout(resolve, timeout));
+  }
 function findMyPlants(userPlants, username){
     myPlants.length = 0
     for ( var i = 0; i< userPlants.length; i++){
@@ -25,6 +29,12 @@ function findMyPlants(userPlants, username){
     });
     return myPlants
 }
+function sortPlants(UP){
+    UP.sort((a, b) => {
+        return new Date(a.sub_id) - new Date(b.sub_id);
+    });
+    return UP
+  }
 
 const replantedplants = [];
 function doReplant(id) {
@@ -39,7 +49,7 @@ function doReplant(id) {
 function ispres(id){
     return replantedplants.includes(id)
 }
-const Item = ({id, name,plants, replant }) => {
+const Item = ({id, name,plants, replant, pid }) => {
     const [pres, setPres] = useState(false);
     if (plants.length < 1){
         return(
@@ -68,7 +78,7 @@ const Item = ({id, name,plants, replant }) => {
             <Text style={styles.title}>{name}</Text>
             <View style={styles.presblue}>
             <Image style={styles.imagepres}
-                source={{uri: `${plants[id-1].image_url}`}}> 
+                source={{uri: `${plants[pid-1].image_url}`}}> 
             </Image>
             </View>
         </View>
@@ -85,7 +95,7 @@ const Item = ({id, name,plants, replant }) => {
             <View style={styles.item}>
                 <Text style={styles.title}>{name}</Text>
                 <Image style={styles.image}
-                    source={{uri: `${plants[id-1].image_url}`}}> 
+                    source={{uri: `${plants[pid-1].image_url}`}}> 
                 </Image>
             </View>
             <View><Text style={{alignSelf: 'center'}}>{replant}</Text></View>
@@ -95,27 +105,22 @@ const Item = ({id, name,plants, replant }) => {
 };
 const  DirtDirt = async(userPlants) => {
     var lengd = replantedplants.slice();
-    var year = new Date().getFullYear().toString();
-    var month = (new Date().getMonth()+1).toString();
-    var day = new Date().getDate().toString();
-    var today =year+"-"+month+"-"+day;
+    var UP = sortPlants(userPlants).slice();
     if (replantedplants.length<1 ){
         alert("Error","No plants have been selected as replanted, unable to save")
     }
     else{
         replantedplants.length = 0;
         for (var i=0;i<lengd.length;i++){
-            console.log(lengd[i]);
-            var entry = lengd[i] +1;
-            await axios.put(subPlantUrl + entry, {
+            await axios.put(subPlantUrl + lengd[i], {
                 "sub_id":lengd[i],
-                "name":  userPlants[lengd[i]-1].name,
-                "birth_date":  userPlants[lengd[i]-1].birth_date,
-                "water": userPlants[lengd[i]-1].water,
-                "replant": today,
-                "nutrition": userPlants[lengd[i]-1].nutrition,
-                "p_id": userPlants[lengd[i]-1].p_id,
-                "username": userPlants[lengd[i]-1].username,
+                "name":  UP[lengd[i]-1].name,
+                "birth_date":  UP[lengd[i]-1].birth_date,
+                "water": UP[lengd[i]-1].water,
+                "replant": (new Date().getFullYear()+1).toString()+"-04-01",
+                "nutrition": UP[lengd[i]-1].nutrition,
+                "p_id": UP[lengd[i]-1].p_id,
+                "username": UP[lengd[i]-1].username,
                 
                 },{'Content-Type': 'application/json'})
                 .then(response => console.log(response.data))
@@ -132,6 +137,8 @@ function Replant({navigation},props) {
     const [plants, setPlants] = useState("");
     const [username, setUsername] = useState("");
     const [done, setDone] = useState(false);
+    const isFocused = useIsFocused();
+    const [refreshing, setRefreshing] = useState(false);
     useEffect(async() => {
         AsyncStorage.getItem('MyName').then(value =>
              setUsername(value )
@@ -149,12 +156,17 @@ function Replant({navigation},props) {
             console.log(error)
           // handle error
         }
-      },[]);
+      },[isFocused,done]);
+      const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        wait(1000).then(() => setRefreshing(false));
+      }, []);
     const renderItem = ({ item }) => (
         <Item id = {item.sub_id}
             name={item.name} 
             plants = {plants}
             replant = {item.replant}
+            pid = {item.p_id}
               /> )
 
     return (
@@ -186,12 +198,18 @@ function Replant({navigation},props) {
               contentContainerStyle={{flexDirection:'row'}}>
             <FlatList 
                 data={findMyPlants(userPlants,username)}
-                extraData = {done}
+                extraData={done}
                 numColumns={3}
                 columnWrapperStyle={styles.flatList}
                 renderItem={renderItem}
                 keyExtractor={item => item.id}
-                
+                refreshControl={
+                    <RefreshControl
+                      refreshing={refreshing}
+                      onRefresh={onRefresh}
+                     
+                    />
+                  }
             />
          </View>
          <View style={{height: '15%'}}/>

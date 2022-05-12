@@ -15,10 +15,7 @@ else{
     subPlantUrl ='http://127.0.0.1:8000/api/subplants/';
     plantUrl = 'http://127.0.0.1:8000/api/plants/'}
 
-const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, plants, navigation}) => { 
-    
-    
-    
+const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, plants, navigation}) => {     
     if ( id == "add"){
         return(
             <TouchableOpacity 
@@ -135,7 +132,6 @@ function Profile({navigation}) {
             navigation = {navigation}
             
             /> );
-  
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.symbols}>
