@@ -103,25 +103,25 @@ const Item = ({id, name,plants, nutrition,pid }) => {
       )
   }
 };
-const  NutNut = async(userPlants) => {
+const  NutNut = async(allPlants, userPlants) => {
     var lengd = nutplants.slice();
-    var UP = sortPlants(userPlants).slice();
+    var UP = sortPlants(allPlants).slice();
     if (nutplants.length<1 ){
         alert("Error","No plants have been selected, unable to save")
     }
     else{
         nutplants.length = 0;
         for (var i=0;i<lengd.length;i++){
-            console.log(lengd[i]);
-            await axios.put(subPlantUrl, {
-                "sub_id":lengd[i],
-                "name":  UP[lengd[i]-11].name,
-                "birth_date":  UP[lengd[i]-11].birth_date,
-                "water": UP[lengd[i]-11].water,
-                "replant": UP[lengd[i]-11].replant,
+            console.log("lengd i = ",lengd[i], "allPlants = ", allPlants);
+            await axios.put(subPlantUrl + lengd[i], {
+                "sub_id": lengd[i],
+                "name":  UP[(parseInt(lengd[i])-1)].name,
+                "birth_date":  UP[parseInt(lengd[i])-1].birth_date,
+                "water": UP[parseInt(lengd[i])-1].water,
+                "replant": UP[parseInt(lengd[i])-1].replant,
                 "nutrition": 4,
-                "p_id": UP[lengd[i]-11].p_id,
-                "username": UP[lengd[i]-11].username,
+                "p_id": UP[parseInt(lengd[i])-1].p_id,
+                "username": UP[parseInt(lengd[i])-1].username,
                 
                 },{'Content-Type': 'application/json'})
                 .then(response => console.log(response.data))
@@ -203,7 +203,7 @@ function Nutrition({navigation},props) {
         <TouchableOpacity 
             style={styles.circle}
              onPress={() => {
-                NutNut(findMyPlants(userPlants,username));
+                NutNut(userPlants,findMyPlants(userPlants,username));
                 setDone(!done)
              }
              }>

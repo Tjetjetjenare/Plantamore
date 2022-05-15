@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import { SafeAreaView,RefreshControl, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Platform} from 'react-native';
+import { SafeAreaView,RefreshControl, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Alert, Platform} from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
@@ -133,27 +133,25 @@ const Item = ({id, name, plants, replant, pid }) => {
       )
   }
 };
-const  DirtDirt = async(userPlants) => {
+const  DirtDirt = async(allPlants, userPlants) => {
     var lengd = replantedplants.slice();
-    var UP = sortPlants(userPlants).slice();
-    var year = new Date().getFullYear().toString();
-    var month = (new Date().getMonth()+1).toString();
-    var today =year+"-"+month+"-01";
+    var UP = sortPlants(allPlants).slice();
+
     if (replantedplants.length<1 ){
-        alert("Error","No plants have been selected as replanted, unable to save")
+        Alert.alert("Error","No plants have been selected as replanted, unable to save")
     }
     else{
         replantedplants.length = 0;
         for (var i=0;i<lengd.length;i++){
             await axios.put(subPlantUrl + lengd[i], {
                 "sub_id":lengd[i],
-                "name":  UP[lengd[i]-11].name,
-                "birth_date":  UP[lengd[i]-11].birth_date,
-                "water": UP[lengd[i]-11].water,
+                "name":  UP[(parseInt(lengd[i])-1)].name,
+                "birth_date":  UP[parseInt(lengd[i])-1].birth_date,
+                "water": UP[parseInt(lengd[i])-1].water,
                 "replant": (new Date().getFullYear()+1).toString()+"-04-12",
-                "nutrition": UP[lengd[i]-11].nutrition,
-                "p_id": UP[lengd[i]-11].p_id,
-                "username": UP[lengd[i]-11].username,
+                "nutrition": UP[parseInt(lengd[i])-1].nutrition,
+                "p_id": UP[parseInt(lengd[i])-1].p_id,
+                "username": UP[parseInt(lengd[i])-1].username,
                 
                 },{'Content-Type': 'application/json'})
                 .then(response => console.log(response.data))
@@ -235,7 +233,7 @@ function Replant({navigation},props) {
         <TouchableOpacity 
             style={styles.circle}
              onPress={() => {
-                DirtDirt(findMyPlants(userPlants,username));
+                DirtDirt(userPlants, findMyPlants(userPlants,username));
                 setDone(!done)
              }
              }>
