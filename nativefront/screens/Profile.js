@@ -58,7 +58,7 @@ const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, pla
                 });
         }
         }}
-        delayLongPress={2000} onLongPress={()=>{Alert.alert(
+        delayLongPress={1500} onLongPress={()=>{Alert.alert(
             "Delete",
             "Are you sure you want to remove "+name+"?",
             [
@@ -152,13 +152,13 @@ const DATA = [
   
 
   const renderImg = (number) => {
-      if(number=="2"){
+      if(number==1){
                  return(
                     <Image 
                     style={styles.profilePic}
                     source={ require("../assets/profileTest.png")}>
                 </Image>)}
-     else if(number=="1"){
+     else if(number==2){
         return(
            <Image 
            style={styles.profilePic}
@@ -268,6 +268,13 @@ function Profile({navigation}) {
              
             //Setting the value in Text
         );
+        //Lite sådär men okej tkr jag
+        if(profileP == 1){
+            AsyncStorage.getItem('propic').then(value =>
+                 setProfileP(value)
+            );
+        }
+        
         try {
           const response = await axios.get(
             subPlantUrl,
@@ -370,7 +377,7 @@ function Profile({navigation}) {
             </View>
             <Text style={styles.userName}>{username}</Text>
             <View>
-            <TouchableOpacity onPress={() => test()}>    
+            <TouchableOpacity style= {styles.touchPic} onPress={() => test()}>    
                 {renderImg(profileP)}
             </TouchableOpacity>
                     {picChoose()}
@@ -445,9 +452,16 @@ const styles = StyleSheet.create({
     profilePic: {
         width: 200, 
         height: 200, 
-        alignSelf: 'center', 
-        top: 10, 
         resizeMode: 'contain',
+       // top: -10,
+       // left: 10,
+    },
+    touchPic:{
+        width: 180, 
+        height: 180, 
+        top: 10, 
+        alignSelf: 'center', 
+        
     },
     scrollView: {
         flex: 1,
