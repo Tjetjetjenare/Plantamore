@@ -253,8 +253,6 @@ function CreatePlantSubprofile({navigation}) {
     return (
       <View style={styles.searchItem}>
         <Text style={styles.itemStyle} onPress={() => selectedPlant(item)}>
-          {item.p_id}
-          {'.'}
           {item.english_name.toUpperCase()}
         </Text>
       </View>
@@ -274,45 +272,53 @@ function CreatePlantSubprofile({navigation}) {
   };
 
   const saveBtnPressed = async() => {
-    var year = (new Date().getFullYear()+1).toString();
+    var year = (new Date().getFullYear()-1).toString();
     var month = "04";
     var day = new Date().getDate().toString();
     var replantday =year+"-"+month+"-"+day;
-    try {
+    if (dbImage == ''){
+      Alert.alert("Error","Please select a plant from the dropdown menu when you search for a plant. The image will change when plant has been selected successfully")
+      setSearch('')
+    }else {
+
+      
+      try {
         var id = parseInt(subplant[(subplant.length-1)].sub_id)+1
         var str = "" + id
         var pad = "000"
         var ans = pad.substring(0, pad.length - str.length) + str
-      let data = {
-          sub_id: ans,
-          name: name,
-          birth_date: bday.getFullYear().toString() + "-" + (bday.getMonth()+1).toString() + "-"+ bday.getDate().toString(),
-          water: water.getFullYear().toString() + "-" + (water.getMonth()+1).toString() + "-"+ water.getDate().toString(),
-          replant: replantday,
-          nutrition: nutrition,
-          p_id: pid,
-          username : username,
+        let data = {
+            sub_id: ans,
+            name: name,
+            birth_date: bday.getFullYear().toString() + "-" + (bday.getMonth()+1).toString() + "-"+ bday.getDate().toString(),
+            water: water.getFullYear().toString() + "-" + (water.getMonth()+1).toString() + "-"+ water.getDate().toString(),
+            replant: replantday,
+            nutrition: nutrition,
+            p_id: pid,
+            username : username,
+          }
+        const response = await axios.post(subplantbaseUrl, data,{'Content-Type': 'application/json'});
+        if (response.status === 201) {
+        Alert.alert('Save', 'The plant has been added to your profile')
+          setBday('')
+          setWater('')
+          setSearch('')
+          setName('')
+          setDbImage('')
+          setNutrition('')
+          navigation.navigate('ProfileDrawer', {screen: 'Profile'})
+        } 
+      
+        else {
+          
+        throw new Error("An error has occurred");
         }
-      const response = await axios.post(subplantbaseUrl, data,{'Content-Type': 'application/json'});
-      if (response.status === 201) {
-        setBday('')
-        setWater('')
-        setSearch('')
-        setName('')
-        setDbImage('')
-        setNutrition('')
-        navigation.navigate('ProfileDrawer', {screen: 'Profile'})
-      } 
-    
-      else {
-        
-      throw new Error("An error has occurred");
+      }catch (error) {
+        console.log(error);
+        Alert.alert("Error","Something went wrong, please check so you filled out the fields correctly")
       }
-  }catch (error) {
-    console.log(error);
-    Alert.alert("Error","Something went wrong, please check so you filled out the fields correctly")
-}
-  
+    
+    }
   }
 
   return(
@@ -348,11 +354,10 @@ const styles = StyleSheet.create({
       alignSelf: "center",
     },
     header: { 
-        fontSize: 35, 
+        fontSize: 25, 
         fontWeight: 'bold',  
         marginBottom: 20,
         textAlign:"center",
-
     },
     info:{
         fontSize: 20,
@@ -391,6 +396,11 @@ const styles = StyleSheet.create({
       padding: 5,
       marginHorizontal: 10,
       opacity: 2,
+    },
+    itemStyle: {
+      padding: 5,
+      margin:5,
+      color: 'white'
     },
     savebtn: {
       backgroundColor: "#fff",

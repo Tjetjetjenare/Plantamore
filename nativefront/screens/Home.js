@@ -77,7 +77,7 @@ function Home({navigation}) {
               <StandardButton sizeFont={20} title="Log in" functionOnPress={() => navigation.navigate('ProfileDrawer', {screen: 'LogIn'})} />
             </View>
             <View style={styles.loginWrap}>
-              <StandardButton sizeFont={20} title="Sign up" functionOnPress={() => navigation.navigate('SignUp')}/>
+              <StandardButton sizeFont={20} title="Sign up" functionOnPress={() => navigation.navigate('ProfileDrawer', {screen:'SignUp'})}/>
             </View>
           
         </View>
@@ -121,8 +121,6 @@ function Home({navigation}) {
       // Flat List Item
       <View style={styles.item}>
       <Text style={styles.itemStyle} onPress={() => getItem(item)}>
-        {item.p_id}
-        {'.'}
         {item.english_name.toUpperCase()}
       </Text>
       </View>
@@ -261,8 +259,6 @@ const styles = StyleSheet.create({
   itemStyle: {
     padding: 5,
     margin:5,
-
-    // backgroundColor: "rgba(251, 251, 251, 0.17)",
     color: 'white'
   },
   careGuideButton: {

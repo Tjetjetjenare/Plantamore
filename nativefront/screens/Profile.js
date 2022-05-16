@@ -3,6 +3,7 @@ import { SafeAreaView, Alert, StyleSheet,RefreshControl, TouchableOpacity, Image
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from "@react-navigation/native";
+import moment from 'moment';
 const myPlants = [];
 var plantUrl = null;
 var subPlantUrl = null;
@@ -22,6 +23,66 @@ else{
     userUrl = 'http://127.0.0.1:8000/api/users/'}
 
 const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, plants, navigation}) => {     
+    
+    const addIfSummer = () => {
+        var amplify = 1
+        var today= moment(new Date())
+        if(today.isBetween(moment().year().toString()+"-05-01", moment().year().toString()+"-09-30")){
+            amplify = 0.8;
+        }
+        return(amplify)
+    }
+   
+    const daysUntilWater = () => {
+        var amplify = addIfSummer()
+        var today = moment(new Date())
+        var lastWater = moment(water)
+        if(plants[p_id-1].water=='Sparingly'){
+            var shouldWater = lastWater.add(Math.floor(16*amplify), 'days')
+        }else if(plants[p_id-1].water=='Generously'){
+            var shouldWater = lastWater.add(Math.floor(4*amplify), 'days')
+        }
+        else
+            {var shouldWater = lastWater.add(Math.floor(7*amplify), 'days')}
+        var displayWater = shouldWater.diff(today, 'days')
+        if(displayWater<= 0)
+            {displayWater='today!'}
+        else{displayWater='in '+ displayWater+' days'}
+        return(displayWater)
+    }
+    const monthsUntilReplant = () => {
+        var today = moment(new Date())
+        var lastReplant = moment(replant)
+        var betweenReplants = plants[p_id-1].replant
+        var shouldReplant = lastReplant.add(betweenReplants, "months")
+
+        if (shouldReplant.year()==moment().year() && today.isAfter(moment().year().toString()+"06-30")){
+                var willReplant = (shouldReplant.year()+1).toString()+"-04-01"
+        }else{
+            if(shouldReplant.isBetween(moment().year().toString()+"-01-01", shouldReplant.year().toString()+"-10-01")){
+                var willReplant = shouldReplant.year().toString()+"-04-01"}
+            else{
+                var willReplant = (shouldReplant.year()+1).toString()+"-04-01"
+            }   
+        }
+
+        var displayReplant = moment(willReplant).diff(today, "months")  
+
+        if(displayReplant<= 0){
+            displayReplant='this month!'}
+        else{
+            displayReplant='in '+ displayReplant+' months'}
+        return(displayReplant)
+    }
+    const timeUntilNuttrition = () => {
+        if(nutrition<=1) {
+            var time="Next time you water"
+        }else {
+            var time="In "+ nutrition + " waterings"
+        }
+        return time
+    }
+
     if ( id == "add"){
         return(
             <TouchableOpacity 
@@ -31,7 +92,7 @@ const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, pla
             }
         
         }}>
-            <View style={styles.item}>
+        <View style={styles.item}>
             <Text style={styles.title}>{name}</Text>
             <Image style={styles.image}
                 source={require("../assets/plus.png")
@@ -43,43 +104,67 @@ const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, pla
       else{
 
     return(
-    <TouchableOpacity 
-        onPress={()=>{
-            if(id == "add"){
-                navigation.navigate('CreateSub')
-            }
-            else{ console.log("p_id equals", p_id)
-                
-                navigation.navigate('PlantSub',{plantId: p_id, EnglishName: plants[p_id-1].english_name,LatinName : plants[p_id-1].latin_name,
-                    SwedishName: plants[p_id-1].swedish_name, Description: plants[p_id-1].description,
-                    Sunlight:plants[p_id-1].sunlight, PlantNut:  plants[p_id-1].nutrition, PlantWat: plants[p_id-1].water, ImageUrl:plants[p_id-1].image_url,
-                    PlantName: name, BirthDate: birth_date, Water: water, Replant: replant,
-                    Nutrition: nutrition, Username: username
-                });
-        }
-        }}
-        delayLongPress={1000} onLongPress={()=>{Alert.alert(
-            "Delete",
-            "Are you sure you want to remove "+name+"?",
-            [
-              {
-                text: "No",
-                onPress: () => console.log("Cancel Pressed"),
-                style: "cancel"
-              },
-              { text: "Yes", onPress: () =>  axios.delete(subPlantUrl+(id))
-              .then(() => console.log("DELETETED"))}
-            ]
-          ); ref = !ref; console.log(ref)}} activeOpacity={0.6}>
-        <View style={styles.item}>
-            <Text style={styles.title}>{name}</Text>
-            <Image style={styles.image}
-                source={{
-                    uri: `${plants[p_id-1].image_url}`
-                }}>
-            </Image>
-        </View>
-    </TouchableOpacity>
+        <TouchableOpacity 
+            onPress={()=>{
+                if(id == "add"){
+                    navigation.navigate('CreateSub')
+                }
+                else{ console.log("p_id equals", p_id)
+                    
+                    navigation.navigate('PlantSub',{plantId: p_id, EnglishName: plants[p_id-1].english_name,LatinName : plants[p_id-1].latin_name,
+                        SwedishName: plants[p_id-1].swedish_name, Description: plants[p_id-1].description,
+                        Sunlight:plants[p_id-1].sunlight, PlantNut:  plants[p_id-1].nutrition, PlantWat: plants[p_id-1].water, ImageUrl:plants[p_id-1].image_url,
+                        PlantName: name, BirthDate: birth_date, Water: water, Replant: replant,
+                        Nutrition: nutrition, Username: username,  PlantRe:  plants[p_id-1].replant,
+                    });
+                }
+            }}
+            delayLongPress={1500} onLongPress={()=>{Alert.alert(
+                "Delete",
+                "Are you sure you want to remove "+name+"?",
+                [
+                {
+                    text: "No",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                },
+                { text: "Yes", onPress: () =>  axios.delete(subPlantUrl+(id))
+                .then(() => console.log("DELETETED"))}
+                ]
+            ); ref = !ref; console.log(ref)}} activeOpacity={0.6}>
+            <View style={styles.item}>
+                <Text style={styles.title}>{name}</Text>
+                <Image style={styles.image}
+                    source={{
+                        uri: `${plants[p_id-1].image_url}`
+                    }}>
+                </Image>
+               <View style = {{paddingTop:10}}>
+                    <View style={styles.innerSpec}>
+                        <Image 
+                            style={styles.specIcon} 
+                            source={require("../assets/drop.png")}>
+                        </Image>
+                        <Text> {daysUntilWater()} </Text>
+                    </View>
+                    <View style={styles.innerSpec}>
+                        <Image 
+                            style={styles.specIconNutrition} 
+                            source={require("../assets/nutritionFlask.png")}>
+                        </Image>
+                        <Text>{timeUntilNuttrition()}</Text>
+                    </View>
+                    <View style={styles.innerSpec}>
+                        <Image
+                            style={styles.specIcon} 
+                            source={require("../assets/replant.png")}>
+                        </Image>
+                        <Text>{monthsUntilReplant()}</Text>
+                    </View>
+                </View>
+            </View>
+        </TouchableOpacity>
+
   );}}
 
 const DATA = [
@@ -268,6 +353,13 @@ function Profile({navigation}) {
              
             //Setting the value in Text
         );
+        //Lite sådär men okej tkr jag
+        if(profileP == 1){
+            AsyncStorage.getItem('propic').then(value =>
+                 setProfileP(value)
+            );
+        }
+        
         try {
           const response = await axios.get(
             subPlantUrl,
@@ -370,7 +462,7 @@ function Profile({navigation}) {
             </View>
             <Text style={styles.userName}>{username}</Text>
             <View>
-            <TouchableOpacity onPress={() => test()}>    
+            <TouchableOpacity style= {styles.touchPic} onPress={() => test()}>    
                 {renderImg(profileP)}
             </TouchableOpacity>
                     {picChoose()}
@@ -443,11 +535,18 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     profilePic: {
+        width: 200, 
+        height: 200, 
+        resizeMode: 'contain',
+       // top: -10,
+       // left: 10,
+    },
+    touchPic:{
         width: 180, 
         height: 180, 
-        alignSelf: 'center', 
         top: 10, 
-        resizeMode: 'contain',
+        alignSelf: 'center', 
+        
     },
     scrollView: {
         flex: 1,
@@ -457,9 +556,9 @@ const styles = StyleSheet.create({
     },
    
     flatList: {
-        padding: 15, 
+        padding: 10,
+        paddingBottom:0, 
         justifyContent: 'space-evenly', 
-        
     },
     subPlant: {
         alignItems: 'center',
@@ -502,5 +601,23 @@ const styles = StyleSheet.create({
     },
     items2:{
         width:"25%",
-    }
+    },
+    innerSpec:{
+        flexDirection: "row",
+        alignSelf:"flex-start",
+        paddingLeft: 10,
+        color: 'white', 
+        fontSize:12,
+    },
+    specIcon:{
+        width: 15,
+        height: 15,
+        aspectRatio:1,
+    },
+    specIconNutrition: {
+        width: 20,
+        height: 20,
+        aspectRatio:1,
+        tintColor: '#bf3d4a', 
+    },
 })

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, ScrollView, View, Image, SafeAreaView, Platform } from 'react-native';
+import {TouchableOpacity, StyleSheet, Text, ScrollView, View, Image, SafeAreaView, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import axios from 'axios';
+import { Ionicons } from "@expo/vector-icons";
 
 var plantbaseUrl = null;
 
@@ -56,8 +57,8 @@ else{  plantbaseUrl = 'http://127.0.0.1:8000/api/plants/';}
                 </View>
                 <View style={{ flex: 2, flexDirection:"row"}}>
                     <Image 
-                         style={styles.infoIcon} 
-                         source={require("../assets/drop.png")}>
+                        style={styles.infoIcon} 
+                        source={require("../assets/drop.png")}>
                     </Image>
                     <View>
                         <Text style= {styles.infoHeader}>Water</Text>
@@ -66,8 +67,8 @@ else{  plantbaseUrl = 'http://127.0.0.1:8000/api/plants/';}
                 </View>
                 <View style={{ flex: 2, flexDirection:"row"}}>
                     <Image 
-                         style={styles.infoIcon} 
-                         source={require("../assets/nutritionFlask.png")}>
+                        style={styles.infoCareIcon} 
+                        source={require("../assets/nutritionFlask.png")}>
                     </Image>
                     <View>
                         <Text style= {styles.infoHeader}>Nutrition</Text>
@@ -81,6 +82,13 @@ else{  plantbaseUrl = 'http://127.0.0.1:8000/api/plants/';}
                     {Description} 
             </Text>
         </ScrollView>
+        <View style={styles.footer}>
+            <TouchableOpacity 
+                style={styles.circle}
+                onPress={() => navigation.navigate('GuideDrawer', {screen: 'Guide'})}>
+                    <Ionicons style={styles.careGuideIcon} name="information-circle-outline" size={59} color={'black'} />
+            </TouchableOpacity>
+        </View>
      </SafeAreaView>
   );
   
@@ -98,7 +106,6 @@ else{  plantbaseUrl = 'http://127.0.0.1:8000/api/plants/';}
         left: 30, 
        resizeMode:"contain"
     },
-
     textContainer: {
         fontSize: 18, 
         color: "black",
@@ -128,6 +135,13 @@ else{  plantbaseUrl = 'http://127.0.0.1:8000/api/plants/';}
         marginRight:10,
         alignSelf:"flex-start",
     },
+    infoCareIcon: {
+        width:30,
+        height:30,
+        marginRight:10,
+        alignSelf:"flex-start",
+        tintColor: '#bf3d4a',
+    },
     infoHeader:{
         fontWeight:"bold",
         fontSize: 16,
@@ -139,8 +153,8 @@ else{  plantbaseUrl = 'http://127.0.0.1:8000/api/plants/';}
         textAlign: "justify", 
     },
     circle: {
-        height: 80, 
-        width: 80, 
+        height: 60, 
+        width: 60, 
         backgroundColor: "#C4C4C4",
         bottom: 20, 
         right: 20,
