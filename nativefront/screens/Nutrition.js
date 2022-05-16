@@ -49,6 +49,14 @@ function ispres(id){
     return nutplants.includes(id)
 }
 const Item = ({id, name,plants, nutrition,pid }) => {
+    const timeUntilNuttrition = () => {
+        if(nutrition<=1) {
+            var time="Next time you water"
+        }else {
+            var time="In "+ nutrition + " waterings"
+        }
+        return time
+    }
     const [pres, setPres] = useState(false);
     if (plants.length < 1){
         return(
@@ -63,7 +71,7 @@ const Item = ({id, name,plants, nutrition,pid }) => {
                         source={require("../assets/testPlant.png")}> 
                     </Image>
                 </View>
-              <View><Text>{nutrition}</Text></View>
+              <View><Text style={{alignSelf: 'center'}}>{timeUntilNuttrition()}</Text></View>
             </TouchableOpacity>
           )
     }
@@ -82,7 +90,7 @@ const Item = ({id, name,plants, nutrition,pid }) => {
             </Image>
             </View>
         </View>
-        <View><Text>{nutrition}</Text></View>
+        <View><Text style={{alignSelf: 'center'}}>{timeUntilNuttrition()}</Text></View>
     </TouchableOpacity>
   )}
   else{
@@ -98,7 +106,7 @@ const Item = ({id, name,plants, nutrition,pid }) => {
                     source={{uri: `${plants[pid-1].image_url}`}}> 
                 </Image>
             </View>
-            <View><Text style={{alignSelf: 'center'}}>{nutrition}</Text></View>
+            <View><Text style={{alignSelf: 'center'}}>{timeUntilNuttrition()}</Text></View>
         </TouchableOpacity>
       )
   }

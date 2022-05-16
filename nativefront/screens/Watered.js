@@ -160,7 +160,7 @@ const  BlubBlub = async(allPlants,userPlants) => {
                 "birth_date":  UP[parseInt(lengd[i])-1].birth_date,
                 "water": today,
                 "replant": UP[parseInt(lengd[i])-1].replant,
-                "nutrition": UP[parseInt(lengd[i])-1].nutrition,
+                "nutrition": UP[parseInt(lengd[i])-1].nutrition-1,
                 "p_id": UP[parseInt(lengd[i])-1].p_id,
                 "username": UP[parseInt(lengd[i])-1].username,
                 

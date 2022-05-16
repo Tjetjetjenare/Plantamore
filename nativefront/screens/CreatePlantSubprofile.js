@@ -32,6 +32,7 @@ function CreatePlantSubprofile() {
   const [pid, setPid] = useState('');
   const [bday, setBday] = useState('');
   const [water, setWater] = useState('');
+  const [nutrition, setNutrition] = useState('');
 
   // const [logd, setLogd] = useState('');
   const isFocused = useIsFocused();
@@ -238,6 +239,14 @@ function CreatePlantSubprofile() {
     setPid(item.p_id)
     setVisible(false)
     setDbImage(item.image_url)
+    if (item.nutrition=="Often"){
+      setNutrition(3)
+
+    }if (item.nutrition=="Regularly"){
+      setNutrition(6)
+    }else{
+      setNutrition(9)
+    }
   }
 
   const ItemView = ({ item }) => {
@@ -280,7 +289,7 @@ function CreatePlantSubprofile() {
           birth_date: bday.getFullYear().toString() + "-" + (bday.getMonth()+1).toString() + "-"+ bday.getDate().toString(),
           water: water.getFullYear().toString() + "-" + (water.getMonth()+1).toString() + "-"+ water.getDate().toString(),
           replant: replantday,
-          nutrition: 4,
+          nutrition: nutrition,
           p_id: pid,
           username : username,
         }
@@ -292,6 +301,7 @@ function CreatePlantSubprofile() {
         setSearch('')
         setName('')
         setDbImage('')
+        setNutrition('')
       } 
     
       else {
