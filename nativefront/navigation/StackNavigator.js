@@ -178,6 +178,37 @@ const PlantDatabaseStackNavigator = () => {
         }}
         initialRouteName="Profile"
       >
+        <Stack.Screen name="Profile" component={Profile} 
+            options={({ navigation }) => ({
+                headerShown: true,
+                headerStyle: {
+                  elevation: 0,
+                  shadowOpacity: 0,
+                  borderBottomWidth: 0,
+                  backgroundColor: '#7E9B6D'
+                },
+                headerLeft: () =>
+                <View>
+                  <Ionicons
+                    style={{marginLeft: 10}}
+                    name="menu-outline"
+                    color="black"
+                    size={40}
+                    onPress={() => navigation.toggleDrawer()}
+                />
+                </View>,
+                headerRight: () =>
+                <View>
+                  <Ionicons
+                    style={{marginRight: 10}}
+                    name="calendar-outline"
+                    color="black"
+                    size={35}
+                    onPress={() => navigation.navigate('Calendar')}
+                />
+                </View>,
+              })}
+        />
         <Stack.Screen name="SignUp" component={SignUp} 
         options={({ navigation }) => ({
             headerShown: true,
@@ -220,37 +251,6 @@ const PlantDatabaseStackNavigator = () => {
             </View>,
           })}
       />
-        <Stack.Screen name="Profile" component={Profile} 
-            options={({ navigation }) => ({
-                headerShown: true,
-                headerStyle: {
-                  elevation: 0,
-                  shadowOpacity: 0,
-                  borderBottomWidth: 0,
-                  backgroundColor: '#7E9B6D'
-                },
-                headerLeft: () =>
-                <View>
-                  <Ionicons
-                    style={{marginLeft: 10}}
-                    name="menu-outline"
-                    color="black"
-                    size={40}
-                    onPress={() => navigation.toggleDrawer()}
-                />
-                </View>,
-                headerRight: () =>
-                <View>
-                  <Ionicons
-                    style={{marginRight: 10}}
-                    name="calendar-outline"
-                    color="black"
-                    size={35}
-                    onPress={() => navigation.navigate('Calendar')}
-                />
-                </View>,
-              })}
-        />
         <Stack.Screen name="PlantSub" component={PlantSubprofile} 
             options={({ navigation }) => ({
                 headerShown: true,

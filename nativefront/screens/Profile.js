@@ -58,7 +58,7 @@ const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, pla
                 });
         }
         }}
-        delayLongPress={2000} onLongPress={()=>{Alert.alert(
+        delayLongPress={1000} onLongPress={()=>{Alert.alert(
             "Delete",
             "Are you sure you want to remove "+name+"?",
             [
@@ -152,13 +152,13 @@ const DATA = [
   
 
   const renderImg = (number) => {
-      if(number=="2"){
+      if(number==1){
                  return(
                     <Image 
-                    style={styles.profilePic}
-                    source={ require("../assets/profileTest.png")}>
-                </Image>)}
-     else if(number=="1"){
+                        style={styles.profilePic}
+                        source={ require("../assets/profileTest.png")}>
+                    </Image>)}
+     else if(number==2){
         return(
            <Image 
            style={styles.profilePic}
@@ -443,8 +443,8 @@ const styles = StyleSheet.create({
         marginTop: 10
     },
     profilePic: {
-        width: 200, 
-        height: 200, 
+        width: 180, 
+        height: 180, 
         alignSelf: 'center', 
         top: 10, 
         resizeMode: 'contain',

@@ -3,7 +3,7 @@ import { StyleSheet, Text, Button, Image, TouchableOpacity, SafeAreaView, Alert,
 import { StatusBar } from 'expo-status-bar';
 import DateField from 'react-native-datefield';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useIsFocused } from "@react-navigation/native";
+import { NavigationContainer, useIsFocused } from "@react-navigation/native";
 import axios from 'axios';
 
 
@@ -20,7 +20,7 @@ else{
 
 
 
-function CreatePlantSubprofile() {
+function CreatePlantSubprofile({navigation}) {
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
   const [search, setSearch] = useState('');
@@ -295,13 +295,13 @@ function CreatePlantSubprofile() {
         }
       const response = await axios.post(subplantbaseUrl, data,{'Content-Type': 'application/json'});
       if (response.status === 201) {
-       Alert.alert('Save', 'The plant has been added to your profile')
         setBday('')
         setWater('')
         setSearch('')
         setName('')
         setDbImage('')
         setNutrition('')
+        navigation.navigate('ProfileDrawer', {screen: 'Profile'})
       } 
     
       else {
