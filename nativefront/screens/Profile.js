@@ -86,149 +86,149 @@ const DATA = [
     {
       id: '13',
       title: 'First Item',
-      pic: require("../assets/Avatars/Anna.png"),
+      pic: require("../assets/Anna.png"),
     },
     {
       id: '2',
       title: 'Second Item',
-      pic: require("../assets/Avatars/Elaf.png"),
+      pic: require("../assets/Elaf.png"),
     },
     {
       id: '3',
       title: 'Third Item',
-      pic: require("../assets/Avatars/Emma.png"),
+      pic: require("../assets/Emma.png"),
     },
     {
         id: '4',
         title: 'Fourth Item',
-        pic: require("../assets/Avatars/Hannah.png"),
+        pic: require("../assets/Hannah.png"),
       },
       {
         id: '5',
         title: 'Fifth Item',
-        pic: require("../assets/Avatars/John.png"),
+        pic: require("../assets/John.png"),
       },
       {
         id: '6',
         title: 'Sixth Item',
-        pic: require("../assets/Avatars/Kent.png"),
+        pic: require("../assets/Kent.png"),
       },
       {
         id: '7',
         title: 'Seventh Item',
-        pic: require("../assets/Avatars/Kerstin.png"),
+        pic: require("../assets/Kerstin.png"),
       },
       {
           id: '8',
           title: 'Eigth Item',
-          pic: require("../assets/Avatars/Max.png"),
+          pic: require("../assets/Max.png"),
 
         },
         {
             id: '9',
             title: 'Nineth Item',
-            pic: require("../assets/Avatars/Olaf.png"),
+            pic: require("../assets/Olaf.png"),
   
           },
           {
             id: '10',
             title: 'Eigth Item',
-            pic: require("../assets/Avatars/Pelle.png"),
+            pic: require("../assets/Pelle.png"),
   
           },
           {
             id: '11',
             title: 'Eigth Item',
-            pic: require("../assets/Avatars/Sam.png"),
+            pic: require("../assets/Sam.png"),
   
           },
           {
             id: '12',
             title: 'Eigth Item',
-            pic: require("../assets/Avatars/Tom.png"),
+            pic: require("../assets/Tom.png"),
   
           },
   ];
   
 
   const renderImg = (number) => {
-      if(number==1){
+      if(number=="2"){
                  return(
                     <Image 
                     style={styles.profilePic}
                     source={ require("../assets/profileTest.png")}>
                 </Image>)}
-     else if(number==2){
+     else if(number=="1"){
         return(
            <Image 
            style={styles.profilePic}
-           source={ require("../assets/Avatars/Elaf.png")}>
+           source={ require("../assets/Elaf.png")}>
        </Image>)}
        else if(number==3){
         return(
            <Image 
            style={styles.profilePic}
-           source={ require("../assets/Avatars/Emma.png")}>
+           source={ require("../assets/Emma.png")}>
        </Image>)}
        else if(number==4){
         return(
            <Image 
            style={styles.profilePic}
-           source={ require("../assets/Avatars/Hannah.png")}>
+           source={ require("../assets/Hannah.png")}>
        </Image>)}
        else if(number==5){
         return(
            <Image 
            style={styles.profilePic}
-           source={ require("../assets/Avatars/John.png")}>
+           source={ require("../assets/John.png")}>
        </Image>)}
        else if(number==6){
         return(
            <Image 
            style={styles.profilePic}
-           source={ require("../assets/Avatars/Kent.png")}>
+           source={ require("../assets/Kent.png")}>
        </Image>)}
        else if(number==7){
         return(
            <Image 
            style={styles.profilePic}
-           source={ require("../assets/Avatars/Kerstin.png")}>
+           source={ require("../assets/Kerstin.png")}>
        </Image>)}
        else if(number==8){
         return(
            <Image 
            style={styles.profilePic}
-           source={ require("../assets/Avatars/Max.png")}>
+           source={ require("../assets/Max.png")}>
        </Image>)}
        else if(number==9){
         return(
            <Image 
            style={styles.profilePic}
-           source={ require("../assets/Avatars/Olaf.png")}>
+           source={ require("../assets/Olaf.png")}>
        </Image>)}
        else if(number==10){
         return(
            <Image 
            style={styles.profilePic}
-           source={ require("../assets/Avatars/Pelle.png")}>
+           source={ require("../assets/Pelle.png")}>
        </Image>)}
        else if(number==11){
         return(
            <Image 
            style={styles.profilePic}
-           source={ require("../assets/Avatars/Sam.png")}>
+           source={ require("../assets/Sam.png")}>
        </Image>)}
        else if(number==12){
         return(
            <Image 
            style={styles.profilePic}
-           source={ require("../assets/Avatars/Tom.png")}>
+           source={ require("../assets/Tom.png")}>
        </Image>)}
        else if(number==13){
         return(
            <Image 
            style={styles.profilePic}
-           source={ require("../assets/Avatars/Anna.png")}>
+           source={ require("../assets/Anna.png")}>
        </Image>)}
 
   };

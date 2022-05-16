@@ -21,7 +21,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator(); 
 
-//gör en login stack istället
 
 function sendTo(navigation){
   AsyncStorage.getItem('inloggad').then(value =>{
@@ -128,10 +127,10 @@ const PlantDatabaseStackNavigator = () => {
                 <View>
                 <Ionicons
                     style={{ marginLeft: 10 }}
-                    name="chevron-back-outline"
+                    name="menu-outline"
                     color="black"
                     size={30}
-                    onPress={() => navigation.navigate("Home")}
+                    onPress={() => navigation.toggleDrawer()}
                 />
                 </View>,
             })}
@@ -159,10 +158,10 @@ const PlantDatabaseStackNavigator = () => {
                 headerLeft: () =>
                 <View style={{ marginLeft: 10 }}>
                   <Ionicons
-                    name="close-outline"
+                    name="menu-outline"
                     color="black"
                     size={35}
-                    onPress={() => navigation.navigate('Home')}
+                    onPress={() => navigation.toggleDrawer()}
                 />
                 </View>,
               })}
@@ -177,6 +176,7 @@ const PlantDatabaseStackNavigator = () => {
         screenOptions={{
             title: "",
         }}
+        initialRouteName="Profile"
       >
         <Stack.Screen name="SignUp" component={SignUp} 
         options={({ navigation }) => ({
@@ -309,7 +309,7 @@ const PlantDatabaseStackNavigator = () => {
                     name="close-outline"
                     color="black"
                     size={40}
-                    onPress={() => navigation.goBack()}
+                    onPress={() => navigation.navigate('Profile')}
                 />
                 </View>,
             })}
@@ -383,6 +383,73 @@ const PlantDatabaseStackNavigator = () => {
       </Stack.Navigator>
     );
   }
+
+  const CalendarStackNavigator = () => {
+    return (
+      <Stack.Navigator
+        screenOptions={{
+            title: "",
+        }}
+        initialRouteName="Calendar"
+      >
+        <Stack.Screen name="Calendar" component={Calendar} 
+            options={({ navigation }) => ({
+                headerShown: true,
+                headerStyle: {
+                elevation: 0,
+                shadowOpacity: 0,
+                borderBottomWidth: 0,
+                backgroundColor: 'white'
+                },
+                headerLeft: () =>
+                <View>
+                <Ionicons
+                    style={{ marginLeft: 5 }}
+                    name="close-outline"
+                    color="black"
+                    size={40}
+                    onPress={() => navigation.navigate("ProfileDrawer", {screen: "Profile"})}
+                />
+                </View>,
+            })}
+        />
+      </Stack.Navigator>
+    );
+  }
+
+  const CareStackNavigator = () => {
+    return (
+      <Stack.Navigator
+        screenOptions={{
+            title: "",
+        }}
+        initialRouteName="Care"
+      >
+        <Stack.Screen name="Care" component={BottomTabNavigator} 
+            options={({ navigation }) => ({
+                headerShown: true,
+                headerStyle: {
+                elevation: 0,
+                shadowOpacity: 0,
+                borderBottomWidth: 0,
+                backgroundColor: '#7E9B6D'
+                },
+                headerLeft: () =>
+                <View>
+                <Ionicons
+                    style={{ marginLeft: 10 }}
+                    name="close-outline"
+                    color="black"
+                    size={40}
+                    
+                    onPress={() => navigation.navigate("ProfileDrawer", {screen: "Profile"})}
+                />
+                </View>,
+            })}
+        />
+      </Stack.Navigator>
+    );
+  }
   
   const BottomTabNavigator = () => {
     return (
@@ -432,4 +499,4 @@ const PlantDatabaseStackNavigator = () => {
     );
   };
   
-  export { MainStackNavigator, PlantDatabaseStackNavigator, GuideStackNavigator, ProfileStackNavigator, BottomTabNavigator };
+  export { MainStackNavigator, PlantDatabaseStackNavigator, GuideStackNavigator, ProfileStackNavigator, BottomTabNavigator, CalendarStackNavigator, CareStackNavigator };
