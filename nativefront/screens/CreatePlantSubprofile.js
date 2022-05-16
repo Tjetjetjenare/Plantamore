@@ -253,8 +253,6 @@ function CreatePlantSubprofile() {
     return (
       <View style={styles.searchItem}>
         <Text style={styles.itemStyle} onPress={() => selectedPlant(item)}>
-          {item.p_id}
-          {'.'}
           {item.english_name.toUpperCase()}
         </Text>
       </View>
@@ -274,7 +272,7 @@ function CreatePlantSubprofile() {
   };
 
   const saveBtnPressed = async() => {
-    var year = (new Date().getFullYear()+1).toString();
+    var year = (new Date().getFullYear()-1).toString();
     var month = "04";
     var day = new Date().getDate().toString();
     var replantday =year+"-"+month+"-"+day;
@@ -348,11 +346,10 @@ const styles = StyleSheet.create({
       alignSelf: "center",
     },
     header: { 
-        fontSize: 35, 
+        fontSize: 25, 
         fontWeight: 'bold',  
         marginBottom: 20,
         textAlign:"center",
-
     },
     info:{
         fontSize: 20,
@@ -391,6 +388,11 @@ const styles = StyleSheet.create({
       padding: 5,
       marginHorizontal: 10,
       opacity: 2,
+    },
+    itemStyle: {
+      padding: 5,
+      margin:5,
+      color: 'white'
     },
     savebtn: {
       backgroundColor: "#fff",
