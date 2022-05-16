@@ -124,7 +124,7 @@ function SignUp({navigation}) {
                 />
             </View>
             <View style={styles.signUpWrap}>
-                <StandardButton sizeFont={20} title="Sign Up" functionOnPress={onSubmitFormHandler}/>
+                <StandardButton sizeFont={20} title="Sign up" functionOnPress={onSubmitFormHandler}/>
                
             </View>
             <View style={styles.termsAndConditions}>
