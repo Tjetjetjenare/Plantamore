@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View,ScrollView, Image, TouchableOpacity, SafeAreaView, Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import axios from 'axios';
+import moment from 'moment';
 
 var plantbaseUrl = null;
 var subplantbaseUrl = null;
@@ -13,29 +14,96 @@ else{
     subplantbaseUrl ='http://127.0.0.1:8000/api/subplants/';
     plantbaseUrl = 'http://127.0.0.1:8000/api/plants/'}
 
-  function PlantSubprofile({route, navigation}) {
-    const [plant, setPlant] = useState("");
-    const [subPlant, setsubPlant] = useState("");
-    const {plantId, EnglishName, LatinName, SwedishName, Description,ImageUrl,PlantName, Sunlight, PlantWat, PlantNut,Water,Nutrition,BirthDate, Replant } = route.params;
+function PlantSubprofile({route, navigation}) {
+const [plant, setPlant] = useState("");
+const [subPlant, setsubPlant] = useState("");
+const {plantId, EnglishName, LatinName, SwedishName, Description,ImageUrl,PlantName, Sunlight, PlantWat, PlantNut,Water,Nutrition,BirthDate, Replant, PlantRe } = route.params;
 
     useEffect(async() => {
-      try {
+        try {
         const response = await axios.get(
-         plantbaseUrl,
+            plantbaseUrl,
         );
         const subresponse = await axios.get(
             subplantbaseUrl,
-           );
+            );
         setPlant(response.data);
         setsubPlant(subresponse.data);
         
-      } catch (error) {
-          console.log("Bomber o granater")
-          console.log(error)
-      }
+        } catch (error) {
+            console.log("Bomber o granater")
+            console.log(error)
+        }
     },[]);
-  
+    
+    const addIfSummer = () => {
+        var amplify = 1
+        var today= moment(new Date())
+        if(today.isBetween(moment().year().toString()+"-05-01", moment().year().toString()+"-09-30")){
+            amplify = 0.8;
+        }
+        return(amplify)
+    }
+   
+    const daysUntilWater = () => {
+        var amplify = addIfSummer()
+        var today = moment(new Date())
+        var lastWater = moment(Water)
+        if(PlantWat=='Sparingly'){
+            var shouldWater = lastWater.add(Math.floor(16*amplify), 'days')
+        }else if(PlantWat=='Generously'){
+            var shouldWater = lastWater.add(Math.floor(4*amplify), 'days')
+        }
+        else
+            {var shouldWater = lastWater.add(Math.floor(7*amplify), 'days')}
+        var displayWater = shouldWater.diff(today, 'days')
+        if(displayWater<= 0)
+            {displayWater='today!'}
+        else{displayWater='in '+ displayWater+' days'}
+        return(displayWater)
+    }
 
+    const timeUntilNuttrition = () => {
+        if(Nutrition<=1) {
+            var time="Next time you water"
+        }else {
+            var time="In "+ Nutrition + " waterings"
+        }
+        return time
+    }
+
+    const monthsUntilReplant = () => {
+        var today = moment(new Date())
+        var lastReplant = moment(Replant)
+        var betweenReplants = PlantRe
+        var shouldReplant = lastReplant.add(betweenReplants, "months")
+
+        if (shouldReplant.year()==moment().year() && today.isAfter(moment().year().toString()+"06-30")){
+                var willReplant = (shouldReplant.year()+1).toString()+"-04-01"
+        }else{
+            if(shouldReplant.isBetween(moment().year().toString()+"-01-01", shouldReplant.year().toString()+"-10-01")){
+                var willReplant = shouldReplant.year().toString()+"-04-01"}
+            else{
+                var willReplant = (shouldReplant.year()+1).toString()+"-04-01"
+            }   
+        }
+
+        var displayReplant = moment(willReplant).diff(today, "months")  
+
+        if(displayReplant<= 0){
+            displayReplant='this month!'}
+        else{
+            displayReplant='in '+ displayReplant+' months'}
+        return(displayReplant)
+    }
+
+    const age = () => {
+        var today = moment(new Date())
+        var diffYears = today.year() - moment(BirthDate).year()
+        var diffMonths = Math.abs(today.month() - moment(BirthDate).month())
+        var diffDays = Math.abs(today.day() - moment(BirthDate).day())
+        return (diffYears+" y "+diffMonths+" m "+diffDays+" d")
+    }
   
   
   return(
@@ -44,6 +112,37 @@ else{
         <ScrollView>
         <Text style={styles.profileName}>{PlantName}{"\n"}</Text>
         <View style={{flexDirection: "row"}}>
+            <View style={styles.specs}>
+                <View style={styles.innerSpec}>
+                    <Image 
+                         style={styles.specIconCake} 
+                         source={require("../assets/cake.png")}>
+                    </Image>
+                    <Text> {age()}</Text>
+                </View>
+               
+                <View style={styles.innerSpec}>
+                    <Image 
+                         style={styles.specIcon} 
+                         source={require("../assets/drop.png")}>
+                    </Image>
+                    <Text> {daysUntilWater()} </Text>
+                </View>
+                <View style={styles.innerSpec}>
+                    <Image 
+                         style={styles.specIconNutrition} 
+                         source={require("../assets/nutritionFlask.png")}>
+                    </Image>
+                    <Text> {timeUntilNuttrition()}</Text>
+                </View>
+                <View style={styles.innerSpec}>
+                    <Image
+                        style={styles.specIcon} 
+                        source={require("../assets/replant.png")}>
+                    </Image>
+                    <Text> {monthsUntilReplant()}</Text>
+                </View>
+            </View>
             <View style={styles.plantPicWrap}>
                 <Image
                     style={styles.plantPic}
@@ -52,44 +151,12 @@ else{
                     }}> 
                 </Image>
             </View>
-            <View style={styles.specs}>
-                <View style={styles.innerSpec}>
-                    <Image 
-                         style={styles.specIconCake} 
-                         source={require("../assets/cake.png")}>
-                    </Image>
-                    <Text> {BirthDate}</Text>
-                </View>
-               
-                <View style={styles.innerSpec}>
-                    <Image 
-                         style={styles.specIcon} 
-                         source={require("../assets/drop.png")}>
-                    </Image>
-                    <Text> {Water} </Text>
-                </View>
-                <View style={styles.innerSpec}>
-                    <Image 
-                         style={styles.specIconNutrition} 
-                         source={require("../assets/nutritionFlask.png")}>
-                    </Image>
-                    <Text> {Nutrition}</Text>
-                </View>
-                <View style={styles.innerSpec}>
-                    <Image
-                        style={styles.specIcon} 
-                        source={require("../assets/replant.png")}>
-                    </Image>
-                    <Text> {Replant}</Text>
-                </View>
+            <View 
+                style = {styles.textContainer}>
+                <Text style={styles.engName}>{EnglishName}{"\n"}</Text>
+                <Text style={styles.latinName}>{LatinName}{"\n"}</Text> 
+                <Text style={styles.latinName}>{SwedishName}{"\n"}</Text> 
             </View>
-        </View>
-        <View 
-            style = {styles.textContainer}>
-            <Text style={styles.engName}>{EnglishName}{"\n"}</Text>
-            <Text style={styles.latinName}>{LatinName}{"\n"}</Text> 
-            <Text style={styles.latinName}>{SwedishName}{"\n"}</Text> 
-            
         </View>
         <View
             style={styles.infoBoard}>
@@ -154,25 +221,27 @@ else{
 
     },
    
- 
     plantPic: {
-        height: 150,
-        width: 150, 
-        alignSelf:"flex-end",
+        height: 130,
+        width: 130, 
+        alignSelf:"flex-start",
         aspectRatio: 1,
         borderRadius:75,
     },
 
     plantPicWrap:{
-        flex: 2,
+        flex: 1,
+        justifyContent: "flex-end",
     },
     specs:{
         flex:1,
         justifyContent: "center",
+        paddingBottom:20,
     },
     innerSpec:{
         flexDirection: "row",
-        marginLeft: 30,
+        alignSelf:"flex-start",
+        paddingLeft: 10,
     },
     specIcon:{
         width: 20,
@@ -195,17 +264,18 @@ else{
         marginLeft: 3,
     },
     textContainer: {
-        top:10,
+        flex: 1,
         color: "black",
-        alignItems: "center",
+        alignItems: "flex-start",
+        justifyContent: "center",
+        paddingLeft:5,
     },
     latinName: {
         color:"#545351",
-        fontSize: 18,
-        marginTop:-15,
+        marginTop:-20,
     },
     engName: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: "bold",
     },
     infoBoard: {
@@ -218,6 +288,7 @@ else{
         justifyContent:"center",
         textAlign:"center",
         padding:10,
+        marginTop:10,
     },
     infoIcon: {
         width:30,

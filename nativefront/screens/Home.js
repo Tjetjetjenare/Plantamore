@@ -5,6 +5,7 @@ import StandardButton from '../components/StandardButton';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
 
 var plantbaseUrl = null;
 
@@ -83,7 +84,8 @@ function Home({navigation}) {
       )
     } else{
       return(
-        <TouchableOpacity onPress={() => navigation.navigate('GuideMain')} style={styles.careGuideOPA}>
+        <TouchableOpacity onPress={() => navigation.navigate('GuideDrawer', {screen: 'Guide'})} style={styles.careGuideOPA}>
+          <Ionicons style={styles.careGuideIcon} name="information-circle-outline" size={28} color={'#FFF'} />
           <Text style={styles.careGuideButton}>Care Guide</Text>
         </TouchableOpacity>
     )}
@@ -150,12 +152,6 @@ function Home({navigation}) {
   return (
     
     <SafeAreaView style={styles.container}>
-            {/* <Image
-                style={styles.burgerMenu}
-                source={require("../assets/burgerMenu.png")}/>
-            <Image
-                style={styles.profileButton}
-                source={require("../assets/profileButton.png")}/> */}
         <StatusBar style="auto"/>
         <View style={styles.greenAccent} />
       <Image style={styles.logo} source={require("../assets/logo.png")}></Image>
@@ -280,5 +276,9 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline',
     fontSize: 23,
     top: 180,
+  },
+  careGuideIcon: {
+    top: 35,
+    left: -30,
   },
 })
