@@ -32,7 +32,6 @@ function CreatePlantSubprofile() {
   const [pid, setPid] = useState('');
   const [bday, setBday] = useState('');
   const [water, setWater] = useState('');
-  const [replant, setReplant] = useState('');
 
   // const [logd, setLogd] = useState('');
   const isFocused = useIsFocused();
@@ -110,7 +109,7 @@ function CreatePlantSubprofile() {
     )
   };
 
-  const renderCare = () => {
+  const renderWater = () => {
     return(
       <View>
         <Text style={styles.info}>When did you last water your plant?</Text>
@@ -122,17 +121,6 @@ function CreatePlantSubprofile() {
             styleInput={styles.dateInput}
             onSubmit={(value) => setWater(value)}
             value={water}
-          />
-        </View>
-        <Text style={styles.info}>When did you last replant your plant?</Text>
-        <View style={styles.dateWrap}>
-          <DateField
-            labelDate="DD"
-            labelMonth="MM"
-            labelYear="YYYY"
-            styleInput={styles.dateInput}
-            onSubmit={(value) => setReplant(value)}
-            value={replant}
           />
         </View>
       </View>
@@ -166,8 +154,8 @@ function CreatePlantSubprofile() {
       data: ["DD-MM-YY"],
     },
     {
-      title: "Last watered, replant",
-      renderItem: renderCare,
+      title: "Last watered",
+      renderItem: renderWater,
       data: ["DD-MM-YY"],
     },
     {
@@ -277,13 +265,21 @@ function CreatePlantSubprofile() {
   };
 
   const saveBtnPressed = async() => {
+    var year = (new Date().getFullYear()+1).toString();
+    var month = "04";
+    var day = new Date().getDate().toString();
+    var replantday =year+"-"+month+"-"+day;
     try {
+        var id = parseInt(subplant[(subplant.length-1)].sub_id)+1
+        var str = "" + id
+        var pad = "000"
+        var ans = pad.substring(0, pad.length - str.length) + str
       let data = {
-          sub_id: subplant[(subplant.length-1)].sub_id +1,
+          sub_id: ans,
           name: name,
           birth_date: bday.getFullYear().toString() + "-" + (bday.getMonth()+1).toString() + "-"+ bday.getDate().toString(),
           water: water.getFullYear().toString() + "-" + (water.getMonth()+1).toString() + "-"+ water.getDate().toString(),
-          replant: replant.getFullYear().toString() + "-" + (replant.getMonth()+1).toString() + "-"+ replant.getDate().toString(),
+          replant: replantday,
           nutrition: 4,
           p_id: pid,
           username : username,
@@ -296,15 +292,15 @@ function CreatePlantSubprofile() {
         setSearch('')
         setName('')
         setDbImage('')
-        setReplant('')
       } 
     
       else {
+        
       throw new Error("An error has occurred");
       }
   }catch (error) {
     console.log(error);
-    Alert.alert("Error","Something went wrong, please check that you filled out all the fields correctly")
+    Alert.alert("Error","Something went wrong, please check so you filled out the fields correctly")
 }
   
   }
@@ -385,11 +381,6 @@ const styles = StyleSheet.create({
       padding: 5,
       marginHorizontal: 10,
       opacity: 2,
-    },
-    itemStyle: {
-      padding: 5,
-      margin:5,
-      color: 'white'
     },
     savebtn: {
       backgroundColor: "#fff",
