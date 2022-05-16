@@ -74,12 +74,6 @@ function LogInScreen({navigation}) {
     return (
         <SafeAreaView style={styles.background}>
             <StatusBar style="auto"/>
-                {/* <TouchableOpacity onPress={() => {navigation.navigate('Home')}} style={styles.arrowContainer}>
-                    <Image 
-                        style={styles.arrowContainer} 
-                        source={require("../assets/backArrow.png")} >
-                    </Image>
-                </TouchableOpacity> */}
             <Text 
                 style= {styles.header}>
                 Log in 
