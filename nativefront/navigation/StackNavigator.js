@@ -166,6 +166,45 @@ const PlantDatabaseStackNavigator = () => {
                 </View>,
               })}
         />
+        <Stack.Screen name="PlantSub" component={PlantSubprofile} 
+          options={({ navigation }) => ({
+              headerShown: true,
+              headerStyle: {
+              elevation: 0,
+              shadowOpacity: 0,
+              borderBottomWidth: 0,
+              backgroundColor: 'white'
+              },
+              headerLeft: () =>
+              <View>
+              <Ionicons
+                  style={{ marginLeft: 10 }}
+                  name="chevron-back-outline"
+                  color="black"
+                  size={35}
+                  onPress={() => navigation.navigate('Profile')}
+              />
+              </View>,
+              headerRight: () =>
+              <View>
+              <Ionicons
+                style={{      
+                height: 30, 
+                width: 30, 
+                right: 15,
+                bottom: -12,
+                borderRadius: 20, 
+                justifyContent: "center",
+                alignItems: "center",
+                position: "absolute",}}
+                name="information-circle-outline"
+                color="black"
+                size={30}
+                onPress={() => navigation.navigate('Guide')}
+              />
+            </View>,
+          })}
+        />
       </Stack.Navigator>
     );
   }
@@ -251,46 +290,45 @@ const PlantDatabaseStackNavigator = () => {
             </View>,
           })}
       />
-        <Stack.Screen name="PlantSub" component={PlantSubprofile} 
-            options={({ navigation }) => ({
-                headerShown: true,
-                headerStyle: {
-                elevation: 0,
-                shadowOpacity: 0,
-                borderBottomWidth: 0,
-                backgroundColor: 'white'
-                },
-                headerLeft: () =>
-                <View>
-                <Ionicons
-                    style={{ marginLeft: 10 }}
-                    name="chevron-back-outline"
-                    color="black"
-                    size={35}
-                    onPress={() => navigation.navigate('Profile')}
-                />
-                </View>,
-                     headerRight: () =>
-                     <View>
-                     <Ionicons
-                         style={{      
-                          height: 30, 
-                          width: 30, 
-                          right: 15,
-                          bottom: -12,
-                          borderRadius: 20, 
-                          justifyContent: "center",
-                          alignItems: "center",
-                          position: "absolute",}}
-                         name="information-circle-outline"
-                         color="black"
-                         size={30}
-                         onPress={() => navigation.navigate('GuideDrawer', {screen: 'Guide'})}
-                     />
-                     </View>,
-
-            })}
-        />
+        {/* <Stack.Screen name="PlantSub" component={PlantSubprofile} 
+          options={({ navigation }) => ({
+              headerShown: true,
+              headerStyle: {
+              elevation: 0,
+              shadowOpacity: 0,
+              borderBottomWidth: 0,
+              backgroundColor: 'white'
+              },
+              headerLeft: () =>
+              <View>
+              <Ionicons
+                  style={{ marginLeft: 10 }}
+                  name="chevron-back-outline"
+                  color="black"
+                  size={35}
+                  onPress={() => navigation.navigate('Profile')}
+              />
+              </View>,
+              headerRight: () =>
+              <View>
+              <Ionicons
+                style={{      
+                height: 30, 
+                width: 30, 
+                right: 15,
+                bottom: -12,
+                borderRadius: 20, 
+                justifyContent: "center",
+                alignItems: "center",
+                position: "absolute",}}
+                name="information-circle-outline"
+                color="black"
+                size={30}
+                onPress={() => navigation.navigate('GuideDrawer', {screen: 'Guide'})}
+              />
+            </View>,
+          })}
+        /> */}
         <Stack.Screen name="CreateSub" component={CreatePlantSubprofile} 
             options={({ navigation }) => ({
             headerShown: true,
