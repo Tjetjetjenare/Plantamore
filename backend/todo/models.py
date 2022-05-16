@@ -31,7 +31,7 @@ class Plant(models.Model):
 
 class User(models.Model):
     u_id = models.CharField( max_length=4,primary_key=True, default='001')
-    username = models.CharField(max_length=50)
+    username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=200, unique=True)
     password = models.CharField(max_length=50)
     profile_picture = models.IntegerField(null=True)
