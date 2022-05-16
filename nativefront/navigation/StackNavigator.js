@@ -270,6 +270,25 @@ const PlantDatabaseStackNavigator = () => {
                     onPress={() => navigation.navigate('Profile')}
                 />
                 </View>,
+                     headerRight: () =>
+                     <View>
+                     <Ionicons
+                         style={{      
+                          height: 30, 
+                          width: 30, 
+                          right: 15,
+                          bottom: -12,
+                          borderRadius: 20, 
+                          justifyContent: "center",
+                          alignItems: "center",
+                          position: "absolute",}}
+                         name="information-circle-outline"
+                         color="black"
+                         size={30}
+                         onPress={() => navigation.navigate('GuideDrawer', {screen: 'Guide'})}
+                     />
+                     </View>,
+
             })}
         />
         <Stack.Screen name="CreateSub" component={CreatePlantSubprofile} 
