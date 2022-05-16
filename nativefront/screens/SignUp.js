@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Alert } from 'react-native';
 import StandardButton from '../components/StandardButton';
 import axios from "axios"
@@ -16,7 +16,18 @@ function SignUp({navigation}) {
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [isSecurePassword, setIsSecurePassword] = useState(true)
+    const [existingUsers,setExistingUsers] = useState({})
   
+    useEffect(async() => {
+        try {
+          const response = await axios.get(
+           userbaseUrl,
+          );
+          setExistingUsers(response.data);
+        } catch (error) {
+          // handle error
+        }
+      },[]);
     const onChangeNameHandler = (fullName) => {
       setFullName(fullName);
     };
@@ -34,11 +45,17 @@ function SignUp({navigation}) {
     }
     setIsLoading(true);
     try {
+        var id = parseInt(existingUsers[existingUsers.length-1].u_id)+1
+        var str = "" + id
+        var pad = "000"
+        var ans = pad.substring(0, pad.length - str.length) + str
         let data ={
+            u_id : ans,
             username: fullName,
             email: email,
             password: password,
-            profile_picture: "../assets/profilePic.png",
+            profile_picture: 1,
+            
           }
         const response = await axios.post(userbaseUrl, data,{'Content-Type': 'application/json'});
         if (response.status === 201) {
@@ -61,12 +78,7 @@ function SignUp({navigation}) {
     return (
         <SafeAreaView style={styles.background}>
             <StatusBar style="auto"/>
-                {/* <TouchableOpacity onPress={() => {navigation.navigate('Home')}} style={styles.arrowContainer}>
-                    <Image 
-                        style={styles.arrowContainer} 
-                        source={require("../assets/backArrow.png")} >
-                    </Image>
-                </TouchableOpacity> */}
+                
             <Text 
                 style= {styles.header}>
                 Create account

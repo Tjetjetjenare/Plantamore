@@ -18,7 +18,7 @@ class PlantSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('username', 'email', 'password','profile_picture')
+        fields = ('u_id','username', 'email', 'password','profile_picture')
 
 class SubPlantSerializer(serializers.ModelSerializer):
     class Meta:

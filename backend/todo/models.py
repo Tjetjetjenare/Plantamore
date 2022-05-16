@@ -30,24 +30,25 @@ class Plant(models.Model):
 
 
 class User(models.Model):
-    username = models.CharField(max_length=50, primary_key=True)
+    u_id = models.CharField( max_length=4,primary_key=True, default='001')
+    username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=200, unique=True)
     password = models.CharField(max_length=50)
-    profile_picture = models.CharField(max_length=100, null=True)
-
+    profile_picture = models.IntegerField(null=True)
+    
     def __str__(self):
         return self.username
 
 
 class Plant_subprofile(models.Model):
-    sub_id = models.IntegerField(primary_key=True)
+    sub_id = models.CharField(primary_key=True, max_length=4)
     name = models.CharField(max_length=30)
     birth_date = models.DateField()
     water = models.DateField()
     replant = models.DateField()
     nutrition = models.IntegerField()
     p_id = models.ForeignKey('Plant', on_delete=models.CASCADE)
-    username = models.ForeignKey('User', on_delete=models.CASCADE)
+    username = models.CharField(max_length=50)
 
     def __str__(self):
-        return self.name
+        return self.sub_id

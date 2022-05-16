@@ -9,7 +9,6 @@ var subPlantUrl = null;
 var userUrl = null;
 var ref = false;
 var choosingPic = false;
-var profpic = require("../assets/profilePic.png")
 const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
   }
@@ -83,76 +82,72 @@ const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, pla
     </TouchableOpacity>
   );}}
 
-//   const DATA = [
-//     {
-//       id: "1",
-//       renderItem: renderImg,
-//       data: require('../assets/profileTest.png'),
-//     },
-//   ];
-
 const DATA = [
     {
-      number: '2',
+      id: '13',
       title: 'First Item',
-      pic: require("../assets/Anna.png"),
+      pic: require("../assets/Avatars/Anna.png"),
     },
     {
-      number: '1',
+      id: '2',
       title: 'Second Item',
-      pic: require("../assets/Elaf.png"),
+      pic: require("../assets/Avatars/Elaf.png"),
     },
     {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
+      id: '3',
       title: 'Third Item',
-      pic: require("../assets/Emma.png"),
+      pic: require("../assets/Avatars/Emma.png"),
     },
     {
-        id: '2',
+        id: '4',
         title: 'Fourth Item',
-        pic: require("../assets/Hannah.png"),
+        pic: require("../assets/Avatars/Hannah.png"),
       },
       {
-        id: '3-c1b1-46c2-aed5-3ad53abb28ba',
+        id: '5',
         title: 'Fifth Item',
-        pic: require("../assets/Kerstin.png"),
+        pic: require("../assets/Avatars/John.png"),
       },
       {
-        id: '4-c605-48d3-a4f8-fbd91aa97f63',
+        id: '6',
         title: 'Sixth Item',
-        pic: require("../assets/Sam.png"),
+        pic: require("../assets/Avatars/Kent.png"),
       },
       {
-        id: '5-3da1-471f-bd96-145571e29d72',
+        id: '7',
         title: 'Seventh Item',
-        pic: require("../assets/John.png"),
+        pic: require("../assets/Avatars/Kerstin.png"),
       },
       {
-          id: '6-3da1-471f-bd96-145571e29d72',
+          id: '8',
           title: 'Eigth Item',
-          pic: require("../assets/Kent.png"),
-        },
-    {
-        id: '7-3da1-471f-bd96-145571e29d72',
-        title: 'Ninth Item',
-        pic: require("../assets/Max.png"),
-        },
-    {
-        id: '8-3da1-471f-bd96-145571e29d72',
-        title: 'Tenth Item',
-        pic: require("../assets/Olaf.png"),
-        }, 
-    {
-        id: '9-3da1-471f-bd96-145571e29d72',
-        title: 'Eleventh Item',
-        pic: require("../assets/Pelle.png"),
-        },  
+          pic: require("../assets/Avatars/Max.png"),
 
-    {
-        id: '10-3da1-471f-bd96-145571e29d72',
-        title: 'Twelvth Item',
-        pic: require("../assets/Tom.png"),
-        }, 
+        },
+        {
+            id: '9',
+            title: 'Nineth Item',
+            pic: require("../assets/Avatars/Olaf.png"),
+  
+          },
+          {
+            id: '10',
+            title: 'Eigth Item',
+            pic: require("../assets/Avatars/Pelle.png"),
+  
+          },
+          {
+            id: '11',
+            title: 'Eigth Item',
+            pic: require("../assets/Avatars/Sam.png"),
+  
+          },
+          {
+            id: '12',
+            title: 'Eigth Item',
+            pic: require("../assets/Avatars/Tom.png"),
+  
+          },
   ];
   
 
@@ -161,73 +156,79 @@ const DATA = [
                  return(
                     <Image 
                     style={styles.profilePic}
-                    source={ require('../assets/Anna.png')}>
+                    source={ require("../assets/profileTest.png")}>
                 </Image>)}
      else if(number=="1"){
         return(
            <Image 
            style={styles.profilePic}
-           source={ require('../assets/Elaf.png')}>
+           source={ require("../assets/Avatars/Elaf.png")}>
        </Image>)}
        else if(number==3){
         return(
            <Image 
            style={styles.profilePic}
-           source={ require('../assets/Emma.png')}>
+           source={ require("../assets/Avatars/Emma.png")}>
        </Image>)}
        else if(number==4){
         return(
            <Image 
            style={styles.profilePic}
-           source={ require('../assets/Hannah.png')}>
+           source={ require("../assets/Avatars/Hannah.png")}>
        </Image>)}
        else if(number==5){
         return(
            <Image 
            style={styles.profilePic}
-           source={ require('../assets/Kerstin.png')}>
+           source={ require("../assets/Avatars/John.png")}>
        </Image>)}
        else if(number==6){
         return(
            <Image 
            style={styles.profilePic}
-           source={ require('../assets/Sam.png')}>
+           source={ require("../assets/Avatars/Kent.png")}>
        </Image>)}
        else if(number==7){
         return(
            <Image 
            style={styles.profilePic}
-           source={ require('../assets/John.png')}>
+           source={ require("../assets/Avatars/Kerstin.png")}>
        </Image>)}
        else if(number==8){
         return(
            <Image 
            style={styles.profilePic}
-           source={ require('../assets/Kent.png')}>
+           source={ require("../assets/Avatars/Max.png")}>
        </Image>)}
        else if(number==9){
         return(
            <Image 
            style={styles.profilePic}
-           source={ require('../assets/Max.png')}>
+           source={ require("../assets/Avatars/Olaf.png")}>
        </Image>)}
        else if(number==10){
         return(
            <Image 
            style={styles.profilePic}
-           source={ require('../assets/Olaf.png')}>
+           source={ require("../assets/Avatars/Pelle.png")}>
        </Image>)}
        else if(number==11){
         return(
            <Image 
            style={styles.profilePic}
-           source={ require('../assets/Pelle.png')}>
+           source={ require("../assets/Avatars/Sam.png")}>
        </Image>)}
        else if(number==12){
         return(
            <Image 
            style={styles.profilePic}
-           source={ require('../assets/Tom.png')}>
+           source={ require("../assets/Avatars/Tom.png")}>
+       </Image>)}
+       else if(number==13){
+        return(
+           <Image 
+           style={styles.profilePic}
+           source={ require("../assets/Avatars/Anna.png")}>
        </Image>)}
 
   };
@@ -253,6 +254,8 @@ function Profile({navigation}) {
     const [userPlants, setUserPlants] = useState("");
     const [users, setUsers] = useState("");
     const [userId, setUserId] = useState("");
+    const [profileP,setProfileP] = useState(1);
+
     const [plants, setPlants] = useState({});
     const [username, setUsername] = useState("");
     const isFocused = useIsFocused();
@@ -281,6 +284,7 @@ function Profile({navigation}) {
           for(var i = 0;i<response3.data.length;i++){
             if(response3.data[i].username == username){
                 setUserId(i)
+                setProfileP(response3.data[i].profile_picture)
             }
           }
         } catch (error) {
@@ -290,9 +294,9 @@ function Profile({navigation}) {
         }
       },[isFocused,myPlants,refreshing,show]);
 
-      const ItemPic = ({ title, pic }) => (
+      const ItemPic = ({ title, pic, id }) => (
         <View style={styles.items2}>
-            <TouchableOpacity style = {styles.image2} onPress={() => {updateDB(), test()}}>
+            <TouchableOpacity style = {styles.image2} onPress={() => {updateDB(id), test()}}>
                  
           <Image style={styles.image2}
                     source={pic}>
@@ -317,27 +321,20 @@ function Profile({navigation}) {
     const renderPic = ({ item }) => (
         <ItemPic title={item.title} 
                 pic = {item.pic}
+                id = {item.id}
         
         />
       );
       const updateDB = async(number) => {
         try {
-            await axios.put(userUrl + lengd[i], {
-                "sub_id":lengd[i],
-                "name":  UP[lengd[i]-1].name,
-                "birth_date":  UP[lengd[i]-1].birth_date,
-                "water": today,
-                "replant": UP[lengd[i]-1].replant,
-                "nutrition": UP[lengd[i]-1].nutrition,
-                "p_id": UP[lengd[i]-1].p_id,
-                "username": UP[lengd[i]-1].username,
+            await axios.put(userUrl + users[userId].u_id, {
+                "u_id":users[userId].u_id,
+                "username":  users[userId].username,
+                "email" : users[userId].email,
+                "password": users[userId].password,
+                "profile_picture": number,
                 },{'Content-Type': 'application/json'});
-            if (response.status === 201) {
-                console.log("Great")
-            } 
-            else {
-            throw new Error("An error has occurred");
-            }
+            
         }catch (error) {
           console.log(error, "BAD");}
       }
@@ -365,14 +362,6 @@ function Profile({navigation}) {
             choosingPic = !choosingPic
             setShow(!show)
         }
-        function Picturefix(){
-            if( users!= undefined && userId!=undefined && users[userId]!=undefined){
-            console.log(users, userId)
-            var mybild = users[userId].profile_picture;
-            return (mybild)
-        }
-        else return(1)
-        }
             
   
     return (
@@ -382,7 +371,7 @@ function Profile({navigation}) {
             <Text style={styles.userName}>{username}</Text>
             <View>
             <TouchableOpacity onPress={() => test()}>    
-                {renderImg(Picturefix())}
+                {renderImg(profileP)}
             </TouchableOpacity>
                     {picChoose()}
             </View>
@@ -458,6 +447,7 @@ const styles = StyleSheet.create({
         height: 200, 
         alignSelf: 'center', 
         top: 10, 
+        resizeMode: 'contain',
     },
     scrollView: {
         flex: 1,
@@ -493,6 +483,7 @@ const styles = StyleSheet.create({
         top: '5%',  
         borderRadius: 55, 
         alignSelf:'center',
+        resizeMode: 'contain',
     },
     circle: {
         height: 80, 

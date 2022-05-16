@@ -1,10 +1,11 @@
 import { StatusBar } from 'expo-status-bar';
 import React,{useState, useEffect} from 'react';
-import { StyleSheet, Text, View,  SafeAreaView, TouchableOpacity, Platform } from 'react-native';
+import { StyleSheet, Text, View,  SafeAreaView, TouchableOpacity, Platform, Alert } from 'react-native';
 import StandardButton from '../components/StandardButton';
 import axios from "axios";
 import {TextInput} from 'react-native-paper'
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useIsFocused } from "@react-navigation/native";
 var userbaseUrl = null;
 
 if(Platform.OS === "android"){ userbaseUrl = 'http://10.0.2.2:8000/api/users/';}
@@ -16,6 +17,7 @@ function LogInScreen({navigation}) {
     const [isLoading, setIsLoading] = useState(false);
     const [existingUsers, setExistingUsers] = useState("");
     const [isSecurePassword, setIsSecurePassword] = useState(true);
+    const isFocused = useIsFocused();
     
 
     const onChangeEmailHandler = (email) => {
@@ -28,7 +30,7 @@ function LogInScreen({navigation}) {
     const onSubmitFormHandler =  (async) => {
         let max = existingUsers.length;
         if (!email.trim() || !password.trim()) {
-            alert("Error","Email or password is invalid. Please try again.");
+            Alert.alert("Error","Email or password is invalid. Please try again.");
            return;
         }
         setIsLoading(true);
@@ -44,16 +46,16 @@ function LogInScreen({navigation}) {
                         return;
                     }
                     else{
-                        alert("Error","Please try again! The password does not seem to match the email.");
+                        Alert.alert("Error","Please try again! The password does not seem to match the email.");
                         setIsLoading(false);
                         return;
                     }
                 }
             }
-            alert("Error","There is no user with these credentials");
+            Alert.alert("Error","There is no user with these credentials");
             setIsLoading(false);
         } catch (error) {
-            alert("Error","An error has occurred, please try again");
+            Alert.alert("Error","An error has occurred, please try again");
             console.log("email: ", email ,"pass: ", password)
             setIsLoading(false);
         }
@@ -67,7 +69,7 @@ function LogInScreen({navigation}) {
             } catch (error) {
               // handle error
             }
-          },[]);
+          },[isFocused]);
           const imageClick = () => {
             console.log('Click');
           } 
