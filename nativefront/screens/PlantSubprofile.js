@@ -3,6 +3,7 @@ import { StyleSheet, Text, View,ScrollView, Image, TouchableOpacity, SafeAreaVie
 import { StatusBar } from 'expo-status-bar';
 import axios from 'axios';
 import moment from 'moment';
+import { Ionicons } from "@expo/vector-icons";
 
 var plantbaseUrl = null;
 var subplantbaseUrl = null;
@@ -192,23 +193,20 @@ const {plantId, EnglishName, LatinName, SwedishName, Description,ImageUrl,PlantN
                     </View> 
                 </View>
         </View>
-        
         <Text 
             style={styles.description}>
-               {Description}
+            {Description}
         </Text>
         </ScrollView>
        <View style={styles.footer}>
-            <TouchableOpacity 
-                style={styles.circle}
-                onPress={() => navigation.navigate('Watered')}>
-                <Image style={styles.wateringCan}
-                        source={require("../assets/plantCare.png")}>
-                        
-                </Image>
-            </TouchableOpacity>
+        <TouchableOpacity 
+            style={styles.circle}
+            onPress={() => navigation.navigate('Watered')}>
+            <Image style={styles.wateringCan}
+                    source={require("../assets/plantCare.png")}>      
+            </Image>
+        </TouchableOpacity>
         </View>
-
      </SafeAreaView>
   );
   
@@ -315,7 +313,7 @@ const {plantId, EnglishName, LatinName, SwedishName, Description,ImageUrl,PlantN
     },
     footer:{
         width:"100%",
-        height:90,
+        height: 90,
     },
     circle: {
         height: 80, 
