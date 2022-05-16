@@ -77,7 +77,7 @@ function Home({navigation}) {
               <StandardButton sizeFont={20} title="Log in" functionOnPress={() => navigation.navigate('ProfileDrawer', {screen: 'LogIn'})} />
             </View>
             <View style={styles.loginWrap}>
-              <StandardButton sizeFont={20} title="Sign up" functionOnPress={() => navigation.navigate('SignUp')}/>
+              <StandardButton sizeFont={20} title="Sign up" functionOnPress={() => navigation.navigate('ProfileDrawer', {screen:'SignUp'})}/>
             </View>
           
         </View>

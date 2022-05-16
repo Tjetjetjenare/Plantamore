@@ -215,7 +215,7 @@ function Nutrition({navigation},props) {
                 setDone(!done)
              }
              }>
-            <Text>SAVE</Text>
+            <Text>NOURISH</Text>
         </TouchableOpacity>
     </SafeAreaView>
     );
@@ -315,6 +315,11 @@ const styles = StyleSheet.create({
         marginRight:5,
         right: "3%", 
         bottom: "12%",
+        shadowColor: 'black',
+        shadowOpacity: 0.5,
+        shadowRadius: 10,
+        elevation: 3,
+        shadowOffset: {width: 1, height: 10}
     },
     wateringCan: {
         height: "70%",
