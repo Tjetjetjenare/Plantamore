@@ -82,13 +82,6 @@ else{  plantbaseUrl = 'http://127.0.0.1:8000/api/plants/';}
                     {Description} 
             </Text>
         </ScrollView>
-        <View style={styles.footer}>
-            <TouchableOpacity 
-                style={styles.circle}
-                onPress={() => navigation.navigate('PlantDatabaseDrawer', {screen: 'GuideDatabasePath'})}>
-                    <Ionicons style={styles.careGuideIcon} name="information-circle-outline" size={59} color={'black'} />
-            </TouchableOpacity>
-        </View>
      </SafeAreaView>
   );
   

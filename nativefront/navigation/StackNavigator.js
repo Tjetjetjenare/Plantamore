@@ -95,12 +95,46 @@ const MainStackNavigator = () => {
                 onPress={() => navigation.goBack()}
             />
             </View>,
+            headerRight: () =>
+            <View>
+            <Ionicons
+              style={{      
+              height: 30, 
+              width: 30, 
+              right: 15,
+              bottom: -12,
+              borderRadius: 20, 
+              justifyContent: "center",
+              alignItems: "center",
+              position: "absolute",}}
+              name="information-circle-outline"
+              color="black"
+              size={30}
+              onPress={() => navigation.navigate('GuideMain')}
+            />
+          </View>,
         })}
       />
-      <Stack.Screen name="GuideMain" component={GuideStackNavigator} 
+      <Stack.Screen name="GuideMain" component={Guide} 
         options={({ navigation }) => ({
-            headerShown: false,
-          })}
+          headerShown: true,
+          headerStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+            backgroundColor: '#7E9B6D'
+          },
+          title: "",
+          headerLeft: () =>
+          <View style={{ marginLeft: 10 }}>
+            <Ionicons
+              name="chevron-back-outline"
+              color="black"
+              size={35}
+              onPress={() => navigation.goBack()}
+          />
+          </View>,
+        })}
       />
     </Stack.Navigator>
   );
@@ -127,7 +161,7 @@ const PlantDatabaseStackNavigator = () => {
                 <View>
                 <Ionicons
                     style={{ marginLeft: 10 }}
-                    name="chevron-back-outline"
+                    name="close-outline"
                     color="black"
                     size={30}
                     onPress={() => navigation.navigate("Home")}
@@ -155,6 +189,24 @@ const PlantDatabaseStackNavigator = () => {
                 onPress={() => navigation.navigate('PlantDatabase')}
             />
             </View>,
+            headerRight: () =>
+            <View>
+            <Ionicons
+              style={{      
+              height: 30, 
+              width: 30, 
+              right: 15,
+              bottom: -12,
+              borderRadius: 20, 
+              justifyContent: "center",
+              alignItems: "center",
+              position: "absolute",}}
+              name="information-circle-outline"
+              color="black"
+              size={30}
+              onPress={() => navigation.navigate('GuideProfilePath')}
+            />
+          </View>,
         })}
       />
       <Stack.Screen name="GuideDatabasePath" component={Guide} 
