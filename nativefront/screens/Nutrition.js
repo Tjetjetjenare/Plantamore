@@ -1,10 +1,11 @@
 import React,{useState, useEffect} from 'react';
-import { SafeAreaView,RefreshControl, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Platform} from 'react-native';
+import { SafeAreaView,RefreshControl, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Platform,Alert} from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";
 import { set } from 'react-native-reanimated';
+
 var subPlantUrl = "";
 if(Platform.OS === "android"){ 
     subPlantUrl = 'http://10.0.2.2:8000/api/subplants/';
@@ -14,6 +15,7 @@ else{
     plantUrl = 'http://127.0.0.1:8000/api/plants/'}
 
 const myPlants = [];
+
 const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
   }
@@ -48,7 +50,8 @@ function doNut(id) {
 function ispres(id){
     return nutplants.includes(id)
 }
-const Item = ({id, name,plants, nutrition,pid }) => {
+const Item = ({id, name,plants, nutrition, pid }) => {
+    
     const timeUntilNuttrition = () => {
         if(nutrition<=1) {
             var time="Next time you water"
@@ -111,15 +114,23 @@ const Item = ({id, name,plants, nutrition,pid }) => {
       )
   }
 };
-const  NutNut = async(allPlants, userPlants) => {
+const  NutNut = async(plants, allPlants, userPlants) => {
+    var itemNut = 0;
     var lengd = nutplants.slice();
     var UP = sortPlants(allPlants).slice();
     if (nutplants.length<1 ){
-        alert("Error","No plants have been selected, unable to save")
+        Alert.alert("Error","No plants have been selected, unable to save")
     }
     else{
         nutplants.length = 0;
         for (var i=0;i<lengd.length;i++){
+            if (plants[UP[parseInt(lengd[i])-1].p_id-1].nutrition=="Often"){
+                itemNut = 3
+            }else if (plants[UP[parseInt(lengd[i])-1].p_id-1].nutrition=="Regularly"){
+                itemNut = 6
+            }else{
+                itemNut = 9
+            }
             console.log("lengd i = ",lengd[i], "allPlants = ", allPlants);
             await axios.put(subPlantUrl + lengd[i], {
                 "sub_id": lengd[i],
@@ -127,7 +138,7 @@ const  NutNut = async(allPlants, userPlants) => {
                 "birth_date":  UP[parseInt(lengd[i])-1].birth_date,
                 "water": UP[parseInt(lengd[i])-1].water,
                 "replant": UP[parseInt(lengd[i])-1].replant,
-                "nutrition": 4,
+                "nutrition": itemNut,
                 "p_id": UP[parseInt(lengd[i])-1].p_id,
                 "username": UP[parseInt(lengd[i])-1].username,
                 
@@ -136,8 +147,9 @@ const  NutNut = async(allPlants, userPlants) => {
                 .catch(error => {
                     console.error('There was an error!', error);
                 });
+                console.log("lengd i = ",lengd[i], "allPlants = ", allPlants);
         }
-        alert("Success","Your plants have been given nutrition today")
+        Alert.alert("Success","Your plants have been given nutrition today")
     }
 
 };
@@ -211,11 +223,11 @@ function Nutrition({navigation},props) {
         <TouchableOpacity 
             style={styles.circle}
              onPress={() => {
-                NutNut(userPlants,findMyPlants(userPlants,username));
+                NutNut(plants, userPlants,findMyPlants(userPlants,username));
                 setDone(!done)
              }
              }>
-            <Text>NOURISH</Text>
+            <Text>SAVE</Text>
         </TouchableOpacity>
     </SafeAreaView>
     );

@@ -21,8 +21,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator(); 
 
-//gör en login stack istället
-
 function sendTo(navigation){
   AsyncStorage.getItem('inloggad').then(value =>{
     var val =value 
@@ -454,6 +452,7 @@ const PlantDatabaseStackNavigator = () => {
             gestureEnabled: false,
             headerShown: false,
             tabBarShowLabel: false,
+            gestureEnabled: false,
             tabBarStyle: { 
                 position: 'absolute',
                 bottom: 10,
