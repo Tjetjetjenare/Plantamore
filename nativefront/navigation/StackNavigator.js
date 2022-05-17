@@ -40,6 +40,7 @@ const MainStackNavigator = () => {
     <Stack.Navigator
     screenOptions={{
         title: '',
+        gestureEnabled: false,
       }}
       initialRouteName="Home"
     >
@@ -112,6 +113,7 @@ const PlantDatabaseStackNavigator = () => {
       <Stack.Navigator
         screenOptions={{
             title: "Plant Database",
+            gestureEnabled: false,
         }}
       >
         <Stack.Screen name="PlantDatabase" component={PlantDatabase} 
@@ -144,6 +146,7 @@ const PlantDatabaseStackNavigator = () => {
       <Stack.Navigator
       screenOptions={{
         title: "",
+        gestureEnabled: false,
     }}
       >
         <Stack.Screen name="Guide" component={Guide} 
@@ -214,6 +217,7 @@ const PlantDatabaseStackNavigator = () => {
       <Stack.Navigator
         screenOptions={{
             title: "",
+            gestureEnabled: false,
         }}
         initialRouteName="Profile"
       >
@@ -446,6 +450,7 @@ const PlantDatabaseStackNavigator = () => {
       <Stack.Navigator
         screenOptions={{
             title: "",
+            gestureEnabled: false,
         }}
         initialRouteName="Calendar"
       >
@@ -479,6 +484,7 @@ const PlantDatabaseStackNavigator = () => {
       <Stack.Navigator
         screenOptions={{
             title: "",
+            gestureEnabled: false,
         }}
         initialRouteName="Care"
       >
@@ -514,6 +520,7 @@ const PlantDatabaseStackNavigator = () => {
         screenOptions={{
             headerShown: false,
             tabBarShowLabel: false,
+            gestureEnabled: false,
             tabBarStyle: { 
                 position: 'absolute',
                 bottom: 10,

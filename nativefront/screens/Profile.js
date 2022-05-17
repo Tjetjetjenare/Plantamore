@@ -10,6 +10,7 @@ var subPlantUrl = null;
 var userUrl = null;
 var ref = false;
 var choosingPic = false;
+var profileP = 1;
 const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
   }
@@ -339,7 +340,7 @@ function Profile({navigation}) {
     const [userPlants, setUserPlants] = useState("");
     const [users, setUsers] = useState("");
     const [userId, setUserId] = useState("");
-    const [profileP,setProfileP] = useState(1);
+    //const [profileP,setProfileP] = useState(null);
 
     const [plants, setPlants] = useState({});
     const [username, setUsername] = useState("");
@@ -356,7 +357,7 @@ function Profile({navigation}) {
         //Lite sådär men okej tkr jag
         if(profileP == 1){
             AsyncStorage.getItem('propic').then(value =>
-                 setProfileP(value)
+                 profileP = (value)
             );
         }
         
@@ -376,7 +377,7 @@ function Profile({navigation}) {
           for(var i = 0;i<response3.data.length;i++){
             if(response3.data[i].username == username){
                 setUserId(i)
-                setProfileP(response3.data[i].profile_picture)
+                profileP = response3.data[i].profile_picture
             }
           }
         } catch (error) {
@@ -418,6 +419,7 @@ function Profile({navigation}) {
         />
       );
       const updateDB = async(number) => {
+          profileP = number;
         try {
             await axios.put(userUrl + users[userId].u_id, {
                 "u_id":users[userId].u_id,
@@ -455,7 +457,48 @@ function Profile({navigation}) {
             setShow(!show)
         }
             
-  
+  if (profileP == 1){
+    return (
+        <SafeAreaView style={styles.container}>
+            <View style={styles.symbols}>
+            </View>
+            <Text style={styles.userName}>{username}</Text>
+            <View>
+            <TouchableOpacity style= {styles.touchPic} onPress={() => test()}>    
+                {renderImg(1)}
+            </TouchableOpacity>
+                    {picChoose()}
+            </View>
+            <View style={styles.scrollView}
+                  contentContainerStyle={{flexDirection:'row'}}>
+                <FlatList 
+                    data={findMyPlants(userPlants,username)}
+                    extraData={ref}
+                    numColumns={3}
+                    columnWrapperStyle={styles.flatList}
+                    renderItem={renderItem}
+                    keyExtractor={item => item.name}
+                    refreshControl={
+                        <RefreshControl
+                          refreshing={refreshing}
+                          onRefresh={onRefresh}
+                         
+                        />
+                      }
+                />
+             </View>
+            <TouchableOpacity 
+                style={styles.circle}
+                onPress={() => navigation.navigate('Watered')
+                }>
+                <Image style={styles.wateringCan}
+                        source={require("../assets/plantCare.png")}>  
+                </Image>
+            </TouchableOpacity>
+        </SafeAreaView>
+    );
+  }
+  else{
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.symbols}>
@@ -495,7 +538,7 @@ function Profile({navigation}) {
             </TouchableOpacity>
         </SafeAreaView>
     );
-}
+}}
 
 export default Profile;
 
