@@ -39,7 +39,8 @@ function LogInScreen({navigation}) {
                 if (existingUsers[i].email == email ) {
                     if(existingUsers[i].password == password){
                         AsyncStorage.setItem("inloggad", "true");
-                        AsyncStorage.setItem("propic", ""+ existingUsers[i].username);
+                        AsyncStorage.setItem("propic", ""+ existingUsers[i].profile_picture);
+                        console.log(""+ existingUsers[i].profile_picture)
                         AsyncStorage.setItem("MyName", existingUsers[i].username);
                         setIsLoading(false);
 

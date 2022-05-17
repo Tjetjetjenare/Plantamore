@@ -10,7 +10,6 @@ var subPlantUrl = null;
 var userUrl = null;
 var ref = false;
 var choosingPic = false;
-var profileP = 1;
 const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
   }
@@ -340,8 +339,7 @@ function Profile({navigation}) {
     const [userPlants, setUserPlants] = useState("");
     const [users, setUsers] = useState("");
     const [userId, setUserId] = useState("");
-    //const [profileP,setProfileP] = useState(null);
-
+    const [profileP,setProfileP] = useState("");
     const [plants, setPlants] = useState({});
     const [username, setUsername] = useState("");
     const isFocused = useIsFocused();
@@ -354,12 +352,10 @@ function Profile({navigation}) {
              
             //Setting the value in Text
         );
+        AsyncStorage.getItem('propic').then(value =>
+            setProfileP(value)
+       );
         //Lite sådär men okej tkr jag
-        if(profileP == 1){
-            AsyncStorage.getItem('propic').then(value =>
-                 profileP = (value)
-            );
-        }
         
         try {
           const response = await axios.get(
@@ -377,7 +373,7 @@ function Profile({navigation}) {
           for(var i = 0;i<response3.data.length;i++){
             if(response3.data[i].username == username){
                 setUserId(i)
-                profileP = response3.data[i].profile_picture
+               // profileP = response3.data[i].profile_picture
             }
           }
         } catch (error) {
@@ -419,7 +415,8 @@ function Profile({navigation}) {
         />
       );
       const updateDB = async(number) => {
-          profileP = number;
+          setProfileP(number)
+          AsyncStorage.setItem("propic", ""+number);
         try {
             await axios.put(userUrl + users[userId].u_id, {
                 "u_id":users[userId].u_id,
