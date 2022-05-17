@@ -142,7 +142,7 @@ function Home({navigation}) {
 
   const getItem = (item) => {
     // Function for click on an item
-    navigation.navigate("PlantDB", {plantId : item.p_id, EnglishName : item.english_name, LatinName : item.latin_name,
+    navigation.navigate("PlantDBHomePath", {plantId : item.p_id, EnglishName : item.english_name, LatinName : item.latin_name,
     SwedishName: item.swedish_name,Description: item.description, Sun : item.sunlight, Water: item.water,
     Nutrition: item.nutrition, ImageUrl: item.image_url});
   };
