@@ -39,7 +39,7 @@ const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, pla
         var today = moment(new Date())
         var lastWater = moment(water)
         if(plants[p_id-1].water=='Sparingly'){
-            var shouldWater = lastWater.add(Math.floor(16*amplify), 'days')
+            var shouldWater = lastWater.add(Math.floor(19*amplify), 'days')
         }else if(plants[p_id-1].water=='Generously'){
             var shouldWater = lastWater.add(Math.floor(4*amplify), 'days')
         }
