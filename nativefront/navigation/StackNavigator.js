@@ -74,7 +74,28 @@ const MainStackNavigator = () => {
           />
         </View>
       })}
-      
+      />
+      <Stack.Screen name="PlantDBHomePath" component={PlantDBProfile} 
+        options={({ navigation }) => ({
+            headerShown: true,
+            headerStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+            backgroundColor: 'white',
+            },
+            title: "",
+            headerLeft: () =>
+            <View>
+            <Ionicons
+                style={{ marginLeft: 10 }}
+                name="chevron-back-outline"
+                color="black"
+                size={35}
+                onPress={() => navigation.goBack()}
+            />
+            </View>,
+        })}
       />
       <Stack.Screen name="GuideMain" component={GuideStackNavigator} 
         options={({ navigation }) => ({

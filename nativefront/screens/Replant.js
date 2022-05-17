@@ -136,7 +136,10 @@ const Item = ({id, name, plants, replant, pid }) => {
 const  DirtDirt = async(allPlants, userPlants) => {
     var lengd = replantedplants.slice();
     var UP = sortPlants(allPlants).slice();
-
+    var year = new Date().getFullYear().toString();
+    var month = (new Date().getMonth()+1).toString();
+    var day = new Date().getDate().toString();
+    var today =year+"-"+month+"-"+day;
     if (replantedplants.length<1 ){
         Alert.alert("Error","No plants have been selected as replanted, unable to save")
     }
@@ -148,7 +151,7 @@ const  DirtDirt = async(allPlants, userPlants) => {
                 "name":  UP[(parseInt(lengd[i])-1)].name,
                 "birth_date":  UP[parseInt(lengd[i])-1].birth_date,
                 "water": UP[parseInt(lengd[i])-1].water,
-                "replant": (new Date().getFullYear()+1).toString()+"-04-12",
+                "replant": today,
                 "nutrition": UP[parseInt(lengd[i])-1].nutrition,
                 "p_id": UP[parseInt(lengd[i])-1].p_id,
                 "username": UP[parseInt(lengd[i])-1].username,
