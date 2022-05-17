@@ -84,7 +84,7 @@ function Home({navigation}) {
       )
     } else{
       return(
-        <TouchableOpacity onPress={() => navigation.navigate('GuideDrawer', {screen: 'Guide'})} style={styles.careGuideOPA}>
+        <TouchableOpacity onPress={() => navigation.navigate('GuideMain')} style={styles.careGuideOPA}>
           <Ionicons style={styles.careGuideIcon} name="information-circle-outline" size={28} color={'#FFF'} />
           <Text style={styles.careGuideButton}>Care Guide</Text>
         </TouchableOpacity>
