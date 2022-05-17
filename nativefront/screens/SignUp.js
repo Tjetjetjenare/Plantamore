@@ -40,7 +40,7 @@ function SignUp({navigation}) {
       };
     const onSubmitFormHandler = async (event) => {
     if (!fullName.trim() || !email.trim() || !password.trim()) {
-        alert("Error","The name or email is invalid. Make sure that under 50 characters and that you have used a valid email");
+        Alert.alert("Error","The name or email is invalid. Make sure that under 50 characters and that you have used a valid email");
        return;
     }
     setIsLoading(true);
@@ -59,7 +59,7 @@ function SignUp({navigation}) {
           }
         const response = await axios.post(userbaseUrl, data,{'Content-Type': 'application/json'});
         if (response.status === 201) {
-        //alert(' You have created an account!');
+        //Alert.alert(' You have created an account!');
         navigation.navigate('ProfileDrawer', {screen: 'LogIn'})
         setIsLoading(false);
         setFullName('');
@@ -70,7 +70,7 @@ function SignUp({navigation}) {
         throw new Error("An error has occurred");
         }
     } catch (error) {
-        alert("Error","This email is already registered, please use another email");
+        Alert.alert("Error","This email is already registered, please use another email");
         console.log("username: ",fullName,"email: ", email,"pass: ", password)
         setIsLoading(false);
     }

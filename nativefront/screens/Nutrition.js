@@ -1,5 +1,5 @@
 import React,{useState, useEffect} from 'react';
-import { SafeAreaView,RefreshControl, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Platform} from 'react-native';
+import { SafeAreaView,RefreshControl, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Platform,Alert} from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from "axios";
@@ -119,7 +119,7 @@ const  NutNut = async(plants, allPlants, userPlants) => {
     var lengd = nutplants.slice();
     var UP = sortPlants(allPlants).slice();
     if (nutplants.length<1 ){
-        alert("Error","No plants have been selected, unable to save")
+        Alert.alert("Error","No plants have been selected, unable to save")
     }
     else{
         nutplants.length = 0;
@@ -149,7 +149,7 @@ const  NutNut = async(plants, allPlants, userPlants) => {
                 });
                 console.log("lengd i = ",lengd[i], "allPlants = ", allPlants);
         }
-        alert("Success","Your plants have been given nutrition today")
+        Alert.alert("Success","Your plants have been given nutrition today")
     }
 
 };

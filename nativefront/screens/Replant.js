@@ -159,7 +159,7 @@ const  DirtDirt = async(allPlants, userPlants) => {
                     console.error('There was an error!', error);
                 });
         }
-        alert("Success","Your plants have been registered as replanted today")
+        Alert.alert("Success","Your plants have been registered as replanted today")
     }
 
 };
