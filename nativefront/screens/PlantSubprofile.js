@@ -51,7 +51,7 @@ const {plantId, EnglishName, LatinName, SwedishName, Description,ImageUrl,PlantN
         var today = moment(new Date())
         var lastWater = moment(Water)
         if(PlantWat=='Sparingly'){
-            var shouldWater = lastWater.add(Math.floor(16*amplify), 'days')
+            var shouldWater = lastWater.add(Math.floor(19*amplify), 'days')
         }else if(PlantWat=='Generously'){
             var shouldWater = lastWater.add(Math.floor(4*amplify), 'days')
         }

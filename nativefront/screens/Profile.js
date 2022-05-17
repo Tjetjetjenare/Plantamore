@@ -38,7 +38,7 @@ const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, pla
         var today = moment(new Date())
         var lastWater = moment(water)
         if(plants[p_id-1].water=='Sparingly'){
-            var shouldWater = lastWater.add(Math.floor(16*amplify), 'days')
+            var shouldWater = lastWater.add(Math.floor(19*amplify), 'days')
         }else if(plants[p_id-1].water=='Generously'){
             var shouldWater = lastWater.add(Math.floor(4*amplify), 'days')
         }
@@ -111,12 +111,12 @@ const Item = ({ id, name, birth_date, water,replant,nutrition,p_id,username, pla
                 }
                 else{ console.log("p_id equals", p_id)
                     
-                    navigation.navigate('GuideDrawer',{screen:'PlantSub',params: {plantId: p_id, EnglishName: plants[p_id-1].english_name,LatinName : plants[p_id-1].latin_name,
-                        SwedishName: plants[p_id-1].swedish_name, Description: plants[p_id-1].description,
-                        Sunlight:plants[p_id-1].sunlight, PlantNut:  plants[p_id-1].nutrition, PlantWat: plants[p_id-1].water, ImageUrl:plants[p_id-1].image_url,
-                        PlantName: name, BirthDate: birth_date, Water: water, Replant: replant,
-                        Nutrition: nutrition, Username: username,  PlantRe:  plants[p_id-1].replant,
-                    }});
+                navigation.navigate('PlantSub',{plantId: p_id, EnglishName: plants[p_id-1].english_name,LatinName : plants[p_id-1].latin_name,
+                    SwedishName: plants[p_id-1].swedish_name, Description: plants[p_id-1].description,
+                    Sunlight:plants[p_id-1].sunlight, PlantNut:  plants[p_id-1].nutrition, PlantWat: plants[p_id-1].water, ImageUrl:plants[p_id-1].image_url,
+                    PlantName: name, BirthDate: birth_date, Water: water, Replant: replant,
+                    Nutrition: nutrition, Username: username
+                });
                 }
             }}
             delayLongPress={1500} onLongPress={()=>{Alert.alert(

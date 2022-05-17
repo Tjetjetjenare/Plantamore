@@ -21,7 +21,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator(); 
 
-
 function sendTo(navigation){
   AsyncStorage.getItem('inloggad').then(value =>{
     var val =value 
@@ -77,28 +76,6 @@ const MainStackNavigator = () => {
       })}
       
       />
-    
-      <Stack.Screen name="PlantDB" component={PlantDBProfile} 
-        options={({ navigation }) => ({
-            headerShown: true,
-            headerStyle: {
-            elevation: 0,
-            shadowOpacity: 0,
-            borderBottomWidth: 0,
-            backgroundColor: 'white'
-            },
-            headerLeft: () =>
-            <View>
-            <Ionicons
-                style={{ marginLeft: 10 }}
-                name="chevron-back-outline"
-                color="black"
-                size={35}
-                onPress={() => navigation.navigate('PlantDatabase')}
-            />
-            </View>,
-        })}
-      />
       <Stack.Screen name="GuideMain" component={GuideStackNavigator} 
         options={({ navigation }) => ({
             headerShown: false,
@@ -112,8 +89,7 @@ const PlantDatabaseStackNavigator = () => {
     return (
       <Stack.Navigator
         screenOptions={{
-            title: "Plant Database",
-            gestureEnabled: false,
+          gestureEnabled: false,
         }}
       >
         <Stack.Screen name="PlantDatabase" component={PlantDatabase} 
@@ -123,19 +99,63 @@ const PlantDatabaseStackNavigator = () => {
                 elevation: 0,
                 shadowOpacity: 0,
                 borderBottomWidth: 0,
-                backgroundColor: 'white'
+                backgroundColor: 'white',
                 },
+                title: "Plant Database",
                 headerLeft: () =>
                 <View>
                 <Ionicons
                     style={{ marginLeft: 10 }}
-                    name="menu-outline"
+                    name="chevron-back-outline"
                     color="black"
                     size={30}
-                    onPress={() => navigation.toggleDrawer()}
+                    onPress={() => navigation.navigate("Home")}
                 />
                 </View>,
             })}
+        />
+      <Stack.Screen name="PlantDB" component={PlantDBProfile} 
+        options={({ navigation }) => ({
+            headerShown: true,
+            headerStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+            backgroundColor: 'white',
+            },
+            title: "",
+            headerLeft: () =>
+            <View>
+            <Ionicons
+                style={{ marginLeft: 10 }}
+                name="chevron-back-outline"
+                color="black"
+                size={35}
+                onPress={() => navigation.navigate('PlantDatabase')}
+            />
+            </View>,
+        })}
+      />
+      <Stack.Screen name="GuideDatabasePath" component={Guide} 
+            options={({ navigation }) => ({
+                headerShown: true,
+                headerStyle: {
+                  elevation: 0,
+                  shadowOpacity: 0,
+                  borderBottomWidth: 0,
+                  backgroundColor: '#7E9B6D'
+                },
+                title: "",
+                headerLeft: () =>
+                <View style={{ marginLeft: 10 }}>
+                  <Ionicons
+                    name="chevron-back-outline"
+                    color="black"
+                    size={35}
+                    onPress={() => navigation.goBack()}
+                />
+                </View>,
+              })}
         />
       </Stack.Navigator>
     );
@@ -161,52 +181,13 @@ const PlantDatabaseStackNavigator = () => {
                 headerLeft: () =>
                 <View style={{ marginLeft: 10 }}>
                   <Ionicons
-                    name="menu-outline"
+                    name="close-outline"
                     color="black"
                     size={35}
-                    onPress={() => navigation.toggleDrawer()}
+                    onPress={() => navigation.navigate('Home')}
                 />
                 </View>,
               })}
-        />
-        <Stack.Screen name="PlantSub" component={PlantSubprofile} 
-          options={({ navigation }) => ({
-              headerShown: true,
-              headerStyle: {
-              elevation: 0,
-              shadowOpacity: 0,
-              borderBottomWidth: 0,
-              backgroundColor: 'white'
-              },
-              headerLeft: () =>
-              <View>
-              <Ionicons
-                  style={{ marginLeft: 10 }}
-                  name="chevron-back-outline"
-                  color="black"
-                  size={35}
-                  onPress={() => navigation.navigate('Profile')}
-              />
-              </View>,
-              headerRight: () =>
-              <View>
-              <Ionicons
-                style={{      
-                height: 30, 
-                width: 30, 
-                right: 15,
-                bottom: -12,
-                borderRadius: 20, 
-                justifyContent: "center",
-                alignItems: "center",
-                position: "absolute",}}
-                name="information-circle-outline"
-                color="black"
-                size={30}
-                onPress={() => navigation.navigate('Guide')}
-              />
-            </View>,
-          })}
         />
       </Stack.Navigator>
     );
@@ -219,39 +200,7 @@ const PlantDatabaseStackNavigator = () => {
             title: "",
             gestureEnabled: false,
         }}
-        initialRouteName="Profile"
       >
-        <Stack.Screen name="Profile" component={Profile} 
-            options={({ navigation }) => ({
-                headerShown: true,
-                headerStyle: {
-                  elevation: 0,
-                  shadowOpacity: 0,
-                  borderBottomWidth: 0,
-                  backgroundColor: '#7E9B6D'
-                },
-                headerLeft: () =>
-                <View>
-                  <Ionicons
-                    style={{marginLeft: 10}}
-                    name="menu-outline"
-                    color="black"
-                    size={40}
-                    onPress={() => navigation.toggleDrawer()}
-                />
-                </View>,
-                headerRight: () =>
-                <View>
-                  <Ionicons
-                    style={{marginRight: 10}}
-                    name="calendar-outline"
-                    color="black"
-                    size={35}
-                    onPress={() => navigation.navigate('Calendar')}
-                />
-                </View>,
-              })}
-        />
         <Stack.Screen name="SignUp" component={SignUp} 
         options={({ navigation }) => ({
             headerShown: true,
@@ -294,45 +243,96 @@ const PlantDatabaseStackNavigator = () => {
             </View>,
           })}
       />
-        {/* <Stack.Screen name="PlantSub" component={PlantSubprofile} 
-          options={({ navigation }) => ({
-              headerShown: true,
-              headerStyle: {
-              elevation: 0,
-              shadowOpacity: 0,
-              borderBottomWidth: 0,
-              backgroundColor: 'white'
-              },
-              headerLeft: () =>
-              <View>
-              <Ionicons
-                  style={{ marginLeft: 10 }}
-                  name="chevron-back-outline"
+        <Stack.Screen name="Profile" component={Profile} 
+            options={({ navigation }) => ({
+                headerShown: true,
+                headerStyle: {
+                  elevation: 0,
+                  shadowOpacity: 0,
+                  borderBottomWidth: 0,
+                  backgroundColor: '#7E9B6D'
+                },
+                headerLeft: () =>
+                <View>
+                  <Ionicons
+                    style={{marginLeft: 10}}
+                    name="menu-outline"
+                    color="black"
+                    size={40}
+                    onPress={() => navigation.toggleDrawer()}
+                />
+                </View>,
+                headerRight: () =>
+                <View>
+                  <Ionicons
+                    style={{marginRight: 10}}
+                    name="calendar-outline"
+                    color="black"
+                    size={35}
+                    onPress={() => navigation.navigate('Calendar')}
+                />
+                </View>,
+              })}
+        />
+        <Stack.Screen name="PlantSub" component={PlantSubprofile} 
+            options={({ navigation }) => ({
+                headerShown: true,
+                headerStyle: {
+                elevation: 0,
+                shadowOpacity: 0,
+                borderBottomWidth: 0,
+                backgroundColor: 'white'
+                },
+                headerLeft: () =>
+                <View>
+                <Ionicons
+                    style={{ marginLeft: 10 }}
+                    name="chevron-back-outline"
+                    color="black"
+                    size={35}
+                    onPress={() => navigation.navigate('Profile')}
+                />
+                </View>,
+                headerRight: () =>
+                <View>
+                <Ionicons
+                  style={{      
+                  height: 30, 
+                  width: 30, 
+                  right: 15,
+                  bottom: -12,
+                  borderRadius: 20, 
+                  justifyContent: "center",
+                  alignItems: "center",
+                  position: "absolute",}}
+                  name="information-circle-outline"
                   color="black"
-                  size={35}
-                  onPress={() => navigation.navigate('Profile')}
-              />
+                  size={30}
+                  onPress={() => navigation.navigate('GuideProfilePath')}
+                />
               </View>,
-              headerRight: () =>
-              <View>
-              <Ionicons
-                style={{      
-                height: 30, 
-                width: 30, 
-                right: 15,
-                bottom: -12,
-                borderRadius: 20, 
-                justifyContent: "center",
-                alignItems: "center",
-                position: "absolute",}}
-                name="information-circle-outline"
-                color="black"
-                size={30}
-                onPress={() => navigation.navigate('GuideDrawer', {screen: 'Guide'})}
-              />
-            </View>,
-          })}
-        /> */}
+            })}
+        />
+        <Stack.Screen name="GuideProfilePath" component={Guide} 
+            options={({ navigation }) => ({
+                headerShown: true,
+                headerStyle: {
+                  elevation: 0,
+                  shadowOpacity: 0,
+                  borderBottomWidth: 0,
+                  backgroundColor: '#7E9B6D'
+                },
+                headerLeft: () =>
+                <View style={{ marginLeft: 10 }}>
+                  <Ionicons
+                    name="chevron-back-outline"
+                    color="black"
+                    size={35}
+                    onPress={() => navigation.goBack()}
+                />
+                </View>,
+              })}
+        />
         <Stack.Screen name="CreateSub" component={CreatePlantSubprofile} 
             options={({ navigation }) => ({
             headerShown: true,
@@ -370,7 +370,7 @@ const PlantDatabaseStackNavigator = () => {
                     name="close-outline"
                     color="black"
                     size={40}
-                    onPress={() => navigation.navigate('Profile')}
+                    onPress={() => navigation.goBack()}
                 />
                 </View>,
             })}
@@ -444,80 +444,12 @@ const PlantDatabaseStackNavigator = () => {
       </Stack.Navigator>
     );
   }
-
-  const CalendarStackNavigator = () => {
-    return (
-      <Stack.Navigator
-        screenOptions={{
-            title: "",
-            gestureEnabled: false,
-        }}
-        initialRouteName="Calendar"
-      >
-        <Stack.Screen name="Calendar" component={Calendar} 
-            options={({ navigation }) => ({
-                headerShown: true,
-                headerStyle: {
-                elevation: 0,
-                shadowOpacity: 0,
-                borderBottomWidth: 0,
-                backgroundColor: 'white'
-                },
-                headerLeft: () =>
-                <View>
-                <Ionicons
-                    style={{ marginLeft: 5 }}
-                    name="close-outline"
-                    color="black"
-                    size={40}
-                    onPress={() => navigation.navigate("ProfileDrawer", {screen: "Profile"})}
-                />
-                </View>,
-            })}
-        />
-      </Stack.Navigator>
-    );
-  }
-
-  const CareStackNavigator = () => {
-    return (
-      <Stack.Navigator
-        screenOptions={{
-            title: "",
-            gestureEnabled: false,
-        }}
-        initialRouteName="Care"
-      >
-        <Stack.Screen name="Care" component={BottomTabNavigator} 
-            options={({ navigation }) => ({
-                headerShown: true,
-                headerStyle: {
-                elevation: 0,
-                shadowOpacity: 0,
-                borderBottomWidth: 0,
-                backgroundColor: '#7E9B6D'
-                },
-                headerLeft: () =>
-                <View>
-                <Ionicons
-                    style={{ marginLeft: 10 }}
-                    name="close-outline"
-                    color="black"
-                    size={40}
-                    
-                    onPress={() => navigation.navigate("ProfileDrawer", {screen: "Profile"})}
-                />
-                </View>,
-            })}
-        />
-      </Stack.Navigator>
-    );
-  }
   
   const BottomTabNavigator = () => {
     return (
       <Tab.Navigator
         screenOptions={{
+            gestureEnabled: false,
             headerShown: false,
             tabBarShowLabel: false,
             gestureEnabled: false,
@@ -563,4 +495,4 @@ const PlantDatabaseStackNavigator = () => {
     );
   };
   
-  export { MainStackNavigator, PlantDatabaseStackNavigator, GuideStackNavigator, ProfileStackNavigator, BottomTabNavigator, CalendarStackNavigator, CareStackNavigator };
+  export { MainStackNavigator, PlantDatabaseStackNavigator, GuideStackNavigator, ProfileStackNavigator, BottomTabNavigator };

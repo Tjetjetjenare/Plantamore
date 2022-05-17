@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
     padding:15,
   },
   pt3:{
-    backgroundColor: '#a7cf91',
+    backgroundColor: '#A7CF91',
     padding:15,
   },
   phrases: {
