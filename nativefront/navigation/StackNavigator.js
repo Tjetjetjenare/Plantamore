@@ -106,7 +106,7 @@ const PlantDatabaseStackNavigator = () => {
                 <View>
                 <Ionicons
                     style={{ marginLeft: 10 }}
-                    name="chevron-back-outline"
+                    name="close-outline"
                     color="black"
                     size={30}
                     onPress={() => navigation.navigate("Home")}
