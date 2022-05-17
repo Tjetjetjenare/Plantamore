@@ -99,10 +99,24 @@ const {plantId, EnglishName, LatinName, SwedishName, Description,ImageUrl,PlantN
     }
 
     const age = () => {
-        var today = moment(new Date())
-        var diffYears = today.year() - moment(BirthDate).year()
-        var diffMonths = Math.abs(today.month() - moment(BirthDate).month())
-        var diffDays = Math.abs(today.day() - moment(BirthDate).day())
+        var today = new Date()
+        var bday = new Date(BirthDate)
+        var diffYears = 0
+        var diffMonths = 0
+        var diffDays = 0
+        if (today.getDate()>bday.getDate()){
+            diffDays = today.getDate() - bday.getDate()
+        }else{
+            diffDays = bday.getDate() - (bday.getDate() - today.getDate())
+        }
+        if(today.getMonth()<bday.getMonth() || (today.getMonth()==bday.getMonth() && today.getDate()<bday.getDate())){
+            diffYears = today.getFullYear() - bday.getFullYear() -1
+            diffMonths = bday.getMonth() - (bday.getMonth() - today.getMonth()) + 1 }
+
+        else{
+            diffYears = today.getFullYear() - bday.getFullYear()
+            diffMonths = today.getMonth() - bday.getMonth() + 1
+        }
         return (diffYears+" y "+diffMonths+" m "+diffDays+" d")
     }
   
