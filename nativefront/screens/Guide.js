@@ -4,19 +4,19 @@ import { Ionicons } from "@expo/vector-icons";
 import * as guideText from '../assets/guideText.json'
 
 
-export default function Guide({navigation}) {
+export default function Guide({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar style="auto"/>
+      <StatusBar style="auto" />
       <ScrollView>
         <Text style={styles.header}>Your guide to</Text>
         <View style={styles.imgwrap}>
-           <Image style={styles.logo} source={require("../assets/logo.png")}></Image>
+          <Image style={styles.logo} source={require("../assets/logo.png")}></Image>
         </View>
         <View style={styles.pt1}>
           <Text style={styles.headline1}>About PLANTAMORE</Text>
-          <Text style={styles.body}>{guideText.about}</Text>      
+          <Text style={styles.body}>{guideText.about}</Text>
         </View>
         <View style={styles.pt2}>
           <Text style={styles.headline1}>Terminology</Text>
@@ -40,64 +40,64 @@ export default function Guide({navigation}) {
           <Text style={styles.headline1}>Disclaimer</Text>
           <Text style={styles.body}>{guideText.disc}</Text>
         </View>
-        </ScrollView>
+      </ScrollView>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex:1,
+    flex: 1,
     backgroundColor: '#7E9B6D',
   },
-  header: { 
-    fontSize: 35, 
-    fontWeight: 'bold', 
-    marginTop: 30, 
-    textAlign:"center",
+  header: {
+    fontSize: 35,
+    fontWeight: 'bold',
+    marginTop: 30,
+    textAlign: "center",
   },
-  headline1:{
+  headline1: {
     fontSize: 18,
     fontWeight: 'bold',
   },
-  headline2:{
+  headline2: {
     fontSize: 16,
     marginTop: 5,
     fontWeight: 'bold',
   },
-  body:{
+  body: {
     fontSize: 13,
   },
   symbols: {
     flexDirection: 'row',
   },
-  imgwrap:{
-    width: "80%", 
+  imgwrap: {
+    width: "80%",
     height: 140,
-    borderRadius:20,
-    backgroundColor:"#fff",
+    borderRadius: 20,
+    backgroundColor: "#fff",
     alignSelf: 'center',
-    alignItems:'center',
-    justifyContent:'center',  
+    alignItems: 'center',
+    justifyContent: 'center',
     paddingRight: 20,
-    marginTop:30,
-    marginBottom:30,
+    marginTop: 30,
+    marginBottom: 30,
   },
-  logo:{
+  logo: {
     height: "75%",
     resizeMode: "contain",
   },
-  pt1:{
+  pt1: {
     backgroundColor: '#7E9B6D',
-    padding:15,
+    padding: 15,
   },
-  pt2:{
+  pt2: {
     backgroundColor: '#95b881',
-    padding:15,
+    padding: 15,
   },
-  pt3:{
+  pt3: {
     backgroundColor: '#A7CF91',
-    padding:15,
+    padding: 15,
   },
   phrases: {
     fontWeight: 'bold',

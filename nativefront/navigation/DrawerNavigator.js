@@ -11,8 +11,8 @@ const Drawer = createDrawerNavigator();
 
 const DrawerNavigator = () => {
   return (
-    <Drawer.Navigator drawerContent ={ props => <CustomDrawer {...props} />}
-    screenOptions={{
+    <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />}
+      screenOptions={{
         swipeEnabled: false, //false
         headerTintColor: '#000',
         drawerActiveBackgroundColor: '#FFF',
@@ -23,44 +23,44 @@ const DrawerNavigator = () => {
           fontSize: 15
         },
         drawerStyle: {
-        backgroundColor: 'transparent',
-        width:240
+          backgroundColor: 'transparent',
+          width: 240
         },
       }}
       initialRouteName="HomeDrawer"
-      >
-      
+    >
+
       <Drawer.Screen name="PlantDatabaseDrawer" component={PlantDatabaseStackNavigator}
         options={{
-            title: "Plant Database",
-            drawerIcon: () => (
-              <Ionicons name="leaf-outline" size={25} color={'#000'} />
-            )
-          }}
-      />
-      <Drawer.Screen name="ProfileDrawer" component={ProfileStackNavigator} 
-        options={{
-            title: "Profile",
-            drawerIcon: () => (
-            <Ionicons name="person-outline" size={25} color={'#000'} />
-            )
+          title: "Plant Database",
+          drawerIcon: () => (
+            <Ionicons name="leaf-outline" size={25} color={'#000'} />
+          )
         }}
       />
-      <Drawer.Screen name="HomeDrawer" component={MainStackNavigator} 
+      <Drawer.Screen name="ProfileDrawer" component={ProfileStackNavigator}
         options={{
-            title: "Home",
-            drawerIcon: () => (
-              <Ionicons name="home-outline" size={25} color={'#000'} />
-            )
-          }}
+          title: "Profile",
+          drawerIcon: () => (
+            <Ionicons name="person-outline" size={25} color={'#000'} />
+          )
+        }}
       />
-      <Drawer.Screen name="GuideDrawer" component={GuideStackNavigator} 
+      <Drawer.Screen name="HomeDrawer" component={MainStackNavigator}
         options={{
-            title: "Guide",
-            drawerIcon: () => (
-                <Ionicons name="information-circle-outline" size={25} color={'#000'} />
-            )
-            }}
+          title: "Home",
+          drawerIcon: () => (
+            <Ionicons name="home-outline" size={25} color={'#000'} />
+          )
+        }}
+      />
+      <Drawer.Screen name="GuideDrawer" component={GuideStackNavigator}
+        options={{
+          title: "Guide",
+          drawerIcon: () => (
+            <Ionicons name="information-circle-outline" size={25} color={'#000'} />
+          )
+        }}
       />
     </Drawer.Navigator>
   );

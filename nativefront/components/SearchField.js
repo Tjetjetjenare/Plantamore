@@ -4,12 +4,12 @@ import { TextInput, View, StyleSheet, Text } from 'react-native';
 const SearchField = () => {
     return (
         <View style={styles.container}>
-            <TextInput 
-                style={styles.bar} 
-                placeholder='Search' 
-                onChangeText={(text) => {searchFilterFunction(text)}}
-                placeholderTextColor={"white"}/>
-                
+            <TextInput
+                style={styles.bar}
+                placeholder='Search'
+                onChangeText={(text) => { searchFilterFunction(text) }}
+                placeholderTextColor={"white"} />
+
         </View>
     )
 }
@@ -19,8 +19,8 @@ export default SearchField;
 
 const styles = StyleSheet.create({
     container: {
-        width:"90%",
-        height:50,
+        width: "90%",
+        height: 50,
         opacity: 1,
     },
     bar: {

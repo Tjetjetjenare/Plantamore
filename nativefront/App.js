@@ -6,10 +6,10 @@ import React from "react";
 
 import DrawerNavigator from "./navigation/DrawerNavigator";
 
- const App = () => {
+const App = () => {
   return (
     <NavigationContainer>
-      <DrawerNavigator/>
+      <DrawerNavigator />
     </NavigationContainer>
   );
 }

@@ -1,71 +1,73 @@
-import {React, useState, useEffect, Component} from 'react';
+import { React, useState, useEffect, Component } from 'react';
 import axios from 'axios';
-import {View, ItemSeparatorView, ItemView,SectionList, FlatList, Text, SafeAreaView, StyleSheet } from 'react-native';
+import { View, ItemSeparatorView, ItemView, SectionList, FlatList, Text, SafeAreaView, StyleSheet } from 'react-native';
 
 var plantbaseUrl = null;
 
-if(Platform.OS === "android"){ plantbaseUrl = 'http://10.0.2.2:8000/api/plants/';}
-else{  plantbaseUrl = 'http://127.0.0.1:8000/api/plants/';}
+if (Platform.OS === "android") { plantbaseUrl = 'http://10.0.2.2:8000/api/plants/'; }
+else { plantbaseUrl = 'http://127.0.0.1:8000/api/plants/'; }
 
-  export default function ContactsList({navigation}) {
-   const [Plant, setPlant] = useState([]);
-  useEffect(async() => {
+export default function ContactsList({ navigation }) {
+  const [Plant, setPlant] = useState([]);
+  useEffect(async () => {
     try {
       const response = await axios.get(
-       plantbaseUrl,
+        plantbaseUrl,
       );
       setPlant(response.data);
 
     } catch (error) {
     }
-  },[]);
-   function getData ()  {
-      let nameArr = [];
-      let aCode = "A".charCodeAt(0);
-      for (let i = 0; i < 26; i++) {
-        let currChar = String.fromCharCode(aCode + i);
-        let obj = {
-          title: currChar
-        };
-  
-        let currName = Plant.filter(item => {
-          return item.english_name[0].toUpperCase() === currChar;
-        });
-        if (currName.length > 0) {
-          currName.sort((a, b) => a.english_name.localeCompare(b.english_name));
-          obj.data = currName;
-         nameArr.push(obj);
-        }
-      }
-      return nameArr;
-    };
+  }, []);
+  function getData() {
+    let nameArr = [];
+    let aCode = "A".charCodeAt(0);
+    for (let i = 0; i < 26; i++) {
+      let currChar = String.fromCharCode(aCode + i);
+      let obj = {
+        title: currChar
+      };
 
-    const getItem = ( item) => {
-      // Function for click on an item
-      navigation.navigate("PlantDB", {plantId : item.p_id, EnglishName : item.english_name, LatinName : item.latin_name,
-      SwedishName: item.swedish_name,Description: item.description, Sun : item.sunlight, Water: item.water,
-      Nutrition: item.nutrition, ImageUrl: item.image_url});
+      let currName = Plant.filter(item => {
+        return item.english_name[0].toUpperCase() === currChar;
+      });
+      if (currName.length > 0) {
+        currName.sort((a, b) => a.english_name.localeCompare(b.english_name));
+        obj.data = currName;
+        nameArr.push(obj);
+      }
     }
-    
-      return (
-        <View style={styles.container}>
-          <SectionList
-            sections={getData()}
-            renderItem={({ item }) => (
-              <View style={styles.row}>
-                <Text style={styles.names} onPress={() => getItem(item)}>{item.english_name}</Text>
-              </View>
-            )}
-            renderSectionHeader={({ section }) => (
-              <View style={styles.sectionHeader}>
-                <Text style={styles.letter}>{section.title}</Text>
-              </View>
-            )}
-            keyExtractor={item => item.p_id}
-          />
-        </View>
-      );
-    }
+    return nameArr;
+  };
+
+  const getItem = (item) => {
+    // Function for click on an item
+    navigation.navigate("PlantDB", {
+      plantId: item.p_id, EnglishName: item.english_name, LatinName: item.latin_name,
+      SwedishName: item.swedish_name, Description: item.description, Sun: item.sunlight, Water: item.water,
+      Nutrition: item.nutrition, ImageUrl: item.image_url
+    });
+  }
+
+  return (
+    <View style={styles.container}>
+      <SectionList
+        sections={getData()}
+        renderItem={({ item }) => (
+          <View style={styles.row}>
+            <Text style={styles.names} onPress={() => getItem(item)}>{item.english_name}</Text>
+          </View>
+        )}
+        renderSectionHeader={({ section }) => (
+          <View style={styles.sectionHeader}>
+            <Text style={styles.letter}>{section.title}</Text>
+          </View>
+        )}
+        keyExtractor={item => item.p_id}
+      />
+    </View>
+  );
+}
 
 
 const styles = StyleSheet.create({
