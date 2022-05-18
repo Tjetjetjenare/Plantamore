@@ -5,60 +5,61 @@ import { MainStackNavigator } from "./StackNavigator";
 import { PlantDatabaseStackNavigator } from "./StackNavigator";
 import { GuideStackNavigator } from "./StackNavigator";
 import { ProfileStackNavigator } from "./StackNavigator";
-import CustomDrawer from '../components/CustomDrawer';
+import CustomDrawer from "../components/CustomDrawer";
 
 const Drawer = createDrawerNavigator();
 const DrawerNavigator = () => {
   return (
-    <Drawer.Navigator drawerContent ={ props => 
+    <Drawer.Navigator drawerContent={props =>
       <CustomDrawer {...props} />
     }
       screenOptions={{
-        swipeEnabled: false, //false
-        headerTintColor: '#000',
-        drawerActiveBackgroundColor: '#FFF',
-        drawerActiveTintColor: '#000',
+        swipeEnabled: false, 
+        headerTintColor: "#000",
+        drawerActiveBackgroundColor: "#FFF",
+        drawerActiveTintColor: "#000",
         headerShown: false,
         drawerLabelStyle: {
-          color: '#000',
+          color: "#000",
           fontSize: 15
         },
         drawerStyle: {
-        backgroundColor: 'transparent',
-        width:240
+          backgroundColor: "transparent",
+          width: 240
         },
       }}
       initialRouteName="HomeDrawer"
     >
-    <Drawer.Screen name="PlantDatabaseDrawer" component={PlantDatabaseStackNavigator}
-      options={{
-        title: "Plant Database",
-        drawerIcon: () => (
-          <Ionicons name="leaf-outline" size={25} color={'#000'}/>
-        )
-        }}
-    />
-      <Drawer.Screen name="ProfileDrawer" component={ProfileStackNavigator} 
+
+      <Drawer.Screen name="PlantDatabaseDrawer" component={PlantDatabaseStackNavigator}
         options={{
-          title: "Profile",
+          title: "Plant Database",
           drawerIcon: () => (
-            <Ionicons name="person-outline" size={25} color={'#000'}/>
+            <Ionicons name="leaf-outline" size={25} color={"#000"} />
           )
         }}
       />
-      <Drawer.Screen name="HomeDrawer" component={MainStackNavigator} 
+      <Drawer.Screen name="HomeDrawer" component={MainStackNavigator}
         options={{
           title: "Home",
           drawerIcon: () => (
-            <Ionicons name="home-outline" size={25} color={'#000'}/>
+            <Ionicons name="home-outline" size={25} color={"#000"} />
           )
         }}
       />
-      <Drawer.Screen name="GuideDrawer" component={GuideStackNavigator} 
+      <Drawer.Screen name="ProfileDrawer" component={ProfileStackNavigator}
+        options={{
+          title: "Profile",
+          drawerIcon: () => (
+            <Ionicons name="person-outline" size={25} color={"#000"} />
+          )
+        }}
+      />
+      <Drawer.Screen name="GuideDrawer" component={GuideStackNavigator}
         options={{
           title: "Guide",
           drawerIcon: () => (
-            <Ionicons name="information-circle-outline" size={25} color={'#000'} />
+            <Ionicons name="information-circle-outline" size={25} color={"#000"} />
           )
         }}
       />

@@ -1,7 +1,7 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { View, Image, Platform } from 'react-native';
+import { View, Image, Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Home from '../screens/Home';
 import SignUp from '../screens/SignUp';
@@ -26,8 +26,8 @@ function sendTo(navigation){
     if( val == "true"){
       navigation.navigate('ProfileDrawer', {screen: 'Profile'})
     }
-    else{
-      navigation.navigate('ProfileDrawer', {screen: 'LogIn'})
+    else {
+      navigation.navigate("ProfileDrawer", { screen: "LogIn" })
     }
   });
 }
@@ -71,7 +71,7 @@ const MainStackNavigator = () => {
           </View>
         })}
       />
-      <Stack.Screen name="PlantDBHomePath" component={PlantDBProfile} 
+      <Stack.Screen name="PlantDBHomePath" component={PlantDBProfile}
         options={({ navigation }) => ({
           headerShown: true,
           headerStyle: {
@@ -112,14 +112,14 @@ const MainStackNavigator = () => {
           </View>,
         })}
       />
-      <Stack.Screen name="GuideMain" component={Guide} 
+      <Stack.Screen name="GuideMain" component={Guide}
         options={({ navigation }) => ({
           headerShown: true,
           headerStyle: {
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 0,
-            backgroundColor: '#7E9B6D'
+            backgroundColor: "#7E9B6D"
           },
           title: "",
           headerLeft: () =>

@@ -1,14 +1,14 @@
-import {React, useState, useEffect} from 'react';
-import axios from 'axios';
-import {View, SectionList, Text, StyleSheet } from 'react-native';
+import { React, useState, useEffect } from "react";
+import axios from "axios";
+import { View, SectionList, Text, StyleSheet } from "react-native";
 
 var plantbaseUrl = null;
-if(Platform.OS === "android"){ plantbaseUrl = 'http://10.0.2.2:8000/api/plants/';}
-else{  plantbaseUrl = 'http://127.0.0.1:8000/api/plants/';}
+if (Platform.OS === "android") { plantbaseUrl = "http://10.0.2.2:8000/api/plants/"; }
+else { plantbaseUrl = "http://127.0.0.1:8000/api/plants/"; }
 
-export default function ContactsList({navigation}) {
+export default function ContactsList({ navigation }) {
   const [Plant, setPlant] = useState([]);
-  useEffect(async() => {
+  useEffect(async () => {
     try {
       const response = await axios.get(
         plantbaseUrl,
@@ -17,8 +17,8 @@ export default function ContactsList({navigation}) {
     }
     catch (error) {
     }
-  },[]);
-  function getData ()  {
+  }, []);
+  function getData() {
     let nameArr = [];
     let aCode = "A".charCodeAt(0);
     for (let i = 0; i < 26; i++) {
@@ -37,12 +37,14 @@ export default function ContactsList({navigation}) {
     }
     return nameArr;
   };
-  const getItem = ( item) => {
-    navigation.navigate("PlantDB", {plantId : item.p_id, EnglishName : item.english_name, LatinName : item.latin_name,
-    SwedishName: item.swedish_name,Description: item.description, Sun : item.sunlight, Water: item.water,
-    Nutrition: item.nutrition, ImageUrl: item.image_url});
+  const getItem = (item) => {
+    navigation.navigate("PlantDB", {
+      plantId: item.p_id, EnglishName: item.english_name, LatinName: item.latin_name,
+      SwedishName: item.swedish_name, Description: item.description, Sun: item.sunlight, Water: item.water,
+      Nutrition: item.nutrition, ImageUrl: item.image_url
+    });
   }
-    
+
   return (
     <View style={styles.container}>
       <SectionList
@@ -69,7 +71,7 @@ export default function ContactsList({navigation}) {
 
 const styles = StyleSheet.create({
   background: {
-    backgroundColor: '#FFF',
+    backgroundColor: "#FFF",
     flex: 1,
   },
   container: {
@@ -80,7 +82,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20
   },
   letter: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 20,
   },
   names: {

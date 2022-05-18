@@ -1,10 +1,10 @@
-import React from 'react';
-import { TouchableOpacity, StyleSheet, Text } from 'react-native';
+import React from "react";
+import { TouchableOpacity, StyleSheet, Text } from "react-native";
 
-function StandardButton({functionOnPress, title, sizeFont}) {
+function StandardButton({ functionOnPress, title, sizeFont }) {
     return (
         <TouchableOpacity style={styles.outer} onPress={functionOnPress}>
-            <Text style={{textAlign: "center", fontSize: sizeFont}}>
+            <Text style={{ textAlign: "center", fontSize: sizeFont }}>
                 {title}
             </Text>
         </TouchableOpacity>

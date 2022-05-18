@@ -1,21 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import React,{useState,useEffect} from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Alert } from 'react-native';
-import StandardButton from '../components/StandardButton';
-import axios from "axios"
-import { TextInput } from 'react-native-paper';
+import { StatusBar } from "expo-status-bar";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Alert } from "react-native";
+import StandardButton from "../components/StandardButton";
+import axios from "axios";
+import { TextInput } from "react-native-paper";
 
 var userbaseUrl = null;
-if(Platform.OS === "android"){ userbaseUrl = 'http://10.0.2.2:8000/api/users/';}
-else{  userbaseUrl = 'http://127.0.0.1:8000/api/users/';}
-function SignUp({navigation}) {
+if (Platform.OS === "android") { userbaseUrl = "http://10.0.2.2:8000/api/users/"; }
+else { userbaseUrl = "http://127.0.0.1:8000/api/users/"; }
+function SignUp({ navigation }) {
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isLoading, setIsLoading] = useState(false);
     const [isSecurePassword, setIsSecurePassword] = useState(true)
-    const [existingUsers,setExistingUsers] = useState({})
-    useEffect(async() => {
+    const [existingUsers, setExistingUsers] = useState({})
+    useEffect(async () => {
         try {
             const response = await axios.get(
                 userbaseUrl,
@@ -24,7 +24,7 @@ function SignUp({navigation}) {
         }
         catch (error) {
         }
-    },[]);
+    }, []);
     const onChangeNameHandler = (fullName) => {
         setFullName(fullName);
     };
@@ -36,52 +36,52 @@ function SignUp({navigation}) {
     };
     const onSubmitFormHandler = async (event) => {
         if (!fullName.trim() || !email.trim() || !password.trim()) {
-            Alert.alert("Error","The name or email is invalid. Make sure that your username is under 50 characters and that you have used a valid email");
-        return;
+            Alert.alert("Error", "The name or email is invalid. Make sure that your username is under 50 characters and that you have used a valid email");
+            return;
         }
         setIsLoading(true);
         try {
-            var id = parseInt(existingUsers[existingUsers.length-1].u_id)+1
+            var id = parseInt(existingUsers[existingUsers.length - 1].u_id) + 1
             var str = "" + id
             var pad = "000"
             var ans = pad.substring(0, pad.length - str.length) + str
-            let data ={
-                u_id : ans,
+            let data = {
+                u_id: ans,
                 username: fullName,
                 email: email,
                 password: password,
                 profile_picture: 1,
-                
+
             }
-            const response = await axios.post(userbaseUrl, data,{'Content-Type': 'application/json'});
+            const response = await axios.post(userbaseUrl, data, { "Content-Type": "application/json" });
             if (response.status === 201) {
-                navigation.navigate('ProfileDrawer', {screen: 'LogIn'})
+                navigation.navigate("ProfileDrawer", { screen: "LogIn" })
                 setIsLoading(false);
-                setFullName('');
-                setEmail('');
-                setPassword('');
+                setFullName("");
+                setEmail("");
+                setPassword("");
             }
             else {
                 throw new Error("An error has occurred");
             }
         }
         catch (error) {
-            Alert.alert("Error","This email is already registered, please use another email");
+            Alert.alert("Error", "This email is already registered, please use another email");
             setIsLoading(false);
         }
     };
     return (
         <SafeAreaView style={styles.background}>
-            <StatusBar style="auto"/>   
-            <Text style= {styles.header}>
+            <StatusBar style="auto" />
+            <Text style={styles.header}>
                 Create account
             </Text>
             <View style={styles.placeholderContainer}>
                 <TextInput
-                    style = {styles.inputName}
-                    placeholder = "Name"
+                    style={styles.inputName}
+                    placeholder="Name"
                     mode="outlined"
-                    theme={{roundness: 30, colors: {primary: 'black'}}}
+                    theme={{ roundness: 30, colors: { primary: "black" } }}
                     value={fullName}
                     placeholderTextColor={"#908E8E"}
                     editable={!isLoading}
@@ -90,10 +90,10 @@ function SignUp({navigation}) {
             </View>
             <View style={styles.placeholderContainer}>
                 <TextInput
-                    style = {styles.inputName}
-                    placeholder = "Email"
+                    style={styles.inputName}
+                    placeholder="Email"
                     mode="outlined"
-                    theme={{roundness: 30, colors: {primary: 'black'}}}
+                    theme={{ roundness: 30, colors: { primary: "black" } }}
                     value={email}
                     onChangeText={onChangeEmailHandler}
                     editable={!isLoading}
@@ -102,27 +102,27 @@ function SignUp({navigation}) {
             </View>
             <View style={styles.placeholderContainer}>
                 <TextInput
-                    style = {styles.inputName}
-                    placeholder = "Password"
+                    style={styles.inputName}
+                    placeholder="Password"
                     value={password}
                     mode="outlined"
-                    theme={{roundness: 30, colors: {primary: 'black'}}}
+                    theme={{ roundness: 30, colors: { primary: "black" } }}
                     onChangeText={onChangePasswordHandler}
-                    secureTextEntry={isSecurePassword}               
+                    secureTextEntry={isSecurePassword}
                     editable={!isLoading}
                     placeholderTextColor={"#908E8E"}
                     place
-                    right={  
-                        <TextInput.Icon onPress={() => { setIsSecurePassword((prev) => !prev)}} size={30} name={!isSecurePassword? "eye-outline" : "eye-off-outline"}/>
+                    right={
+                        <TextInput.Icon onPress={() => { setIsSecurePassword((prev) => !prev) }} size={30} name={!isSecurePassword ? "eye-outline" : "eye-off-outline"} />
                     }
                 />
             </View>
             <View style={styles.signUpWrap}>
-                <StandardButton sizeFont={20} title="Sign up" functionOnPress={onSubmitFormHandler}/> 
+                <StandardButton sizeFont={20} title="Sign up" functionOnPress={onSubmitFormHandler} />
             </View>
             <View style={styles.termsAndConditions}>
-                <Text style={{justifyContent:'flex-end'}}>
-                    By signing up you agree to the 
+                <Text style={{ justifyContent: "flex-end" }}>
+                    By signing up you agree to the
                     <TouchableOpacity onPress={() => Alert.alert("Terms and conditions", "PLANTAMORE is not responsible for the survival of your plants")}>
                         <Text style={styles.tocText}>
                             Terms and conditions
@@ -138,48 +138,48 @@ export default SignUp;
 
 const styles = StyleSheet.create({
     arrowContainer: {
-        height: 30, 
-        width: 30, 
+        height: 30,
+        width: 30,
         marginLeft: 15,
-        marginTop: 10,  
+        marginTop: 10,
     },
     background: {
-        backgroundColor: '#7E9B6D',
-        flex: 1, 
+        backgroundColor: "#7E9B6D",
+        flex: 1,
     },
     baseContainer: {
-        flex: 3, 
-        alignItems: 'center',
-        justifyContent: "center", 
+        flex: 3,
+        alignItems: "center",
+        justifyContent: "center",
     },
     eye: {
-        position: 'absolute', 
+        position: "absolute",
     },
     header: {
-        marginLeft: 35, 
-        fontSize: 35, 
-        fontWeight: 'bold', 
-        marginTop: 40, 
+        marginLeft: 35,
+        fontSize: 35,
+        fontWeight: "bold",
+        marginTop: 40,
     },
     inputName: {
-        marginTop: -10, 
+        marginTop: -10,
         marginLeft: 30,
         marginRight: 30,
         borderRadius: 30,
         height: 50,
-        width: 360,  
+        width: 360,
     },
     placeholderContainer: {
-        marginTop: 30, 
+        marginTop: 30,
         marginLeft: 30,
         marginRight: 30,
-        borderRadius: 30, 
+        borderRadius: 30,
         height: 50,
         width: 360,
-        alignItems: "center"  
+        alignItems: "center"
     },
-    signUpWrap:{
-        alignSelf: 'center',
+    signUpWrap: {
+        alignSelf: "center",
         width: "60%",
         height: 40,
         margin: 40,
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
     },
     tocText: {
-        textDecorationLine: 'underline',
+        textDecorationLine: "underline",
         top: 2,
     }
 })

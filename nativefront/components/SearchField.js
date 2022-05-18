@@ -1,13 +1,13 @@
-import React from 'react';
-import { TextInput, View, StyleSheet} from 'react-native';
+import React from "react";
+import { TextInput, View, StyleSheet } from "react-native";
 
 const SearchField = () => {
     return (
         <View style={styles.container}>
-            <TextInput 
-                style={styles.bar} 
-                placeholder='Search' 
-                onChangeText={(text) => {searchFilterFunction(text)}}
+            <TextInput
+                style={styles.bar}
+                placeholder="Search"
+                onChangeText={(text) => { searchFilterFunction(text) }}
                 placeholderTextColor={"white"}
             />
         </View>

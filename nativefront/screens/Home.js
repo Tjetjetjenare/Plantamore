@@ -1,26 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import React,{ useState, useEffect } from 'react';
-import {KeyboardAvoidingView, SafeAreaView, FlatList, StyleSheet, Image, Text, View, TextInput, TouchableOpacity } from 'react-native';
-import StandardButton from '../components/StandardButton';
-import axios from 'axios';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { StatusBar } from "expo-status-bar";
+import React, { useState, useEffect } from "react";
+import { KeyboardAvoidingView, SafeAreaView, FlatList, StyleSheet, Image, Text, View, TextInput, TouchableOpacity } from "react-native";
+import StandardButton from "../components/StandardButton";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 
 var plantbaseUrl = null;
-if(Platform.OS === "android"){ plantbaseUrl = 'http://10.0.2.2:8000/api/plants/';}
-else{  plantbaseUrl = 'http://127.0.0.1:8000/api/plants/';}
+if (Platform.OS === "android") { plantbaseUrl = "http://10.0.2.2:8000/api/plants/"; }
+else { plantbaseUrl = "http://127.0.0.1:8000/api/plants/"; }
 
-function Home({navigation}) {
+function Home({ navigation }) {
   const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
-  const [search, setSearch] = useState('');
-  const [logd, setLogd] = useState('');
+  const [search, setSearch] = useState("");
+  const [logd, setLogd] = useState("");
   const isFocused = useIsFocused();
-  useEffect(async() => {
-    if(isFocused){
-      AsyncStorage.getItem('inloggad').then(value =>
-        setLogd(value )
+  useEffect(async () => {
+    if (isFocused) {
+      AsyncStorage.getItem("inloggad").then(value =>
+        setLogd(value)
       );
     }
     try {
@@ -33,27 +33,27 @@ function Home({navigation}) {
     catch (error) {
       console.error(error);
     }
-  },[logd,isFocused]);
+  }, [logd, isFocused]);
   const SearchField = () => {
     return (
       <View style={styles.container2}>
-        <TextInput 
-          style={styles.bar} 
-          placeholder='Search' 
+        <TextInput
+          style={styles.bar}
+          placeholder="Search"
           onChangeText={(text) => searchFilterFunction(text)}
-          value= {search}
+          value={search}
           placeholderTextColor={"white"}
-        />      
+        />
       </View>
     )
   }
   const SearchList = () => {
-    if (search.length < 1){
+    if (search.length < 1) {
       return
     }
-    else{
-      return(
-        <View style = {styles.scroll}>
+    else {
+      return (
+        <View style={styles.scroll}>
           <FlatList
             data={filteredDataSource}
             keyExtractor={(item, index) => index.toString()}
@@ -65,22 +65,22 @@ function Home({navigation}) {
     }
   };
   const ButtonWrap = () => {
-    if (logd == 'false'){
-      return(
+    if (logd == "false") {
+      return (
         <View style={styles.buttonWrapper}>
           <View style={styles.loginWrap}>
-            <StandardButton sizeFont={20} title="Log in" functionOnPress={() => navigation.navigate('ProfileDrawer', {screen: 'LogIn'})} />
+            <StandardButton sizeFont={20} title="Log in" functionOnPress={() => navigation.navigate("ProfileDrawer", { screen: "LogIn" })} />
           </View>
           <View style={styles.loginWrap}>
-            <StandardButton sizeFont={20} title="Sign up" functionOnPress={() => navigation.navigate('ProfileDrawer', {screen:'SignUp'})}/>
+            <StandardButton sizeFont={20} title="Sign up" functionOnPress={() => navigation.navigate("ProfileDrawer", { screen: "SignUp" })} />
           </View>
         </View>
       )
     }
-    else{
-      return(
-        <TouchableOpacity onPress={() => navigation.navigate('GuideMain')} style={styles.careGuideOPA}>
-          <Ionicons style={styles.careGuideIcon} name="information-circle-outline" size={28} color={'#FFF'} />
+    else {
+      return (
+        <TouchableOpacity onPress={() => navigation.navigate("GuideMain")} style={styles.careGuideOPA}>
+          <Ionicons style={styles.careGuideIcon} name="information-circle-outline" size={28} color={"#FFF"} />
           <Text style={styles.careGuideButton}>Care Guide</Text>
         </TouchableOpacity>
       )
@@ -91,7 +91,7 @@ function Home({navigation}) {
       const newData = masterDataSource.filter(function (item) {
         const itemData = item.english_name
           ? item.english_name.toUpperCase()
-          : ''.toUpperCase();
+          : "".toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;
       });
@@ -117,23 +117,25 @@ function Home({navigation}) {
       <View
         style={{
           height: 0.5,
-          width: '100%',
-          backgroundColor: '#C8C8C8',
+          width: "100%",
+          backgroundColor: "#C8C8C8",
         }}
       />
     );
   };
   const getItem = (item) => {
-    navigation.navigate("PlantDBHomePath", {plantId: item.p_id, EnglishName: item.english_name, LatinName: item.latin_name,
-    SwedishName: item.swedish_name,Description: item.description, Sun: item.sunlight, Water: item.water,
-    Nutrition: item.nutrition, ImageUrl: item.image_url});
+    navigation.navigate("PlantDBHomePath", {
+      plantId: item.p_id, EnglishName: item.english_name, LatinName: item.latin_name,
+      SwedishName: item.swedish_name, Description: item.description, Sun: item.sunlight, Water: item.water,
+      Nutrition: item.nutrition, ImageUrl: item.image_url
+    });
   };
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar style="auto"/>
+      <StatusBar style="auto" />
       <View style={styles.greenAccent} />
-      <Image style={styles.logo} source={require("../assets/logo.png")}/>
-      <View style= {styles.searchContainer}>
+      <Image style={styles.logo} source={require("../assets/logo.png")} />
+      <View style={styles.searchContainer}>
         {SearchField()}
         {SearchList()}
       </View>
@@ -153,41 +155,41 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     textAlign: "center",
     opacity: 0.4,
-    position: 'absolute',
+    position: "absolute",
     top: 20,
   },
   burgerMenu: {
     height: 30,
     width: 30,
-    position: 'absolute',
+    position: "absolute",
     top: 20,
     left: 20,
   },
   buttonWrapper: {
     alignItems: "center",
     position: "absolute",
-    top: 390, 
+    top: 390,
   },
   careGuideButton: {
-    textDecorationLine: 'underline',
-    fontSize: 27, 
-    color: '#fff',
-    alignSelf: 'center',
+    textDecorationLine: "underline",
+    fontSize: 27,
+    color: "#fff",
+    alignSelf: "center",
   },
   careGuideIcon: {
     top: 35,
     left: -30,
   },
   careGuideOPA: {
-    textDecorationLine: 'underline',
+    textDecorationLine: "underline",
     fontSize: 23,
     top: 180,
   },
   container: {
-    flex:1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
   container2: {
     width: "90%",
@@ -196,7 +198,7 @@ const styles = StyleSheet.create({
   },
   container3: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   greenAccent: {
     position: "absolute",
@@ -205,7 +207,7 @@ const styles = StyleSheet.create({
     width: "300%",
     height: "100%",
     backgroundColor: "#7E9B6D",
-    transform: [{rotate: '-30deg'}],
+    transform: [{ rotate: "-30deg" }],
   },
   item: {
     padding: 5,
@@ -215,7 +217,7 @@ const styles = StyleSheet.create({
   itemStyle: {
     padding: 5,
     margin: 5,
-    color: 'white'
+    color: "white"
   },
   loginWrap: {
     width: "200%",
@@ -231,25 +233,25 @@ const styles = StyleSheet.create({
   profileButton: {
     height: 30,
     width: 30,
-    position: 'absolute',
+    position: "absolute",
     top: 20,
     right: 20,
   },
-  scroll:{
+  scroll: {
     height: "280%",
     width: "90%",
     marginTop: 51,
     borderRadius: 20,
     textAlign: "center",
     opacity: 1,
-    position: 'absolute',
+    position: "absolute",
     top: 20,
-    backgroundColor: 'gray',
+    backgroundColor: "gray",
   },
   searchContainer: {
     width: "95%",
-    alignItems: 'center',
-    position: 'absolute',
+    alignItems: "center",
+    position: "absolute",
     top: 200,
   },
 })
