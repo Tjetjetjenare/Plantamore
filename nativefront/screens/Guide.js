@@ -3,9 +3,7 @@ import React from 'react'
 import { Ionicons } from "@expo/vector-icons";
 import * as guideText from '../assets/guideText.json'
 
-
 export default function Guide({ navigation }) {
-
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
@@ -50,6 +48,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#7E9B6D',
   },
+  body: {
+    fontSize: 13,
+  },
   header: {
     fontSize: 35,
     fontWeight: 'bold',
@@ -64,12 +65,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginTop: 5,
     fontWeight: 'bold',
-  },
-  body: {
-    fontSize: 13,
-  },
-  symbols: {
-    flexDirection: 'row',
   },
   imgwrap: {
     width: "80%",
@@ -87,6 +82,9 @@ const styles = StyleSheet.create({
     height: "75%",
     resizeMode: "contain",
   },
+  phrases: {
+    fontWeight: 'bold',
+  },
   pt1: {
     backgroundColor: '#7E9B6D',
     padding: 15,
@@ -99,7 +97,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#A7CF91',
     padding: 15,
   },
-  phrases: {
-    fontWeight: 'bold',
-  }
+  symbols: {
+    flexDirection: 'row',
+  },
 })

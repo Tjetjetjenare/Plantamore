@@ -4,6 +4,7 @@ import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from "@react-navigation/native";
 import moment from 'moment';
+
 const myPlants = [];
 var plantUrl = null;
 var subPlantUrl = null;
@@ -23,42 +24,50 @@ else {
     plantUrl = 'http://127.0.0.1:8000/api/plants/';
     userUrl = 'http://127.0.0.1:8000/api/users/'
 }
-
 const Item = ({ id, name, birth_date, water, replant, nutrition, p_id, username, plants, navigation }) => {
-
     const addIfSummer = () => {
         var amplify = 1
         var today = moment(new Date())
         if (today.isBetween(moment().year().toString() + "-05-01", moment().year().toString() + "-09-30")) {
             amplify = 0.8;
         }
-        return (amplify)
+        return (
+            amplify
+        )
     }
-
     const daysUntilWater = () => {
         var amplify = addIfSummer()
         var today = moment(new Date())
         var lastWater = moment(water)
         if (plants[p_id - 1].water == 'Sparingly') {
             var shouldWater = lastWater.add(Math.floor(19 * amplify), 'days')
-        } else if (plants[p_id - 1].water == 'Generously') {
+        }
+        else if (plants[p_id - 1].water == 'Generously') {
             var shouldWater = lastWater.add(Math.floor(4 * amplify), 'days')
         }
-        else { var shouldWater = lastWater.add(Math.floor(7 * amplify), 'days') }
+        else {
+            var shouldWater = lastWater.add(Math.floor(7 * amplify), 'days')
+        }
         var displayWater = shouldWater.diff(today, 'days')
-        if (displayWater <= 0) { displayWater = 'today!' }
-        else { displayWater = 'in ' + displayWater + ' days' }
-        return (displayWater)
+        if (displayWater <= 0) {
+            displayWater = 'today!'
+        }
+        else {
+            displayWater = 'in ' + displayWater + ' days'
+        }
+        return (
+            displayWater
+        )
     }
     const monthsUntilReplant = () => {
         var today = moment(new Date())
         var lastReplant = moment(replant)
         var betweenReplants = plants[p_id - 1].replant
         var shouldReplant = lastReplant.add(betweenReplants, "months")
-
         if (shouldReplant.year() == moment().year() && today.isAfter(moment().year().toString() + "06-30")) {
             var willReplant = (shouldReplant.year() + 1).toString() + "-04-01"
-        } else {
+        }
+        else {
             if (shouldReplant.isBetween(moment().year().toString() + "-01-01", shouldReplant.year().toString() + "-10-01")) {
                 var willReplant = shouldReplant.year().toString() + "-04-01"
             }
@@ -66,21 +75,22 @@ const Item = ({ id, name, birth_date, water, replant, nutrition, p_id, username,
                 var willReplant = (shouldReplant.year() + 1).toString() + "-04-01"
             }
         }
-
         var displayReplant = moment(willReplant).diff(today, "months")
-
         if (displayReplant <= 0) {
             displayReplant = 'this month!'
         }
         else {
             displayReplant = 'in ' + displayReplant + ' months'
         }
-        return (displayReplant)
+        return (
+            displayReplant
+        )
     }
     const timeUntilNuttrition = () => {
         if (nutrition <= 1) {
             var time = "Next time you water"
-        } else {
+        }
+        else {
             var time = "In " + nutrition + " waterings"
         }
         return time
@@ -93,20 +103,18 @@ const Item = ({ id, name, birth_date, water, replant, nutrition, p_id, username,
                     if (id == "add") {
                         navigation.navigate('CreateSub')
                     }
-
-                }}>
+                }}
+            >
                 <View style={styles.item}>
-                    <Text style={styles.title}>{name}</Text>
-                    <Image style={styles.image}
-                        source={require("../assets/plus.png")
-                        }>
-                    </Image>
+                    <Text style={styles.title}>
+                        {name}
+                    </Text>
+                    <Image style={styles.image} source={require("../assets/plus.png")} />
                 </View>
             </TouchableOpacity>
         )
     }
     else {
-
         return (
             <TouchableOpacity
                 onPress={() => {
@@ -114,71 +122,60 @@ const Item = ({ id, name, birth_date, water, replant, nutrition, p_id, username,
                         navigation.navigate('CreateSub')
                     }
                     else {
-                        console.log("p_id equals", p_id)
-
                         navigation.navigate('PlantSub', {
                             plantId: p_id, EnglishName: plants[p_id - 1].english_name, LatinName: plants[p_id - 1].latin_name,
                             SwedishName: plants[p_id - 1].swedish_name, Description: plants[p_id - 1].description,
                             Sunlight: plants[p_id - 1].sunlight, PlantNut: plants[p_id - 1].nutrition, PlantWat: plants[p_id - 1].water, ImageUrl: plants[p_id - 1].image_url,
-                            PlantName: name, BirthDate: birth_date, Water: water, Replant: replant,
-                            Nutrition: nutrition, Username: username
+                            PlantName: name, BirthDate: birth_date, Water: water, Replant: replant, Nutrition: nutrition, Username: username
                         });
                     }
                 }}
                 delayLongPress={1500} onLongPress={() => {
-                    Alert.alert(
-                        "Delete",
-                        "Are you sure you want to remove " + name + "?",
-                        [
-                            {
-                                text: "No",
-                                onPress: () => console.log("Cancel Pressed"),
-                                style: "cancel"
-                            },
-                            {
-                                text: "Yes", onPress: () => axios.delete(subPlantUrl + (id))
-                                    .then(() => console.log("DELETETED"))
-                            }
+                    Alert.alert("Delete!", "Are you sure you want to remove " + name + "?",
+                        [{
+                            text: "No",
+                            onPress: () => console.log("Cancel Pressed"),
+                            style: "cancel"
+                        },
+                        {
+                            text: "Yes", onPress: () => axios.delete(subPlantUrl + (id))
+                                .then(() => console.log("DELETETED"))
+                        }
                         ]
-                    ); ref = !ref; console.log(ref)
-                }} activeOpacity={0.6}>
+                    );
+                    ref = !ref; console.log(ref)
+                }} activeOpacity={0.6}
+            >
                 <View style={styles.item}>
-                    <Text style={styles.title}>{name}</Text>
-                    <Image style={styles.image}
-                        source={{
-                            uri: `${plants[p_id - 1].image_url}`
-                        }}>
-                    </Image>
+                    <Text style={styles.title}>
+                        {name}
+                    </Text>
+                    <Image style={styles.image} source={{ uri: `${plants[p_id - 1].image_url}` }} />
                     <View style={{ paddingTop: 10 }}>
                         <View style={styles.innerSpec}>
-                            <Image
-                                style={styles.specIcon}
-                                source={require("../assets/drop.png")}>
-                            </Image>
-                            <Text> {daysUntilWater()} </Text>
+                            <Image style={styles.specIcon} source={require("../assets/drop.png")} />
+                            <Text>
+                                {daysUntilWater()}
+                            </Text>
                         </View>
                         <View style={styles.innerSpec}>
-                            <Image
-                                style={styles.specIconNutrition}
-                                source={require("../assets/nutritionFlask.png")}>
-                            </Image>
-                            <Text>{timeUntilNuttrition()}</Text>
+                            <Image style={styles.specIconNutrition} source={require("../assets/nutritionFlask.png")} />
+                            <Text>
+                                {timeUntilNuttrition()}
+                            </Text>
                         </View>
                         <View style={styles.innerSpec}>
-                            <Image
-                                style={styles.specIcon}
-                                source={require("../assets/replant.png")}>
-                            </Image>
-                            <Text>{monthsUntilReplant()}</Text>
+                            <Image style={styles.specIcon} source={require("../assets/replant.png")} />
+                            <Text>
+                                {monthsUntilReplant()}
+                            </Text>
                         </View>
                     </View>
                 </View>
             </TouchableOpacity>
-
         );
     }
 }
-
 const DATA = [
     {
         id: '13',
@@ -246,104 +243,73 @@ const DATA = [
 
     },
 ];
-
-
 const renderImg = (number) => {
     if (number == 1) {
         return (
-            <Image
-                style={styles.profilePic}
-                source={require("../assets/profileTest.png")}>
-            </Image>)
+            <Image style={styles.profilePic} source={require("../assets/profileTest.png")} />
+        )
     }
     else if (number == 2) {
         return (
-            <Image
-                style={styles.profilePic}
-                source={require("../assets/Elaf.png")}>
-            </Image>)
+            <Image style={styles.profilePic} source={require("../assets/Elaf.png")} />
+        )
     }
     else if (number == 3) {
         return (
-            <Image
-                style={styles.profilePic}
-                source={require("../assets/Emma.png")}>
-            </Image>)
+            <Image style={styles.profilePic} source={require("../assets/Emma.png")} />
+        )
     }
     else if (number == 4) {
         return (
-            <Image
-                style={styles.profilePic}
-                source={require("../assets/Hannah.png")}>
-            </Image>)
+            <Image style={styles.profilePic} source={require("../assets/Hannah.png")} />
+        )
     }
     else if (number == 5) {
         return (
-            <Image
-                style={styles.profilePic}
-                source={require("../assets/John.png")}>
-            </Image>)
+            <Image style={styles.profilePic} source={require("../assets/John.png")} />
+        )
     }
     else if (number == 6) {
         return (
-            <Image
-                style={styles.profilePic}
-                source={require("../assets/Kent.png")}>
-            </Image>)
+            <Image style={styles.profilePic} source={require("../assets/Kent.png")} />
+        )
     }
     else if (number == 7) {
         return (
-            <Image
-                style={styles.profilePic}
-                source={require("../assets/Kerstin.png")}>
-            </Image>)
+            <Image style={styles.profilePic} source={require("../assets/Kerstin.png")} />
+        )
     }
     else if (number == 8) {
         return (
-            <Image
-                style={styles.profilePic}
-                source={require("../assets/Max.png")}>
-            </Image>)
+            <Image style={styles.profilePic} source={require("../assets/Max.png")} />
+        )
     }
     else if (number == 9) {
         return (
-            <Image
-                style={styles.profilePic}
-                source={require("../assets/Olaf.png")}>
-            </Image>)
+            <Image style={styles.profilePic} source={require("../assets/Olaf.png")} />
+        )
     }
     else if (number == 10) {
         return (
-            <Image
-                style={styles.profilePic}
-                source={require("../assets/Pelle.png")}>
-            </Image>)
+            <Image style={styles.profilePic} source={require("../assets/Pelle.png")} />
+        )
     }
     else if (number == 11) {
         return (
-            <Image
-                style={styles.profilePic}
-                source={require("../assets/Sam.png")}>
-            </Image>)
+            <Image style={styles.profilePic} source={require("../assets/Sam.png")} />
+        )
     }
     else if (number == 12) {
         return (
-            <Image
-                style={styles.profilePic}
-                source={require("../assets/Tom.png")}>
-            </Image>)
+            <Image style={styles.profilePic} source={require("../assets/Tom.png")} />
+        )
     }
     else if (number == 13) {
         return (
-            <Image
-                style={styles.profilePic}
-                source={require("../assets/Anna.png")}>
-            </Image>)
+            <Image style={styles.profilePic} source={require("../assets/Anna.png")} />
+        )
     }
-
 };
-
-
 function findMyPlants(userPlants, username) {
     myPlants.length = 0
     for (var i = 0; i < userPlants.length; i++) {
@@ -357,10 +323,7 @@ function findMyPlants(userPlants, username) {
     })
     return myPlants
 }
-
-
 function Profile({ navigation }) {
-
     const [userPlants, setUserPlants] = useState("");
     const [users, setUsers] = useState("");
     const [userId, setUserId] = useState("");
@@ -372,16 +335,11 @@ function Profile({ navigation }) {
     const [show, setShow] = useState(false);
     useEffect(async () => {
         AsyncStorage.getItem('MyName').then(value =>
-            //AsyncStorage returns a promise so adding a callback to get the value
             setUsername(value)
-
-            //Setting the value in Text
         );
         AsyncStorage.getItem('propic').then(value =>
             setProfileP(value)
         );
-        //Lite sådär men okej tkr jag
-
         try {
             const response = await axios.get(
                 subPlantUrl,
@@ -398,23 +356,16 @@ function Profile({ navigation }) {
             for (var i = 0; i < response3.data.length; i++) {
                 if (response3.data[i].username == username) {
                     setUserId(i)
-                    // profileP = response3.data[i].profile_picture
                 }
             }
-        } catch (error) {
-            console.log("Jästrar")
-            console.log(error)
-            // handle error
+        }
+        catch (error) {
         }
     }, [isFocused, myPlants, refreshing, show]);
-
     const ItemPic = ({ title, pic, id }) => (
-        <View style={styles.items2}>
+        <View style={styles.items}>
             <TouchableOpacity style={styles.image2} onPress={() => { updateDB(id), test() }}>
-
-                <Image style={styles.image2}
-                    source={pic}>
-                </Image>
+                <Image style={styles.image2} source={pic} />
             </TouchableOpacity>
         </View>
     );
@@ -434,30 +385,30 @@ function Profile({ navigation }) {
         }
     }
     const renderPic = ({ item }) => (
-        <ItemPic title={item.title}
+        <ItemPic
+            title={item.title}
             pic={item.pic}
             id={item.id}
-
         />
     );
     const updateDB = async (number) => {
         setProfileP(number)
         AsyncStorage.setItem("propic", "" + number);
         try {
-            await axios.put(userUrl + users[userId].u_id, {
+            await axios.put(
+                userUrl + users[userId].u_id, {
                 "u_id": users[userId].u_id,
                 "username": users[userId].username,
                 "email": users[userId].email,
                 "password": users[userId].password,
                 "profile_picture": number,
-            }, { 'Content-Type': 'application/json' });
-
-        } catch (error) {
-            console.log(error, "BAD");
+            },
+                { 'Content-Type': 'application/json' }
+            );
+        }
+        catch (error) {
         }
     }
-
-
     const onRefresh = React.useCallback(() => {
         setRefreshing(true);
         wait(800).then(() => setRefreshing(false));
@@ -474,27 +425,26 @@ function Profile({ navigation }) {
             username={item.username}
             plants={plants}
             navigation={navigation}
-
-        />);
+        />
+    );
     function test() {
         choosingPic = !choosingPic
         setShow(!show)
     }
-
     if (profileP == 1) {
         return (
             <SafeAreaView style={styles.container}>
-                <View style={styles.symbols}>
-                </View>
-                <Text style={styles.userName}>{username}</Text>
+                <View style={styles.symbols} />
+                <Text style={styles.userName}>
+                    {username}
+                </Text>
                 <View>
                     <TouchableOpacity style={styles.touchPic} onPress={() => test()}>
                         {renderImg(1)}
                     </TouchableOpacity>
                     {picChoose()}
                 </View>
-                <View style={styles.scrollView}
-                    contentContainerStyle={{ flexDirection: 'row' }}>
+                <View style={styles.scrollView} contentContainerStyle={{ flexDirection: 'row' }}>
                     <FlatList
                         data={findMyPlants(userPlants, username)}
                         extraData={ref}
@@ -506,18 +456,12 @@ function Profile({ navigation }) {
                             <RefreshControl
                                 refreshing={refreshing}
                                 onRefresh={onRefresh}
-
                             />
                         }
                     />
                 </View>
-                <TouchableOpacity
-                    style={styles.circle}
-                    onPress={() => navigation.navigate('Watered')
-                    }>
-                    <Image style={styles.wateringCan}
-                        source={require("../assets/plantCare.png")}>
-                    </Image>
+                <TouchableOpacity style={styles.circle} onPress={() => navigation.navigate('Watered')}>
+                    <Image style={styles.wateringCan} source={require("../assets/plantCare.png")} />
                 </TouchableOpacity>
             </SafeAreaView>
         );
@@ -525,17 +469,17 @@ function Profile({ navigation }) {
     else {
         return (
             <SafeAreaView style={styles.container}>
-                <View style={styles.symbols}>
-                </View>
-                <Text style={styles.userName}>{username}</Text>
+                <View style={styles.symbols} />
+                <Text style={styles.userName}>
+                    {username}
+                </Text>
                 <View>
                     <TouchableOpacity style={styles.touchPic} onPress={() => test()}>
                         {renderImg(profileP)}
                     </TouchableOpacity>
                     {picChoose()}
                 </View>
-                <View style={styles.scrollView}
-                    contentContainerStyle={{ flexDirection: 'row' }}>
+                <View style={styles.scrollView} contentContainerStyle={{ flexDirection: 'row' }}>
                     <FlatList
                         data={findMyPlants(userPlants, username)}
                         extraData={ref}
@@ -547,18 +491,12 @@ function Profile({ navigation }) {
                             <RefreshControl
                                 refreshing={refreshing}
                                 onRefresh={onRefresh}
-
                             />
                         }
                     />
                 </View>
-                <TouchableOpacity
-                    style={styles.circle}
-                    onPress={() => navigation.navigate('Watered')
-                    }>
-                    <Image style={styles.wateringCan}
-                        source={require("../assets/plantCare.png")}>
-                    </Image>
+                <TouchableOpacity style={styles.circle} onPress={() => navigation.navigate('Watered')}>
+                    <Image style={styles.wateringCan} source={require("../assets/plantCare.png")} />
                 </TouchableOpacity>
             </SafeAreaView>
         );
@@ -568,75 +506,33 @@ function Profile({ navigation }) {
 export default Profile;
 
 const styles = StyleSheet.create({
-    container: {
-        backgroundColor: '#7E9B6D',
-        flex: 1,
-    },
-    symbols: {
-        flexDirection: 'row',
-    },
     burgerMenu: {
         height: 30,
         width: 30,
-
-    },
-    touchBurger: {
-        height: 30,
-        width: 30,
-        marginLeft: 30,
-        marginTop: 20,
     },
     calendar: {
         height: 30,
         width: 30,
     },
-    touchCalendar: {
-        marginLeft: 290,
-        marginTop: 20,
-        height: 30,
-        width: 30,
+    circle: {
+        height: 80,
+        width: 80,
+        backgroundColor: "#C4C4C4",
+        bottom: 20,
+        right: 20,
+        borderRadius: 50,
+        justifyContent: "center",
+        alignItems: "center",
+        position: "absolute",
     },
-    userName: {
-        color: '#fff',
-        fontSize: 36,
-        textAlign: 'center',
-        marginTop: 10
-    },
-    profilePic: {
-        width: 200,
-        height: 200,
-        resizeMode: 'contain',
-        // top: -10,
-        // left: 10,
-    },
-    touchPic: {
-        width: 180,
-        height: 180,
-        top: 10,
-        alignSelf: 'center',
-
-    },
-    scrollView: {
+    container: {
+        backgroundColor: '#7E9B6D',
         flex: 1,
-        flexDirection: 'row',
-        top: '5%',
-        paddingBottom: 100,
     },
-
     flatList: {
         padding: 10,
         paddingBottom: 0,
         justifyContent: 'space-evenly',
-    },
-    subPlant: {
-        alignItems: 'center',
-        top: '10%',
-    },
-    title: {
-        flexShrink: 1,
-        color: 'white',
-        fontSize: 15,
-        alignSelf: 'center',
     },
     image: {
         height: 110,
@@ -652,30 +548,26 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         resizeMode: 'contain',
     },
-    circle: {
-        height: 80,
-        width: 80,
-        backgroundColor: "#C4C4C4",
-        bottom: 20,
-        right: 20,
-        borderRadius: 50,
-        justifyContent: "center",
-        alignItems: "center",
-        position: "absolute",
-    },
-    wateringCan: {
-        height: "70%",
-        width: "70%",
-    },
-    items2: {
-        width: "25%",
-    },
     innerSpec: {
         flexDirection: "row",
         alignSelf: "flex-start",
         paddingLeft: 10,
         color: 'white',
         fontSize: 12,
+    },
+    items: {
+        width: "25%",
+    },
+    profilePic: {
+        width: 200,
+        height: 200,
+        resizeMode: 'contain',
+    },
+    scrollView: {
+        flex: 1,
+        flexDirection: 'row',
+        top: '5%',
+        paddingBottom: 100,
     },
     specIcon: {
         width: 15,
@@ -687,5 +579,47 @@ const styles = StyleSheet.create({
         height: 20,
         aspectRatio: 1,
         tintColor: '#bf3d4a',
+    },
+    subPlant: {
+        alignItems: 'center',
+        top: '10%',
+    },
+    symbols: {
+        flexDirection: 'row',
+    },
+    title: {
+        flexShrink: 1,
+        color: 'white',
+        fontSize: 15,
+        alignSelf: 'center',
+    },
+    touchBurger: {
+        height: 30,
+        width: 30,
+        marginLeft: 30,
+        marginTop: 20,
+    },
+    touchCalendar: {
+        marginLeft: 290,
+        marginTop: 20,
+        height: 30,
+        width: 30,
+    },
+    touchPic: {
+        width: 180,
+        height: 180,
+        top: 10,
+        alignSelf: 'center',
+
+    },
+    userName: {
+        color: '#fff',
+        fontSize: 36,
+        textAlign: 'center',
+        marginTop: 10
+    },
+    wateringCan: {
+        height: "70%",
+        width: "70%",
     },
 })

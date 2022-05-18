@@ -8,10 +8,11 @@ import { ProfileStackNavigator } from "./StackNavigator";
 import CustomDrawer from '../components/CustomDrawer';
 
 const Drawer = createDrawerNavigator();
-
 const DrawerNavigator = () => {
   return (
-    <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />}
+    <Drawer.Navigator drawerContent={props =>
+      <CustomDrawer {...props} />
+    }
       screenOptions={{
         swipeEnabled: false, //false
         headerTintColor: '#000',
@@ -29,7 +30,6 @@ const DrawerNavigator = () => {
       }}
       initialRouteName="HomeDrawer"
     >
-
       <Drawer.Screen name="PlantDatabaseDrawer" component={PlantDatabaseStackNavigator}
         options={{
           title: "Plant Database",
@@ -46,7 +46,7 @@ const DrawerNavigator = () => {
           )
         }}
       />
-      <Drawer.Screen name="HomeDrawer" component={MainStackNavigator}
+      <Drawer.Screen name="ProfileDrawer" component={ProfileStackNavigator}
         options={{
           title: "Home",
           drawerIcon: () => (
@@ -54,7 +54,7 @@ const DrawerNavigator = () => {
           )
         }}
       />
-      <Drawer.Screen name="GuideDrawer" component={GuideStackNavigator}
+      <Drawer.Screen name="HomeDrawer" component={MainStackNavigator}
         options={{
           title: "Guide",
           drawerIcon: () => (

@@ -1,8 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, StyleSheet, Text } from 'react-native';
 
-//Decide size of button by putting it in a View and set size of the View.
-
 function StandardButton({ functionOnPress, title, sizeFont }) {
     return (
         <TouchableOpacity style={styles.outer} onPress={functionOnPress}>
@@ -14,7 +12,6 @@ function StandardButton({ functionOnPress, title, sizeFont }) {
 }
 
 export default StandardButton
-
 
 const styles = StyleSheet.create({
     outer: {

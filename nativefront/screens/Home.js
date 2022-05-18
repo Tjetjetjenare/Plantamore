@@ -8,11 +8,8 @@ import { useIsFocused } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 
 var plantbaseUrl = null;
-
 if (Platform.OS === "android") { plantbaseUrl = 'http://10.0.2.2:8000/api/plants/'; }
 else { plantbaseUrl = 'http://127.0.0.1:8000/api/plants/'; }
-
-
 
 function Home({ navigation }) {
   const [filteredDataSource, setFilteredDataSource] = useState([]);
@@ -22,11 +19,9 @@ function Home({ navigation }) {
   const isFocused = useIsFocused();
   useEffect(async () => {
     if (isFocused) {
-      console.log("called");
       AsyncStorage.getItem('inloggad').then(value =>
         setLogd(value)
       );
-      console.log(logd)
     }
     try {
       const response = await axios.get(
@@ -34,12 +29,11 @@ function Home({ navigation }) {
       );
       setFilteredDataSource(response.data);
       setMasterDataSource(response.data);
-
-    } catch (error) {
+    }
+    catch (error) {
       console.error(error);
     }
   }, [logd, isFocused]);
-
   const SearchField = () => {
     return (
       <View style={styles.container2}>
@@ -48,12 +42,11 @@ function Home({ navigation }) {
           placeholder='Search'
           onChangeText={(text) => searchFilterFunction(text)}
           value={search}
-          placeholderTextColor={"white"} />
-
+          placeholderTextColor={"white"}
+        />
       </View>
     )
   }
-
   const SearchList = () => {
     if (search.length < 1) {
       return
@@ -81,10 +74,10 @@ function Home({ navigation }) {
           <View style={styles.loginWrap}>
             <StandardButton sizeFont={20} title="Sign up" functionOnPress={() => navigation.navigate('ProfileDrawer', { screen: 'SignUp' })} />
           </View>
-
         </View>
       )
-    } else {
+    }
+    else {
       return (
         <TouchableOpacity onPress={() => navigation.navigate('GuideMain')} style={styles.careGuideOPA}>
           <Ionicons style={styles.careGuideIcon} name="information-circle-outline" size={28} color={'#FFF'} />
@@ -92,16 +85,9 @@ function Home({ navigation }) {
         </TouchableOpacity>
       )
     }
-
-
   }
-
   const searchFilterFunction = (text) => {
-    // Check if searched text is not blank
     if (text) {
-      // Inserted text is not blank
-      // Filter the masterDataSource
-      // Update FilteredDataSource
       const newData = masterDataSource.filter(function (item) {
         const itemData = item.english_name
           ? item.english_name.toUpperCase()
@@ -111,17 +97,14 @@ function Home({ navigation }) {
       });
       setFilteredDataSource(newData);
       setSearch(text);
-    } else {
-      // Inserted text is blank
-      // Update FilteredDataSource with masterDataSource
+    }
+    else {
       setFilteredDataSource(masterDataSource);
       setSearch(text);
     }
   };
-
   const ItemView = ({ item }) => {
     return (
-      // Flat List Item
       <View style={styles.item}>
         <Text style={styles.itemStyle} onPress={() => getItem(item)}>
           {item.english_name.toUpperCase()}
@@ -129,10 +112,8 @@ function Home({ navigation }) {
       </View>
     );
   };
-
   const ItemSeparatorView = () => {
     return (
-      // Flat List Item Separator
       <View
         style={{
           height: 0.5,
@@ -142,56 +123,29 @@ function Home({ navigation }) {
       />
     );
   };
-
   const getItem = (item) => {
-    // Function for click on an item
     navigation.navigate("PlantDBHomePath", {
       plantId: item.p_id, EnglishName: item.english_name, LatinName: item.latin_name,
       SwedishName: item.swedish_name, Description: item.description, Sun: item.sunlight, Water: item.water,
       Nutrition: item.nutrition, ImageUrl: item.image_url
     });
   };
-
   return (
-
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto" />
       <View style={styles.greenAccent} />
-      <Image style={styles.logo} source={require("../assets/logo.png")}></Image>
+      <Image style={styles.logo} source={require("../assets/logo.png")} />
       <View style={styles.searchContainer}>
         {SearchField()}
         {SearchList()}
-
       </View>
       {ButtonWrap()}
     </SafeAreaView>
   );
 }
-
 export default Home;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  logo: {
-    width: "80%",
-    resizeMode: "contain",
-    position: "absolute",
-    top: 0,
-  },
-  container2: {
-    width: "90%",
-    height: 50,
-    opacity: 1,
-  },
-  container3: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
   bar: {
     width: "100%",
     height: "100%",
@@ -204,10 +158,47 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 20,
   },
+  burgerMenu: {
+    height: 30,
+    width: 30,
+    position: 'absolute',
+    top: 20,
+    left: 20,
+  },
   buttonWrapper: {
     alignItems: "center",
     position: "absolute",
     top: 390,
+  },
+  careGuideButton: {
+    textDecorationLine: 'underline',
+    fontSize: 27,
+    color: '#fff',
+    alignSelf: 'center',
+  },
+  careGuideIcon: {
+    top: 35,
+    left: -30,
+  },
+  careGuideOPA: {
+    textDecorationLine: 'underline',
+    fontSize: 23,
+    top: 180,
+  },
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  container2: {
+    width: "90%",
+    height: 50,
+    opacity: 1,
+  },
+  container3: {
+    flex: 1,
+    backgroundColor: '#fff',
   },
   greenAccent: {
     position: "absolute",
@@ -216,19 +207,28 @@ const styles = StyleSheet.create({
     width: "300%",
     height: "100%",
     backgroundColor: "#7E9B6D",
-    transform: [{ rotate: '-30deg' }]
+    transform: [{ rotate: '-30deg' }],
+  },
+  item: {
+    padding: 5,
+    marginHorizontal: 10,
+    opacity: 2,
+  },
+  itemStyle: {
+    padding: 5,
+    margin: 5,
+    color: 'white'
   },
   loginWrap: {
     width: "200%",
     height: 40,
     marginTop: 20,
   },
-  burgerMenu: {
-    height: 30,
-    width: 30,
-    position: 'absolute',
-    top: 20,
-    left: 20,
+  logo: {
+    width: "80%",
+    resizeMode: "contain",
+    position: "absolute",
+    top: 0,
   },
   profileButton: {
     height: 30,
@@ -241,8 +241,6 @@ const styles = StyleSheet.create({
     height: "280%",
     width: "90%",
     marginTop: 51,
-    // backgroundColor: "black",
-
     borderRadius: 20,
     textAlign: "center",
     opacity: 1,
@@ -255,31 +253,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'absolute',
     top: 200,
-  },
-  item: {
-    padding: 5,
-    marginHorizontal: 10,
-    opacity: 2,
-  },
-  itemStyle: {
-    padding: 5,
-    margin: 5,
-    color: 'white'
-  },
-  careGuideButton: {
-    textDecorationLine: 'underline',
-    fontSize: 27,
-    color: '#fff',
-    alignSelf: 'center',
-
-  },
-  careGuideOPA: {
-    textDecorationLine: 'underline',
-    fontSize: 23,
-    top: 180,
-  },
-  careGuideIcon: {
-    top: 35,
-    left: -30,
   },
 })

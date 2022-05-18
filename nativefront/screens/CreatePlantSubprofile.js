@@ -6,10 +6,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer, useIsFocused } from "@react-navigation/native";
 import axios from 'axios';
 
-
 var plantbaseUrl = null;
 var subplantbaseUrl = null;
-
 if (Platform.OS === "android") {
   subplantbaseUrl = 'http://10.0.2.2:8000/api/subplants/';
   plantbaseUrl = 'http://10.0.2.2:8000/api/plants/';
@@ -18,9 +16,6 @@ else {
   subplantbaseUrl = 'http://127.0.0.1:8000/api/subplants/';
   plantbaseUrl = 'http://127.0.0.1:8000/api/plants/'
 }
-
-
-
 
 function CreatePlantSubprofile({ navigation }) {
   const [filteredDataSource, setFilteredDataSource] = useState([]);
@@ -35,16 +30,11 @@ function CreatePlantSubprofile({ navigation }) {
   const [bday, setBday] = useState('');
   const [water, setWater] = useState('');
   const [nutrition, setNutrition] = useState('');
-
-  // const [logd, setLogd] = useState('');
   const isFocused = useIsFocused();
-
-
   const renderTitle = () => {
     return (
       <Text style={styles.header}>Add a new plant to your profile</Text>)
   };
-
   const renderType = () => {
     return (
       <View>
@@ -53,9 +43,9 @@ function CreatePlantSubprofile({ navigation }) {
           {SearchField()}
           {SearchList()}
         </View>
-      </View>)
+      </View>
+    )
   };
-
   const renderName = () => {
     return (
       <View>
@@ -66,9 +56,9 @@ function CreatePlantSubprofile({ navigation }) {
           onChangeText={text => setName(text)}
           value={name}
         />
-      </View>)
+      </View>
+    )
   };
-
   const renderImg = () => {
     if (dbImage != '') {
       return (
@@ -77,7 +67,8 @@ function CreatePlantSubprofile({ navigation }) {
           source={{ uri: dbImage }}
         />
       )
-    } else {
+    }
+    else {
       return (
         <Image
           style={styles.plantPic}
@@ -86,7 +77,6 @@ function CreatePlantSubprofile({ navigation }) {
       )
     }
   };
-
   const renderSave = () => {
     return (
       <TouchableOpacity style={styles.savebtn} onPress={() => saveBtnPressed()}>
@@ -94,7 +84,6 @@ function CreatePlantSubprofile({ navigation }) {
       </TouchableOpacity>
     )
   };
-
   const renderBday = () => {
     return (
       <View>
@@ -112,7 +101,6 @@ function CreatePlantSubprofile({ navigation }) {
       </View>
     )
   };
-
   const renderWater = () => {
     return (
       <View>
@@ -130,7 +118,6 @@ function CreatePlantSubprofile({ navigation }) {
       </View>
     )
   };
-
   const DATA = [
     {
       title: "Page Title",
@@ -168,7 +155,6 @@ function CreatePlantSubprofile({ navigation }) {
       data: ["Save profile"],
     },
   ];
-
   useEffect(async () => {
     AsyncStorage.getItem('MyName').then(value =>
       setUsername(value)
@@ -183,12 +169,11 @@ function CreatePlantSubprofile({ navigation }) {
       setFilteredDataSource(response.data);
       setMasterDataSource(response.data);
       setSubplant(response2.data);
-
-    } catch (error) {
+    }
+    catch (error) {
       console.error(error);
     }
   }, [isFocused]);
-
   const SearchField = () => {
     return (
       <TextInput
@@ -200,7 +185,6 @@ function CreatePlantSubprofile({ navigation }) {
       />
     )
   };
-
   const SearchList = () => {
     if (search.length >= 1 && visible == true) {
       return (
@@ -218,7 +202,6 @@ function CreatePlantSubprofile({ navigation }) {
       return
     }
   };
-
   const searchFilterFunction = (text) => {
     setVisible(true)
     setDbImage('')
@@ -232,12 +215,12 @@ function CreatePlantSubprofile({ navigation }) {
       });
       setFilteredDataSource(newData);
       setSearch(text);
-    } else {
+    }
+    else {
       setFilteredDataSource(masterDataSource);
       setSearch(text);
     }
   };
-
   const selectedPlant = (item) => {
     setSearch(item.english_name)
     setPid(item.p_id)
@@ -245,14 +228,14 @@ function CreatePlantSubprofile({ navigation }) {
     setDbImage(item.image_url)
     if (item.nutrition == "Often") {
       setNutrition(3)
-
-    } if (item.nutrition == "Regularly") {
+    }
+    if (item.nutrition == "Regularly") {
       setNutrition(6)
-    } else {
+    }
+    else {
       setNutrition(9)
     }
   }
-
   const ItemView = ({ item }) => {
     return (
       <View style={styles.searchItem}>
@@ -262,7 +245,6 @@ function CreatePlantSubprofile({ navigation }) {
       </View>
     );
   };
-
   const ItemSeparatorView = () => {
     return (
       <View
@@ -274,7 +256,6 @@ function CreatePlantSubprofile({ navigation }) {
       />
     );
   };
-
   const saveBtnPressed = async () => {
     var year = (new Date().getFullYear() - 1).toString();
     var month = "04";
@@ -283,9 +264,8 @@ function CreatePlantSubprofile({ navigation }) {
     if (dbImage == '') {
       Alert.alert("Error", "Please select a plant from the dropdown menu when you search for a plant. The image will change when plant has been selected successfully")
       setSearch('')
-    } else {
-
-
+    }
+    else {
       try {
         var id = parseInt(subplant[(subplant.length - 1)].sub_id) + 1
         var str = "" + id
@@ -312,26 +292,27 @@ function CreatePlantSubprofile({ navigation }) {
           setNutrition('')
           navigation.navigate('ProfileDrawer', { screen: 'Profile' })
         }
-
         else {
-
           throw new Error("An error has occurred");
         }
-      } catch (error) {
-        console.log(error);
+      }
+      catch (error) {
         Alert.alert("Error", "Something went wrong, please check so you filled out the fields correctly")
       }
-
     }
   }
-
   return (
     <SafeAreaView style={styles.container} >
       <StatusBar style="auto" />
       <SectionList
         sections={DATA}
         keyExtractor={(item, index) => item + index}
-        renderItem={({ section: { renderItem } }) => <View>{renderItem}</View>} />
+        renderItem={({ section: { renderItem } }) =>
+          <View>
+            {renderItem}
+          </View>
+        }
+      />
     </SafeAreaView>
   );
 }
@@ -377,15 +358,10 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     borderRadius: 8,
   },
-  scroll: {
-    height: 150,
-    width: "90%",
-    borderRadius: 20,
-    textAlign: "center",
-    opacity: 1,
-    backgroundColor: 'gray',
-    alignSelf: "center",
-    overflow: "hidden",
+  itemStyle: {
+    padding: 5,
+    margin: 5,
+    color: 'white'
   },
   plantPic: {
     aspectRatio: 1,
@@ -395,16 +371,6 @@ const styles = StyleSheet.create({
     borderRadius: 75,
     backgroundColor: "#fff",
     alignSelf: "center",
-  },
-  searchItem: {
-    padding: 5,
-    marginHorizontal: 10,
-    opacity: 2,
-  },
-  itemStyle: {
-    padding: 5,
-    margin: 5,
-    color: 'white'
   },
   savebtn: {
     backgroundColor: "#fff",
@@ -418,5 +384,20 @@ const styles = StyleSheet.create({
     alignItems: "center",
     alignSelf: "flex-end",
     margin: 20,
+  },
+  scroll: {
+    height: 150,
+    width: "90%",
+    borderRadius: 20,
+    textAlign: "center",
+    opacity: 1,
+    backgroundColor: 'gray',
+    alignSelf: "center",
+    overflow: "hidden",
+  },
+  searchItem: {
+    padding: 5,
+    marginHorizontal: 10,
+    opacity: 2,
   },
 });

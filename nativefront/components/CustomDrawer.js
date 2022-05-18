@@ -1,13 +1,9 @@
-import { View, Text, ImageBackground, Image } from 'react-native'
+import { View, Text, Image } from 'react-native'
 import { React, useState, useEffect } from 'react'
-import { DrawerContentScrollView, DrawerItemList, DrawerItem } from '@react-navigation/drawer'
+import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer'
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import LogIn from '../screens/LogIn';
-import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage'
-//const [existingUsers, setExistingUsers] = useState("");
-
 
 function logOut(props) {
     AsyncStorage.setItem("inloggad", "false")
@@ -20,19 +16,14 @@ const CustomDrawer = (props) => {
         AsyncStorage.getItem('inloggad').then(value =>
             setLogd(value)
         );
-        console.log(logd)
     }), []
     if (logd == 'true') {
-
         return (
             <View style={{ flex: 1 }}>
-
-                <DrawerContentScrollView {...props}
-                    contentContainerStyle={{ backgroundColor: '#7E9B6D', flex: 1 }}>
+                <DrawerContentScrollView {...props} contentContainerStyle={{ backgroundColor: '#7E9B6D', flex: 1 }}>
                     <Image source={require('../assets/onlyPlant.png')} style={{ marginLeft: '30%', marginTop: 10, tintColor: '#000' }} />
                     <DrawerItemList {...props} />
                 </DrawerContentScrollView>
-
                 <View style={{ padding: 20, borderTopWidth: 2, borderTopColor: '#000000', backgroundColor: '#7E9B6D', paddingVertical: 30 }}>
                     <TouchableOpacity onPress={() => logOut(props)}>
                         <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 50, marginLeft: 50 }}>
@@ -42,34 +33,23 @@ const CustomDrawer = (props) => {
                                 size={35}
                                 color={'black'}
                             />
-                            <Text style={{ marginLeft: 25, color: '#000', fontSize: 20 }}>Logout</Text>
+                            <Text style={{ marginLeft: 25, color: '#000', fontSize: 20 }}>
+                                Logout
+                            </Text>
                         </View>
                     </TouchableOpacity>
-                    {/* <View style={{flexDirection:'row', alignItems:'center'}}> 
-                    <Text> Plantamore</Text>
-                </View> */}
                 </View>
-
             </View>
         )
-    } else {
+    }
+    else {
         return (
             <View style={{ flex: 1 }}>
-
-                <DrawerContentScrollView {...props}
-                    contentContainerStyle={{ backgroundColor: '#7E9B6D', flex: 1 }}>
+                <DrawerContentScrollView {...props} contentContainerStyle={{ backgroundColor: '#7E9B6D', flex: 1 }}>
                     <Image source={require('../assets/onlyPlant.png')} style={{ marginLeft: '30%', marginTop: 10, tintColor: '#000' }} />
                     <DrawerItemList {...props} />
                 </DrawerContentScrollView>
-
-                <View style={{ padding: 20, borderTopWidth: 2, borderTopColor: '#000000', backgroundColor: '#7E9B6D', paddingVertical: 30 }}>
-
-                    <View style={{flexDirection:'row', alignItems:'center'}}> 
-                        <Text> Plantamore</Text>
-                        <Image source={require('../assets/onlyPlant.png')} style={{height: 50, width: 50, marginTop: -20, tintColor: '#000' }} />
-                    </View> 
-                </View>
-
+                <View style={{ padding: 20, borderTopWidth: 2, borderTopColor: '#000000', backgroundColor: '#7E9B6D', paddingVertical: 30 }} />
             </View>
         )
     }
