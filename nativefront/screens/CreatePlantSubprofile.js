@@ -6,19 +6,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { NavigationContainer, useIsFocused } from "@react-navigation/native";
 import axios from 'axios';
 
-
 var plantbaseUrl = null;
 var subplantbaseUrl = null;
-
 if(Platform.OS === "android"){ 
-    subplantbaseUrl = 'http://10.0.2.2:8000/api/subplants/';
-    plantbaseUrl = 'http://10.0.2.2:8000/api/plants/';}
+  subplantbaseUrl = 'http://10.0.2.2:8000/api/subplants/';
+  plantbaseUrl = 'http://10.0.2.2:8000/api/plants/';}
 else{
-    subplantbaseUrl ='http://127.0.0.1:8000/api/subplants/';
-    plantbaseUrl = 'http://127.0.0.1:8000/api/plants/'}
-
-
-
+  subplantbaseUrl ='http://127.0.0.1:8000/api/subplants/';
+  plantbaseUrl = 'http://127.0.0.1:8000/api/plants/'}
 
 function CreatePlantSubprofile({navigation}) {
   const [filteredDataSource, setFilteredDataSource] = useState([]);
@@ -33,57 +28,53 @@ function CreatePlantSubprofile({navigation}) {
   const [bday, setBday] = useState('');
   const [water, setWater] = useState('');
   const [nutrition, setNutrition] = useState('');
-
-  // const [logd, setLogd] = useState('');
   const isFocused = useIsFocused();
-   
-
   const renderTitle = () => {
-      return(
-        <Text style={styles.header}>Add a new plant to your profile</Text>)
+    return(
+      <Text style={styles.header}>Add a new plant to your profile</Text>)
   };
-   
   const renderType = () => {
     return(
-    <View>
-      <Text style={styles.info}>What type of plant is it?</Text>
       <View>
+        <Text style={styles.info}>What type of plant is it?</Text>
+        <View>
           {SearchField()}
           {SearchList()}
+        </View>
       </View>
-    </View>)
+    )
   };
-  
   const renderName = () => {
     return(
       <View>
-      <Text style={styles.info}>What is your plant's name?</Text>
-          <TextInput 
-            style={styles.input} 
-            placeholder="Name of plant"
-            onChangeText={text => setName(text)}
-            value={name}
-            />
-      </View>)
+        <Text style={styles.info}>What is your plant's name?</Text>
+        <TextInput 
+          style={styles.input} 
+          placeholder="Name of plant"
+          onChangeText={text => setName(text)}
+          value={name}
+        />
+      </View>
+    )
   };
-
   const renderImg = () => {
     if(dbImage!=''){
       return(            
-          <Image
-              style={styles.plantPic}
-              source={{uri: dbImage}}
-          />
+        <Image
+          style={styles.plantPic}
+          source={{uri: dbImage}}
+        />
       )         
-    }else{
+    }
+    else{
       return(            
-          <Image
-              style={styles.plantPic}
-              source={require("../assets/onlyPlantSmall.png")}
-          />
-      )}
+        <Image
+          style={styles.plantPic}
+          source={require("../assets/onlyPlantSmall.png")}
+        />
+      )
+    }
   };
-
   const renderSave = () => {
     return(
       <TouchableOpacity style={styles.savebtn} onPress={() => saveBtnPressed()}>
@@ -91,7 +82,6 @@ function CreatePlantSubprofile({navigation}) {
       </TouchableOpacity>
     )
   };
-
   const renderBday = () => {
     return(
       <View>
@@ -109,7 +99,6 @@ function CreatePlantSubprofile({navigation}) {
       </View>
     )
   };
-
   const renderWater = () => {
     return(
       <View>
@@ -127,7 +116,6 @@ function CreatePlantSubprofile({navigation}) {
       </View>
     )
   };
-
   const DATA = [
     {
       title: "Page Title",
@@ -165,27 +153,25 @@ function CreatePlantSubprofile({navigation}) {
       data: ["Save profile"],
     },
   ];
-
   useEffect(async() => {
     AsyncStorage.getItem('MyName').then(value =>
-       setUsername(value )
-  );
+      setUsername(value )
+    );
     try {
       const response = await axios.get(
-      plantbaseUrl,
+        plantbaseUrl,
       );
       const response2 = await axios.get(
         subplantbaseUrl,
-        );
+      );
       setFilteredDataSource(response.data);
       setMasterDataSource(response.data);
       setSubplant(response2.data);
-      
-    } catch (error) {
+    }
+    catch (error) {
       console.error(error);
     }
   },[isFocused]);
-  
   const SearchField = () => {
     return (
       <TextInput 
@@ -197,7 +183,6 @@ function CreatePlantSubprofile({navigation}) {
       />
     )
   };
-
   const SearchList = () => {
     if (search.length >= 1 && visible == true){
       return(
@@ -209,12 +194,12 @@ function CreatePlantSubprofile({navigation}) {
             renderItem={ItemView}
           />
         </View>
-      )}
+      )
+    }
     else{
       return
     }
   };
-
   const searchFilterFunction = (text) => {
     setVisible(true)
     setDbImage('')
@@ -228,12 +213,12 @@ function CreatePlantSubprofile({navigation}) {
       });
       setFilteredDataSource(newData);
       setSearch(text);
-    } else {
+    }
+    else {
       setFilteredDataSource(masterDataSource);
       setSearch(text);
     }
   };
-
   const selectedPlant = (item) => {
     setSearch(item.english_name)
     setPid(item.p_id)
@@ -241,14 +226,14 @@ function CreatePlantSubprofile({navigation}) {
     setDbImage(item.image_url)
     if (item.nutrition=="Often"){
       setNutrition(3)
-
-    }if (item.nutrition=="Regularly"){
+    }
+    if (item.nutrition=="Regularly"){
       setNutrition(6)
-    }else{
+    }
+    else{
       setNutrition(9)
     }
   }
-
   const ItemView = ({ item }) => {
     return (
       <View style={styles.searchItem}>
@@ -258,7 +243,6 @@ function CreatePlantSubprofile({navigation}) {
       </View>
     );
   };
-
   const ItemSeparatorView = () => {
     return (
       <View
@@ -270,7 +254,6 @@ function CreatePlantSubprofile({navigation}) {
       />
     );
   };
-
   const saveBtnPressed = async() => {
     var year = (new Date().getFullYear()-1).toString();
     var month = "04";
@@ -279,27 +262,26 @@ function CreatePlantSubprofile({navigation}) {
     if (dbImage == ''){
       Alert.alert("Error","Please select a plant from the dropdown menu when you search for a plant. The image will change when plant has been selected successfully")
       setSearch('')
-    }else {
-
-      
+    }
+    else {
       try {
         var id = parseInt(subplant[(subplant.length-1)].sub_id)+1
         var str = "" + id
         var pad = "000"
         var ans = pad.substring(0, pad.length - str.length) + str
         let data = {
-            sub_id: ans,
-            name: name,
-            birth_date: bday.getFullYear().toString() + "-" + (bday.getMonth()+1).toString() + "-"+ bday.getDate().toString(),
-            water: water.getFullYear().toString() + "-" + (water.getMonth()+1).toString() + "-"+ water.getDate().toString(),
-            replant: replantday,
-            nutrition: nutrition,
-            p_id: pid,
-            username : username,
-          }
+          sub_id: ans,
+          name: name,
+          birth_date: bday.getFullYear().toString() + "-" + (bday.getMonth()+1).toString() + "-"+ bday.getDate().toString(),
+          water: water.getFullYear().toString() + "-" + (water.getMonth()+1).toString() + "-"+ water.getDate().toString(),
+          replant: replantday,
+          nutrition: nutrition,
+          p_id: pid,
+          username : username,
+        }
         const response = await axios.post(subplantbaseUrl, data,{'Content-Type': 'application/json'});
         if (response.status === 201) {
-        Alert.alert('Save', 'The plant has been added to your profile')
+          Alert.alert('Save', 'The plant has been added to your profile')
           setBday('')
           setWater('')
           setSearch('')
@@ -308,111 +290,112 @@ function CreatePlantSubprofile({navigation}) {
           setNutrition('')
           navigation.navigate('ProfileDrawer', {screen: 'Profile'})
         } 
-      
         else {
-          
-        throw new Error("An error has occurred");
+          throw new Error("An error has occurred");
         }
-      }catch (error) {
-        console.log(error);
+      }
+      catch (error) {
         Alert.alert("Error","Something went wrong, please check so you filled out the fields correctly")
       }
-    
     }
   }
-
   return(
-      <SafeAreaView style={styles.container} >
-        <StatusBar style="auto"/>
-        <SectionList
-          sections={DATA}
-          keyExtractor={(item, index) => item + index}
-          renderItem={({section: {renderItem}}) => <View>{renderItem}</View>}/>
-      </SafeAreaView>
+    <SafeAreaView style={styles.container} >
+      <StatusBar style="auto"/>
+      <SectionList
+        sections={DATA}
+        keyExtractor={(item, index) => item + index}
+        renderItem={({section: {renderItem}}) => 
+          <View>
+            {renderItem}
+          </View>
+        }
+      />
+    </SafeAreaView>
   );
 }
 
 export default CreatePlantSubprofile;
 
 const styles = StyleSheet.create({
-    container: {
-        flex:1,
-        backgroundColor: '#7E9B6D',
-    },
-    dateInput: {
-      width: '30%',
-      height:40,
-      borderRadius: 8,
-      backgroundColor: '#fff',
-      borderWidth: 1,
-      paddingLeft:10,
-      paddingRight:10,
-    },
-    dateWrap:{
-      width:"90%",
-      height:50,
-      alignSelf: "center",
-    },
-    header: { 
-        fontSize: 25, 
-        fontWeight: 'bold',  
-        marginBottom: 20,
-        textAlign:"center",
-    },
-    info:{
-        fontSize: 20,
-        margin:10,
-    },
-    input:{
-      backgroundColor: "#f4f5f0",
-      height: 50,
-      width: '90%',
-      paddingLeft: 5,
-      marginBottom: 20,
-      borderWidth: 1,
-      alignSelf: "center",
-      borderRadius: 8, 
-    },
-    scroll:{
-      height:150,
-      width:"90%",
-      borderRadius: 20,
-      textAlign: "center",
-      opacity: 1,
-      backgroundColor: 'gray',
-      alignSelf:"center",
-      overflow:"hidden",
-    },
-    plantPic: {
-      aspectRatio: 1,
-      width: 150, 
-      height: 150,
-      borderWidth: 1,
-      borderRadius:75,
-      backgroundColor:"#fff",
-      alignSelf: "center",    
-    },
-    searchItem: {
-      padding: 5,
-      marginHorizontal: 10,
-      opacity: 2,
-    },
-    itemStyle: {
-      padding: 5,
-      margin:5,
-      color: 'white'
-    },
-    savebtn: {
-      backgroundColor: "#fff",
-      borderColor: "black",
-      borderWidth: 1,
-      width: 80,
-      height: 40,
-      borderRadius: 20,
-      justifyContent: "center",
-      color: "black",
-      alignItems:"center",
-      alignSelf:"flex-end",
-      margin:20,
-    },
-  });
+  container: {
+    flex:1,
+    backgroundColor: '#7E9B6D',
+  },
+  dateInput: {
+    width: '30%',
+    height:40,
+    borderRadius: 8,
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    paddingLeft:10,
+    paddingRight:10,
+  },
+  dateWrap:{
+    width:"90%",
+    height:50,
+    alignSelf: "center",
+  },
+  header: { 
+    fontSize: 25, 
+    fontWeight: 'bold',  
+    marginBottom: 20,
+    textAlign:"center",
+  },
+  info:{
+    fontSize: 20,
+    margin:10,
+  },
+  input:{
+    backgroundColor: "#f4f5f0",
+    height: 50,
+    width: '90%',
+    paddingLeft: 5,
+    marginBottom: 20,
+    borderWidth: 1,
+    alignSelf: "center",
+    borderRadius: 8, 
+  },
+  itemStyle: {
+    padding: 5,
+    margin:5,
+    color: 'white'
+  },
+  plantPic: {
+    aspectRatio: 1,
+    width: 150, 
+    height: 150,
+    borderWidth: 1,
+    borderRadius:75,
+    backgroundColor:"#fff",
+    alignSelf: "center",    
+  },
+  savebtn: {
+    backgroundColor: "#fff",
+    borderColor: "black",
+    borderWidth: 1,
+    width: 80,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: "center",
+    color: "black",
+    alignItems:"center",
+    alignSelf:"flex-end",
+    margin:20,
+  },
+  scroll:{
+    height:150,
+    width:"90%",
+    borderRadius: 20,
+    textAlign: "center",
+    opacity: 1,
+    backgroundColor: 'gray',
+    alignSelf:"center",
+    overflow:"hidden",
+  },
+  searchItem: {
+    padding: 5,
+    marginHorizontal: 10,
+    opacity: 2,
+  },
+});
