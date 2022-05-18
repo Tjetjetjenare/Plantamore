@@ -204,7 +204,7 @@ const PlantDatabaseStackNavigator = () => {
               name="information-circle-outline"
               color="black"
               size={30}
-              onPress={() => navigation.navigate('GuideProfilePath')}
+              onPress={() => navigation.navigate('GuideDatabasePath')}
             />
           </View>,
         })}
