@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { Alert, SafeAreaView, RefreshControl, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Platform } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useState, useEffect } from "react";
+import { Alert, SafeAreaView, RefreshControl, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Platform } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";
-import moment from 'moment';
+import moment from "moment";
 
 var subPlantUrl = "";
 if (Platform.OS === "android") {
-    subPlantUrl = 'http://10.0.2.2:8000/api/subplants/';
-    plantUrl = 'http://10.0.2.2:8000/api/plants/';
+    subPlantUrl = "http://10.0.2.2:8000/api/subplants/";
+    plantUrl = "http://10.0.2.2:8000/api/plants/";
 }
 else {
-    subPlantUrl = 'http://127.0.0.1:8000/api/subplants/';
-    plantUrl = 'http://127.0.0.1:8000/api/plants/'
+    subPlantUrl = "http://127.0.0.1:8000/api/subplants/";
+    plantUrl = "http://127.0.0.1:8000/api/plants/";
 }
 
 const myPlants = [];
@@ -63,21 +63,21 @@ const Item = ({ id, name, plants, water, pid }) => {
         var amplify = addIfSummer()
         var today = moment(new Date())
         var lastWater = moment(water)
-        if (plants[pid - 1].water == 'Sparingly') {
-            var shouldWater = lastWater.add(Math.floor(16 * amplify), 'days')
+        if (plants[pid - 1].water == "Sparingly") {
+            var shouldWater = lastWater.add(Math.floor(16 * amplify), "days")
         }
-        else if (plants[pid - 1].water == 'Generously') {
-            var shouldWater = lastWater.add(Math.floor(4 * amplify), 'days')
+        else if (plants[pid - 1].water == "Generously") {
+            var shouldWater = lastWater.add(Math.floor(4 * amplify), "days")
         }
         else {
-            var shouldWater = lastWater.add(Math.floor(7 * amplify), 'days')
+            var shouldWater = lastWater.add(Math.floor(7 * amplify), "days")
         }
-        var displayWater = shouldWater.diff(today, 'days')
+        var displayWater = shouldWater.diff(today, "days")
         if (displayWater <= 0) {
-            displayWater = 'today!'
+            displayWater = "today!"
         }
         else {
-            displayWater = 'in ' + displayWater + ' days'
+            displayWater = "in " + displayWater + " days"
         }
         return (
             displayWater
@@ -109,7 +109,7 @@ const Item = ({ id, name, plants, water, pid }) => {
                         <Image style={styles.imagepres} source={{ uri: `${plants[pid - 1].image_url}` }} />
                     </View>
                 </View>
-                <View style={{ alignSelf: 'center' }}>
+                <View style={{ alignSelf: "center" }}>
                     <Text>
                         {daysUntilWater()}
                     </Text>
@@ -127,7 +127,7 @@ const Item = ({ id, name, plants, water, pid }) => {
                     <Image style={styles.image} source={{ uri: `${plants[pid - 1].image_url}` }} />
                 </View>
                 <View>
-                    <Text style={{ alignSelf: 'center' }}>
+                    <Text style={{ alignSelf: "center" }}>
                         {daysUntilWater()}
                     </Text>
                 </View>
@@ -159,11 +159,11 @@ const BlubBlub = async (allPlants, userPlants) => {
                 "p_id": UP[parseInt(lengd[i]) - 1].p_id,
                 "username": UP[parseInt(lengd[i]) - 1].username,
             },
-                { 'Content-Type': 'application/json' }
+                { "Content-Type": "application/json" }
             )
                 .then(response => console.log(response.data))
                 .catch(error => {
-                    console.error('There was an error!', error);
+                    console.error("There was an error!", error);
                 });
         }
         Alert.alert("Success", "Your plants have been registered as watered today")
@@ -177,7 +177,7 @@ function Watered({ navigation }, props) {
     const isFocused = useIsFocused();
     const [refreshing, setRefreshing] = useState(false);
     useEffect(async () => {
-        AsyncStorage.getItem('MyName').then(value =>
+        AsyncStorage.getItem("MyName").then(value =>
             setUsername(value)
         );
         try {
@@ -208,7 +208,7 @@ function Watered({ navigation }, props) {
     )
     return (
         <SafeAreaView style={styles.container}>
-            <View style={{ flexDirection: 'row' }} />
+            <View style={{ flexDirection: "row" }} />
             <Text style={styles.thankYou}>
                 Your plants thank you!
             </Text>
@@ -218,7 +218,7 @@ function Watered({ navigation }, props) {
             <Text style={styles.selectText}>
                 Select the plants you have watered today
             </Text>
-            <View style={styles.scrollView} contentContainerStyle={{ flexDirection: 'row' }}>
+            <View style={styles.scrollView} contentContainerStyle={{ flexDirection: "row" }}>
                 <FlatList
                     data={findMyPlants(userPlants, username)}
                     extraData={done}
@@ -234,7 +234,7 @@ function Watered({ navigation }, props) {
                     }
                 />
             </View>
-            <View style={{ height: '15%' }} />
+            <View style={{ height: "15%" }} />
             <TouchableOpacity style={styles.circle} onPress={() => { BlubBlub(userPlants, findMyPlants(userPlants, username)); setDone(!done) }}>
                 <Text>
                     WATER
@@ -273,7 +273,7 @@ const styles = StyleSheet.create({
         marginRight: 5,
         right: "3%",
         bottom: "12%",
-        shadowColor: 'black',
+        shadowColor: "black",
         shadowOpacity: 0.5,
         shadowRadius: 10,
         elevation: 3,
@@ -283,12 +283,12 @@ const styles = StyleSheet.create({
         }
     },
     container: {
-        backgroundColor: '#7E9B6D',
+        backgroundColor: "#7E9B6D",
         flex: 1,
     },
     flatList: {
         padding: 15,
-        justifyContent: 'space-evenly',
+        justifyContent: "space-evenly",
     },
     image: {
         height: 110,
@@ -308,36 +308,36 @@ const styles = StyleSheet.create({
     },
     scrollView: {
         flex: 1,
-        flexDirection: 'row',
-        top: '5%',
+        flexDirection: "row",
+        top: "5%",
     },
     selectText: {
-        color: 'black',
-        alignSelf: 'center',
+        color: "black",
+        alignSelf: "center",
         top: 20,
         fontSize: 20,
     },
     subPlant: {
-        alignItems: 'center',
-        top: '10%',
+        alignItems: "center",
+        top: "10%",
     },
     thankYou: {
-        color: '#fff',
+        color: "#fff",
         fontSize: 36,
         top: 10,
-        textAlign: 'center',
+        textAlign: "center",
     },
     title: {
-        color: 'white',
+        color: "white",
         fontSize: 15,
-        alignSelf: 'center',
+        alignSelf: "center",
     },
     waterCanContainer: {
         height: 180,
         width: 180,
         top: 15,
         backgroundColor: "#C4C4C4",
-        alignSelf: 'center',
+        alignSelf: "center",
         borderRadius: 90,
         justifyContent: "center",
         alignItems: "center",
@@ -347,9 +347,9 @@ const styles = StyleSheet.create({
         width: "70%",
     },
     wateringCanPic: {
-        width: '70%',
-        height: '70%',
-        alignSelf: 'center',
+        width: "70%",
+        height: "70%",
+        alignSelf: "center",
         top: 10,
     },
 })

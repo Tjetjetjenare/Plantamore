@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, ScrollView, View, Image, SafeAreaView, Platform } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import axios from 'axios';
+import { StyleSheet, Text, ScrollView, View, Image, SafeAreaView, Platform } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import axios from "axios";
 
 var plantbaseUrl = null;
-if (Platform.OS === "android") { plantbaseUrl = 'http://10.0.2.2:8000/api/plants/'; }
-else { plantbaseUrl = 'http://127.0.0.1:8000/api/plants/'; }
+if (Platform.OS === "android") { plantbaseUrl = "http://10.0.2.2:8000/api/plants/"; }
+else { plantbaseUrl = "http://127.0.0.1:8000/api/plants/"; }
 
 function PlantDBProfile({ route, navigation }) {
     const [Plant, setPlant] = useState("");
@@ -25,7 +25,7 @@ function PlantDBProfile({ route, navigation }) {
             <StatusBar style="auto" />
             <Image style={styles.plantPic} source={{ uri: `${ImageUrl}` }} />
             <Text style={styles.textContainer}>
-                <Text style={{ fontWeight: 'bold' }}>
+                <Text style={{ fontWeight: "bold" }}>
                     {LatinName}{"\n"}
                 </Text>
                 <Text>
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: "#fff",
     },
     description: {
         width: "80%",
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         width: "100%",
         height: 100,
-        backgroundColor: '#7E9B6D',
+        backgroundColor: "#7E9B6D",
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
         height: 30,
         marginRight: 10,
         alignSelf: "flex-start",
-        tintColor: '#bf3d4a',
+        tintColor: "#bf3d4a",
     },
     infoHeader: {
         fontWeight: "bold",
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
         top: 50,
         left: "50%",
         position: "absolute",
-        width: '50%'
+        width: "50%"
     },
     wateringCan: {
         height: "70%",

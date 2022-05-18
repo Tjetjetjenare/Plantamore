@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { SafeAreaView, RefreshControl, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Alert, Platform } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useState, useEffect } from "react";
+import { SafeAreaView, RefreshControl, StyleSheet, TouchableOpacity, Image, Text, View, FlatList, Alert, Platform } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 import { useIsFocused } from "@react-navigation/native";
 import moment from "moment";
 
 var subPlantUrl = "";
 if (Platform.OS === "android") {
-    subPlantUrl = 'http://10.0.2.2:8000/api/subplants/';
-    plantUrl = 'http://10.0.2.2:8000/api/plants/';
+    subPlantUrl = "http://10.0.2.2:8000/api/subplants/";
+    plantUrl = "http://10.0.2.2:8000/api/plants/";
 }
 else {
-    subPlantUrl = 'http://127.0.0.1:8000/api/subplants/';
-    plantUrl = 'http://127.0.0.1:8000/api/plants/'
+    subPlantUrl = "http://127.0.0.1:8000/api/subplants/";
+    plantUrl = "http://127.0.0.1:8000/api/plants/";
 }
 
 const myPlants = [];
@@ -70,10 +70,10 @@ const Item = ({ id, name, plants, replant, pid }) => {
         }
         var displayReplant = moment(willReplant).diff(today, "months")
         if (displayReplant <= 0) {
-            displayReplant = 'this month!'
+            displayReplant = "this month!"
         }
         else {
-            displayReplant = 'in ' + displayReplant + ' months'
+            displayReplant = "in " + displayReplant + " months"
         }
         return (
             displayReplant
@@ -103,7 +103,7 @@ const Item = ({ id, name, plants, replant, pid }) => {
                     </View>
                 </View>
                 <View>
-                    <Text style={{ alignSelf: 'center' }}>
+                    <Text style={{ alignSelf: "center" }}>
                         {monthsUntilReplant()}
                     </Text>
                 </View>
@@ -121,7 +121,7 @@ const Item = ({ id, name, plants, replant, pid }) => {
                     <Image style={styles.image} source={{ uri: `${plants[pid - 1].image_url}` }} />
                 </View>
                 <View>
-                    <Text style={{ alignSelf: 'center' }}>
+                    <Text style={{ alignSelf: "center" }}>
                         {monthsUntilReplant()}
                     </Text>
                 </View>
@@ -153,10 +153,10 @@ const DirtDirt = async (allPlants, userPlants) => {
                 "p_id": UP[parseInt(lengd[i]) - 1].p_id,
                 "username": UP[parseInt(lengd[i]) - 1].username,
             },
-                { 'Content-Type': 'application/json' })
+                { "Content-Type": "application/json" })
                 .then(response => console.log(response.data))
                 .catch(error => {
-                    console.error('There was an error!', error);
+                    console.error("There was an error!", error);
                 });
         }
         Alert.alert("Success", "Your plants have been registered as replanted today")
@@ -170,7 +170,7 @@ function Replant({ navigation }, props) {
     const isFocused = useIsFocused();
     const [refreshing, setRefreshing] = useState(false);
     useEffect(async () => {
-        AsyncStorage.getItem('MyName').then(value =>
+        AsyncStorage.getItem("MyName").then(value =>
             setUsername(value)
         );
         try {
@@ -200,7 +200,7 @@ function Replant({ navigation }, props) {
     )
     return (
         <SafeAreaView style={styles.container}>
-            <View style={{ flexDirection: 'row' }} />
+            <View style={{ flexDirection: "row" }} />
             <Text style={styles.thankYou}>
                 Your plants thank you!
             </Text>
@@ -210,7 +210,7 @@ function Replant({ navigation }, props) {
             <Text style={styles.selectText}>
                 Select the plants you have replanted today
             </Text>
-            <View style={styles.scrollView} contentContainerStyle={{ flexDirection: 'row' }}>
+            <View style={styles.scrollView} contentContainerStyle={{ flexDirection: "row" }}>
                 <FlatList
                     data={findMyPlants(userPlants, username)}
                     extraData={done}
@@ -226,7 +226,7 @@ function Replant({ navigation }, props) {
                     }
                 />
             </View>
-            <View style={{ height: '15%' }} />
+            <View style={{ height: "15%" }} />
             <TouchableOpacity style={styles.circle} onPress={() => { DirtDirt(userPlants, findMyPlants(userPlants, username)); setDone(!done) }}>
                 <Text>
                     REPLANT
@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
         marginRight: 5,
         right: "3%",
         bottom: "12%",
-        shadowColor: 'black',
+        shadowColor: "black",
         shadowOpacity: 0.5,
         shadowRadius: 10,
         elevation: 3,
@@ -275,12 +275,12 @@ const styles = StyleSheet.create({
         }
     },
     container: {
-        backgroundColor: '#7E9B6D',
+        backgroundColor: "#7E9B6D",
         flex: 1,
     },
     flatList: {
         padding: 15,
-        justifyContent: 'space-evenly',
+        justifyContent: "space-evenly",
     },
     image: {
         height: 110,
@@ -300,36 +300,36 @@ const styles = StyleSheet.create({
     },
     scrollView: {
         flex: 1,
-        flexDirection: 'row',
-        top: '5%',
+        flexDirection: "row",
+        top: "5%",
     },
     selectText: {
-        color: 'black',
-        alignSelf: 'center',
+        color: "black",
+        alignSelf: "center",
         top: 20,
         fontSize: 20,
     },
     subPlant: {
-        alignItems: 'center',
-        top: '10%',
+        alignItems: "center",
+        top: "10%",
     },
     thankYou: {
-        color: '#fff',
+        color: "#fff",
         fontSize: 36,
         top: 10,
-        textAlign: 'center',
+        textAlign: "center",
     },
     title: {
-        color: 'white',
+        color: "white",
         fontSize: 15,
-        alignSelf: 'center',
+        alignSelf: "center",
     },
     waterCanContainer: {
         height: 180,
         width: 180,
         top: 15,
         backgroundColor: "#C4C4C4",
-        alignSelf: 'center',
+        alignSelf: "center",
         borderRadius: 90,
         justifyContent: "center",
         alignItems: "center",
@@ -339,9 +339,9 @@ const styles = StyleSheet.create({
         width: "70%",
     },
     wateringCanPic: {
-        width: '70%',
-        height: '70%',
-        alignSelf: 'center',
+        width: "70%",
+        height: "70%",
+        alignSelf: "center",
         top: 10,
     },
 })

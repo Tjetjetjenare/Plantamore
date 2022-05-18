@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, SafeAreaView, Platform } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import axios from 'axios';
-import moment from 'moment';
+import { StyleSheet, Text, View, ScrollView, Image, TouchableOpacity, SafeAreaView, Platform } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import axios from "axios";
+import moment from "moment";
 
 var plantbaseUrl = null;
 var subplantbaseUrl = null;
 if (Platform.OS === "android") {
-    subplantbaseUrl = 'http://10.0.2.2:8000/api/subplants/';
-    plantbaseUrl = 'http://10.0.2.2:8000/api/plants/';
+    subplantbaseUrl = "http://10.0.2.2:8000/api/subplants/";
+    plantbaseUrl = "http://10.0.2.2:8000/api/plants/";
 }
 else {
-    subplantbaseUrl = 'http://127.0.0.1:8000/api/subplants/';
-    plantbaseUrl = 'http://127.0.0.1:8000/api/plants/'
+    subplantbaseUrl = "http://127.0.0.1:8000/api/subplants/";
+    plantbaseUrl = "http://127.0.0.1:8000/api/plants/";
 }
 
 function PlantSubprofile({ route, navigation }) {
@@ -47,21 +47,21 @@ function PlantSubprofile({ route, navigation }) {
         var amplify = addIfSummer()
         var today = moment(new Date())
         var lastWater = moment(Water)
-        if (PlantWat == 'Sparingly') {
-            var shouldWater = lastWater.add(Math.floor(19 * amplify), 'days')
+        if (PlantWat == "Sparingly") {
+            var shouldWater = lastWater.add(Math.floor(19 * amplify), "days")
         }
-        else if (PlantWat == 'Generously') {
-            var shouldWater = lastWater.add(Math.floor(4 * amplify), 'days')
+        else if (PlantWat == "Generously") {
+            var shouldWater = lastWater.add(Math.floor(4 * amplify), "days")
         }
         else {
-            var shouldWater = lastWater.add(Math.floor(7 * amplify), 'days')
+            var shouldWater = lastWater.add(Math.floor(7 * amplify), "days")
         }
-        var displayWater = shouldWater.diff(today, 'days')
+        var displayWater = shouldWater.diff(today, "days")
         if (displayWater <= 0) {
-            displayWater = 'today!'
+            displayWater = "today!"
         }
         else {
-            displayWater = 'in ' + displayWater + ' days'
+            displayWater = "in " + displayWater + " days"
         }
         return (displayWater)
     }
@@ -92,10 +92,10 @@ function PlantSubprofile({ route, navigation }) {
         }
         var displayReplant = moment(willReplant).diff(today, "months")
         if (displayReplant <= 0) {
-            displayReplant = 'this month!'
+            displayReplant = "this month!"
         }
         else {
-            displayReplant = 'in ' + displayReplant + ' months'
+            displayReplant = "in " + displayReplant + " months"
         }
         return (
             displayReplant
@@ -216,7 +216,7 @@ function PlantSubprofile({ route, navigation }) {
             <View style={styles.footer}>
                 <TouchableOpacity
                     style={styles.circle}
-                    onPress={() => navigation.navigate('Watered')}>
+                    onPress={() => navigation.navigate("Watered")}>
                     <Image style={styles.wateringCan} source={require("../assets/plantCare.png")} />
                 </TouchableOpacity>
             </View>
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: "#fff",
     },
     description: {
         width: "80%",
@@ -259,7 +259,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         width: "100%",
         height: 100,
-        backgroundColor: '#7E9B6D',
+        backgroundColor: "#7E9B6D",
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "center",
@@ -282,7 +282,7 @@ const styles = StyleSheet.create({
         height: 30,
         marginRight: 10,
         alignSelf: "flex-start",
-        tintColor: '#bf3d4a',
+        tintColor: "#bf3d4a",
     },
     innerSpec: {
         flexDirection: "row",
@@ -322,7 +322,7 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
         aspectRatio: 1,
-        tintColor: '#bf3d4a',
+        tintColor: "#bf3d4a",
     },
     specs: {
         flex: 1,

@@ -1,13 +1,13 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Alert } from 'react-native';
-import StandardButton from '../components/StandardButton';
-import axios from "axios"
-import { TextInput } from 'react-native-paper';
+import { StatusBar } from "expo-status-bar";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Alert } from "react-native";
+import StandardButton from "../components/StandardButton";
+import axios from "axios";
+import { TextInput } from "react-native-paper";
 
 var userbaseUrl = null;
-if (Platform.OS === "android") { userbaseUrl = 'http://10.0.2.2:8000/api/users/'; }
-else { userbaseUrl = 'http://127.0.0.1:8000/api/users/'; }
+if (Platform.OS === "android") { userbaseUrl = "http://10.0.2.2:8000/api/users/"; }
+else { userbaseUrl = "http://127.0.0.1:8000/api/users/"; }
 function SignUp({ navigation }) {
     const [fullName, setFullName] = useState("");
     const [email, setEmail] = useState("");
@@ -53,13 +53,13 @@ function SignUp({ navigation }) {
                 profile_picture: 1,
 
             }
-            const response = await axios.post(userbaseUrl, data, { 'Content-Type': 'application/json' });
+            const response = await axios.post(userbaseUrl, data, { "Content-Type": "application/json" });
             if (response.status === 201) {
-                navigation.navigate('ProfileDrawer', { screen: 'LogIn' })
+                navigation.navigate("ProfileDrawer", { screen: "LogIn" })
                 setIsLoading(false);
-                setFullName('');
-                setEmail('');
-                setPassword('');
+                setFullName("");
+                setEmail("");
+                setPassword("");
             }
             else {
                 throw new Error("An error has occurred");
@@ -81,7 +81,7 @@ function SignUp({ navigation }) {
                     style={styles.inputName}
                     placeholder="Name"
                     mode="outlined"
-                    theme={{ roundness: 30, colors: { primary: 'black' } }}
+                    theme={{ roundness: 30, colors: { primary: "black" } }}
                     value={fullName}
                     placeholderTextColor={"#908E8E"}
                     editable={!isLoading}
@@ -93,7 +93,7 @@ function SignUp({ navigation }) {
                     style={styles.inputName}
                     placeholder="Email"
                     mode="outlined"
-                    theme={{ roundness: 30, colors: { primary: 'black' } }}
+                    theme={{ roundness: 30, colors: { primary: "black" } }}
                     value={email}
                     onChangeText={onChangeEmailHandler}
                     editable={!isLoading}
@@ -106,7 +106,7 @@ function SignUp({ navigation }) {
                     placeholder="Password"
                     value={password}
                     mode="outlined"
-                    theme={{ roundness: 30, colors: { primary: 'black' } }}
+                    theme={{ roundness: 30, colors: { primary: "black" } }}
                     onChangeText={onChangePasswordHandler}
                     secureTextEntry={isSecurePassword}
                     editable={!isLoading}
@@ -121,7 +121,7 @@ function SignUp({ navigation }) {
                 <StandardButton sizeFont={20} title="Sign up" functionOnPress={onSubmitFormHandler} />
             </View>
             <View style={styles.termsAndConditions}>
-                <Text style={{ justifyContent: 'flex-end' }}>
+                <Text style={{ justifyContent: "flex-end" }}>
                     By signing up you agree to the
                     <TouchableOpacity onPress={() => Alert.alert("Terms and conditions", "PLANTAMORE is not responsible for the survival of your plants")}>
                         <Text style={styles.tocText}>
@@ -144,21 +144,21 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     background: {
-        backgroundColor: '#7E9B6D',
+        backgroundColor: "#7E9B6D",
         flex: 1,
     },
     baseContainer: {
         flex: 3,
-        alignItems: 'center',
+        alignItems: "center",
         justifyContent: "center",
     },
     eye: {
-        position: 'absolute',
+        position: "absolute",
     },
     header: {
         marginLeft: 35,
         fontSize: 35,
-        fontWeight: 'bold',
+        fontWeight: "bold",
         marginTop: 40,
     },
     inputName: {
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     signUpWrap: {
-        alignSelf: 'center',
+        alignSelf: "center",
         width: "60%",
         height: 40,
         margin: 40,
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
         flexDirection: "row",
     },
     tocText: {
-        textDecorationLine: 'underline',
+        textDecorationLine: "underline",
         top: 2,
     }
 })

@@ -1,4 +1,4 @@
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import DrawerNavigator from "./navigation/DrawerNavigator";
 

@@ -1,34 +1,34 @@
 import React from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { View, Image, Platform } from 'react-native';
+import { View, Image, Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import Home from '../screens/Home';
-import SignUp from '../screens/SignUp';
-import LogIn from '../screens/LogIn';
-import PlantDBProfile from '../screens/PlantDBProfile';
-import PlantSubprofile from '../screens/PlantSubprofile';
-import CreatePlantSubprofile from '../screens/CreatePlantSubprofile';
-import Profile from '../screens/Profile';
-import Calendar from '../screens/Calendar';
-import Watered from '../screens/Watered';
-import Nutrition from '../screens/Nutrition';
-import Replant from '../screens/Replant';
-import Guide from '../screens/Guide';
-import PlantDatabase from '../screens/PlantDatabase';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import Home from "../screens/Home";
+import SignUp from "../screens/SignUp";
+import LogIn from "../screens/LogIn";
+import PlantDBProfile from "../screens/PlantDBProfile";
+import PlantSubprofile from "../screens/PlantSubprofile";
+import CreatePlantSubprofile from "../screens/CreatePlantSubprofile";
+import Profile from "../screens/Profile";
+import Calendar from "../screens/Calendar";
+import Watered from "../screens/Watered";
+import Nutrition from "../screens/Nutrition";
+import Replant from "../screens/Replant";
+import Guide from "../screens/Guide";
+import PlantDatabase from "../screens/PlantDatabase";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 function sendTo(navigation) {
-  AsyncStorage.getItem('inloggad').then(value => {
+  AsyncStorage.getItem("inloggad").then(value => {
     var val = value
     if (val == "true") {
-      navigation.navigate('ProfileDrawer', { screen: 'Profile' })
+      navigation.navigate("ProfileDrawer", { screen: "Profile" })
     }
     else {
-      navigation.navigate('ProfileDrawer', { screen: 'LogIn' })
+      navigation.navigate("ProfileDrawer", { screen: "LogIn" })
     }
   });
 
@@ -38,7 +38,7 @@ const MainStackNavigator = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        title: '',
+        title: "",
         gestureEnabled: false,
       }}
       initialRouteName="Home"
@@ -50,7 +50,7 @@ const MainStackNavigator = () => {
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 0,
-            backgroundColor: 'white'
+            backgroundColor: "white"
           },
           headerLeft: () =>
             <View>
@@ -82,7 +82,7 @@ const MainStackNavigator = () => {
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 0,
-            backgroundColor: 'white',
+            backgroundColor: "white",
           },
           title: "",
           headerLeft: () =>
@@ -111,7 +111,7 @@ const MainStackNavigator = () => {
                 name="information-circle-outline"
                 color="black"
                 size={30}
-                onPress={() => navigation.navigate('GuideMain')}
+                onPress={() => navigation.navigate("GuideMain")}
               />
             </View>,
         })}
@@ -123,7 +123,7 @@ const MainStackNavigator = () => {
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 0,
-            backgroundColor: '#7E9B6D'
+            backgroundColor: "#7E9B6D"
           },
           title: "",
           headerLeft: () =>
@@ -155,7 +155,7 @@ const PlantDatabaseStackNavigator = () => {
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 0,
-            backgroundColor: 'white',
+            backgroundColor: "white",
           },
           title: "Plant Database",
           headerLeft: () =>
@@ -165,7 +165,7 @@ const PlantDatabaseStackNavigator = () => {
                 name="close-outline"
                 color="black"
                 size={30}
-                onPress={() => navigation.navigate("Home")}
+                onPress={() => navigation.navigate("HomeDrawer", { screen: "Home" })}
               />
             </View>,
         })}
@@ -177,7 +177,7 @@ const PlantDatabaseStackNavigator = () => {
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 0,
-            backgroundColor: 'white',
+            backgroundColor: "white",
           },
           title: "",
           headerLeft: () =>
@@ -187,7 +187,7 @@ const PlantDatabaseStackNavigator = () => {
                 name="chevron-back-outline"
                 color="black"
                 size={35}
-                onPress={() => navigation.navigate('PlantDatabase')}
+                onPress={() => navigation.navigate("PlantDatabase")}
               />
             </View>,
           headerRight: () =>
@@ -206,7 +206,7 @@ const PlantDatabaseStackNavigator = () => {
                 name="information-circle-outline"
                 color="black"
                 size={30}
-                onPress={() => navigation.navigate('GuideDatabasePath')}
+                onPress={() => navigation.navigate("GuideDatabasePath")}
               />
             </View>,
         })}
@@ -218,7 +218,7 @@ const PlantDatabaseStackNavigator = () => {
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 0,
-            backgroundColor: '#7E9B6D'
+            backgroundColor: "#7E9B6D"
           },
           title: "",
           headerLeft: () =>
@@ -251,7 +251,7 @@ const GuideStackNavigator = () => {
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 0,
-            backgroundColor: '#7E9B6D'
+            backgroundColor: "#7E9B6D"
           },
           headerLeft: () =>
             <View style={{ marginLeft: 10 }}>
@@ -259,7 +259,7 @@ const GuideStackNavigator = () => {
                 name="close-outline"
                 color="black"
                 size={35}
-                onPress={() => navigation.navigate('Home')}
+                onPress={() => navigation.navigate("Home")}
               />
             </View>,
         })}
@@ -283,7 +283,7 @@ const ProfileStackNavigator = () => {
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 0,
-            backgroundColor: '#7E9B6D'
+            backgroundColor: "#7E9B6D"
           },
           headerLeft: () =>
             <View>
@@ -292,7 +292,7 @@ const ProfileStackNavigator = () => {
                 name="chevron-back-outline"
                 color="black"
                 size={35}
-                onPress={() => navigation.navigate('Home')}
+                onPress={() => navigation.navigate("Home")}
               />
             </View>,
         })}
@@ -304,7 +304,7 @@ const ProfileStackNavigator = () => {
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 0,
-            backgroundColor: '#7E9B6D'
+            backgroundColor: "#7E9B6D"
           },
           headerLeft: () =>
             <View>
@@ -313,7 +313,7 @@ const ProfileStackNavigator = () => {
                 name="chevron-back-outline"
                 color="black"
                 size={35}
-                onPress={() => navigation.navigate('Home')}
+                onPress={() => navigation.navigate("Home")}
               />
             </View>,
         })}
@@ -325,7 +325,7 @@ const ProfileStackNavigator = () => {
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 0,
-            backgroundColor: '#7E9B6D'
+            backgroundColor: "#7E9B6D"
           },
           headerLeft: () =>
             <View>
@@ -344,7 +344,7 @@ const ProfileStackNavigator = () => {
                 name="calendar-outline"
                 color="black"
                 size={35}
-                onPress={() => navigation.navigate('Calendar')}
+                onPress={() => navigation.navigate("Calendar")}
               />
             </View>,
         })}
@@ -356,7 +356,7 @@ const ProfileStackNavigator = () => {
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 0,
-            backgroundColor: 'white'
+            backgroundColor: "white"
           },
           headerLeft: () =>
             <View>
@@ -365,7 +365,7 @@ const ProfileStackNavigator = () => {
                 name="chevron-back-outline"
                 color="black"
                 size={35}
-                onPress={() => navigation.navigate('Profile')}
+                onPress={() => navigation.navigate("Profile")}
               />
             </View>,
           headerRight: () =>
@@ -384,7 +384,7 @@ const ProfileStackNavigator = () => {
                 name="information-circle-outline"
                 color="black"
                 size={30}
-                onPress={() => navigation.navigate('GuideProfilePath')}
+                onPress={() => navigation.navigate("GuideProfilePath")}
               />
             </View>,
         })}
@@ -396,7 +396,7 @@ const ProfileStackNavigator = () => {
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 0,
-            backgroundColor: '#7E9B6D'
+            backgroundColor: "#7E9B6D"
           },
           headerLeft: () =>
             <View style={{ marginLeft: 10 }}>
@@ -416,7 +416,7 @@ const ProfileStackNavigator = () => {
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 0,
-            backgroundColor: '#7E9B6D'
+            backgroundColor: "#7E9B6D"
           },
           headerLeft: () =>
             <View>
@@ -437,7 +437,7 @@ const ProfileStackNavigator = () => {
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 0,
-            backgroundColor: 'white'
+            backgroundColor: "white"
           },
           headerLeft: () =>
             <View>
@@ -458,7 +458,7 @@ const ProfileStackNavigator = () => {
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 0,
-            backgroundColor: '#7E9B6D'
+            backgroundColor: "#7E9B6D"
           },
           headerLeft: () =>
             <View>
@@ -480,7 +480,7 @@ const ProfileStackNavigator = () => {
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 0,
-            backgroundColor: '#7E9B6D'
+            backgroundColor: "#7E9B6D"
           },
           headerLeft: () =>
             <View>
@@ -502,7 +502,7 @@ const ProfileStackNavigator = () => {
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 0,
-            backgroundColor: '#7E9B6D'
+            backgroundColor: "#7E9B6D"
           },
           headerLeft: () =>
             <View>
@@ -530,7 +530,7 @@ const BottomTabNavigator = () => {
         tabBarShowLabel: false,
         gestureEnabled: false,
         tabBarStyle: {
-          position: 'absolute',
+          position: "absolute",
           bottom: 10,
           left: 20,
           right: 20,
@@ -542,28 +542,28 @@ const BottomTabNavigator = () => {
     >
       <Tab.Screen name="WateredTab" component={Watered}
         options={{
-          tabBarIcon: ({ focused }) => (<View style={{ alignItems: 'center', justifyContent: 'center' }}>
+          tabBarIcon: ({ focused }) => (<View style={{ alignItems: "center", justifyContent: "center" }}>
             <Image source={require("../assets/wateringCan.png")}
-              resizeMode='contain'
-              style={{ width: 40, height: 40, top: Platform.OS === 'ios' ? 10 : 0, tintColor: focused ? "#7E9B6D" : "black" }} />
+              resizeMode="contain"
+              style={{ width: 40, height: 40, top: Platform.OS === "ios" ? 10 : 0, tintColor: focused ? "#7E9B6D" : "black" }} />
           </View>)
         }}
       />
       <Tab.Screen name="NutritionTab" component={Nutrition}
         options={{
-          tabBarIcon: ({ focused }) => (<View style={{ alignItems: 'center', justifyContent: 'center' }}>
+          tabBarIcon: ({ focused }) => (<View style={{ alignItems: "center", justifyContent: "center" }}>
             <Image source={require("../assets/nutritionFlask.png")}
-              resizeMode='contain'
-              style={{ width: 40, height: 40, top: Platform.OS === 'ios' ? 10 : 0, tintColor: focused ? "#7E9B6D" : "black" }} />
+              resizeMode="contain"
+              style={{ width: 40, height: 40, top: Platform.OS === "ios" ? 10 : 0, tintColor: focused ? "#7E9B6D" : "black" }} />
           </View>)
         }}
       />
       <Tab.Screen name="ReplantTab" component={Replant}
         options={{
-          tabBarIcon: ({ focused }) => (<View style={{ alignItems: 'center', justifyContent: 'center' }}>
+          tabBarIcon: ({ focused }) => (<View style={{ alignItems: "center", justifyContent: "center" }}>
             <Image source={require("../assets/replant.png")}
-              resizeMode='contain'
-              style={{ width: 40, height: 40, top: Platform.OS === 'ios' ? 10 : 0, tintColor: focused ? "#7E9B6D" : "black" }} />
+              resizeMode="contain"
+              style={{ width: 40, height: 40, top: Platform.OS === "ios" ? 10 : 0, tintColor: focused ? "#7E9B6D" : "black" }} />
           </View>)
         }}
       />

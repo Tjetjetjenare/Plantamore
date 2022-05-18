@@ -1,11 +1,11 @@
-import { React, useState, useEffect } from 'react';
-import { View, TouchableOpacity, Text, SafeAreaView, StyleSheet, Image } from 'react-native';
-import { Agenda } from 'react-native-calendars';
-import { Card } from 'react-native-paper';
+import { React, useState, useEffect } from "react";
+import { View, TouchableOpacity, Text, SafeAreaView, StyleSheet, Image } from "react-native";
+import { Agenda } from "react-native-calendars";
+import { Card } from "react-native-paper";
 import { useIsFocused } from "@react-navigation/native";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
-import moment from 'moment';
+import moment from "moment";
 
 var plantUrl = null;
 var subPlantUrl = null;
@@ -13,12 +13,12 @@ var myPlants = [];
 const calPla = {};
 const dotObj = {};
 if (Platform.OS === "android") {
-  subPlantUrl = 'http://10.0.2.2:8000/api/subplants/';
-  plantUrl = 'http://10.0.2.2:8000/api/plants/';
+  subPlantUrl = "http://10.0.2.2:8000/api/subplants/";
+  plantUrl = "http://10.0.2.2:8000/api/plants/";
 }
 else {
-  subPlantUrl = 'http://127.0.0.1:8000/api/subplants/';
-  plantUrl = 'http://127.0.0.1:8000/api/plants/'
+  subPlantUrl = "http://127.0.0.1:8000/api/subplants/";
+  plantUrl = "http://127.0.0.1:8000/api/plants/";
 }
 
 function findMyPlants(userPlants, username) {
@@ -36,10 +36,10 @@ function Calendar({ navigation }, props) {
   const [items, setItems] = useState({});
   const [username, setUsername] = useState("");
   const isFocused = useIsFocused();
-  const water = { key: 'water', color: '#00FFFF', selectedDotColor: '#00FFFF' }
+  const water = { key: "water", color: "#00FFFF", selectedDotColor: "#00FFFF" }
 
   useEffect(async () => {
-    AsyncStorage.getItem('MyName').then(value =>
+    AsyncStorage.getItem("MyName").then(value =>
       setUsername(value)
     );
     try {
@@ -84,14 +84,14 @@ function Calendar({ navigation }, props) {
       var shouldWater = [];
       for (var i = 0; i < myPlants.length; i++) {
         var amplify = addIfSummer()
-        if (plants[myPlants[i].p_id - 1].water == 'Sparingly') {
-          shouldWater.push(moment(myPlants[i].water).add(Math.floor(19 * amplify), 'days').format('YYYY-MM-DD'))
+        if (plants[myPlants[i].p_id - 1].water == "Sparingly") {
+          shouldWater.push(moment(myPlants[i].water).add(Math.floor(19 * amplify), "days").format("YYYY-MM-DD"))
         }
-        else if (plants[myPlants[i].p_id - 1].water == 'Generously') {
-          shouldWater.push(moment(myPlants[i].water).add(Math.floor(4 * amplify), 'days').format('YYYY-MM-DD'))
+        else if (plants[myPlants[i].p_id - 1].water == "Generously") {
+          shouldWater.push(moment(myPlants[i].water).add(Math.floor(4 * amplify), "days").format("YYYY-MM-DD"))
         }
         else {
-          shouldWater.push(moment(myPlants[i].water).add(Math.floor(7 * amplify), 'days').format('YYYY-MM-DD'))
+          shouldWater.push(moment(myPlants[i].water).add(Math.floor(7 * amplify), "days").format("YYYY-MM-DD"))
         }
         calPla[shouldWater[i]] = []
         if (dotObj[shouldWater[i]] != { dots: [], selected: false, disabled: false }) {
@@ -162,12 +162,12 @@ function Calendar({ navigation }, props) {
         loadItemsForMonth={markedDates}
         renderItem={renderItem}
         theme={{
-          selectedDayBackgroundColor: '#FFA500',
-          todayTextColor: '#FFA500',
-          selectedDotColor: '#00FFFF',
-          agendaTodayColor: '#FFA500',
+          selectedDayBackgroundColor: "#FFA500",
+          todayTextColor: "#FFA500",
+          selectedDotColor: "#00FFFF",
+          agendaTodayColor: "#FFA500",
         }}
-        markingType={'multi-dot'}
+        markingType={"multi-dot"}
         markedDates={dotObj}
       />
     </SafeAreaView>
@@ -183,7 +183,7 @@ const styles = StyleSheet.create({
   calendarHeader: {
     marginLeft: 35,
     fontSize: 35,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginTop: 15,
   },
   cardContent: {
@@ -194,9 +194,9 @@ const styles = StyleSheet.create({
     marginTop: 0,
   },
   eventContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   exitContainer: {
     height: 20,
@@ -207,6 +207,6 @@ const styles = StyleSheet.create({
   plantContainer: {
     height: 100,
     width: 100,
-    resizeMode: 'contain',
+    resizeMode: "contain",
   },
 });

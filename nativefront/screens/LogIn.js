@@ -1,15 +1,15 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Platform, Alert } from 'react-native';
-import StandardButton from '../components/StandardButton';
+import { StatusBar } from "expo-status-bar";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, SafeAreaView, TouchableOpacity, Platform, Alert } from "react-native";
+import StandardButton from "../components/StandardButton";
 import axios from "axios";
-import { TextInput } from 'react-native-paper'
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { TextInput } from "react-native-paper";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
 
 var userbaseUrl = null;
-if (Platform.OS === "android") { userbaseUrl = 'http://10.0.2.2:8000/api/users/'; }
-else { userbaseUrl = 'http://127.0.0.1:8000/api/users/'; }
+if (Platform.OS === "android") { userbaseUrl = "http://10.0.2.2:8000/api/users/"; }
+else { userbaseUrl = "http://127.0.0.1:8000/api/users/"; }
 
 function LogInScreen({ navigation }) {
     const [email, setEmail] = useState("");
@@ -39,7 +39,7 @@ function LogInScreen({ navigation }) {
                         AsyncStorage.setItem("propic", "" + existingUsers[i].profile_picture);
                         AsyncStorage.setItem("MyName", existingUsers[i].username);
                         setIsLoading(false);
-                        navigation.navigate('ProfileDrawer', { screen: 'Profile' })
+                        navigation.navigate("ProfileDrawer", { screen: "Profile" })
                         return;
                     }
                     else {
@@ -78,7 +78,7 @@ function LogInScreen({ navigation }) {
                     style={styles.inputName}
                     placeholder="Email"
                     mode="outlined"
-                    theme={{ roundness: 30, colors: { primary: 'black' } }}
+                    theme={{ roundness: 30, colors: { primary: "black" } }}
                     value={email}
                     onChangeText={onChangeEmailHandler}
                     editable={!isLoading}
@@ -91,7 +91,7 @@ function LogInScreen({ navigation }) {
                     placeholder="Password"
                     value={password}
                     mode="outlined"
-                    theme={{ roundness: 30, colors: { primary: 'black' } }}
+                    theme={{ roundness: 30, colors: { primary: "black" } }}
                     onChangeText={onChangePasswordHandler}
                     secureTextEntry={isSecurePassword}
                     editable={!isLoading}
@@ -106,9 +106,9 @@ function LogInScreen({ navigation }) {
                 <StandardButton sizeFont={20} title="Log in" functionOnPress={onSubmitFormHandler} />
             </View>
             <Text style={styles.accountText}>
-                Don't have an account yet?
+                Don"t have an account yet?
             </Text>
-            <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+            <TouchableOpacity onPress={() => navigation.navigate("SignUp")}>
                 <Text style={styles.signUpButton}>
                     Sign up
                 </Text>
@@ -134,18 +134,18 @@ const styles = StyleSheet.create({
         marginTop: 10,
     },
     background: {
-        backgroundColor: '#7E9B6D',
+        backgroundColor: "#7E9B6D",
         flex: 1,
     },
     header: {
         marginLeft: 35,
         fontSize: 35,
-        fontWeight: 'bold',
+        fontWeight: "bold",
         marginTop: 40,
     },
     icon: {
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: "center",
+        alignItems: "center",
     },
     inputName: {
         marginTop: -10,
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     },
     loginWrap: {
         marginTop: 50,
-        alignSelf: 'center',
+        alignSelf: "center",
         width: "60%",
         height: 40,
         margin: 10,
@@ -172,8 +172,8 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     signUpButton: {
-        textDecorationLine: 'underline',
-        alignSelf: 'center',
+        textDecorationLine: "underline",
+        alignSelf: "center",
         fontSize: 20,
     },
 })

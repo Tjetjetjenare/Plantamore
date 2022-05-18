@@ -1,10 +1,10 @@
-import { React, useState, useEffect } from 'react';
-import axios from 'axios';
-import { View, SectionList, Text, StyleSheet } from 'react-native';
+import { React, useState, useEffect } from "react";
+import axios from "axios";
+import { View, SectionList, Text, StyleSheet } from "react-native";
 
 var plantbaseUrl = null;
-if (Platform.OS === "android") { plantbaseUrl = 'http://10.0.2.2:8000/api/plants/'; }
-else { plantbaseUrl = 'http://127.0.0.1:8000/api/plants/'; }
+if (Platform.OS === "android") { plantbaseUrl = "http://10.0.2.2:8000/api/plants/"; }
+else { plantbaseUrl = "http://127.0.0.1:8000/api/plants/"; }
 
 export default function ContactsList({ navigation }) {
   const [Plant, setPlant] = useState([]);
@@ -71,7 +71,7 @@ export default function ContactsList({ navigation }) {
 
 const styles = StyleSheet.create({
   background: {
-    backgroundColor: '#FFF',
+    backgroundColor: "#FFF",
     flex: 1,
   },
   container: {
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20
   },
   letter: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 20,
   },
   names: {

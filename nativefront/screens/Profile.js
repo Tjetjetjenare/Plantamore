@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { SafeAreaView, Alert, StyleSheet, RefreshControl, TouchableOpacity, Image, Text, View, FlatList, Platform } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { SafeAreaView, Alert, StyleSheet, RefreshControl, TouchableOpacity, Image, Text, View, FlatList, Platform } from "react-native";
 import axios from "axios";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useIsFocused } from "@react-navigation/native";
-import moment from 'moment';
+import moment from "moment";
 
 const myPlants = [];
 var plantUrl = null;
@@ -15,14 +15,14 @@ const wait = (timeout) => {
     return new Promise(resolve => setTimeout(resolve, timeout));
 }
 if (Platform.OS === "android") {
-    subPlantUrl = 'http://10.0.2.2:8000/api/subplants/';
-    userUrl = 'http://10.0.2.2:8000/api/users/'
-    plantUrl = 'http://10.0.2.2:8000/api/plants/';
+    subPlantUrl = "http://10.0.2.2:8000/api/subplants/";
+    userUrl = "http://10.0.2.2:8000/api/users/";
+    plantUrl = "http://10.0.2.2:8000/api/plants/";
 }
 else {
-    subPlantUrl = 'http://127.0.0.1:8000/api/subplants/';
-    plantUrl = 'http://127.0.0.1:8000/api/plants/';
-    userUrl = 'http://127.0.0.1:8000/api/users/'
+    subPlantUrl = "http://127.0.0.1:8000/api/subplants/";
+    plantUrl = "http://127.0.0.1:8000/api/plants/";
+    userUrl = "http://127.0.0.1:8000/api/users/";
 }
 const Item = ({ id, name, birth_date, water, replant, nutrition, p_id, username, plants, navigation }) => {
     const addIfSummer = () => {
@@ -39,21 +39,21 @@ const Item = ({ id, name, birth_date, water, replant, nutrition, p_id, username,
         var amplify = addIfSummer()
         var today = moment(new Date())
         var lastWater = moment(water)
-        if (plants[p_id - 1].water == 'Sparingly') {
-            var shouldWater = lastWater.add(Math.floor(19 * amplify), 'days')
+        if (plants[p_id - 1].water == "Sparingly") {
+            var shouldWater = lastWater.add(Math.floor(19 * amplify), "days")
         }
-        else if (plants[p_id - 1].water == 'Generously') {
-            var shouldWater = lastWater.add(Math.floor(4 * amplify), 'days')
+        else if (plants[p_id - 1].water == "Generously") {
+            var shouldWater = lastWater.add(Math.floor(4 * amplify), "days")
         }
         else {
-            var shouldWater = lastWater.add(Math.floor(7 * amplify), 'days')
+            var shouldWater = lastWater.add(Math.floor(7 * amplify), "days")
         }
-        var displayWater = shouldWater.diff(today, 'days')
+        var displayWater = shouldWater.diff(today, "days")
         if (displayWater <= 0) {
-            displayWater = 'today!'
+            displayWater = "today!"
         }
         else {
-            displayWater = 'in ' + displayWater + ' days'
+            displayWater = "in " + displayWater + " days"
         }
         return (
             displayWater
@@ -77,10 +77,10 @@ const Item = ({ id, name, birth_date, water, replant, nutrition, p_id, username,
         }
         var displayReplant = moment(willReplant).diff(today, "months")
         if (displayReplant <= 0) {
-            displayReplant = 'this month!'
+            displayReplant = "this month!"
         }
         else {
-            displayReplant = 'in ' + displayReplant + ' months'
+            displayReplant = "in " + displayReplant + " months"
         }
         return (
             displayReplant
@@ -101,7 +101,7 @@ const Item = ({ id, name, birth_date, water, replant, nutrition, p_id, username,
             <TouchableOpacity
                 onPress={() => {
                     if (id == "add") {
-                        navigation.navigate('CreateSub')
+                        navigation.navigate("CreateSub")
                     }
                 }}
             >
@@ -119,10 +119,10 @@ const Item = ({ id, name, birth_date, water, replant, nutrition, p_id, username,
             <TouchableOpacity
                 onPress={() => {
                     if (id == "add") {
-                        navigation.navigate('CreateSub')
+                        navigation.navigate("CreateSub")
                     }
                     else {
-                        navigation.navigate('PlantSub', {
+                        navigation.navigate("PlantSub", {
                             plantId: p_id, EnglishName: plants[p_id - 1].english_name, LatinName: plants[p_id - 1].latin_name,
                             SwedishName: plants[p_id - 1].swedish_name, Description: plants[p_id - 1].description,
                             Sunlight: plants[p_id - 1].sunlight, PlantNut: plants[p_id - 1].nutrition, PlantWat: plants[p_id - 1].water, ImageUrl: plants[p_id - 1].image_url,
@@ -178,67 +178,67 @@ const Item = ({ id, name, birth_date, water, replant, nutrition, p_id, username,
 }
 const DATA = [
     {
-        id: '13',
-        title: 'First Item',
+        id: "13",
+        title: "First Item",
         pic: require("../assets/Anna.png"),
     },
     {
-        id: '2',
-        title: 'Second Item',
+        id: "2",
+        title: "Second Item",
         pic: require("../assets/Elaf.png"),
     },
     {
-        id: '3',
-        title: 'Third Item',
+        id: "3",
+        title: "Third Item",
         pic: require("../assets/Emma.png"),
     },
     {
-        id: '4',
-        title: 'Fourth Item',
+        id: "4",
+        title: "Fourth Item",
         pic: require("../assets/Hannah.png"),
     },
     {
-        id: '5',
-        title: 'Fifth Item',
+        id: "5",
+        title: "Fifth Item",
         pic: require("../assets/John.png"),
     },
     {
-        id: '6',
-        title: 'Sixth Item',
+        id: "6",
+        title: "Sixth Item",
         pic: require("../assets/Kent.png"),
     },
     {
-        id: '7',
-        title: 'Seventh Item',
+        id: "7",
+        title: "Seventh Item",
         pic: require("../assets/Kerstin.png"),
     },
     {
-        id: '8',
-        title: 'Eigth Item',
+        id: "8",
+        title: "Eigth Item",
         pic: require("../assets/Max.png"),
 
     },
     {
-        id: '9',
-        title: 'Nineth Item',
+        id: "9",
+        title: "Nineth Item",
         pic: require("../assets/Olaf.png"),
 
     },
     {
-        id: '10',
-        title: 'Eigth Item',
+        id: "10",
+        title: "Eigth Item",
         pic: require("../assets/Pelle.png"),
 
     },
     {
-        id: '11',
-        title: 'Eigth Item',
+        id: "11",
+        title: "Eigth Item",
         pic: require("../assets/Sam.png"),
 
     },
     {
-        id: '12',
-        title: 'Eigth Item',
+        id: "12",
+        title: "Eigth Item",
         pic: require("../assets/Tom.png"),
 
     },
@@ -334,10 +334,10 @@ function Profile({ navigation }) {
     const [refreshing, setRefreshing] = useState(false);
     const [show, setShow] = useState(false);
     useEffect(async () => {
-        AsyncStorage.getItem('MyName').then(value =>
+        AsyncStorage.getItem("MyName").then(value =>
             setUsername(value)
         );
-        AsyncStorage.getItem('propic').then(value =>
+        AsyncStorage.getItem("propic").then(value =>
             setProfileP(value)
         );
         try {
@@ -403,7 +403,7 @@ function Profile({ navigation }) {
                 "password": users[userId].password,
                 "profile_picture": number,
             },
-                { 'Content-Type': 'application/json' }
+                { "Content-Type": "application/json" }
             );
         }
         catch (error) {
@@ -444,7 +444,7 @@ function Profile({ navigation }) {
                     </TouchableOpacity>
                     {picChoose()}
                 </View>
-                <View style={styles.scrollView} contentContainerStyle={{ flexDirection: 'row' }}>
+                <View style={styles.scrollView} contentContainerStyle={{ flexDirection: "row" }}>
                     <FlatList
                         data={findMyPlants(userPlants, username)}
                         extraData={ref}
@@ -460,7 +460,7 @@ function Profile({ navigation }) {
                         }
                     />
                 </View>
-                <TouchableOpacity style={styles.circle} onPress={() => navigation.navigate('Watered')}>
+                <TouchableOpacity style={styles.circle} onPress={() => navigation.navigate("Watered")}>
                     <Image style={styles.wateringCan} source={require("../assets/plantCare.png")} />
                 </TouchableOpacity>
             </SafeAreaView>
@@ -479,7 +479,7 @@ function Profile({ navigation }) {
                     </TouchableOpacity>
                     {picChoose()}
                 </View>
-                <View style={styles.scrollView} contentContainerStyle={{ flexDirection: 'row' }}>
+                <View style={styles.scrollView} contentContainerStyle={{ flexDirection: "row" }}>
                     <FlatList
                         data={findMyPlants(userPlants, username)}
                         extraData={ref}
@@ -495,7 +495,7 @@ function Profile({ navigation }) {
                         }
                     />
                 </View>
-                <TouchableOpacity style={styles.circle} onPress={() => navigation.navigate('Watered')}>
+                <TouchableOpacity style={styles.circle} onPress={() => navigation.navigate("Watered")}>
                     <Image style={styles.wateringCan} source={require("../assets/plantCare.png")} />
                 </TouchableOpacity>
             </SafeAreaView>
@@ -526,33 +526,33 @@ const styles = StyleSheet.create({
         position: "absolute",
     },
     container: {
-        backgroundColor: '#7E9B6D',
+        backgroundColor: "#7E9B6D",
         flex: 1,
     },
     flatList: {
         padding: 10,
         paddingBottom: 0,
-        justifyContent: 'space-evenly',
+        justifyContent: "space-evenly",
     },
     image: {
         height: 110,
         width: 110,
-        top: '5%',
+        top: "5%",
         borderRadius: 55,
     },
     image2: {
         height: 50,
         width: 50,
-        top: '5%',
+        top: "5%",
         borderRadius: 55,
-        alignSelf: 'center',
-        resizeMode: 'contain',
+        alignSelf: "center",
+        resizeMode: "contain",
     },
     innerSpec: {
         flexDirection: "row",
         alignSelf: "flex-start",
         paddingLeft: 10,
-        color: 'white',
+        color: "white",
         fontSize: 12,
     },
     items: {
@@ -561,12 +561,12 @@ const styles = StyleSheet.create({
     profilePic: {
         width: 200,
         height: 200,
-        resizeMode: 'contain',
+        resizeMode: "contain",
     },
     scrollView: {
         flex: 1,
-        flexDirection: 'row',
-        top: '5%',
+        flexDirection: "row",
+        top: "5%",
         paddingBottom: 100,
     },
     specIcon: {
@@ -578,20 +578,20 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
         aspectRatio: 1,
-        tintColor: '#bf3d4a',
+        tintColor: "#bf3d4a",
     },
     subPlant: {
-        alignItems: 'center',
-        top: '10%',
+        alignItems: "center",
+        top: "10%",
     },
     symbols: {
-        flexDirection: 'row',
+        flexDirection: "row",
     },
     title: {
         flexShrink: 1,
-        color: 'white',
+        color: "white",
         fontSize: 15,
-        alignSelf: 'center',
+        alignSelf: "center",
     },
     touchBurger: {
         height: 30,
@@ -609,13 +609,13 @@ const styles = StyleSheet.create({
         width: 180,
         height: 180,
         top: 10,
-        alignSelf: 'center',
+        alignSelf: "center",
 
     },
     userName: {
-        color: '#fff',
+        color: "#fff",
         fontSize: 36,
-        textAlign: 'center',
+        textAlign: "center",
         marginTop: 10
     },
     wateringCan: {
