@@ -3,7 +3,6 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { View, Image, Platform } from 'react-native';
 import { Ionicons } from "@expo/vector-icons";
-
 import Home from '../screens/Home';
 import SignUp from '../screens/SignUp';
 import LogIn from '../screens/LogIn';
@@ -18,9 +17,9 @@ import Replant from '../screens/Replant';
 import Guide from '../screens/Guide';
 import PlantDatabase from '../screens/PlantDatabase';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator(); 
-
 function sendTo(navigation){
   AsyncStorage.getItem('inloggad').then(value =>{
     var val =value 
@@ -31,82 +30,80 @@ function sendTo(navigation){
       navigation.navigate('ProfileDrawer', {screen: 'LogIn'})
     }
   });
-  
 }
-
 const MainStackNavigator = () => {
   return (
     <Stack.Navigator
-    screenOptions={{
+      screenOptions={{
         title: '',
         gestureEnabled: false,
       }}
       initialRouteName="Home"
     >
       <Stack.Screen name="Home" component={Home} 
-      options={({ navigation }) => ({
-        headerShown: true,
-        headerStyle: {
-          elevation: 0,
-          shadowOpacity: 0,
-          borderBottomWidth: 0,
-          backgroundColor: 'white'
-        },
-        headerLeft: () =>
-        <View>
+        options={({ navigation }) => ({
+          headerShown: true,
+          headerStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+            backgroundColor: 'white'
+          },
+          headerLeft: () =>
+          <View>
           <Ionicons
             style={{marginLeft: 10}}
             name="menu-outline"
             color="black"
             size={40}
             onPress={() => navigation.toggleDrawer()}
-        />
-        </View>,
-        headerRight: () => 
-        
-        <View style={{ marginRight: 10 }}>
-          <Ionicons
-            style={{marginRight: 10}}
-            name="person-outline"
-            size={35}
-            color="black"
-            onPress={() => sendTo(navigation)}
           />
-        </View>
-      })}
+          </View>,
+          headerRight: () => 
+          <View style={{ marginRight: 10 }}>
+            <Ionicons
+              style={{marginRight: 10}}
+              name="person-outline"
+              size={35}
+              color="black"
+              onPress={() => sendTo(navigation)}
+            />
+          </View>
+        })}
       />
       <Stack.Screen name="PlantDBHomePath" component={PlantDBProfile} 
         options={({ navigation }) => ({
-            headerShown: true,
-            headerStyle: {
+          headerShown: true,
+          headerStyle: {
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 0,
             backgroundColor: 'white',
-            },
-            title: "",
-            headerLeft: () =>
-            <View>
+          },
+          title: "",
+          headerLeft: () =>
+          <View>
             <Ionicons
-                style={{ marginLeft: 10 }}
-                name="chevron-back-outline"
-                color="black"
-                size={35}
-                onPress={() => navigation.goBack()}
+              style={{ marginLeft: 10 }}
+              name="chevron-back-outline"
+              color="black"
+              size={35}
+              onPress={() => navigation.goBack()}
             />
-            </View>,
-            headerRight: () =>
-            <View>
+          </View>,
+          headerRight: () =>
+          <View>
             <Ionicons
               style={{      
-              height: 30, 
-              width: 30, 
-              right: 15,
-              bottom: -12,
-              borderRadius: 20, 
-              justifyContent: "center",
-              alignItems: "center",
-              position: "absolute",}}
+                height: 30, 
+                width: 30, 
+                right: 15,
+                bottom: -12,
+                borderRadius: 20, 
+                justifyContent: "center",
+                alignItems: "center",
+                position: "absolute"
+              }}
               name="information-circle-outline"
               color="black"
               size={30}
@@ -132,65 +129,240 @@ const MainStackNavigator = () => {
               color="black"
               size={35}
               onPress={() => navigation.goBack()}
-          />
+            />
           </View>,
         })}
       />
     </Stack.Navigator>
   );
 }
-
 const PlantDatabaseStackNavigator = () => {
-    return (
-      <Stack.Navigator
-        screenOptions={{
-          gestureEnabled: false,
-        }}
-      >
-        <Stack.Screen name="PlantDatabase" component={PlantDatabase} 
-            options={({ navigation }) => ({
-                headerShown: true,
-                headerStyle: {
-                elevation: 0,
-                shadowOpacity: 0,
-                borderBottomWidth: 0,
-                backgroundColor: 'white',
-                },
-                title: "Plant Database",
-                headerLeft: () =>
-                <View>
-                <Ionicons
-                    style={{ marginLeft: 10 }}
-                    name="close-outline"
-                    color="black"
-                    size={30}
-                    onPress={() => navigation.navigate("Home")}
-                />
-                </View>,
-            })}
-        />
-      <Stack.Screen name="PlantDB" component={PlantDBProfile} 
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        gestureEnabled: false,
+      }}
+    >
+      <Stack.Screen name="PlantDatabase" component={PlantDatabase} 
         options={({ navigation }) => ({
-            headerShown: true,
-            headerStyle: {
+          headerShown: true,
+          headerStyle: {
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 0,
             backgroundColor: 'white',
-            },
-            title: "",
-            headerLeft: () =>
-            <View>
+          },
+          title: "Plant Database",
+          headerLeft: () =>
+          <View>
             <Ionicons
-                style={{ marginLeft: 10 }}
-                name="chevron-back-outline"
-                color="black"
-                size={35}
-                onPress={() => navigation.navigate('PlantDatabase')}
+              style={{ marginLeft: 10 }}
+              name="close-outline"
+              color="black"
+              size={30}
+              onPress={() => navigation.navigate("Home")}
             />
-            </View>,
-            headerRight: () =>
-            <View>
+          </View>,
+        })}
+      />
+    <Stack.Screen name="PlantDB" component={PlantDBProfile} 
+      options={({ navigation }) => ({
+        headerShown: true,
+        headerStyle: {
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,
+          backgroundColor: 'white',
+        },
+        title: "",
+        headerLeft: () =>
+        <View>
+          <Ionicons
+            style={{ marginLeft: 10 }}
+            name="chevron-back-outline"
+            color="black"
+            size={35}
+            onPress={() => navigation.navigate('PlantDatabase')}
+          />
+        </View>,
+        headerRight: () =>
+        <View>
+          <Ionicons
+            style={{      
+              height: 30, 
+              width: 30, 
+              right: 15,
+              bottom: -12,
+              borderRadius: 20, 
+              justifyContent: "center",
+              alignItems: "center",
+              position: "absolute"
+            }}
+            name="information-circle-outline"
+            color="black"
+            size={30}
+            onPress={() => navigation.navigate('GuideDatabasePath')}
+          />
+        </View>,
+      })}
+    />
+    <Stack.Screen name="GuideDatabasePath" component={Guide} 
+      options={({ navigation }) => ({
+        headerShown: true,
+        headerStyle: {
+          elevation: 0,
+          shadowOpacity: 0,
+          borderBottomWidth: 0,
+          backgroundColor: '#7E9B6D'
+        },
+        title: "",
+        headerLeft: () =>
+        <View style={{ marginLeft: 10 }}>
+          <Ionicons
+            name="chevron-back-outline"
+            color="black"
+            size={35}
+            onPress={() => navigation.goBack()}
+          />
+        </View>,
+      })}
+    />
+    </Stack.Navigator>
+  );
+}
+const GuideStackNavigator = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        title: "",
+        gestureEnabled: false,
+      }}
+    >
+      <Stack.Screen name="Guide" component={Guide} 
+        options={({ navigation }) => ({
+          headerShown: true,
+          headerStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+            backgroundColor: '#7E9B6D'
+          },
+          headerLeft: () =>
+          <View style={{ marginLeft: 10 }}>
+            <Ionicons
+              name="close-outline"
+              color="black"
+              size={35}
+              onPress={() => navigation.navigate('Home')}
+            />
+          </View>,
+        })}
+      />
+    </Stack.Navigator>
+  );
+}
+const ProfileStackNavigator = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        title: "",
+        gestureEnabled: false,
+      }}
+    >
+      <Stack.Screen name="SignUp" component={SignUp} 
+        options={({ navigation }) => ({
+          headerShown: true,
+          headerStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+            backgroundColor: '#7E9B6D'
+          },
+          headerLeft: () =>
+          <View>
+            <Ionicons
+              style={{ marginLeft: 10 }}
+              name="chevron-back-outline"
+              color="black"
+              size={35}
+              onPress={() => navigation.navigate('Home')}
+            />
+          </View>,
+        })}
+      />
+      <Stack.Screen name="LogIn" component={LogIn} 
+        options={({ navigation }) => ({
+          headerShown: true,
+          headerStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+            backgroundColor: '#7E9B6D'
+          },
+          headerLeft: () =>
+          <View>
+            <Ionicons
+              style={{ marginLeft: 10 }}
+              name="chevron-back-outline"
+              color="black"
+              size={35}
+              onPress={() => navigation.navigate('Home')}
+            />
+          </View>,
+        })}
+      />
+      <Stack.Screen name="Profile" component={Profile} 
+        options={({ navigation }) => ({
+          headerShown: true,
+          headerStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+            backgroundColor: '#7E9B6D'
+          },
+          headerLeft: () =>
+          <View>
+            <Ionicons
+              style={{marginLeft: 10}}
+              name="menu-outline"
+              color="black"
+              size={40}
+              onPress={() => navigation.toggleDrawer()}
+            />
+          </View>,
+          headerRight: () =>
+          <View>
+            <Ionicons
+              style={{marginRight: 10}}
+              name="calendar-outline"
+              color="black"
+              size={35}
+              onPress={() => navigation.navigate('Calendar')}
+            />
+          </View>,
+        })}
+      />
+      <Stack.Screen name="PlantSub" component={PlantSubprofile} 
+        options={({ navigation }) => ({
+          headerShown: true,
+          headerStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+            backgroundColor: 'white'
+          },
+          headerLeft: () =>
+          <View>
+            <Ionicons
+              style={{ marginLeft: 10 }}
+              name="chevron-back-outline"
+              color="black"
+              size={35}
+              onPress={() => navigation.navigate('Profile')}
+            />
+          </View>,
+          headerRight: () =>
+          <View>
             <Ionicons
               style={{      
               height: 30, 
@@ -204,368 +376,211 @@ const PlantDatabaseStackNavigator = () => {
               name="information-circle-outline"
               color="black"
               size={30}
-              onPress={() => navigation.navigate('GuideDatabasePath')}
+              onPress={() => navigation.navigate('GuideProfilePath')}
             />
           </View>,
         })}
       />
-      <Stack.Screen name="GuideDatabasePath" component={Guide} 
-            options={({ navigation }) => ({
-                headerShown: true,
-                headerStyle: {
-                  elevation: 0,
-                  shadowOpacity: 0,
-                  borderBottomWidth: 0,
-                  backgroundColor: '#7E9B6D'
-                },
-                title: "",
-                headerLeft: () =>
-                <View style={{ marginLeft: 10 }}>
-                  <Ionicons
-                    name="chevron-back-outline"
-                    color="black"
-                    size={35}
-                    onPress={() => navigation.goBack()}
-                />
-                </View>,
-              })}
-        />
-      </Stack.Navigator>
-    );
-  }
-
-  const GuideStackNavigator = () => {
-    return (
-      <Stack.Navigator
-      screenOptions={{
-        title: "",
-        gestureEnabled: false,
-    }}
-      >
-        <Stack.Screen name="Guide" component={Guide} 
-            options={({ navigation }) => ({
-                headerShown: true,
-                headerStyle: {
-                  elevation: 0,
-                  shadowOpacity: 0,
-                  borderBottomWidth: 0,
-                  backgroundColor: '#7E9B6D'
-                },
-                headerLeft: () =>
-                <View style={{ marginLeft: 10 }}>
-                  <Ionicons
-                    name="close-outline"
-                    color="black"
-                    size={35}
-                    onPress={() => navigation.navigate('Home')}
-                />
-                </View>,
-              })}
-        />
-      </Stack.Navigator>
-    );
-  }
-
-  const ProfileStackNavigator = () => {
-    return (
-      <Stack.Navigator
-        screenOptions={{
-            title: "",
-            gestureEnabled: false,
-        }}
-      >
-        <Stack.Screen name="SignUp" component={SignUp} 
+      <Stack.Screen name="GuideProfilePath" component={Guide} 
         options={({ navigation }) => ({
-            headerShown: true,
-            headerStyle: {
+          headerShown: true,
+          headerStyle: {
             elevation: 0,
             shadowOpacity: 0,
             borderBottomWidth: 0,
             backgroundColor: '#7E9B6D'
-            },
-            headerLeft: () =>
-            <View>
+          },
+          headerLeft: () =>
+          <View style={{ marginLeft: 10 }}>
             <Ionicons
-                style={{ marginLeft: 10 }}
-                name="chevron-back-outline"
-                color="black"
-                size={35}
-                onPress={() => navigation.navigate('Home')}
+              name="chevron-back-outline"
+              color="black"
+              size={35}
+              onPress={() => navigation.goBack()}
             />
-            </View>,
+          </View>,
         })}
       />
-      <Stack.Screen name="LogIn" component={LogIn} 
+      <Stack.Screen name="CreateSub" component={CreatePlantSubprofile} 
         options={({ navigation }) => ({
-            headerShown: true,
-            headerStyle: {
-              elevation: 0,
-              shadowOpacity: 0,
-              borderBottomWidth: 0,
-              backgroundColor: '#7E9B6D'
-            },
-            headerLeft: () =>
-            <View>
-              <Ionicons
-                style={{ marginLeft: 10 }}
-                name="chevron-back-outline"
-                color="black"
-                size={35}
-                onPress={() => navigation.navigate('Home')}
+          headerShown: true,
+          headerStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+            backgroundColor: '#7E9B6D'
+          },
+          headerLeft: () =>
+          <View>
+            <Ionicons
+            style={{ marginLeft: 10 }}
+            name="chevron-back-outline"
+            color="black"
+            size={35}
+            onPress={() => navigation.goBack()}
             />
-            </View>,
-          })}
+          </View>,
+        })}
       />
-        <Stack.Screen name="Profile" component={Profile} 
-            options={({ navigation }) => ({
-                headerShown: true,
-                headerStyle: {
-                  elevation: 0,
-                  shadowOpacity: 0,
-                  borderBottomWidth: 0,
-                  backgroundColor: '#7E9B6D'
-                },
-                headerLeft: () =>
-                <View>
-                  <Ionicons
-                    style={{marginLeft: 10}}
-                    name="menu-outline"
-                    color="black"
-                    size={40}
-                    onPress={() => navigation.toggleDrawer()}
-                />
-                </View>,
-                headerRight: () =>
-                <View>
-                  <Ionicons
-                    style={{marginRight: 10}}
-                    name="calendar-outline"
-                    color="black"
-                    size={35}
-                    onPress={() => navigation.navigate('Calendar')}
-                />
-                </View>,
-              })}
-        />
-        <Stack.Screen name="PlantSub" component={PlantSubprofile} 
-            options={({ navigation }) => ({
-                headerShown: true,
-                headerStyle: {
-                elevation: 0,
-                shadowOpacity: 0,
-                borderBottomWidth: 0,
-                backgroundColor: 'white'
-                },
-                headerLeft: () =>
-                <View>
-                <Ionicons
-                    style={{ marginLeft: 10 }}
-                    name="chevron-back-outline"
-                    color="black"
-                    size={35}
-                    onPress={() => navigation.navigate('Profile')}
-                />
-                </View>,
-                headerRight: () =>
-                <View>
-                <Ionicons
-                  style={{      
-                  height: 30, 
-                  width: 30, 
-                  right: 15,
-                  bottom: -12,
-                  borderRadius: 20, 
-                  justifyContent: "center",
-                  alignItems: "center",
-                  position: "absolute",}}
-                  name="information-circle-outline"
-                  color="black"
-                  size={30}
-                  onPress={() => navigation.navigate('GuideProfilePath')}
-                />
-              </View>,
-            })}
-        />
-        <Stack.Screen name="GuideProfilePath" component={Guide} 
-            options={({ navigation }) => ({
-                headerShown: true,
-                headerStyle: {
-                  elevation: 0,
-                  shadowOpacity: 0,
-                  borderBottomWidth: 0,
-                  backgroundColor: '#7E9B6D'
-                },
-                headerLeft: () =>
-                <View style={{ marginLeft: 10 }}>
-                  <Ionicons
-                    name="chevron-back-outline"
-                    color="black"
-                    size={35}
-                    onPress={() => navigation.goBack()}
-                />
-                </View>,
-              })}
-        />
-        <Stack.Screen name="CreateSub" component={CreatePlantSubprofile} 
-            options={({ navigation }) => ({
-            headerShown: true,
-            headerStyle: {
-                elevation: 0,
-                shadowOpacity: 0,
-                borderBottomWidth: 0,
-                backgroundColor: '#7E9B6D'
-            },
-            headerLeft: () =>
-            <View>
-                <Ionicons
-                style={{ marginLeft: 10 }}
-                name="chevron-back-outline"
-                color="black"
-                size={35}
-                onPress={() => navigation.goBack()}
+      <Stack.Screen name="Calendar" component={Calendar} 
+        options={({ navigation }) => ({
+          headerShown: true,
+          headerStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+            backgroundColor: 'white'
+          },
+          headerLeft: () =>
+          <View>
+            <Ionicons
+              style={{ marginLeft: 5 }}
+              name="close-outline"
+              color="black"
+              size={40}
+              onPress={() => navigation.goBack()}
             />
-            </View>,
-            })}
-        />
-        <Stack.Screen name="Calendar" component={Calendar} 
-            options={({ navigation }) => ({
-                headerShown: true,
-                headerStyle: {
-                elevation: 0,
-                shadowOpacity: 0,
-                borderBottomWidth: 0,
-                backgroundColor: 'white'
-                },
-                headerLeft: () =>
-                <View>
-                <Ionicons
-                    style={{ marginLeft: 5 }}
-                    name="close-outline"
-                    color="black"
-                    size={40}
-                    onPress={() => navigation.goBack()}
-                />
-                </View>,
-            })}
-        />
-        <Stack.Screen name="Watered" component={BottomTabNavigator} 
-            options={({ navigation }) => ({
-                headerShown: true,
-                headerStyle: {
-                elevation: 0,
-                shadowOpacity: 0,
-                borderBottomWidth: 0,
-                backgroundColor: '#7E9B6D'
-                },
-                headerLeft: () =>
-                <View>
-                <Ionicons
-                    style={{ marginLeft: 10 }}
-                    name="close-outline"
-                    color="black"
-                    size={40}
-                    
-                    onPress={() => navigation.navigate("Profile")}
-                />
-                </View>,
-            })}
-        />
-        <Stack.Screen name="Nutrition" component={BottomTabNavigator} 
-            options={({ navigation }) => ({
-                headerShown: true,
-                headerStyle: {
-                elevation: 0,
-                shadowOpacity: 0,
-                borderBottomWidth: 0,
-                backgroundColor: '#7E9B6D'
-                },
-                headerLeft: () =>
-                <View>
-                <Ionicons
-                    style={{ marginLeft: 10 }}
-                    name="close-outline"
-                    color="black"
-                    size={40}
-                    
-                    onPress={() => navigation.navigate("Profile")}
-                />
-                </View>,
-            })}
-        />
-        <Stack.Screen name="Replant" component={BottomTabNavigator} 
-            options={({ navigation }) => ({
-                headerShown: true,
-                headerStyle: {
-                elevation: 0,
-                shadowOpacity: 0,
-                borderBottomWidth: 0,
-                backgroundColor: '#7E9B6D'
-                },
-                headerLeft: () =>
-                <View>
-                <Ionicons
-                    style={{ marginLeft: 10 }}
-                    name="close-outline"
-                    color="black"
-                    size={40}
-                    
-                    onPress={() => navigation.navigate("Profile")}
-                />
-                </View>,
-            })}
-        />
-      </Stack.Navigator>
-    );
-  }
-  
-  const BottomTabNavigator = () => {
-    return (
-      <Tab.Navigator
-        screenOptions={{
-            gestureEnabled: false,
-            headerShown: false,
-            tabBarShowLabel: false,
-            gestureEnabled: false,
-            tabBarStyle: { 
-                position: 'absolute',
-                bottom: 10,
-                left: 20,
-                right: 20,
-                elevation: 0,
-                height: 60,
-                borderRadius: 10,
-            },
-        }}
-      >
-        <Tab.Screen name="WateredTab" component={Watered}  
-            options={{
-                tabBarIcon: ({ focused }) => (<View style={{alignItems: 'center', justifyContent: 'center'}}> 
-                    <Image source={require("../assets/wateringCan.png")}
-                    resizeMode='contain'
-                    style={{width: 40, height: 40, top: Platform.OS === 'ios' ? 10: 0, tintColor: focused? "#7E9B6D" : "black"}}/>
-                </View>) 
-                }}
-        />
-        <Tab.Screen name="NutritionTab" component={Nutrition} 
-            options={{
-                tabBarIcon: ({ focused }) => (<View style={{alignItems: 'center', justifyContent: 'center'}}> 
-                <Image source={require("../assets/nutritionFlask.png")}
-                  resizeMode='contain'
-                  style={{width: 40, height: 40, top: Platform.OS === 'ios' ? 10: 0, tintColor: focused? "#7E9B6D" : "black"}}/>
-              </View>) 
-              }}
-        />
-        <Tab.Screen name="ReplantTab" component={Replant} 
-            options={{
-                tabBarIcon: ({ focused }) => (<View style={{alignItems: 'center', justifyContent: 'center'}}> 
-                <Image source={require("../assets/replant.png")}
+          </View>,
+        })}
+      />
+      <Stack.Screen name="Watered" component={BottomTabNavigator} 
+        options={({ navigation }) => ({
+          headerShown: true,
+          headerStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+            backgroundColor: '#7E9B6D'
+          },
+          headerLeft: () =>
+          <View>
+            <Ionicons
+              style={{ marginLeft: 10 }}
+              name="close-outline"
+              color="black"
+              size={40}
+              onPress={() => navigation.navigate("Profile")}
+            />
+          </View>,
+        })}
+      />
+      <Stack.Screen name="Nutrition" component={BottomTabNavigator} 
+        options={({ navigation }) => ({
+          headerShown: true,
+          headerStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+            backgroundColor: '#7E9B6D'
+          },
+          headerLeft: () =>
+          <View>
+            <Ionicons
+              style={{ marginLeft: 10 }}
+              name="close-outline"
+              color="black"
+              size={40}
+              onPress={() => navigation.navigate("Profile")}
+            />
+          </View>,
+        })}
+      />
+      <Stack.Screen name="Replant" component={BottomTabNavigator} 
+        options={({ navigation }) => ({
+          headerShown: true,
+          headerStyle: {
+            elevation: 0,
+            shadowOpacity: 0,
+            borderBottomWidth: 0,
+            backgroundColor: '#7E9B6D'
+          },
+          headerLeft: () =>
+          <View>
+            <Ionicons
+              style={{ marginLeft: 10 }}
+              name="close-outline"
+              color="black"
+              size={40}
+              onPress={() => navigation.navigate("Profile")}
+            />
+          </View>,
+        })}
+      />
+    </Stack.Navigator>
+  );
+}
+const BottomTabNavigator = () => {
+  return (
+    <Tab.Navigator
+      screenOptions={{
+        gestureEnabled: false,
+        headerShown: false,
+        tabBarShowLabel: false,
+        gestureEnabled: false,
+        tabBarStyle: { 
+          position: 'absolute',
+          bottom: 10,
+          left: 20,
+          right: 20,
+          elevation: 0,
+          height: 60,
+          borderRadius: 10,
+        },
+      }}
+    >
+      <Tab.Screen name="WateredTab" component={Watered}  
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View style={{alignItems: 'center', justifyContent: 'center'}}> 
+              <Image 
+                source={require("../assets/wateringCan.png")}
                 resizeMode='contain'
-                style={{width: 40, height: 40, top: Platform.OS === 'ios' ? 10: 0, tintColor: focused? "#7E9B6D" : "black"}}/>
+                style={{
+                  width: 40,
+                  height: 40,
+                  top: Platform.OS === 'ios' ? 10: 0,
+                  tintColor: focused? "#7E9B6D" : "black"
+                }}
+              />
+            </View>
+          ) 
+        }}
+      />
+      <Tab.Screen name="NutritionTab" component={Nutrition} 
+        options={{
+          tabBarIcon: ({ focused }) => (
+            <View style={{alignItems: 'center', justifyContent: 'center'}}> 
+              <Image 
+                source={require("../assets/nutritionFlask.png")}
+                resizeMode='contain'
+                style={{
+                  width: 40,
+                  height: 40,
+                  top: Platform.OS === 'ios' ? 10: 0,
+                  tintColor: focused? "#7E9B6D" : "black"
+                }}
+              />
             </View>) 
-            }}
-          />
-      </Tab.Navigator>
-    );
-  };
-  
-  export { MainStackNavigator, PlantDatabaseStackNavigator, GuideStackNavigator, ProfileStackNavigator, BottomTabNavigator };
+        }}
+      />
+      <Tab.Screen name="ReplantTab" component={Replant} 
+        options={{
+          tabBarIcon: ({ focused }) => (
+          <View style={{alignItems: 'center', justifyContent: 'center'}}> 
+            <Image 
+              source={require("../assets/replant.png")}
+              resizeMode='contain'
+              style={{
+                width: 40,
+                height: 40,
+                top: Platform.OS === 'ios' ? 10: 0,
+                tintColor: focused? "#7E9B6D" : "black"
+              }}
+            />
+          </View>) 
+        }}
+      />
+    </Tab.Navigator>
+  );
+};
+export { MainStackNavigator, PlantDatabaseStackNavigator, GuideStackNavigator, ProfileStackNavigator, BottomTabNavigator };
