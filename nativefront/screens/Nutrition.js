@@ -130,13 +130,13 @@ const  NutNut = async(plants, allPlants, userPlants) => {
         nutplants.length = 0;
         for (var i=0;i<lengd.length;i++){
             if (plants[UP[parseInt(lengd[i])-1].p_id-1].nutrition=="Often"){
-                itemNut = 3
+                itemNut = 2
             }
             else if (plants[UP[parseInt(lengd[i])-1].p_id-1].nutrition=="Regularly"){
-                itemNut = 6
+                itemNut = 4
             }
             else{
-                itemNut = 9
+                itemNut = 6
             }
             await axios.put(subPlantUrl + lengd[i], {
                 "sub_id": lengd[i],
