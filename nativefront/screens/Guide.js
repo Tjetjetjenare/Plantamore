@@ -3,9 +3,7 @@ import React from 'react'
 import { Ionicons } from "@expo/vector-icons";
 import * as guideText from '../assets/guideText.json'
 
-
 export default function Guide({navigation}) {
-
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar style="auto"/>
@@ -40,7 +38,7 @@ export default function Guide({navigation}) {
           <Text style={styles.headline1}>Disclaimer</Text>
           <Text style={styles.body}>{guideText.disc}</Text>
         </View>
-        </ScrollView>
+      </ScrollView>
     </SafeAreaView>
   )
 }
@@ -50,28 +48,25 @@ const styles = StyleSheet.create({
     flex:1,
     backgroundColor: '#7E9B6D',
   },
+  body:{
+    fontSize: 13,
+  },
   header: { 
     fontSize: 35, 
     fontWeight: 'bold', 
     marginTop: 30, 
     textAlign:"center",
   },
-  headline1:{
+  headline1: {
     fontSize: 18,
     fontWeight: 'bold',
   },
-  headline2:{
+  headline2: {
     fontSize: 16,
     marginTop: 5,
     fontWeight: 'bold',
   },
-  body:{
-    fontSize: 13,
-  },
-  symbols: {
-    flexDirection: 'row',
-  },
-  imgwrap:{
+  imgwrap: {
     width: "80%", 
     height: 140,
     borderRadius:20,
@@ -83,23 +78,26 @@ const styles = StyleSheet.create({
     marginTop:30,
     marginBottom:30,
   },
-  logo:{
+  logo: {
     height: "75%",
     resizeMode: "contain",
   },
-  pt1:{
+  phrases: {
+    fontWeight: 'bold',
+  },
+  pt1: {
     backgroundColor: '#7E9B6D',
     padding:15,
   },
-  pt2:{
+  pt2: {
     backgroundColor: '#95b881',
     padding:15,
   },
-  pt3:{
+  pt3: {
     backgroundColor: '#A7CF91',
     padding:15,
   },
-  phrases: {
-    fontWeight: 'bold',
-  }
+  symbols: {
+    flexDirection: 'row',
+  },
 })
